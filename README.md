@@ -64,7 +64,8 @@ The next input that pops up is just the title / description for your applet, it 
 Now we're done on the IFTTT-side. To test your applet you can say "Hey Google -" and then the trigger you entered in _Step 3_. For me it's "Hey Google, shut down my computer" and Google will respond "Turning off your computer". This should create a file called `computerAction.txt`, containing `shutdown`, in the folder you specified.
 
 ### Step 6
-Grab the latest `HomeComputerControl.exe` from [Releases](https://github.com/AlbertMN/HomeComputerControl/releases) and place the file in the same Dropbox-folder that the `computerAction.txt` file is being generated in.
+Grab the latest `HomeComputerControl.exe` from [Releases](https://github.com/AlbertMN/HomeComputerControl/releases) and place the file in the same Dropbox-folder that the `computerAction.txt` file is being generated in. As this is a new ".exe" file that Windows hasn't seen before, your anti-virus will most likely be protesting against you downloading the file, simply ignore the warnings and proceed with the download if it lets you. _Note if **you** are having doubts about the file the entire source-code can be found [here](https://github.com/AlbertMN/HomeComputerControl/blob/master/HomeComputerControl/Program.cs)_
+
 ![Dropbox folder example (how it should look)](http://i.albe.pw/DWs0q.PNG)
 
 ### Step 7
