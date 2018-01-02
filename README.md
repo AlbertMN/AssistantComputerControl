@@ -3,14 +3,20 @@ Control your computer with Google Home!
 
 This simple program lets you tell your Google Home to do basic tasks on your computer like;
 ### Supported computer actions
-- Shutdown
-- Restart
-- Sleep / Hibernate
-- Lock
-- Logout
-- _more to come_
+* Shutdown
+* Restart
+* Sleep / Hibernate
+* Lock
+* Logout
+* Set volume to `percent`
+* Mute / unmute
+* Music control:
+  * Previous song
+  * Pause / play
+  * Next song
+* _more to come_
 
-This software is Windows, only made for, and tested on, Windows 10 so far.
+This software only works on Windows and has yet only been tested on Windows 10.
 
 No coding is required - you can simply grab the `HomeComputerControl.exe` file and follow the setup-instructions below.
 If you want to add your own features to the project it's easy! The entire project is made made in C#. The code is opensource and quite simple, so feel free to use the code in your own fork or even better; submit pull requests!
@@ -80,13 +86,11 @@ Try tell your (Google) assistant to shut down your computer now, and it will do 
 
 
 ## How to impliment the other actions
-The setup just showed how to shutdown your computer, not restart, sleep, logout etc. These setups are almost _exactly_ the same as shutdown. All you have to do is type any of the following lines instead of `shutdown` in the "Content" field _(Step 4)_;
+The setup just showed how to shutdown your computer, not restart, sleep, logout etc. These setups are almost _exactly_ the same as shutdown. All you have to do is type any of the following lines instead of `shutdown` in the "Content" field _([Step 4](https://github.com/AlbertMN/HomeComputerControl#step-4))_
 
-### List of supported actions
-- `shutdown`
-- `restart`
-- `sleep`
-- `logout`
-- `lock`
+For info on how to use parameters, visit the ["Parameters"](https://github.com/AlbertMN/HomeComputerControl/wiki/Parameters) article in the Wiki.
+
+### List of supported actions and parameters
+Visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actions) article in the Wiki.
 
 Set any of these as "Content" in the creation of the Dropbox file (IFTTT) and it will work!
