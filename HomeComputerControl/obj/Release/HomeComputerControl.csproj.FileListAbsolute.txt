@@ -1,0 +1,5 @@
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Release\HomeComputerControl.exe.config
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Release\HomeComputerControl.exe
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Release\HomeComputerControl.pdb
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Release\HomeComputerControl.exe
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Release\HomeComputerControl.pdb
