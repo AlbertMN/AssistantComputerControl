@@ -1,0 +1,22 @@
+c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\bin\Debug\HomeComputerControl.exe.config
+c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\bin\Debug\HomeComputerControl.exe
+c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\bin\Debug\HomeComputerControl.pdb
+c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.csprojResolveAssemblyReference.cache
+c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.exe
+c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.pdb
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.csprojResolveAssemblyReference.cache
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.csproj.GenerateResource.Cache
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Debug\AssistantComputerControl.exe
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Debug\AssistantComputerControl.pdb
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\AssistantComputerControl.exe
+C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\AssistantComputerControl.pdb
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.Cache
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
+C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
