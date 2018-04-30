@@ -10,7 +10,7 @@ namespace AssistantComputerControl {
     class actionChecker {
         private static CoreAudioController coreAudio = null;
         private static CoreAudioDevice defaultPlaybackDevice;
-        private static string success_message = "";
+        private static string successMessage = "";
 
         //Logout
         [DllImport("user32.dll", SetLastError = true)]
@@ -33,7 +33,7 @@ namespace AssistantComputerControl {
             if(param != null) {
                 return true;
             } else {
-                MainProgram.doDebug("ERROR: Parameter not set");
+                MainProgram.DoDebug("ERROR: Parameter not set");
                 MainProgram.errorMessage = "Parameter not set";
             }
             return false;
@@ -45,80 +45,79 @@ namespace AssistantComputerControl {
             }
 
             if (!defaultPlaybackDevice.IsDefaultDevice) {
-                MainProgram.doDebug("Setting new default device");
+                MainProgram.DoDebug("Setting new default device");
                 defaultPlaybackDevice = coreAudio.DefaultPlaybackDevice;
             } else {
-                MainProgram.doDebug("Same default device");
+                MainProgram.DoDebug("Same default device");
             }
         }
-        private static void WaitForFile(FileInfo file) {
-            FileStream stream = null;
-            bool FileReady = false;
-            while (!FileReady) {
-                try {
-                    using (stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None)) {
-                        MainProgram.doDebug("Can be used");
-                        FileReady = true;
-                    }
-                } catch (IOException) {
-                    //File isn't ready yet, so we need to keep on waiting until it is.
+        public static bool fileInUse(string file) {
+            try {
+                using (Stream stream = new FileStream(file, FileMode.Open)) {
+                    // File/Stream manipulating code here
+                    MainProgram.DoDebug("Can read file");
+                    return false;
                 }
-                //We'll want to wait a bit between polls, if the file isn't ready.
-                if (!FileReady) Thread.Sleep(200);
+            } catch {
+                MainProgram.DoDebug("File is in use, retrying");
+                Thread.Sleep(50);
+                return true;
             }
         }
 
-        static public void fileFound(object source, FileSystemEventArgs e) {
-            if (!MainProgram.is_performing_action) {
-                MainProgram.is_performing_action = true;
-                WaitForFile(new FileInfo(MainProgram.actionFilePath));
+        static public void FileFound(object source, FileSystemEventArgs e) {
+            string file = e.FullPath;
 
-                MainProgram.doDebug("File exists, checking the content...");
+            if (!MainProgram.isPerformingAction) {
+                MainProgram.isPerformingAction = true;
+                MainProgram.DoDebug("File exists, checking the content...");
 
-                if (File.Exists(MainProgram.actionFilePath)) {
-                    if (new FileInfo(MainProgram.actionFilePath).Length != 0) {
-                        MainProgram.doDebug("Action set. File is not empty...");
+                while (fileInUse(file));
+                if (new FileInfo(file).Length != 0) {
+                    MainProgram.DoDebug("Action set. File is not empty...");
 
-                        string line = File.ReadAllLines(MainProgram.actionFilePath)[0];
-                        DateTime lastModified = File.GetLastWriteTime(MainProgram.actionFilePath);
-                        MainProgram.clearFile();
-                        string action;
-                        string parameter = null;
+                    string line = File.ReadAllText(file);
+                    MainProgram.DoDebug("Read complete, content: " + line);
+                    DateTime lastModified = File.GetLastWriteTime(file);
+                    string action;
+                    string parameter = null;
 
-                        if (lastModified.AddSeconds(MainProgram.fileEditedSecondMargin) > DateTime.UtcNow) {
-                            //If file has been modified recently - check for action
-                            MainProgram.doDebug("File modified within the last " + MainProgram.fileEditedSecondMargin + " seconds...");
+                    if (lastModified.AddSeconds(MainProgram.fileEditedSecondMargin) > DateTime.UtcNow) {
+                        //If file has been modified recently - check for action
+                        MainProgram.DoDebug("File modified within the last " + MainProgram.fileEditedSecondMargin + " seconds...");
 
-                            if (line.Contains(":")) {
-                                //Contains a parameter
-                                action = line.Split(':')[0];
-                                parameter = line.Split(':')[1];
-                            } else {
-                                action = line;
-                            }
+                        if (line.Contains(":")) {
+                            //Contains a parameter
+                            action = line.Split(':')[0];
+                            parameter = line.Split(':')[1];
+                        } else {
+                            action = line;
+                        }
 
-                            switch (action) {
-                                case "shutdown":
-                                    //Shuts down the computer
-
-                                    MainProgram.doDebug("Shutting down computer...");
-                                    if (parameter == null) {
-                                        Process.Start("shutdown", "/s /t 0");
+                        switch (action) {
+                            case "shutdown":
+                                //Shuts down the computer
+                                MainProgram.DoDebug("Shutting down computer...");
+                                if (parameter == null) {
+                                    Process.Start("shutdown", "/s /t 0");
+                                } else {
+                                    if (parameter.Contains("/t")) {
+                                        Process.Start("shutdown", "/s " + parameter);
                                     } else {
-                                        if (parameter.Contains("/t")) {
-                                            Process.Start("shutdown", "/s " + parameter);
-                                        } else {
-                                            Process.Start("shutdown", "/s " + parameter + " /t 0");
-                                        }
+                                        Process.Start("shutdown", "/s " + parameter + " /t 0");
                                     }
-                                    success_message = "Shutting down";
-                                    break;
-                                case "restart":
-                                    //Restart the computer
-                                    MainProgram.doDebug("Restarting computer...");
+                                }
+                                successMessage = "Shutting down";
+                                break;
+                            case "restart":
+                                //Restart the computer
+                                MainProgram.DoDebug("Restarting computer...");
 
-                                    if (parameter == null) {
-                                        Process.Start("shutdown", "/r /t 0");
+                                if (parameter == null) {
+                                    Process.Start("shutdown", "/r /t 0");
+                                } else {
+                                    if(parameter == "abort") {
+                                        Process.Start("shutdown", "/a");
                                     } else {
                                         if (parameter.Contains("/t")) {
                                             Process.Start("shutdown", "/r " + parameter);
@@ -126,177 +125,174 @@ namespace AssistantComputerControl {
                                             Process.Start("shutdown", "/r " + parameter + " /t 0");
                                         }
                                     }
-                                    success_message = "Restarting";
-                                    break;
-                                case "sleep":
-                                    //Puts computer to sleep
-                                    MainProgram.doDebug("Sleeping computer...");
+                                }
+                                successMessage = "Restarting";
+                                break;
+                            case "sleep":
+                                //Puts computer to sleep
+                                MainProgram.DoDebug("Sleeping computer...");
 
-                                    if (parameter == null) {
-                                        Application.SetSuspendState(PowerState.Suspend, true, true);
-                                    } else {
-                                        bool doForce = true;
-                                        switch (parameter) {
-                                            case "true":
-                                                doForce = true;
-                                                break;
-                                            case "false":
-                                                doForce = false;
-                                                break;
-                                            default:
-                                                MainProgram.doDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
-                                                MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
-                                                break;
-                                        }
-                                        Application.SetSuspendState(PowerState.Suspend, doForce, true);
+                                if (parameter == null) {
+                                    Application.SetSuspendState(PowerState.Suspend, true, true);
+                                } else {
+                                    bool doForce = true;
+                                    switch (parameter) {
+                                        case "true":
+                                            doForce = true;
+                                            break;
+                                        case "false":
+                                            doForce = false;
+                                            break;
+                                        default:
+                                            MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
+                                            MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
+                                            break;
                                     }
+                                    Application.SetSuspendState(PowerState.Suspend, doForce, true);
+                                }
 
-                                    success_message = "Put computer to sleep";
-                                    break;
-                                case "logout":
-                                    //Logs out of the current user
-                                    MainProgram.doDebug("Logging out of user...");
+                                successMessage = "Put computer to sleep";
+                                break;
+                            case "logout":
+                                //Logs out of the current user
+                                MainProgram.DoDebug("Logging out of user...");
 
-                                    ExitWindowsEx(0, 0);
-                                    success_message = "Logged out of user";
-                                    break;
-                                case "lock":
-                                    //Lock computer
-                                    MainProgram.doDebug("Locking computer...");
+                                ExitWindowsEx(0, 0);
+                                successMessage = "Logged out of user";
+                                break;
+                            case "lock":
+                                //Lock computer
+                                MainProgram.DoDebug("Locking computer...");
 
-                                    LockWorkStation();
-                                    success_message = "Locked pc";
-                                    break;
-                                case "mute":
-                                    //Mutes windows
-                                    //Parameter optional (true/false)
-                                    updateDefaultPlaybackDevice();
-                                    bool doMute = false;
+                                LockWorkStation();
+                                successMessage = "Locked pc";
+                                break;
+                            case "mute":
+                                //Mutes windows
+                                //Parameter optional (true/false)
+                                updateDefaultPlaybackDevice();
+                                bool doMute = false;
 
-                                    if (parameter == null) {
-                                        //No parameter - toggle
-                                        doMute = !defaultPlaybackDevice.IsMuted;
-                                    } else {
-                                        //Parameter set;
-                                        switch (parameter) {
-                                            case "true":
-                                                doMute = true;
-                                                break;
-                                            case "false":
-                                                doMute = false;
-                                                break;
-                                            default:
-                                                MainProgram.doDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
-                                                MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
-                                                break;
-                                        }
+                                if (parameter == null) {
+                                    //No parameter - toggle
+                                    doMute = !defaultPlaybackDevice.IsMuted;
+                                } else {
+                                    //Parameter set;
+                                    switch (parameter) {
+                                        case "true":
+                                            doMute = true;
+                                            break;
+                                        case "false":
+                                            doMute = false;
+                                            break;
+                                        default:
+                                            MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
+                                            MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
+                                            break;
                                     }
-                                    defaultPlaybackDevice.Mute(!defaultPlaybackDevice.IsMuted);
-                                    success_message = (defaultPlaybackDevice.IsMuted ? "Muted " : "Unmuted") + "pc";
-                                    break;
-                                case "set_volume":
-                                    //Sets volume to a specific percent
-                                    //Requires parameter (percent, int)
-                                    updateDefaultPlaybackDevice();
+                                }
+                                defaultPlaybackDevice.Mute(!defaultPlaybackDevice.IsMuted);
+                                successMessage = (defaultPlaybackDevice.IsMuted ? "Muted " : "Unmuted") + "pc";
+                                break;
+                            case "set_volume":
+                                //Sets volume to a specific percent
+                                //Requires parameter (percent, int)
+                                updateDefaultPlaybackDevice();
 
-                                    if (requireParameter(parameter)) {
-                                        double volume_level;
-                                        if (double.TryParse(parameter, out volume_level)) {
-                                            if (volume_level >= 0 && volume_level <= 100) {
-                                                if (MainProgram.unmute_volume_change) {
-                                                    defaultPlaybackDevice.Mute(false);
-                                                }
-                                                defaultPlaybackDevice.Volume = volume_level;
-                                                if (defaultPlaybackDevice.Volume != volume_level) {
-                                                    //Something went wrong... Audio not set to parameter-level
-                                                    MainProgram.doDebug("ERROR: Volume was not sat");
-                                                    MainProgram.errorMessage = "Something went wrong when setting the volume";
-                                                } else {
-                                                    success_message = "Set volume to " + volume_level + "%";
-                                                }
+                                if (requireParameter(parameter)) {
+                                    double volumeLevel;
+                                    if (double.TryParse(parameter, out volumeLevel)) {
+                                        if (volumeLevel >= 0 && volumeLevel <= 100) {
+                                            if (MainProgram.unmuteVolumeChange) {
+                                                defaultPlaybackDevice.Mute(false);
+                                            }
+                                            defaultPlaybackDevice.Volume = volumeLevel;
+                                            if (defaultPlaybackDevice.Volume != volumeLevel) {
+                                                //Something went wrong... Audio not set to parameter-level
+                                                MainProgram.DoDebug("ERROR: Volume was not sat");
+                                                MainProgram.errorMessage = "Something went wrong when setting the volume";
                                             } else {
-                                                MainProgram.doDebug("ERROR: Parameter is an invalid number, range; 0-100 (" + volume_level + ")");
-                                                MainProgram.errorMessage = "Can't set volume to " + volume_level + "%, has to be a number from 0-100";
+                                                successMessage = "Set volume to " + volumeLevel + "%";
                                             }
                                         } else {
-                                            MainProgram.doDebug("ERROR: Parameter (" + parameter + ") not convertable to double");
-                                            MainProgram.errorMessage = "Not a valid parameter (has to be a number)";
+                                            MainProgram.DoDebug("ERROR: Parameter is an invalid number, range; 0-100 (" + volumeLevel + ")");
+                                            MainProgram.errorMessage = "Can't set volume to " + volumeLevel + "%, has to be a number from 0-100";
                                         }
+                                    } else {
+                                        MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") not convertable to double");
+                                        MainProgram.errorMessage = "Not a valid parameter (has to be a number)";
                                     }
-                                    break;
+                                }
+                                break;
 
-                                case "music":
-                                    if (requireParameter(parameter)) {
-                                        switch (parameter) {
-                                            case "previous":
-                                                keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                                success_message = "MUSIC: Skipped song";
-                                                break;
-                                            /*case "previousx2": //WIP
-                                                keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                                keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                                success_message = "MUSIC: Skipped song (x2)";
-                                                break;*/
-                                            case "next":
-                                                keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                                success_message = "MUSIC: Next song";
-                                                break;
-                                            case "play_pause":
-                                                keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                                success_message = "MUSIC: Played/Paused";
-                                                break;
-                                            default:
-                                                MainProgram.doDebug("ERROR: Unknown parameter");
-                                                MainProgram.errorMessage = "Unknown parameter \"" + parameter + "\"";
-                                                break;
-                                        }
+                            case "music":
+                                if (requireParameter(parameter)) {
+                                    switch (parameter) {
+                                        case "previous":
+                                            keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                            successMessage = "MUSIC: Skipped song";
+                                            break;
+                                        /*case "previousx2": //WIP
+                                            keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                            keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                            success_message = "MUSIC: Skipped song (x2)";
+                                            break;*/
+                                        case "next":
+                                            keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                            successMessage = "MUSIC: Next song";
+                                            break;
+                                        case "play_pause":
+                                            keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                            successMessage = "MUSIC: Played/Paused";
+                                            break;
+                                        default:
+                                            MainProgram.DoDebug("ERROR: Unknown parameter");
+                                            MainProgram.errorMessage = "Unknown parameter \"" + parameter + "\"";
+                                            break;
                                     }
-                                    break;
-                                case "open":
-                                    if (requireParameter(parameter)) {
-                                        string fileLocation = Path.Combine(MainProgram.shortcutLocation, parameter);
-                                        if (File.Exists(fileLocation)) {
-                                            Process.Start(fileLocation);
-                                            success_message = "OPEN: opened file; " + fileLocation;
-                                        } else {
-                                            MainProgram.doDebug("ERROR: file doesn't exist (" + fileLocation + ")");
-                                            MainProgram.errorMessage = "File doesn't exist (" + fileLocation + ")";
-                                        }
+                                }
+                                break;
+                            case "open":
+                                if (requireParameter(parameter)) {
+                                    string fileLocation = Path.Combine(MainProgram.shortcutLocation, parameter);
+                                    if (File.Exists(fileLocation)) {
+                                        Process.Start(fileLocation);
+                                        successMessage = "OPEN: opened file; " + fileLocation;
+                                    } else {
+                                        MainProgram.DoDebug("ERROR: file doesn't exist (" + fileLocation + ")");
+                                        MainProgram.errorMessage = "File doesn't exist (" + fileLocation + ")";
                                     }
-                                    break;
-                                case "die":
-                                    //Exit ACC
-                                    Application.Exit();
-                                    break;
-                                default:
-                                    //Unknown action
-                                    MainProgram.doDebug("ERROR: Unknown action");
-                                    MainProgram.errorMessage = "Unknown action \"" + action + "\"";
-                                    break;
-                            }
-                            if (success_message != "") {
-                                MainProgram.doDebug("\nSUCCESS: " + success_message + "\n");
-                            }
-                        } else {
-                            MainProgram.doDebug("No action set within the last " + MainProgram.fileEditedSecondMargin + " seconds");
-                            MainProgram.errorMessage = "No action set lately";
+                                }
+                                break;
+                            case "die":
+                                //Exit ACC
+                                Application.Exit();
+                                break;
+                            default:
+                                //Unknown action
+                                MainProgram.DoDebug("ERROR: Unknown action");
+                                MainProgram.errorMessage = "Unknown action \"" + action + "\"";
+                                break;
+                        }
+                        if (successMessage != "") {
+                            MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");
                         }
                     } else {
-                        MainProgram.doDebug("File is empty");
-                        MainProgram.errorMessage = "No action set (file is empty)";
-                    }
-                    MainProgram.clearFile();
-                    if (MainProgram.errorMessage.Length != 0 && !MainProgram.debug) {
-                        MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);
-                        MainProgram.errorMessage = "";
+                        MainProgram.DoDebug("No action set within the last " + MainProgram.fileEditedSecondMargin + " seconds");
+                        MainProgram.errorMessage = "No action set lately";
                     }
                 } else {
-                    MainProgram.doDebug("Action file doesn't exist");
-                    MainProgram.errorMessage = "Action file doesn't exist";
+                    MainProgram.DoDebug("File is empty");
+                    MainProgram.errorMessage = "No action set (file is empty)";
                 }
-                MainProgram.is_performing_action = false;
+                MainProgram.ClearFile(file);
+                if (MainProgram.errorMessage.Length != 0 && !MainProgram.debug) {
+                    MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);
+                    MainProgram.errorMessage = "";
+                }
+                MainProgram.isPerformingAction = false;
             } else {
-                MainProgram.doDebug("Already performing an action");
+                MainProgram.DoDebug("Already performing an action");
             }
         }
     }
