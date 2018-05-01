@@ -18,6 +18,7 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
 * _more to come_
 
 **Join our Discord server:** https://discord.gg/ukkUu26
+
 **Follow me on Twitter for updates:** https://twitter.com/ACC_HomeAlexa
 
 This software only works on Windows and has yet only been tested on Windows 10.
