@@ -17,6 +17,8 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
   * Next song
 * _more to come_
 
+**Join our Discord server:** https://discord.gg/ukkUu26
+
 This software only works on Windows and has yet only been tested on Windows 10.
 
 ## Setup
