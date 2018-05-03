@@ -9,7 +9,7 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
 * Sleep / Hibernate [[GH](https://ifttt.com/applets/mEbJCP8F-acc-sleep-computer)][[Alexa](https://ifttt.com/applets/Kagf93wH-acc-sleep-computer)]
 * Lock [[GH](https://ifttt.com/applets/epbqzfCa-acc-lock-computer)][[Alexa](https://ifttt.com/applets/Gv9Ts8ip-acc-lock-computer)]
 * Logout [[GH](https://ifttt.com/applets/TXr8DLHR-acc-log-out-of-your-computer)][[Alexa](https://ifttt.com/applets/QYJyc8HT-acc-log-out-of-your-computer)]
-* Set volume to `percent` [[GH](https://ifttt.com/applets/scgDySn4-acc-set-computer-volume-percent)]
+* Set volume to `percent` [[GH](https://ifttt.com/applets/scgDySn4-acc-set-computer-volume-percent)] _Alexa doesn't support parameters in applets_
 * Mute / unmute [[GH](https://ifttt.com/applets/ju6VYneQ-acc-toggle-mute-on-computer)][[Alexa](https://ifttt.com/applets/UZT7hv9a-acc-toggle-mute-on-computer)]
 * Music control:
   * Previous song [[GH](https://ifttt.com/applets/qCJL4d9i-acc-play-previous-song-on-computer)][[Alexa](https://ifttt.com/applets/FACuUJKj-acc-play-previous-song-on-computer)]
