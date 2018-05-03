@@ -27,17 +27,22 @@ This software only works on Windows and has yet only been tested on Windows 10.
 The setup is _very_ simple. It only takes a few minutes to set up!
 
 ### Step 1: Dependencies
-All you need is an [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account plus the Dropbox software installed on your computer.
+All you need is an [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account, and the Dropbox software installed and running on your computer.
+
 _Note: for AssistantComputerControl to work Dropbox will need to be running on your PC at all times_
 
 ### Step 2: Install
-When you have both, you can simply enable _[this applet](https://ifttt.com/applets/xk7JPtWu-acc-install-assistantcomputercontrol)_ and say "OK Google, Assistant Computer Control download" or "OK Google, Install Assistant Computer Control" and the software will be downloaded to your computer!
+When you have both, you can simply enable _[this applet if you're using Google Home](https://ifttt.com/applets/xk7JPtWu-acc-install-assistantcomputercontrol)_, or _[this applet if you're using Amazon Alexa](https://ifttt.com/applets/KgxUWqk7-acc-install-assistantcomputercontrol-alexa)_. When the applet is enabled, you just have to trigger it by saying "OK Google, Assistant Computer Control download" or "Alexa, trigger install Assistant Computer Control" and the software will be downloaded to your computer!
+
+_If the applet doesn't work, you can download the software manually under the [releases tab](https://github.com/AlbertMN/AssistantComputerControl/releases). Just download the `AssistantComputerControl.exe` and place it in a Dropbox folder called "AssistantComputerControl" < **important**_
 
 ### Step 3: Setup done!
-The following step will create a folder in your Dropbox called "AssistantComputerControl" with a file called `OPEN_ME.exe` - to finish the setup you simply have to open this file and you're just one step away from being done! Next thing we want to do is making the ACC software start automatically everytime your computer starts. To do this just create a shortcut of the `OPEN_THIS.exe` and put it in the Windows Startup folder, which you can find by pressing `Win + R` and typing `shell:startup`; place the shortcut in this folder and you're done!
+The following step will create a folder in your Dropbox called "AssistantComputerControl", in this folder there will be a file under the same name `AssistantComputerControl.exe` - to finish the setup you simply have to open this file, say "Yes" to the message-box asking whether you want the software to start automatically with Windows (or "No" if you don't want it to), and you're all set!
+
+_Note: if Windows complains about the file, warning you that it might be harmful to your computer, all you have to do is press "More info", and click "Run", this warning won't show again_
 
 ### Step 4: Adding actions
-To do actions on your computer, go to [this IFTTT profile](https://ifttt.com/makers/assistantcomputercontrol) and enable the applets you want!
+To do actions on your computer, go to [this IFTTT profile](https://ifttt.com/makers/assistantcomputercontrol) and enable the applets you want! Or look at the top of this article for a list with links to the Google Assistant and Amazon Alexa applets.
 
 ---
 
