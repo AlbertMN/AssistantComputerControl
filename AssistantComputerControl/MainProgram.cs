@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        static public string softwareVersion = "0.3";
+        static public string softwareVersion = "0.3.1";
         static public bool debug = true,
             unmuteVolumeChange = true,
             isPerformingAction = false;
