@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Collections.Generic;
 
 namespace AssistantComputerControl {
-    class configValidator {
+    class ConfigValidator {
         private enum validateTypes {
             str,
             integer,

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using AudioSwitcher.AudioApi.CoreAudio;
 
 namespace AssistantComputerControl {
-    class actionChecker {
+    class ActionChecker {
         private static CoreAudioController coreAudio = null;
         private static CoreAudioDevice defaultPlaybackDevice;
         private static string successMessage = "";

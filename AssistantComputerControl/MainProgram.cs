@@ -56,23 +56,23 @@ namespace AssistantComputerControl {
                     DoDebug("Config file is empty. Setting content...");
                     CreateSetConfig();
                 } else {
-                    if (configValidator.config("config_version") != softwareVersion) {
+                    if (ConfigValidator.config("config_version") != softwareVersion) {
                         //Config is different version than the software version
                         DoDebug("Config is different version than software");
 
                         //Get and save config values
-                        Dictionary<string, string> configValues = configValidator.getValues();
+                        Dictionary<string, string> configValues = ConfigValidator.getValues();
                         //Set config to the newest version
                         File.WriteAllText(configFilePath, string.Empty);
                         CreateSetConfig();
                         //Set config values back to old ones
-                        configValidator.WriteKey(configValues);
+                        ConfigValidator.WriteKey(configValues);
                     }
                 }
             }
 
             //Setting variables to config values...
-            configValidator validator = new configValidator();
+            ConfigValidator validator = new ConfigValidator();
 
             var originalActionFilePath = actionFilePath;
             validator.Validate("ActionFilePath", ref actionFilePath);
@@ -107,7 +107,7 @@ namespace AssistantComputerControl {
         static public void ClearFile(string filePath) {
             DoDebug("Clearing file");
             if (File.Exists(filePath)) {
-                while (actionChecker.fileInUse(filePath)) ;
+                while (ActionChecker.fileInUse(filePath)) ;
                 File.Delete(filePath);
                 DoDebug("Action-file deleted");
             } else {
@@ -218,7 +218,7 @@ namespace AssistantComputerControl {
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             watcher.Filter = "*.txt";
-            watcher.Changed += new FileSystemEventHandler(actionChecker.FileFound);
+            watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
             watcher.EnableRaisingEvents = true;
             /* END WATCHER */
 
