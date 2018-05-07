@@ -29,3 +29,12 @@ C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComput
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb

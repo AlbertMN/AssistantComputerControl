@@ -82,7 +82,7 @@ namespace AssistantComputerControl {
                     string action;
                     string parameter = null;
 
-                    if (lastModified.AddSeconds(MainProgram.fileEditedSecondMargin) > DateTime.UtcNow) {
+                    if (lastModified.AddSeconds(MainProgram.fileEditedSecondMargin) > DateTime.Now) {
                         //If file has been modified recently - check for action
                         MainProgram.DoDebug("File modified within the last " + MainProgram.fileEditedSecondMargin + " seconds...");
 
@@ -278,7 +278,7 @@ namespace AssistantComputerControl {
                             MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");
                         }
                     } else {
-                        MainProgram.DoDebug("No action set within the last " + MainProgram.fileEditedSecondMargin + " seconds");
+                        MainProgram.DoDebug("No action set within the last " + MainProgram.fileEditedSecondMargin + " seconds. File last edited; " + lastModified + ". PC time; " + DateTime.Now);
                         MainProgram.errorMessage = "No action set lately";
                     }
                 } else {
