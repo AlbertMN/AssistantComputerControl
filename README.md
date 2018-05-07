@@ -56,3 +56,5 @@ So as you can see no coding is required! But if you're up for it and want to add
 Visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actions) article in the Wiki.
 
 Set any of these as "Content" in the creation of the Dropbox file (IFTTT) and it will work!
+
+_Based on idea by YouTuber (Hylke Jellema)[https://www.youtube.com/user/hylke101]'s (video)[https://www.youtube.com/watch?v=gOt1IyEAIxA]_
