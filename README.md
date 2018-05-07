@@ -57,4 +57,4 @@ Visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actio
 
 Set any of these as "Content" in the creation of the Dropbox file (IFTTT) and it will work!
 
-_Based on idea by YouTuber (Hylke Jellema)[https://www.youtube.com/user/hylke101]'s (video)[https://www.youtube.com/watch?v=gOt1IyEAIxA]_
+_Based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
