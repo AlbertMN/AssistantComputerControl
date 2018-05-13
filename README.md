@@ -17,9 +17,7 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
   * Next song [[GH](https://ifttt.com/applets/urhc2Ug8-acc-play-next-song-on-computer)][[Alexa](https://ifttt.com/applets/hq7nxkf3-acc-play-next-song-on-computer)]
 * _more to come_
 
-**Join our Discord server:** https://discord.gg/ukkUu26
-
-**Follow me on Twitter for updates:** https://twitter.com/ACC_HomeAlexa
+* **Join our Discord server:** https://discord.gg/ukkUu26 **and follow me on Twitter for updates:** https://twitter.com/ACC_HomeAlexa
 
 This software only works on Windows and has yet only been tested on Windows 10.
 
@@ -58,3 +56,9 @@ Visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actio
 Set any of these as "Content" in the creation of the Dropbox file (IFTTT) and it will work!
 
 _Based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
+
+
+
+This project has become bigger than expected with more than 100 active users already! I'm a young student developing this software in my free-time, and while I do it because it's fun, it still takes a lot of time from other things. You can support the development of the ACC-software in many ways; [pull requests](https://github.com/AlbertMN/AssistantComputerControl/pulls) here on GitHub, open an [issue](https://github.com/AlbertMN/AssistantComputerControl/issues) if you believe you have found a bug or [donate](https://www.paypal.me/albermn) any amount you wish. Donations are always welcome. They help cover the few expenses like music for the upcoming trailer.
+
+Thanks for using Assistant Computer Control!
