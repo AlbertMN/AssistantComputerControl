@@ -1,40 +1,59 @@
-c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\bin\Debug\HomeComputerControl.exe.config
-c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\bin\Debug\HomeComputerControl.exe
-c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\bin\Debug\HomeComputerControl.pdb
-c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.csprojResolveAssemblyReference.cache
-c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.exe
-c:\users\alber\documents\visual studio 2015\Projects\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.pdb
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.csprojResolveAssemblyReference.cache
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\HomeComputerControl.csproj.GenerateResource.Cache
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Debug\AssistantComputerControl.exe.config
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Debug\AssistantComputerControl.exe
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\bin\Debug\AssistantComputerControl.pdb
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\AssistantComputerControl.exe
-C:\Users\alber\OneDrive\C# Programmer\HomeComputerControl\HomeComputerControl\obj\Debug\AssistantComputerControl.pdb
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.Cache
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
-C:\Users\alber\OneDrive\C# Programmer\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.Cache
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.manifest
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.application
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.manifest
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.application
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AboutVersion.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.SettingsForm.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AdvancedSettings.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
+C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.exe.config
+C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.exe.manifest
+C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.application
+C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.exe
+C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.pdb
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.GettingStarted.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.manifest
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.application
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AboutVersion.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AdvancedSettings.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.GettingStarted.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.SettingsForm.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.manifest
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.application
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.manifest
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.application
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojAssemblyReference.cache
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AboutVersion.resources
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AdvancedSettings.resources
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.GettingStarted.resources
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.SettingsForm.resources
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.manifest
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.application
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb

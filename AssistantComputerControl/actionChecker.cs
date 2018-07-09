@@ -4,12 +4,9 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using AudioSwitcher.AudioApi.CoreAudio;
 
 namespace AssistantComputerControl {
     class ActionChecker {
-        private static CoreAudioController coreAudio = null;
-        private static CoreAudioDevice defaultPlaybackDevice;
         private static string successMessage = "";
 
         //Logout
@@ -38,20 +35,7 @@ namespace AssistantComputerControl {
             }
             return false;
         }
-        private static void updateDefaultPlaybackDevice() {
-            if(coreAudio == null) {
-                coreAudio = new CoreAudioController();
-                defaultPlaybackDevice = coreAudio.DefaultPlaybackDevice;
-            }
-
-            if (!defaultPlaybackDevice.IsDefaultDevice) {
-                MainProgram.DoDebug("Setting new default device");
-                defaultPlaybackDevice = coreAudio.DefaultPlaybackDevice;
-            } else {
-                MainProgram.DoDebug("Same default device");
-            }
-        }
-        public static bool fileInUse(string file) {
+        public static bool FileInUse(string file) {
             try {
                 using (Stream stream = new FileStream(file, FileMode.Open)) {
                     // File/Stream manipulating code here
@@ -66,74 +50,119 @@ namespace AssistantComputerControl {
         }
 
         static public void FileFound(object source, FileSystemEventArgs e) {
-            string file = e.FullPath;
+            string file = e.FullPath
+                , action = null
+                , parameter = null
+                , fullContent = null;
 
             if (!MainProgram.isPerformingAction) {
                 MainProgram.isPerformingAction = true;
                 MainProgram.DoDebug("File exists, checking the content...");
 
-                while (fileInUse(file));
+                while (FileInUse(file));
                 if (new FileInfo(file).Length != 0) {
                     MainProgram.DoDebug("Action set. File is not empty...");
+                    action = "empty file";
 
                     string line = File.ReadAllText(file);
                     MainProgram.DoDebug("Read complete, content: " + line);
                     DateTime lastModified = File.GetLastWriteTime(file);
-                    string action;
-                    string parameter = null;
+                    action = line;
+                    fullContent = line;
+                    string timeParam = null;
 
-                    if (lastModified.AddSeconds(MainProgram.fileEditedSecondMargin) > DateTime.Now) {
+                    if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) > DateTime.Now) {
                         //If file has been modified recently - check for action
-                        MainProgram.DoDebug("File modified within the last " + MainProgram.fileEditedSecondMargin + " seconds...");
+                        MainProgram.DoDebug("File modified within the last " + Properties.Settings.Default.FileEditedMargin + " seconds...");
 
-                        if (line.Contains(":")) {
+                        //Check for timestamp param - for future use (possibly) to calculate how long the request took -
+                        //however Google Assistant doesn't return second-stamp, only hour and minute, so unless they implement it; can't be used
+                        if (line.Contains("[") && line.Contains("]")) {
+                            action = line.Split('[')[0];
+                            timeParam = line.Split('[')[1];
+                            timeParam.Replace("]", "");
+
+                            if (timeParam.Contains("time;")) {
+                                timeParam = timeParam.Split(';')[1];
+                                MainProgram.DoDebug("Action has time parameter; " + timeParam);
+                            }
+                        }
+
+                        if (action.Contains(":")) {
                             //Contains a parameter
                             action = line.Split(':')[0];
                             parameter = line.Split(':')[1];
-                        } else {
-                            action = line;
+                            if (parameter == "") parameter = null;
                         }
+
+                        if (MainProgram.testingAction)
+                            MainProgram.DoDebug("Test went through: " + action);
 
                         switch (action) {
                             case "shutdown":
                                 //Shuts down the computer
-                                MainProgram.DoDebug("Shutting down computer...");
-                                if (parameter == null) {
-                                    Process.Start("shutdown", "/s /t 0");
-                                } else {
-                                    if (parameter.Contains("/t")) {
-                                        Process.Start("shutdown", "/s " + parameter);
-                                    } else {
-                                        Process.Start("shutdown", "/s " + parameter + " /t 0");
-                                    }
-                                }
-                                successMessage = "Shutting down";
-                                break;
-                            case "restart":
-                                //Restart the computer
-                                MainProgram.DoDebug("Restarting computer...");
-
-                                if (parameter == null) {
-                                    Process.Start("shutdown", "/r /t 0");
-                                } else {
-                                    if(parameter == "abort") {
-                                        Process.Start("shutdown", "/a");
+                                string shutdownParameters = "/s /t 0";
+                                if (parameter != null) {
+                                    if (parameter == "abort") {
+                                        shutdownParameters = "abort";
                                     } else {
                                         if (parameter.Contains("/t")) {
-                                            Process.Start("shutdown", "/r " + parameter);
+                                            shutdownParameters = !parameter.Contains("/s") ? "/s " : "" + parameter;
                                         } else {
-                                            Process.Start("shutdown", "/r " + parameter + " /t 0");
+                                            shutdownParameters = !parameter.Contains("/s") ? "/s " : "" + parameter + " /t 0";
                                         }
                                     }
                                 }
-                                successMessage = "Restarting";
+
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated shutdown";
+                                } else {
+                                    if (shutdownParameters != "abort") {
+                                        MainProgram.DoDebug("Shutting down computer...");
+                                        successMessage = "Shutting down";
+                                        Process.Start("shutdown", shutdownParameters);
+                                    } else {
+                                        MainProgram.DoDebug("Cancelling shutdown...");
+                                        Process.Start("shutdown", "/a");
+                                        successMessage = "Aborted shutdown";
+                                    }
+                                }
+                                break;
+                            case "restart":
+                                //Restart the computer
+                                string restartParameters = "/r /t 0";
+                                if (parameter != null) {
+                                    if (parameter == "abort") {
+                                        restartParameters = "abort";
+                                    } else {
+                                        if (parameter.Contains("/t")) {
+                                            restartParameters = !parameter.Contains("/r") ? "/s " : "" + parameter;
+                                        } else {
+                                            restartParameters = !parameter.Contains("/r") ? "/s " : "" + parameter + " /t 0";
+                                        }
+                                    }
+                                }
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated restart";
+                                } else {
+                                    if (restartParameters != "abort") {
+                                        MainProgram.DoDebug("Restarting computer...");
+                                        successMessage = "Restarting";
+                                        Process.Start("shutdown", restartParameters);
+                                    } else {
+                                        MainProgram.DoDebug("Cancelling restart...");
+                                        Process.Start("shutdown", "/a");
+                                        successMessage = "Aborted restart";
+                                    }
+                                }
                                 break;
                             case "sleep":
                                 //Puts computer to sleep
-                                MainProgram.DoDebug("Sleeping computer...");
-
                                 if (parameter == null) {
-                                    Application.SetSuspendState(PowerState.Suspend, true, true);
+                                    if (!MainProgram.testingAction) {
+                                        MainProgram.DoDebug("Sleeping computer...");
+                                        Application.SetSuspendState(PowerState.Suspend, true, true);
+                                    }
                                 } else {
                                     bool doForce = true;
                                     switch (parameter) {
@@ -148,34 +177,49 @@ namespace AssistantComputerControl {
                                             MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
                                             break;
                                     }
-                                    Application.SetSuspendState(PowerState.Suspend, doForce, true);
+                                    if (!MainProgram.testingAction) {
+                                        MainProgram.DoDebug("Sleeping computer...");
+                                        successMessage = "Put computer to sleep";
+                                        Application.SetSuspendState(PowerState.Suspend, doForce, true);
+                                    } else {
+                                        successMessage = "Simulated PC sleep";
+                                    }
                                 }
 
-                                successMessage = "Put computer to sleep";
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated PC sleep";
+                                } else {
+                                    successMessage = "Put computer to sleep";
+                                }
                                 break;
                             case "logout":
                                 //Logs out of the current user
-                                MainProgram.DoDebug("Logging out of user...");
-
-                                ExitWindowsEx(0, 0);
-                                successMessage = "Logged out of user";
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated logout";
+                                } else {
+                                    MainProgram.DoDebug("Logging out of user...");
+                                    successMessage = "Logged out of user";
+                                    ExitWindowsEx(0, 0);
+                                }
                                 break;
                             case "lock":
                                 //Lock computer
-                                MainProgram.DoDebug("Locking computer...");
-
-                                LockWorkStation();
-                                successMessage = "Locked pc";
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated PC lock";
+                                } else {
+                                    MainProgram.DoDebug("Locking computer...");
+                                    LockWorkStation();
+                                    successMessage = "Locked pc";
+                                }
                                 break;
                             case "mute":
                                 //Mutes windows
                                 //Parameter optional (true/false)
-                                updateDefaultPlaybackDevice();
-                                bool doMute = false;
+                                bool doMute = true;
 
                                 if (parameter == null) {
                                     //No parameter - toggle
-                                    doMute = !defaultPlaybackDevice.IsMuted;
+                                    doMute = !AudioManager.GetMasterVolumeMute();
                                 } else {
                                     //Parameter set;
                                     switch (parameter) {
@@ -191,28 +235,36 @@ namespace AssistantComputerControl {
                                             break;
                                     }
                                 }
-                                defaultPlaybackDevice.Mute(!defaultPlaybackDevice.IsMuted);
-                                successMessage = (defaultPlaybackDevice.IsMuted ? "Muted " : "Unmuted") + "pc";
+
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated PC" + (doMute ? "muted " : "unmute");
+                                } else {
+                                    AudioManager.SetMasterVolumeMute(doMute);
+                                    successMessage = (doMute ? "Muted " : "Unmuted") + " pc";
+                                }
                                 break;
                             case "set_volume":
                                 //Sets volume to a specific percent
                                 //Requires parameter (percent, int)
-                                updateDefaultPlaybackDevice();
-
                                 if (requireParameter(parameter)) {
-                                    double volumeLevel;
-                                    if (double.TryParse(parameter, out volumeLevel)) {
+                                    if (double.TryParse(parameter, out double volumeLevel)) {
                                         if (volumeLevel >= 0 && volumeLevel <= 100) {
-                                            if (MainProgram.unmuteVolumeChange) {
-                                                defaultPlaybackDevice.Mute(false);
+                                            if (!MainProgram.testingAction) {
+                                                if (Properties.Settings.Default.UnmuteOnVolumeChange) {
+                                                    AudioManager.SetMasterVolumeMute(false);
+                                                }
+                                                AudioManager.SetMasterVolume((float)volumeLevel);
                                             }
-                                            defaultPlaybackDevice.Volume = volumeLevel;
-                                            if (defaultPlaybackDevice.Volume != volumeLevel) {
+                                            if (AudioManager.GetMasterVolume() != volumeLevel) {
                                                 //Something went wrong... Audio not set to parameter-level
                                                 MainProgram.DoDebug("ERROR: Volume was not sat");
                                                 MainProgram.errorMessage = "Something went wrong when setting the volume";
                                             } else {
-                                                successMessage = "Set volume to " + volumeLevel + "%";
+                                                if (!MainProgram.testingAction) {
+                                                    successMessage = "Set volume to " + volumeLevel + "%";
+                                                } else {
+                                                    successMessage = "Simulated setting system volume to " + volumeLevel + "%";
+                                                }
                                             }
                                         } else {
                                             MainProgram.DoDebug("ERROR: Parameter is an invalid number, range; 0-100 (" + volumeLevel + ")");
@@ -224,13 +276,16 @@ namespace AssistantComputerControl {
                                     }
                                 }
                                 break;
-
                             case "music":
                                 if (requireParameter(parameter)) {
                                     switch (parameter) {
                                         case "previous":
-                                            keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                            successMessage = "MUSIC: Skipped song";
+                                            if (MainProgram.testingAction) {
+                                                successMessage = "MUSIC: Simulated skipping song";
+                                            } else {
+                                                keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                                successMessage = "MUSIC: Skipped song";
+                                            }
                                             break;
                                         /*case "previousx2": //WIP
                                             keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
@@ -238,12 +293,20 @@ namespace AssistantComputerControl {
                                             success_message = "MUSIC: Skipped song (x2)";
                                             break;*/
                                         case "next":
-                                            keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                            successMessage = "MUSIC: Next song";
+                                            if (MainProgram.testingAction) {
+                                                successMessage = "MUSIC: Simulated going to next song";
+                                            } else {
+                                                keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                                successMessage = "MUSIC: Next song";
+                                            }
                                             break;
                                         case "play_pause":
-                                            keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                            successMessage = "MUSIC: Played/Paused";
+                                            if (MainProgram.testingAction) {
+                                                successMessage = "MUSIC: Simulated play/pause";
+                                            } else {
+                                                keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENTEDKEY, 0);
+                                                successMessage = "MUSIC: Played/Paused";
+                                            }
                                             break;
                                         default:
                                             MainProgram.DoDebug("ERROR: Unknown parameter");
@@ -256,8 +319,12 @@ namespace AssistantComputerControl {
                                 if (requireParameter(parameter)) {
                                     string fileLocation = Path.Combine(MainProgram.shortcutLocation, parameter);
                                     if (File.Exists(fileLocation)) {
-                                        Process.Start(fileLocation);
-                                        successMessage = "OPEN: opened file; " + fileLocation;
+                                        if (!MainProgram.testingAction) {
+                                            Process.Start(fileLocation);
+                                            successMessage = "OPEN: opened file; " + fileLocation;
+                                        } else {
+                                            successMessage = "OPEN: simulated opening file; " + fileLocation;
+                                        }
                                     } else {
                                         MainProgram.DoDebug("ERROR: file doesn't exist (" + fileLocation + ")");
                                         MainProgram.errorMessage = "File doesn't exist (" + fileLocation + ")";
@@ -266,7 +333,12 @@ namespace AssistantComputerControl {
                                 break;
                             case "die":
                                 //Exit ACC
-                                Application.Exit();
+                                if (!MainProgram.testingAction) {
+                                    successMessage = "Shutting down ACC";
+                                    Application.Exit();
+                                } else {
+                                    successMessage = "Simulated shutting down ACC";
+                                }
                                 break;
                             default:
                                 //Unknown action
@@ -278,13 +350,14 @@ namespace AssistantComputerControl {
                             MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");
                         }
                     } else {
-                        MainProgram.DoDebug("No action set within the last " + MainProgram.fileEditedSecondMargin + " seconds. File last edited; " + lastModified + ". PC time; " + DateTime.Now);
-                        MainProgram.errorMessage = "No action set lately";
+                        MainProgram.DoDebug("No action set within the last " + Properties.Settings.Default.FileEditedMargin + " seconds. File last edited; " + lastModified + ". PC time; " + DateTime.Now);
+                        MainProgram.errorMessage = "No action set within the last " + Properties.Settings.Default.FileEditedMargin + " seconds. File last edited; " + lastModified + ". PC time; " + DateTime.Now;
                     }
                 } else {
                     MainProgram.DoDebug("File is empty");
                     MainProgram.errorMessage = "No action set (file is empty)";
                 }
+
                 MainProgram.ClearFile(file);
                 if (MainProgram.errorMessage.Length != 0 && !MainProgram.debug) {
                     MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);
@@ -293,7 +366,13 @@ namespace AssistantComputerControl {
                 MainProgram.isPerformingAction = false;
             } else {
                 MainProgram.DoDebug("Already performing an action");
+                MainProgram.errorMessage = "Already performing an action";
             }
+
+            if (MainProgram.testingAction) {
+                MainProgram.testActionWindow.ActionExecuted(successMessage, MainProgram.errorMessage, action, parameter, fullContent);
+            }
+            successMessage = "";
         }
     }
 }
