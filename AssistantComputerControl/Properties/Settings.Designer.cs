@@ -130,5 +130,16 @@ namespace AssistantComputerControl.Properties {
                 this["HasCompletedTutorial"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] TotalActionsExecuted {
+            get {
+                return ((int[])(this["TotalActionsExecuted"]));
+            }
+            set {
+                this["TotalActionsExecuted"] = value;
+            }
+        }
     }
 }

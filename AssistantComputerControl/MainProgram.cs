@@ -13,8 +13,8 @@ using System.Linq;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        static public string softwareVersion = "0.3.2",
-            releaseDate = "2018-06-15 02:46",
+        public const string softwareVersion = "0.4.0",
+            releaseDate = "2018-07-09 02:46",
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -38,7 +38,7 @@ namespace AssistantComputerControl {
             logFilePath = Path.Combine(dataFolderLocation, "log.txt"),
             errorMessage = "",
             startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-            messageBoxTitle = "AssistantComputerControl";
+            messageBoxTitle = appName;
 
         private static SysTrayIcon sysIcon = new SysTrayIcon();
         public static TestActionWindow testActionWindow = new TestActionWindow();
@@ -60,6 +60,7 @@ namespace AssistantComputerControl {
                 File.WriteAllText(logFilePath, string.Empty);
 
             DoDebug("[ACC begun (v" + softwareVersion + ")]");
+            AnalyticsSettings.SetupArray();
 
             if (Properties.Settings.Default.CheckForUpdates) {
                 if (HasInternet()) {
@@ -126,10 +127,16 @@ namespace AssistantComputerControl {
                 key = key.OpenSubKey("AssistantComputerControl", true);
                 key.SetValue("FirstTime", false);
 
+                Properties.Settings.Default.HasCompletedTutorial = true;
+                Properties.Settings.Default.Save();
+
                 ShowGettingStarted();
+
+                DoDebug("Starting setup guide");
             } else {
                 if (!Properties.Settings.Default.HasCompletedTutorial) {
                     ShowGettingStarted();
+                    DoDebug("Didn't finish setup guide last time, opening again");
                 }
             }
             SetRegKey("ActionFolder", CheckPath());

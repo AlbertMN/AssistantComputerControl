@@ -131,6 +131,7 @@
     <Compile Include="AdvancedSettings.Designer.cs">
       <DependentUpon>AdvancedSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalyticsSettings.cs" />
     <Compile Include="AudioManager.cs" />
     <Compile Include="GettingStarted.cs">
       <SubType>Form</SubType>
@@ -154,6 +155,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

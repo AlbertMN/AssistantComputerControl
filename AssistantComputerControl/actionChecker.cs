@@ -98,6 +98,7 @@ namespace AssistantComputerControl {
                         if (MainProgram.testingAction)
                             MainProgram.DoDebug("Test went through: " + action);
 
+                        int? actionNumber = null;
                         switch (action) {
                             case "shutdown":
                                 //Shuts down the computer
@@ -280,6 +281,8 @@ namespace AssistantComputerControl {
                                 if (requireParameter(parameter)) {
                                     switch (parameter) {
                                         case "previous":
+                                            actionNumber = 8;
+
                                             if (MainProgram.testingAction) {
                                                 successMessage = "MUSIC: Simulated skipping song";
                                             } else {
@@ -293,6 +296,8 @@ namespace AssistantComputerControl {
                                             success_message = "MUSIC: Skipped song (x2)";
                                             break;*/
                                         case "next":
+                                            actionNumber = 10;
+
                                             if (MainProgram.testingAction) {
                                                 successMessage = "MUSIC: Simulated going to next song";
                                             } else {
@@ -301,6 +306,8 @@ namespace AssistantComputerControl {
                                             }
                                             break;
                                         case "play_pause":
+                                            actionNumber = 9;
+
                                             if (MainProgram.testingAction) {
                                                 successMessage = "MUSIC: Simulated play/pause";
                                             } else {
@@ -347,6 +354,14 @@ namespace AssistantComputerControl {
                                 break;
                         }
                         if (successMessage != "") {
+                            if (actionNumber != null) {
+                                //Has specified number
+                                AnalyticsSettings.AddCount((int)actionNumber);
+                            } else {
+                                //YOLO
+                                AnalyticsSettings.AddCount(action);
+                            }
+
                             MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");
                         }
                     } else {

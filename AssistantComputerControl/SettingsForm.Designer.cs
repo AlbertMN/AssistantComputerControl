@@ -35,12 +35,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.logButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.versionInfo = new System.Windows.Forms.Label();
             this.checkForUpdate = new System.Windows.Forms.Button();
             this.betaProgram = new System.Windows.Forms.CheckBox();
             this.fileEditedMargin = new System.Windows.Forms.NumericUpDown();
             this.infoTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileEditedMargin)).BeginInit();
             this.SuspendLayout();
@@ -49,30 +49,27 @@
             // 
             this.headingLabel.AutoSize = true;
             this.headingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.headingLabel.Location = new System.Drawing.Point(4, 3);
-            this.headingLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.headingLabel.Location = new System.Drawing.Point(3, 2);
             this.headingLabel.Name = "headingLabel";
-            this.headingLabel.Size = new System.Drawing.Size(195, 29);
+            this.headingLabel.Size = new System.Drawing.Size(133, 20);
             this.headingLabel.TabIndex = 0;
             this.headingLabel.Text = "Overall settings";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 194);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(4, 126);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(208, 20);
+            this.label1.Size = new System.Drawing.Size(138, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "File edited margin (seconds)";
             // 
             // checkUpdates
             // 
             this.checkUpdates.AutoSize = true;
-            this.checkUpdates.Location = new System.Drawing.Point(10, 82);
-            this.checkUpdates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkUpdates.Location = new System.Drawing.Point(7, 53);
             this.checkUpdates.Name = "checkUpdates";
-            this.checkUpdates.Size = new System.Drawing.Size(174, 24);
+            this.checkUpdates.Size = new System.Drawing.Size(119, 17);
             this.checkUpdates.TabIndex = 4;
             this.checkUpdates.Text = "Check for updates?";
             this.checkUpdates.UseVisualStyleBackColor = true;
@@ -80,10 +77,9 @@
             // 
             // advancedSettingsButton
             // 
-            this.advancedSettingsButton.Location = new System.Drawing.Point(10, 283);
-            this.advancedSettingsButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.advancedSettingsButton.Location = new System.Drawing.Point(7, 184);
             this.advancedSettingsButton.Name = "advancedSettingsButton";
-            this.advancedSettingsButton.Size = new System.Drawing.Size(204, 35);
+            this.advancedSettingsButton.Size = new System.Drawing.Size(150, 23);
             this.advancedSettingsButton.TabIndex = 5;
             this.advancedSettingsButton.Text = "Advanced settings";
             this.advancedSettingsButton.UseVisualStyleBackColor = true;
@@ -91,10 +87,9 @@
             // 
             // testButton
             // 
-            this.testButton.Location = new System.Drawing.Point(10, 372);
-            this.testButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.testButton.Location = new System.Drawing.Point(7, 242);
             this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(204, 35);
+            this.testButton.Size = new System.Drawing.Size(150, 23);
             this.testButton.TabIndex = 6;
             this.testButton.Text = "Test assistant";
             this.testButton.UseVisualStyleBackColor = true;
@@ -103,10 +98,9 @@
             // startWithWindows
             // 
             this.startWithWindows.AutoSize = true;
-            this.startWithWindows.Location = new System.Drawing.Point(10, 46);
-            this.startWithWindows.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.startWithWindows.Location = new System.Drawing.Point(7, 30);
             this.startWithWindows.Name = "startWithWindows";
-            this.startWithWindows.Size = new System.Drawing.Size(179, 24);
+            this.startWithWindows.Size = new System.Drawing.Size(123, 17);
             this.startWithWindows.TabIndex = 7;
             this.startWithWindows.Text = "Start with Windows?";
             this.startWithWindows.UseVisualStyleBackColor = true;
@@ -114,28 +108,27 @@
             // 
             // computerName
             // 
-            this.computerName.Location = new System.Drawing.Point(10, 151);
-            this.computerName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.computerName.Enabled = false;
+            this.computerName.Location = new System.Drawing.Point(7, 98);
             this.computerName.Name = "computerName";
-            this.computerName.Size = new System.Drawing.Size(178, 26);
+            this.computerName.Size = new System.Drawing.Size(120, 20);
             this.computerName.TabIndex = 9;
+            this.computerName.Text = "Not yet implemented";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 126);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(4, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 20);
+            this.label2.Size = new System.Drawing.Size(186, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Computer name";
+            this.label2.Text = "Computer name (Not yet implemented)";
             // 
             // logButton
             // 
-            this.logButton.Location = new System.Drawing.Point(10, 328);
-            this.logButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.logButton.Location = new System.Drawing.Point(7, 213);
             this.logButton.Name = "logButton";
-            this.logButton.Size = new System.Drawing.Size(204, 35);
+            this.logButton.Size = new System.Drawing.Size(150, 23);
             this.logButton.TabIndex = 10;
             this.logButton.Text = "Open log";
             this.logButton.UseVisualStyleBackColor = true;
@@ -158,31 +151,37 @@
             this.mainPanel.Controls.Add(this.checkUpdates);
             this.mainPanel.Controls.Add(this.label1);
             this.mainPanel.Controls.Add(this.label2);
-            this.mainPanel.Location = new System.Drawing.Point(18, 18);
-            this.mainPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mainPanel.Location = new System.Drawing.Point(12, 12);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1164, 655);
+            this.mainPanel.Size = new System.Drawing.Size(776, 426);
             this.mainPanel.TabIndex = 11;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 271);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Do the setup guide again";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // versionInfo
             // 
             this.versionInfo.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.versionInfo.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.versionInfo.Location = new System.Drawing.Point(813, 615);
-            this.versionInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.versionInfo.Location = new System.Drawing.Point(542, 400);
             this.versionInfo.Name = "versionInfo";
-            this.versionInfo.Size = new System.Drawing.Size(346, 35);
+            this.versionInfo.Size = new System.Drawing.Size(231, 23);
             this.versionInfo.TabIndex = 14;
             this.versionInfo.Text = "Version 0.3.3";
             this.versionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkForUpdate
             // 
-            this.checkForUpdate.Location = new System.Drawing.Point(10, 615);
-            this.checkForUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkForUpdate.Location = new System.Drawing.Point(7, 400);
             this.checkForUpdate.Name = "checkForUpdate";
-            this.checkForUpdate.Size = new System.Drawing.Size(164, 35);
+            this.checkForUpdate.Size = new System.Drawing.Size(109, 23);
             this.checkForUpdate.TabIndex = 13;
             this.checkForUpdate.Text = "Check for update";
             this.checkForUpdate.UseVisualStyleBackColor = true;
@@ -191,10 +190,9 @@
             // betaProgram
             // 
             this.betaProgram.AutoSize = true;
-            this.betaProgram.Location = new System.Drawing.Point(198, 82);
-            this.betaProgram.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.betaProgram.Location = new System.Drawing.Point(132, 53);
             this.betaProgram.Name = "betaProgram";
-            this.betaProgram.Size = new System.Drawing.Size(199, 24);
+            this.betaProgram.Size = new System.Drawing.Size(134, 17);
             this.betaProgram.TabIndex = 12;
             this.betaProgram.Text = "Join the beta program?";
             this.betaProgram.UseVisualStyleBackColor = true;
@@ -202,32 +200,20 @@
             // 
             // fileEditedMargin
             // 
-            this.fileEditedMargin.Location = new System.Drawing.Point(10, 218);
-            this.fileEditedMargin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fileEditedMargin.Location = new System.Drawing.Point(7, 142);
             this.fileEditedMargin.Name = "fileEditedMargin";
-            this.fileEditedMargin.Size = new System.Drawing.Size(180, 26);
+            this.fileEditedMargin.Size = new System.Drawing.Size(120, 20);
             this.fileEditedMargin.TabIndex = 11;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(10, 417);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(204, 35);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Do the setup guide again";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "SettingsForm";
             this.Text = "Settings";

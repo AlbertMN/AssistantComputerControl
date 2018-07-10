@@ -28,18 +28,6 @@
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl = new System.Windows.Forms.TabControl();
             this.setupSelect = new System.Windows.Forms.TabPage();
-            this.expertPanel = new AssistantComputerControl.MyPanel();
-            this.expertLabel3 = new System.Windows.Forms.LinkLabel();
-            this.expertLabel4 = new System.Windows.Forms.Label();
-            this.expertLabel2 = new System.Windows.Forms.Label();
-            this.expertLabel1 = new System.Windows.Forms.Label();
-            this.expertImage = new System.Windows.Forms.PictureBox();
-            this.recommendedPanel = new AssistantComputerControl.MyPanel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.recommendedLabel3 = new System.Windows.Forms.Label();
-            this.recommendedLabel2 = new System.Windows.Forms.Label();
-            this.recommendedLabel = new System.Windows.Forms.Label();
-            this.recommendedImage = new System.Windows.Forms.PictureBox();
             this.finalOptionButton = new System.Windows.Forms.Button();
             this.recommended = new System.Windows.Forms.TabPage();
             this.GuideWebBrowser = new System.Windows.Forms.WebBrowser();
@@ -62,15 +50,28 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.pickFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.expertPanel = new AssistantComputerControl.MyPanel();
+            this.expertLabel3 = new System.Windows.Forms.LinkLabel();
+            this.expertLabel4 = new System.Windows.Forms.Label();
+            this.expertLabel2 = new System.Windows.Forms.Label();
+            this.expertLabel1 = new System.Windows.Forms.Label();
+            this.expertImage = new System.Windows.Forms.PictureBox();
+            this.recommendedPanel = new AssistantComputerControl.MyPanel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.recommendedLabel3 = new System.Windows.Forms.Label();
+            this.recommendedLabel2 = new System.Windows.Forms.Label();
+            this.recommendedLabel = new System.Windows.Forms.Label();
+            this.recommendedImage = new System.Windows.Forms.PictureBox();
+            this.skipGuide = new System.Windows.Forms.LinkLabel();
             this.tabControl.SuspendLayout();
             this.setupSelect.SuspendLayout();
+            this.recommended.SuspendLayout();
+            this.expert.SuspendLayout();
+            this.Done.SuspendLayout();
             this.expertPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.expertImage)).BeginInit();
             this.recommendedPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recommendedImage)).BeginInit();
-            this.recommended.SuspendLayout();
-            this.expert.SuspendLayout();
-            this.Done.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -88,6 +89,7 @@
             // setupSelect
             // 
             this.setupSelect.BackColor = System.Drawing.Color.White;
+            this.setupSelect.Controls.Add(this.skipGuide);
             this.setupSelect.Controls.Add(this.expertPanel);
             this.setupSelect.Controls.Add(this.recommendedPanel);
             this.setupSelect.Controls.Add(this.finalOptionButton);
@@ -97,137 +99,6 @@
             this.setupSelect.Size = new System.Drawing.Size(783, 445);
             this.setupSelect.TabIndex = 0;
             this.setupSelect.Text = "Select setup";
-            // 
-            // expertPanel
-            // 
-            this.expertPanel.Controls.Add(this.expertLabel3);
-            this.expertPanel.Controls.Add(this.expertLabel4);
-            this.expertPanel.Controls.Add(this.expertLabel2);
-            this.expertPanel.Controls.Add(this.expertLabel1);
-            this.expertPanel.Controls.Add(this.expertImage);
-            this.expertPanel.Location = new System.Drawing.Point(447, 66);
-            this.expertPanel.Name = "expertPanel";
-            this.expertPanel.Size = new System.Drawing.Size(250, 250);
-            this.expertPanel.TabIndex = 4;
-            // 
-            // expertLabel3
-            // 
-            this.expertLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expertLabel3.Location = new System.Drawing.Point(133, 36);
-            this.expertLabel3.Name = "expertLabel3";
-            this.expertLabel3.Size = new System.Drawing.Size(68, 17);
-            this.expertLabel3.TabIndex = 4;
-            this.expertLabel3.TabStop = true;
-            this.expertLabel3.Text = "read more.";
-            // 
-            // expertLabel4
-            // 
-            this.expertLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.expertLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expertLabel4.Location = new System.Drawing.Point(3, 52);
-            this.expertLabel4.Name = "expertLabel4";
-            this.expertLabel4.Size = new System.Drawing.Size(244, 40);
-            this.expertLabel4.TabIndex = 3;
-            this.expertLabel4.Text = "Not recommended\r\nWill take you through the advanced settings\r\nNo comitment";
-            this.expertLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // expertLabel2
-            // 
-            this.expertLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.expertLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expertLabel2.Location = new System.Drawing.Point(51, 32);
-            this.expertLabel2.Name = "expertLabel2";
-            this.expertLabel2.Size = new System.Drawing.Size(90, 19);
-            this.expertLabel2.TabIndex = 2;
-            this.expertLabel2.Text = "Total freedom";
-            this.expertLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // expertLabel1
-            // 
-            this.expertLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.expertLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expertLabel1.Location = new System.Drawing.Point(3, 8);
-            this.expertLabel1.Name = "expertLabel1";
-            this.expertLabel1.Size = new System.Drawing.Size(244, 26);
-            this.expertLabel1.TabIndex = 1;
-            this.expertLabel1.Text = "Expert/custom setup";
-            this.expertLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // expertImage
-            // 
-            this.expertImage.Image = global::AssistantComputerControl.Properties.Resources.ExpertIcon;
-            this.expertImage.Location = new System.Drawing.Point(54, 100);
-            this.expertImage.Name = "expertImage";
-            this.expertImage.Size = new System.Drawing.Size(140, 108);
-            this.expertImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.expertImage.TabIndex = 0;
-            this.expertImage.TabStop = false;
-            // 
-            // recommendedPanel
-            // 
-            this.recommendedPanel.Controls.Add(this.label10);
-            this.recommendedPanel.Controls.Add(this.recommendedLabel3);
-            this.recommendedPanel.Controls.Add(this.recommendedLabel2);
-            this.recommendedPanel.Controls.Add(this.recommendedLabel);
-            this.recommendedPanel.Controls.Add(this.recommendedImage);
-            this.recommendedPanel.Location = new System.Drawing.Point(71, 66);
-            this.recommendedPanel.Name = "recommendedPanel";
-            this.recommendedPanel.Size = new System.Drawing.Size(250, 250);
-            this.recommendedPanel.TabIndex = 0;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 48);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(245, 23);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "\r\n(for those who use Google Assistant, or Amazon Alexa)";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // recommendedLabel3
-            // 
-            this.recommendedLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.recommendedLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.recommendedLabel3.Location = new System.Drawing.Point(3, 70);
-            this.recommendedLabel3.Name = "recommendedLabel3";
-            this.recommendedLabel3.Size = new System.Drawing.Size(244, 19);
-            this.recommendedLabel3.TabIndex = 3;
-            this.recommendedLabel3.Text = "Recommended";
-            this.recommendedLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // recommendedLabel2
-            // 
-            this.recommendedLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.recommendedLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.recommendedLabel2.Location = new System.Drawing.Point(3, 32);
-            this.recommendedLabel2.Name = "recommendedLabel2";
-            this.recommendedLabel2.Size = new System.Drawing.Size(244, 19);
-            this.recommendedLabel2.TabIndex = 2;
-            this.recommendedLabel2.Text = "Setup using Dropbox and IFTTT";
-            this.recommendedLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // recommendedLabel
-            // 
-            this.recommendedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.recommendedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.recommendedLabel.Location = new System.Drawing.Point(3, 8);
-            this.recommendedLabel.Name = "recommendedLabel";
-            this.recommendedLabel.Size = new System.Drawing.Size(244, 26);
-            this.recommendedLabel.TabIndex = 1;
-            this.recommendedLabel.Text = "Recommended setup";
-            this.recommendedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // recommendedImage
-            // 
-            this.recommendedImage.Image = global::AssistantComputerControl.Properties.Resources.DropboxRecommendedLogo;
-            this.recommendedImage.Location = new System.Drawing.Point(53, 94);
-            this.recommendedImage.Name = "recommendedImage";
-            this.recommendedImage.Size = new System.Drawing.Size(140, 130);
-            this.recommendedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.recommendedImage.TabIndex = 0;
-            this.recommendedImage.TabStop = false;
             // 
             // finalOptionButton
             // 
@@ -475,6 +346,149 @@
             this.label5.Text = "All done!";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // expertPanel
+            // 
+            this.expertPanel.Controls.Add(this.expertLabel3);
+            this.expertPanel.Controls.Add(this.expertLabel4);
+            this.expertPanel.Controls.Add(this.expertLabel2);
+            this.expertPanel.Controls.Add(this.expertLabel1);
+            this.expertPanel.Controls.Add(this.expertImage);
+            this.expertPanel.Location = new System.Drawing.Point(447, 66);
+            this.expertPanel.Name = "expertPanel";
+            this.expertPanel.Size = new System.Drawing.Size(250, 250);
+            this.expertPanel.TabIndex = 4;
+            // 
+            // expertLabel3
+            // 
+            this.expertLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expertLabel3.Location = new System.Drawing.Point(133, 36);
+            this.expertLabel3.Name = "expertLabel3";
+            this.expertLabel3.Size = new System.Drawing.Size(68, 17);
+            this.expertLabel3.TabIndex = 4;
+            this.expertLabel3.TabStop = true;
+            this.expertLabel3.Text = "read more.";
+            // 
+            // expertLabel4
+            // 
+            this.expertLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.expertLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expertLabel4.Location = new System.Drawing.Point(3, 52);
+            this.expertLabel4.Name = "expertLabel4";
+            this.expertLabel4.Size = new System.Drawing.Size(244, 40);
+            this.expertLabel4.TabIndex = 3;
+            this.expertLabel4.Text = "Not recommended\r\nWill take you through the advanced settings\r\nNo comitment";
+            this.expertLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // expertLabel2
+            // 
+            this.expertLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.expertLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expertLabel2.Location = new System.Drawing.Point(51, 32);
+            this.expertLabel2.Name = "expertLabel2";
+            this.expertLabel2.Size = new System.Drawing.Size(90, 19);
+            this.expertLabel2.TabIndex = 2;
+            this.expertLabel2.Text = "Total freedom";
+            this.expertLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // expertLabel1
+            // 
+            this.expertLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.expertLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expertLabel1.Location = new System.Drawing.Point(3, 8);
+            this.expertLabel1.Name = "expertLabel1";
+            this.expertLabel1.Size = new System.Drawing.Size(244, 26);
+            this.expertLabel1.TabIndex = 1;
+            this.expertLabel1.Text = "Expert/custom setup";
+            this.expertLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // expertImage
+            // 
+            this.expertImage.Image = global::AssistantComputerControl.Properties.Resources.ExpertIcon;
+            this.expertImage.Location = new System.Drawing.Point(54, 100);
+            this.expertImage.Name = "expertImage";
+            this.expertImage.Size = new System.Drawing.Size(140, 108);
+            this.expertImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.expertImage.TabIndex = 0;
+            this.expertImage.TabStop = false;
+            // 
+            // recommendedPanel
+            // 
+            this.recommendedPanel.Controls.Add(this.label10);
+            this.recommendedPanel.Controls.Add(this.recommendedLabel3);
+            this.recommendedPanel.Controls.Add(this.recommendedLabel2);
+            this.recommendedPanel.Controls.Add(this.recommendedLabel);
+            this.recommendedPanel.Controls.Add(this.recommendedImage);
+            this.recommendedPanel.Location = new System.Drawing.Point(71, 66);
+            this.recommendedPanel.Name = "recommendedPanel";
+            this.recommendedPanel.Size = new System.Drawing.Size(250, 250);
+            this.recommendedPanel.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(3, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(245, 23);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "\r\n(for those who use Google Assistant, or Amazon Alexa)";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // recommendedLabel3
+            // 
+            this.recommendedLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.recommendedLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recommendedLabel3.Location = new System.Drawing.Point(3, 70);
+            this.recommendedLabel3.Name = "recommendedLabel3";
+            this.recommendedLabel3.Size = new System.Drawing.Size(244, 19);
+            this.recommendedLabel3.TabIndex = 3;
+            this.recommendedLabel3.Text = "Recommended";
+            this.recommendedLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // recommendedLabel2
+            // 
+            this.recommendedLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.recommendedLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recommendedLabel2.Location = new System.Drawing.Point(3, 32);
+            this.recommendedLabel2.Name = "recommendedLabel2";
+            this.recommendedLabel2.Size = new System.Drawing.Size(244, 19);
+            this.recommendedLabel2.TabIndex = 2;
+            this.recommendedLabel2.Text = "Setup using Dropbox and IFTTT";
+            this.recommendedLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // recommendedLabel
+            // 
+            this.recommendedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.recommendedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recommendedLabel.Location = new System.Drawing.Point(3, 8);
+            this.recommendedLabel.Name = "recommendedLabel";
+            this.recommendedLabel.Size = new System.Drawing.Size(244, 26);
+            this.recommendedLabel.TabIndex = 1;
+            this.recommendedLabel.Text = "Recommended setup";
+            this.recommendedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // recommendedImage
+            // 
+            this.recommendedImage.Image = global::AssistantComputerControl.Properties.Resources.DropboxRecommendedLogo;
+            this.recommendedImage.Location = new System.Drawing.Point(53, 94);
+            this.recommendedImage.Name = "recommendedImage";
+            this.recommendedImage.Size = new System.Drawing.Size(140, 130);
+            this.recommendedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.recommendedImage.TabIndex = 0;
+            this.recommendedImage.TabStop = false;
+            // 
+            // skipGuide
+            // 
+            this.skipGuide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.skipGuide.AutoSize = true;
+            this.skipGuide.Location = new System.Drawing.Point(587, 429);
+            this.skipGuide.Name = "skipGuide";
+            this.skipGuide.Size = new System.Drawing.Size(193, 13);
+            this.skipGuide.TabIndex = 19;
+            this.skipGuide.TabStop = true;
+            this.skipGuide.Text = "No thanks, I don\'t need no guide! (skip)";
+            this.skipGuide.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.skipGuide_LinkClicked);
+            // 
             // GettingStarted
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,17 +503,18 @@
             this.Text = "Getting Started | AssistantComputerControl setup";
             this.tabControl.ResumeLayout(false);
             this.setupSelect.ResumeLayout(false);
+            this.setupSelect.PerformLayout();
+            this.recommended.ResumeLayout(false);
+            this.expert.ResumeLayout(false);
+            this.expert.PerformLayout();
+            this.Done.ResumeLayout(false);
+            this.Done.PerformLayout();
             this.expertPanel.ResumeLayout(false);
             this.expertPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.expertImage)).EndInit();
             this.recommendedPanel.ResumeLayout(false);
             this.recommendedPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recommendedImage)).EndInit();
-            this.recommended.ResumeLayout(false);
-            this.expert.ResumeLayout(false);
-            this.expert.PerformLayout();
-            this.Done.ResumeLayout(false);
-            this.Done.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -542,5 +557,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox startWithWindowsCheckbox;
+        private System.Windows.Forms.LinkLabel skipGuide;
     }
 }

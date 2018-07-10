@@ -265,8 +265,10 @@ namespace AssistantComputerControl {
                 MainProgram.SetStartup(startWithWindowsCheckbox.Checked);
 
                 Properties.Settings.Default.Save();
+
+                Console.WriteLine("Starting with Windows now");
             }
-            Console.WriteLine("Completed tut");
+            Console.WriteLine("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
             Properties.Settings.Default.Save();
         }
@@ -301,6 +303,12 @@ namespace AssistantComputerControl {
 
         private void iftttActions_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://github.com/AlbertMN/AssistantComputerControl#supported-computer-actions");
+        }
+
+        private void skipGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            SetupDone();
+            MainProgram.DoDebug("Skipped setup guide");
+            Close();
         }
     }
 }
