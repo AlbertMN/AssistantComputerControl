@@ -17,32 +17,21 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
   * Next song [[GH](https://ifttt.com/applets/urhc2Ug8-acc-play-next-song-on-computer)][[Alexa](https://ifttt.com/applets/hq7nxkf3-acc-play-next-song-on-computer)]
 * _more to come_
 
-**Join our Discord server:** https://discord.gg/ukkUu26
+- **Join our Discord server:** https://discord.gg/ukkUu26
+- **Follow me on Twitter for updates:** https://twitter.com/ACC_HomeAlexa
 
-**Follow me on Twitter for updates:** https://twitter.com/ACC_HomeAlexa
+This software only works on Windows and has yet only been tested on Windows 10, 8 & 7.
 
-This software only works on Windows and has yet only been tested on Windows 10.
+## Install
+Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](http://acc.albe.pw/download_latest.php) to your computer, open it and the setup guide will take you through the very short setup guide!
 
-## Setup
-The setup is _very_ simple. It only takes a few minutes to set up!
+_Note: [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account is required for the default setup. Dropbox will need to be running at all times for ACC to work_
 
-### Step 1: Dependencies
-All you need is an [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account, and the Dropbox software installed and running on your computer.
+## Adding actions
+When the setup is done, all there's left to do is enable as many actions as you like! An "action" is executed on your computer, so enabling the "shutdown" action will allow you to shut down your computer using your assistant!
 
-_Note: for AssistantComputerControl to work Dropbox will need to be running on your PC at all times_
-
-### Step 2: Install
-When you have both, you can simply enable _[this applet if you're using Google Home](https://ifttt.com/applets/xk7JPtWu-acc-install-assistantcomputercontrol)_, or _[this applet if you're using Amazon Alexa](https://ifttt.com/applets/KgxUWqk7-acc-install-assistantcomputercontrol-alexa)_. When the applet is enabled, you just have to trigger it by saying "OK Google, Assistant Computer Control download" or "Alexa, trigger install Assistant Computer Control" and the software will be downloaded to your computer!
-
-_If the applet doesn't work, you can download the software manually under the [releases tab](https://github.com/AlbertMN/AssistantComputerControl/releases). Just download the `AssistantComputerControl.exe` and place it in a Dropbox folder called "AssistantComputerControl" < **important**_
-
-### Step 3: Setup done!
-The following step will create a folder in your Dropbox called "AssistantComputerControl", in this folder there will be a file under the same name `AssistantComputerControl.exe` - to finish the setup you simply have to open this file, say "Yes" to the message-box asking whether you want the software to start automatically with Windows (or "No" if you don't want it to), and you're all set!
-
-_Note: if Windows complains about the file, warning you that it might be harmful to your computer, all you have to do is press "More info", and click "Run", this warning won't show again_
-
-### Step 4: Adding actions
-To do actions on your computer, go to [this IFTTT profile](https://ifttt.com/makers/assistantcomputercontrol) and enable the applets you want! Or look at the top of this article for a list with links to the Google Assistant and Amazon Alexa applets.
+Scroll to the start of this article for a link-list of all the supported actions!
+Or visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actions) article in the Wiki for a more detailed look at what actions are, what they do and how they work.
 
 ---
 
@@ -52,13 +41,7 @@ For more nerdy technical info you can go to the [Wiki](https://github.com/Albert
 
 So as you can see no coding is required! But if you're up for it and want to add your own features to the project it's easy! The entire project is made made in C# and the code is opensource and quite simple, so feel free to use the code in your own fork or even better; submit pull requests!
 
-### List of supported actions and parameters
-Visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actions) article in the Wiki.
-
-Set any of these as "Content" in the creation of the Dropbox file (IFTTT) and it will work!
-
-_Based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
-
 ### Opensource & services we like
 * Huge thanks to [readme.io](https://readme.io/) and [Advanced Installer](https://www.advancedinstaller.com/) for letting us use their services for free, giving back to the opensource community
 * [Json.NET](https://www.newtonsoft.com/json); free Json library for .NET
+* _Based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
