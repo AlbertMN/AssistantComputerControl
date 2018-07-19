@@ -40,8 +40,6 @@ C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCompu
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
-C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.manifest
-C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.application
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojAssemblyReference.cache
@@ -53,7 +51,6 @@ C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCom
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
-C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.manifest
-C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.application
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
+C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.InstallerClass.resources

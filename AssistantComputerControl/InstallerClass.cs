@@ -51,5 +51,17 @@ namespace AssistantComputerControl {
         public override void Rollback(IDictionary savedState) {
             base.Rollback(savedState);
         }
+
+        private void InitializeComponent() {
+            // 
+            // InstallerClass
+            // 
+            this.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.InstallerClass_AfterInstall);
+
+        }
+
+        private void InstallerClass_AfterInstall(object sender, InstallEventArgs e) {
+
+        }
     }
 }

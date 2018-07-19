@@ -35,7 +35,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.logButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.anonymousAnalyticsCheckbox = new System.Windows.Forms.CheckBox();
+            this.doSetupAgain = new System.Windows.Forms.Button();
             this.versionInfo = new System.Windows.Forms.Label();
             this.checkForUpdate = new System.Windows.Forms.Button();
             this.betaProgram = new System.Windows.Forms.CheckBox();
@@ -137,7 +139,9 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.mainPanel.Controls.Add(this.button1);
+            this.mainPanel.Controls.Add(this.label3);
+            this.mainPanel.Controls.Add(this.anonymousAnalyticsCheckbox);
+            this.mainPanel.Controls.Add(this.doSetupAgain);
             this.mainPanel.Controls.Add(this.versionInfo);
             this.mainPanel.Controls.Add(this.checkForUpdate);
             this.mainPanel.Controls.Add(this.betaProgram);
@@ -157,14 +161,38 @@
             this.mainPanel.TabIndex = 11;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
-            // button1
+            // label3
             // 
-            this.button1.Location = new System.Drawing.Point(7, 271);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Do the setup guide again";
-            this.button1.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(155, 301);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(165, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "(amount of executed actions etc.)";
+            // 
+            // anonymousAnalyticsCheckbox
+            // 
+            this.anonymousAnalyticsCheckbox.AutoSize = true;
+            this.anonymousAnalyticsCheckbox.Checked = true;
+            this.anonymousAnalyticsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.anonymousAnalyticsCheckbox.Location = new System.Drawing.Point(8, 300);
+            this.anonymousAnalyticsCheckbox.Name = "anonymousAnalyticsCheckbox";
+            this.anonymousAnalyticsCheckbox.Size = new System.Drawing.Size(152, 17);
+            this.anonymousAnalyticsCheckbox.TabIndex = 16;
+            this.anonymousAnalyticsCheckbox.Text = "Send anonymous analytics";
+            this.anonymousAnalyticsCheckbox.UseVisualStyleBackColor = true;
+            this.anonymousAnalyticsCheckbox.CheckedChanged += new System.EventHandler(this.anonymousAnalyticsCheckbox_CheckedChanged);
+            // 
+            // doSetupAgain
+            // 
+            this.doSetupAgain.Location = new System.Drawing.Point(7, 271);
+            this.doSetupAgain.Name = "doSetupAgain";
+            this.doSetupAgain.Size = new System.Drawing.Size(150, 23);
+            this.doSetupAgain.TabIndex = 15;
+            this.doSetupAgain.Text = "Do the setup guide again";
+            this.doSetupAgain.UseVisualStyleBackColor = true;
+            this.doSetupAgain.Click += new System.EventHandler(this.doSetupAgain_Click);
             // 
             // versionInfo
             // 
@@ -242,6 +270,8 @@
         private System.Windows.Forms.ToolTip infoTooltip;
         private System.Windows.Forms.Button checkForUpdate;
         private System.Windows.Forms.Label versionInfo;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button doSetupAgain;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox anonymousAnalyticsCheckbox;
     }
 }

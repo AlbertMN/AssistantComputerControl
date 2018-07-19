@@ -57,4 +57,8 @@ Visit the ["Actions"](https://github.com/AlbertMN/HomeComputerControl/wiki/Actio
 
 Set any of these as "Content" in the creation of the Dropbox file (IFTTT) and it will work!
 
-_Based on idea by YouTuber (Hylke Jellema)[https://www.youtube.com/user/hylke101]'s (video)[https://www.youtube.com/watch?v=gOt1IyEAIxA]_
+_Based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
+
+### Opensource & services we like
+* Huge thanks to [readme.io](https://readme.io/) and [Advanced Installer](https://www.advancedinstaller.com/) for letting us use their services for free, giving back to the opensource community
+* [Json.NET](https://www.newtonsoft.com/json); free Json library for .NET

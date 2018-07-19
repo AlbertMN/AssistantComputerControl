@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Security.Permissions;
 using System.Runtime.InteropServices;
-using System.Threading;
 using Microsoft.Win32;
 using System.Net;
 using Newtonsoft.Json;
@@ -13,8 +12,8 @@ using System.Linq;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "0.4.0",
-            releaseDate = "2018-07-09 02:46",
+        public const string softwareVersion = "1.0.0",
+            releaseDate = "2018-07-19 12:00",
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -33,8 +32,8 @@ namespace AssistantComputerControl {
             defaultActionFolder = CheckPath(),
 
             currentLocation = Path.GetDirectoryName(currentLocationFull),
-            dataFolderLocation = Path.Combine(currentLocation, "ACC_Data"),
-            shortcutLocation = Path.Combine(currentLocation, "shortcuts"),
+            dataFolderLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AssistantComputerControl"),
+            shortcutLocation = Path.Combine(dataFolderLocation, "shortcuts"),
             logFilePath = Path.Combine(dataFolderLocation, "log.txt"),
             errorMessage = "",
             startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup),
@@ -44,7 +43,6 @@ namespace AssistantComputerControl {
         public static TestActionWindow testActionWindow = new TestActionWindow();
         private static SettingsForm settingsForm = null;
         public static GettingStarted gettingStarted = null;
-
 
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
@@ -60,7 +58,7 @@ namespace AssistantComputerControl {
                 File.WriteAllText(logFilePath, string.Empty);
 
             DoDebug("[ACC begun (v" + softwareVersion + ")]");
-            AnalyticsSettings.SetupArray();
+            AnalyticsSettings.SetupAnalyticsAsync();
 
             if (Properties.Settings.Default.CheckForUpdates) {
                 if (HasInternet()) {
@@ -114,12 +112,6 @@ namespace AssistantComputerControl {
 
             Application.EnableVisualStyles();
             sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon;
-
-            //REMOVE THIS
-            //ShowGettingStarted();
-
-            //Create "first time" reg-key
-            //ShowGettingStarted();
             
             RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
             if (Registry.GetValue(key.Name + "\\AssistantComputerControl", "FirstTime", null) == null) {
@@ -269,7 +261,7 @@ namespace AssistantComputerControl {
         }
 
         public static string CheckPath() {
-            string path;
+            string path = "";
 
             if (Properties.Settings.Default.ActionFilePath != "") {
                 //Custom path set
@@ -277,34 +269,11 @@ namespace AssistantComputerControl {
             } else {
                 string dropboxFolder = GetDropboxFolder();
                 if (dropboxFolder == "" || !Directory.Exists(dropboxFolder)) {
-                    //Dropbox not found & no custom filepath, warn and close
-                    path = "";
-
-                    var msgBox = MessageBox.Show("Dropbox is not installed, and no custom folder path is set (advanced). Do you want to install Dropbox?", "[ERROR] No folder specified | " + messageBoxTitle, MessageBoxButtons.YesNo);
-                    if (msgBox == DialogResult.Yes) {
-                        Process.Start("https://www.dropbox.com/");
-                        MessageBox.Show("Great! I'll wait until you've installed Dropbox!", "Waiting for Dropbox to be installed | " + messageBoxTitle);
-
-                        while (GetDropboxFolder() == "") {
-                            Thread.Sleep(10000);
-                        }
-                        var firstTime = MessageBox.Show("I see you've installed Dropbox! Let's get ACC set up properly. Is this your first time using ACC? ", "Almost ready... | " + messageBoxTitle, MessageBoxButtons.YesNo);
-                        if (firstTime == DialogResult.Yes) {
-                            //Go through setup tutorial
-
-                            //TO-DO
-                        } else {
-                            MessageBox.Show("Well, seems like you got everything under control! Enjoy AssistantComputerControl!", "All done! | " + messageBoxTitle);
-                        }
-                    } else {
-                        var customSettings = MessageBox.Show("Alrighty. If you don't want to use Dropbox, you can choose a custom path in the settings, " +
-                            "press 'yes' to open the settings, and pick a custom folder - this is advanced, should only be done if you know exactly what you're doing. " +
-                            "Otherwise Dropbox is the best option, and what this software is currently supporting by default.\nGo advanced?",
-                            "One option left... | " + messageBoxTitle, MessageBoxButtons.YesNo);
-                        if (customSettings == DialogResult.Yes) {
-                            //Show settings
-                        } else {
-                            MessageBox.Show("OK. You can always re-open ACC if you wish to set up ACC another time :)", "Maybe another time | " + messageBoxTitle);
+                    if (!Properties.Settings.Default.HasCompletedTutorial) {
+                        //Dropbox not found & no custom filepath, go through setup again?
+                        var msgBox = MessageBox.Show("Dropbox (required) doesn't seem to be installed... Do you want to go through the setup guide again?", "[ERROR] No folder specified | " + messageBoxTitle, MessageBoxButtons.YesNo);
+                        if (msgBox == DialogResult.Yes) {
+                            ShowGettingStarted();
                         }
                     }
                 } else {
@@ -312,8 +281,6 @@ namespace AssistantComputerControl {
                     if (!Directory.Exists(dropboxACCpath)) {
                         DirectoryInfo di = Directory.CreateDirectory(dropboxACCpath);
                         di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-
-                        Console.WriteLine("EYY");
                     }
                     path = dropboxACCpath;
                 }
@@ -343,12 +310,6 @@ namespace AssistantComputerControl {
         static private void SetupDataFolder() {
             if (!Directory.Exists(dataFolderLocation)) {
                 Directory.CreateDirectory(dataFolderLocation);
-            }
-        }
-        static private void CreateFirstTimeFile() {
-            if (!File.Exists(Path.Combine(dataFolderLocation, "first_time.txt"))) {
-                File.Create(Path.Combine(dataFolderLocation, "first_time.txt")).Close();
-                File.SetAttributes(Path.Combine(dataFolderLocation, "first_time.txt"), FileAttributes.Hidden);
             }
         }
 

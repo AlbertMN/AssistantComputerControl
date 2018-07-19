@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{404B42F4-E135-4D2F-8FD0-20A590814930}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AssistantComputerControl</RootNamespace>
     <AssemblyName>AssistantComputerControl</AssemblyName>
@@ -68,7 +68,7 @@
     <ApplicationIcon>Resources\ACC_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -80,10 +80,14 @@
     <ManifestKeyFile>AssistantComputerControl_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -177,6 +181,7 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
     <Content Include="logo ico.ico" />
+    <None Include="app.manifest" />
     <None Include="Resources\1484353419397.png" />
     <None Include="Resources\dropbox-2-logo-png-transparent.png" />
     <None Include="Resources\transparent.png" />
@@ -199,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GettingStarted.resx">
       <DependentUpon>GettingStarted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InstallerClass.resx">
+      <DependentUpon>InstallerClass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -4,11 +4,12 @@ using System.Net;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 
 namespace AssistantComputerControl {
     class ACC_Updater {
-        private const string releaseJsonUrl = "http://acc.albe.pw/versions/release/latest_version.json";
-        private const string betaJsonUrl = "http://acc.albe.pw/versions/beta/latest_version.json";
+        private const string releaseJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=release";
+        private const string betaJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=beta";
 
         public bool Check() {
             MainProgram.DoDebug("Checking for updates...");
@@ -21,6 +22,8 @@ namespace AssistantComputerControl {
                 using (WebClient client = new WebClient()) {
                     latestReleaseJson = client.DownloadString(releaseJsonUrl);
                 }
+                if (latestReleaseJson == string.Empty)
+                    latestReleaseJson = null;
             }
 
             //Check and get beta
@@ -28,6 +31,8 @@ namespace AssistantComputerControl {
                 using (WebClient client = new WebClient()) {
                     latestBetaJson = client.DownloadString(betaJsonUrl);
                 }
+                if (latestBetaJson == string.Empty)
+                    latestReleaseJson = null;
             }
 
             if (latestReleaseJson != null || latestBetaJson != null) {
@@ -58,7 +63,7 @@ namespace AssistantComputerControl {
                     //Only check latest
                     latestRelease = JsonConvert.DeserializeObject<Version>(latestReleaseJson);
 
-                    if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
+                    if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) && latestRelease.version != MainProgram.softwareVersion) {
                         //Newer build
                         newVersion = latestRelease;
                     } else {
@@ -78,9 +83,11 @@ namespace AssistantComputerControl {
                         MainProgram.DoDebug("Software up to date (beta program enabled)");
                         return false;
                     }
+                } else {
+                    MainProgram.DoDebug("Both release and beta is NULL, no new updates, or no contact to the server.");
                 }
 
-                if (newVersion != null) {
+                if (newVersion != null && newVersion.version != MainProgram.softwareVersion) {
                     //New version available
                     MainProgram.DoDebug("New software version found (" + newVersion.version + ") [" + newVersion.type + "], current; " + MainProgram.softwareVersion);
                     DialogResult dialogResult = MessageBox.Show("A new version of " + MainProgram.messageBoxTitle + " is available (v" + newVersion.version + " [" + newVersion.type + "]), do you wish to install it?", "New update found | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
@@ -95,6 +102,8 @@ namespace AssistantComputerControl {
                         File.Delete("updated.txt");
                     }
                     return true;
+                } else {
+                    MainProgram.DoDebug("Software up to date");
                 }
             } else {
                 MainProgram.DoDebug("Could not reach the webserver (both 'release' and 'beta' json files couldn't be reached)");
@@ -102,7 +111,7 @@ namespace AssistantComputerControl {
             return false;
         }
 
-        private bool RemoteFileExists(string url) {
+        public static bool RemoteFileExists(string url) {
             try {
                 //Creating the HttpWebRequest
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
@@ -119,40 +128,48 @@ namespace AssistantComputerControl {
             }
         }
 
+        private static string targetLocation = "";
+        public static void DownloadFile(string url) {
+            if (RemoteFileExists(url)) {
+
+                WebClient client = new WebClient();
+                Uri uri = new Uri(url);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(FileDownloadedCallback);
+
+                targetLocation = Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Downloads"), "ACCsetup.exe");
+                if (File.Exists(targetLocation)) {
+                    try {
+                        File.Delete(targetLocation);
+                    } catch (Exception ex) {
+                        MainProgram.DoDebug("Failed to delete file at " + targetLocation);
+                        MainProgram.DoDebug("Error; " + ex);
+                    }
+                }
+                client.DownloadFileAsync(uri, targetLocation);
+            } else {
+                MainProgram.DoDebug("Failed to update, installation URL does not exist (" + url + ").");
+                MessageBox.Show("Couldn't find the new version online. Please try again later.", "Error | " + MainProgram.messageBoxTitle);
+            }
+        }
+
+        private static void FileDownloadedCallback(object sender, AsyncCompletedEventArgs e) {
+            if (!e.Cancelled) {
+                //Download success
+                Process.Start(targetLocation);
+                MainProgram.DoDebug("New installer successfully downloaded and opened.");
+            } else {
+                MainProgram.DoDebug("Failed to download new version of ACC. Error; " + e.Error);
+                MessageBox.Show("Failed to download new version. Try again later!", "Error | " + MainProgram.messageBoxTitle);
+            }
+        }
+
         public void Install(string installPath) {
             MainProgram.DoDebug("Installing new version...");
             if (File.Exists(Path.Combine(MainProgram.dataFolderLocation, "updated.txt"))) {
                 File.Delete("updated.txt");
             }
 
-            HttpWebResponse response = null;
-            var request = (HttpWebRequest)WebRequest.Create(installPath);
-            request.Method = "HEAD";
-            bool wentThrough = true;
-
-            try {
-                response = (HttpWebResponse)request.GetResponse();
-            } catch (WebException ex) {
-                //A WebException will be thrown if the status of the response is not `200 OK`
-                MainProgram.DoDebug("Failed to update, installation URL does not exist (" + installPath + "). Error;");
-                MainProgram.DoDebug(ex.Message);
-                MessageBox.Show("Couldn't find the new version online. Please try again later.", "Error | " + MainProgram.messageBoxTitle);
-                wentThrough = false;
-            } finally {
-                if (response != null) {
-                    response.Close();
-                }
-            }
-
-            if (!wentThrough)
-                return;
-
-            string downloadLocation = Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Downloads"), "AssistantComputerControl installer.exe");
-            using (var client = new WebClient()) {
-                client.DownloadFile(installPath, downloadLocation);
-            }
-            Process.Start(downloadLocation);
-            MainProgram.Exit();
+            DownloadFile(installPath);
         }
     }
 }

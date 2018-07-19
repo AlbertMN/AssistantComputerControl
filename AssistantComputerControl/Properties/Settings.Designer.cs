@@ -141,5 +141,17 @@ namespace AssistantComputerControl.Properties {
                 this["TotalActionsExecuted"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SendAnonymousAnalytics {
+            get {
+                return ((bool)(this["SendAnonymousAnalytics"]));
+            }
+            set {
+                this["SendAnonymousAnalytics"] = value;
+            }
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace AssistantComputerControl {
             startWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
             checkUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
             betaProgram.Checked = Properties.Settings.Default.BetaProgram;
+            anonymousAnalyticsCheckbox.Checked = Properties.Settings.Default.SendAnonymousAnalytics;
 
             computerName.Text = Properties.Settings.Default.ComputerName;
             fileEditedMargin.Value = (decimal)Properties.Settings.Default.FileEditedMargin;
@@ -35,8 +36,8 @@ namespace AssistantComputerControl {
 
             //On change
             //Has to be down & up, otherwise the last character isn't appended for some reason
-            computerName.KeyDown += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); Console.WriteLine("Logged"); };
-            computerName.KeyUp += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); Console.WriteLine("Logged"); };
+            computerName.KeyDown += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); };
+            computerName.KeyUp += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); };
             fileEditedMargin.ValueChanged += delegate { Properties.Settings.Default.FileEditedMargin = (float)fileEditedMargin.Value; Properties.Settings.Default.Save(); };
         }
 
@@ -49,7 +50,7 @@ namespace AssistantComputerControl {
         }
 
         private void logButton_Click(object sender, EventArgs e) {
-            Process.Start(MainProgram.currentLocation + @"\ACC_Data\log.txt");
+            Process.Start(MainProgram.logFilePath);
         }
 
         private void startWithWindows_CheckedChanged(object sender, EventArgs e) {
@@ -130,6 +131,22 @@ namespace AssistantComputerControl {
                 //Focus
                 actionTester.Focus();
             }
+        }
+
+        private void anonymousAnalyticsCheckbox_CheckedChanged(object sender, EventArgs e) {
+            bool theStatus = anonymousAnalyticsCheckbox.Checked;
+            MainProgram.DoDebug("Send annonymous analytics; " + theStatus);
+
+            Properties.Settings.Default.SendAnonymousAnalytics = theStatus;
+            Properties.Settings.Default.Save();
+
+            if (theStatus) {
+                AnalyticsSettings.SetupAnalyticsAsync();
+            }
+        }
+
+        private void doSetupAgain_Click(object sender, EventArgs e) {
+            MainProgram.ShowGettingStarted();
         }
     }
 }

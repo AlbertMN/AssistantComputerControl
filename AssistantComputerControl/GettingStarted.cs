@@ -128,10 +128,6 @@ namespace AssistantComputerControl {
             //Browser
             theWebBrowser = GuideWebBrowser;
 
-            string tes = "http://acc.albe.pw/recommended_setup.html?" + new Random().Next(10000);
-            Console.WriteLine(tes);
-            //theWebBrowser.Url = new Uri(tes);
-
             theWebBrowser.DocumentCompleted += BrowserDocumentCompleted;
             theWebBrowser.Navigating += BrowserNavigating;
             theWebBrowser.NewWindow += NewBrowserWindow;
@@ -266,9 +262,9 @@ namespace AssistantComputerControl {
 
                 Properties.Settings.Default.Save();
 
-                Console.WriteLine("Starting with Windows now");
+                MainProgram.DoDebug("Starting with Windows now");
             }
-            Console.WriteLine("Completed setup guide");
+            MainProgram.DoDebug("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
             Properties.Settings.Default.Save();
         }
