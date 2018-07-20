@@ -75,13 +75,15 @@ namespace AssistantComputerControl {
                     //Couldn't reach "latest" update, but beta-updates are enabled
                     latestBeta = JsonConvert.DeserializeObject<Version>(latestBetaJson);
 
-                    if (DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
-                        //Newer build
-                        newVersion = latestBeta;
-                    } else {
-                        //Not new, move on
-                        MainProgram.DoDebug("Software up to date (beta program enabled)");
-                        return false;
+                    if(latestBeta != null) {
+                        if (DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
+                            //Newer build
+                            newVersion = latestBeta;
+                        } else {
+                            //Not new, move on
+                            MainProgram.DoDebug("Software up to date (beta program enabled)");
+                            return false;
+                        }
                     }
                 } else {
                     MainProgram.DoDebug("Both release and beta is NULL, no new updates, or no contact to the server.");
@@ -93,13 +95,9 @@ namespace AssistantComputerControl {
                     DialogResult dialogResult = MessageBox.Show("A new version of " + MainProgram.messageBoxTitle + " is available (v" + newVersion.version + " [" + newVersion.type + "]), do you wish to install it?", "New update found | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes) {
                         MainProgram.DoDebug("User chose \"yes\" to install update");
-                        Install(newVersion.installpath);
+                        DownloadFile(newVersion.installpath + "&upgrade=true");
                     } else if (dialogResult == DialogResult.No) {
                         MainProgram.DoDebug("User did not want to install update");
-                    }
-
-                    if (File.Exists(Path.Combine(MainProgram.dataFolderLocation, "updated.txt"))) {
-                        File.Delete("updated.txt");
                     }
                     return true;
                 } else {
@@ -161,15 +159,6 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Failed to download new version of ACC. Error; " + e.Error);
                 MessageBox.Show("Failed to download new version. Try again later!", "Error | " + MainProgram.messageBoxTitle);
             }
-        }
-
-        public void Install(string installPath) {
-            MainProgram.DoDebug("Installing new version...");
-            if (File.Exists(Path.Combine(MainProgram.dataFolderLocation, "updated.txt"))) {
-                File.Delete("updated.txt");
-            }
-
-            DownloadFile(installPath);
         }
     }
 }

@@ -12,8 +12,8 @@ using System.Linq;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.0.0",
-            releaseDate = "2018-07-19 12:00",
+        public const string softwareVersion = "1.0.1",
+            releaseDate = "2018-07-20 16:59",
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -47,15 +47,16 @@ namespace AssistantComputerControl {
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
+            SetupDataFolder();
+            if (File.Exists(logFilePath))
+                File.WriteAllText(logFilePath, string.Empty);
+
             //Check if software already runs, if so kill this instance
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location)).Length > 1) {
                 DoDebug("ACC is already running, killing this proccess");
                 MessageBox.Show("ACC is already running.", "Already running | " + messageBoxTitle + "");
                 Process.GetCurrentProcess().Kill();
             }
-            SetupDataFolder();
-            if(File.Exists(logFilePath))
-                File.WriteAllText(logFilePath, string.Empty);
 
             DoDebug("[ACC begun (v" + softwareVersion + ")]");
             AnalyticsSettings.SetupAnalyticsAsync();
@@ -191,6 +192,7 @@ namespace AssistantComputerControl {
                 string infoPath = @"Dropbox\info.json";
                 string jsonPath = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), infoPath);
 
+                if (!Directory.Exists(Directory.GetDirectoryRoot(jsonPath))) return "";
                 if (!File.Exists(jsonPath)) jsonPath = Path.Combine(Environment.GetEnvironmentVariable("AppData"), infoPath);
                 if (!File.Exists(jsonPath)) return "";
 
@@ -268,14 +270,14 @@ namespace AssistantComputerControl {
                 path = Properties.Settings.Default.ActionFilePath;
             } else {
                 string dropboxFolder = GetDropboxFolder();
-                if (dropboxFolder == "" || !Directory.Exists(dropboxFolder)) {
-                    if (!Properties.Settings.Default.HasCompletedTutorial) {
+                if (dropboxFolder == "" || dropboxFolder == null || !Directory.Exists(dropboxFolder)) {
+                    /*if (Properties.Settings.Default.HasCompletedTutorial) {
                         //Dropbox not found & no custom filepath, go through setup again?
                         var msgBox = MessageBox.Show("Dropbox (required) doesn't seem to be installed... Do you want to go through the setup guide again?", "[ERROR] No folder specified | " + messageBoxTitle, MessageBoxButtons.YesNo);
                         if (msgBox == DialogResult.Yes) {
                             ShowGettingStarted();
                         }
-                    }
+                    }*/
                 } else {
                     string dropboxACCpath = dropboxFolder + @"\AssistantComputerControl";
                     if (!Directory.Exists(dropboxACCpath)) {
@@ -290,9 +292,11 @@ namespace AssistantComputerControl {
         }
 
         public static void DoDebug(string str) {
-            File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + str + Environment.NewLine);
-            if (debug) {
-                Console.WriteLine(str);
+            if (str != null && File.Exists(logFilePath)) {
+                File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + str + Environment.NewLine);
+                if (debug) {
+                    Console.WriteLine(str);
+                }
             }
         }
 

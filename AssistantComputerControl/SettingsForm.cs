@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AssistantComputerControl {
@@ -79,9 +80,11 @@ namespace AssistantComputerControl {
                 Properties.Settings.Default.BetaProgram = betaProgram.Checked;
                 Properties.Settings.Default.Save();
 
-                if (betaProgram.Checked) {
-                    new ACC_Updater().Check();
-                }
+                new Thread(() => {
+                    if (betaProgram.Checked) {
+                        new ACC_Updater().Check();
+                    }
+                }).Start();
             }
         }
 

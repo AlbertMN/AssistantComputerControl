@@ -6,8 +6,8 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Debug"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Release"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.11.0.2\lib\net45"/>
@@ -25,10 +25,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{87C479BC-430D-4256-B65E-A5C8891D8199} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{7DF2BB2F-E945-4D1D-8D0A-5D3DC10FBC70} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.0.1" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
