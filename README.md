@@ -23,7 +23,7 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
 This software only works on Windows and has yet only been tested on Windows 10, 8 & 7.
 
 ## Install
-Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](http://acc.albe.pw/download_latest.php) to your computer, open it and the setup guide will take you through the very short setup guide!
+Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](http://acc.albe.pw/download_latest.php?ref=https://github.com/AlbertMN/AssistantComputerControl) to your computer, open it and the setup guide will take you through the very short setup guide!
 
 _Note: [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account is required for the default setup. Dropbox will need to be running at all times for ACC to work_
 
