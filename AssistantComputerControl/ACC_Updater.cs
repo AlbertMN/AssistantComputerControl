@@ -10,8 +10,12 @@ namespace AssistantComputerControl {
     class ACC_Updater {
         private const string releaseJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=release";
         private const string betaJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=beta";
-
+        
         public bool Check() {
+            if (MainProgram.isCheckingForUpdate)
+                return false;
+
+            MainProgram.isCheckingForUpdate = true;
             MainProgram.DoDebug("Checking for updates...");
 
             string latestReleaseJson = null;

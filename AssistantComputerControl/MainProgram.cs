@@ -9,15 +9,17 @@ using Microsoft.Win32;
 using System.Net;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Threading;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.0.1",
-            releaseDate = "2018-07-20 16:59",
+        public const string softwareVersion = "1.0.2",
+            releaseDate = "2018-07-21 21:19",
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
             isPerformingAction = false,
+            isCheckingForUpdate = false,
 
             testingAction = false;
 
@@ -27,6 +29,8 @@ namespace AssistantComputerControl {
             error,
             ongoing
         }
+
+        private static FileSystemWatcher watcher;
 
         static public string currentLocationFull = Assembly.GetEntryAssembly().Location,
             defaultActionFolder = CheckPath(),
@@ -47,9 +51,13 @@ namespace AssistantComputerControl {
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
             SetupDataFolder();
             if (File.Exists(logFilePath))
                 File.WriteAllText(logFilePath, string.Empty);
+            else
+                CreateLogFile();
 
             //Check if software already runs, if so kill this instance
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location)).Length > 1) {
@@ -63,12 +71,15 @@ namespace AssistantComputerControl {
 
             if (Properties.Settings.Default.CheckForUpdates) {
                 if (HasInternet()) {
-                    new ACC_Updater().Check();
+                    new Thread(() => {
+                        new ACC_Updater().Check();
+                    }).Start();
                 } else {
                     DoDebug("Couldn't check for new update as PC does not have access to the internet");
                 }
             }
-            if(File.Exists(Path.Combine(dataFolderLocation, "updated.txt"))) {
+            
+            if (File.Exists(Path.Combine(dataFolderLocation, "updated.txt"))) {
                 File.Delete(Path.Combine(dataFolderLocation, "updated.txt"));
                 new AboutVersion().Show();
             }
@@ -94,20 +105,13 @@ namespace AssistantComputerControl {
             }
 
             //Delete all old action files
-            foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
-                ClearFile(file);
+            if (Directory.Exists(CheckPath())) {
+                foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
+                    ClearFile(file);
+                }
             }
-            
-            //WATCHER
-            FileSystemWatcher watcher = new FileSystemWatcher() {
-                Path = CheckPath(),
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName,
-                Filter = "*." + Properties.Settings.Default.ActionFileExtension,
-                EnableRaisingEvents = true
-            };
-            watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
-            //END WATCHER
+
+            SetupListener();
 
             DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
@@ -138,11 +142,51 @@ namespace AssistantComputerControl {
             Application.Run();
         }
 
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args) {
+            Exception e = (Exception)args.ExceptionObject;
+            string errorLogLoc = Path.Combine(dataFolderLocation, "error_log.txt");
+
+            if (!File.Exists(errorLogLoc)) {
+                using (var tw = new StreamWriter(errorLogLoc, true)) {
+                    tw.WriteLine(e);
+                    tw.Close();
+                }
+            }
+
+            File.AppendAllText(errorLogLoc, DateTime.Now.ToString() + ": " + e + Environment.NewLine);
+            if (debug) {
+                Console.WriteLine(e);
+            }
+            MessageBox.Show("An unhandled critical error occurred. Please contact the developer (https://github.com/AlbertMN/AssistantComputerControl/issues)");
+        }
+
+        private static void CreateLogFile() {
+            using (var tw = new StreamWriter(logFilePath, true)) {
+                tw.WriteLine(string.Empty);
+                tw.Close();
+            }
+        }
+
+        public static void SetupListener() {
+            if (Directory.Exists(CheckPath())) {
+                watcher = new FileSystemWatcher() {
+                    Path = CheckPath(),
+                    NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                       | NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                    Filter = "*." + Properties.Settings.Default.ActionFileExtension,
+                    EnableRaisingEvents = true
+                };
+                watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
+            }
+        }
+
         public static void SetCheckFolder(string setTo) {
             SetRegKey("ActionFolder", setTo);
 
             Properties.Settings.Default.ActionFilePath = setTo;
             Properties.Settings.Default.Save();
+
+            SetupListener();
         }
         public static void SetCheckExtension(string setTo) {
             SetRegKey("ActionExtension", setTo);
@@ -151,7 +195,7 @@ namespace AssistantComputerControl {
             Properties.Settings.Default.Save();
         }
 
-        private static void SetRegKey(string theKey, string setTo) {
+        public static void SetRegKey(string theKey, string setTo) {
             RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
             if (Registry.GetValue(key.Name + "\\AssistantComputerControl", theKey, null) == null) {
                 key.CreateSubKey("AssistantComputerControl");
@@ -292,11 +336,16 @@ namespace AssistantComputerControl {
         }
 
         public static void DoDebug(string str) {
-            if (str != null && File.Exists(logFilePath)) {
+            try {
+                if (!File.Exists(logFilePath)) {
+                    CreateLogFile();
+                }
                 File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + str + Environment.NewLine);
                 if (debug) {
                     Console.WriteLine(str);
                 }
+            } catch (Exception e) {
+                Console.WriteLine("Failed to write to log, exception; " + e);
             }
         }
 

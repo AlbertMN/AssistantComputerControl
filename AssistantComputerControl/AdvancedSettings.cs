@@ -1,6 +1,8 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace AssistantComputerControl {
@@ -21,12 +23,20 @@ namespace AssistantComputerControl {
                 }
             }
 
-            actionFolderPath.KeyDown += delegate { MainProgram.SetCheckFolder(actionFolderPath.Text); };
-            actionFolderPath.KeyUp += delegate { MainProgram.SetCheckFolder(actionFolderPath.Text); };
+            actionFolderPath.KeyDown += delegate { pathChanged(); };
+            actionFolderPath.KeyUp += delegate { pathChanged(); };
+
+            void pathChanged()  {
+                if (Directory.Exists(actionFolderPath.Text)) {
+                    MainProgram.SetCheckFolder(actionFolderPath.Text);
+                } else {
+                    MessageBox.Show("Folder does not exist");
+                    actionFolderPath.Text = MainProgram.CheckPath();
+                }
+            }
 
             actionFileExtension.KeyDown += delegate { MainProgram.SetCheckExtension(actionFileExtension.Text); };
             actionFileExtension.KeyUp += delegate { MainProgram.SetCheckExtension(actionFileExtension.Text); };
-
 
             actionFolderPath.Text = MainProgram.CheckPath();
             actionFileExtension.Text = Properties.Settings.Default.ActionFileExtension;
@@ -37,11 +47,16 @@ namespace AssistantComputerControl {
 
         private void pickFolderBtn_Click(object sender, EventArgs e) {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog() {
-                InitialDirectory = MainProgram.CheckPath(),
+                InitialDirectory = Directory.Exists(MainProgram.CheckPath()) ? MainProgram.CheckPath() : Assembly.GetEntryAssembly().Location,
                 IsFolderPicker = true
             };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
-                actionFolderPath.Text = dialog.FileName;
+                if (Directory.Exists(dialog.FileName)) {
+                    actionFolderPath.Text = dialog.FileName;
+                } else {
+                    MessageBox.Show("Folder does not exist");
+                }
+                MainProgram.SetCheckFolder(actionFolderPath.Text);
             }
         }
 

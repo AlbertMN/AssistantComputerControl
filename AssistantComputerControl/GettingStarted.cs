@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -103,7 +105,7 @@ namespace AssistantComputerControl {
                 }
             }
 
-            actionFolderPath.Text = MainProgram.CheckPath();
+            actionFolderPath.Text = Directory.Exists(MainProgram.CheckPath()) ? MainProgram.CheckPath() : Assembly.GetEntryAssembly().Location;
             actionFileExtension.Text = Properties.Settings.Default.ActionFileExtension;
 
             actionFolderPath.KeyDown += delegate { MainProgram.SetCheckFolder(actionFolderPath.Text); };
@@ -280,7 +282,7 @@ namespace AssistantComputerControl {
 
         private void pickFolderBtn_Click(object sender, EventArgs e) {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog() {
-                InitialDirectory = MainProgram.CheckPath(),
+                InitialDirectory = Directory.Exists(MainProgram.CheckPath()) ? MainProgram.CheckPath() : Assembly.GetEntryAssembly().Location,
                 IsFolderPicker = true
             };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
