@@ -16,7 +16,7 @@ namespace AssistantComputerControl {
         public const string softwareVersion = "1.0.2",
             releaseDate = "2018-07-21 21:19",
             appName = "AssistantComputerControl";
-        static public bool debug = true,
+        static public bool debug = false,
             unmuteVolumeChange = true,
             isPerformingAction = false,
             isCheckingForUpdate = false,

@@ -26,8 +26,9 @@ namespace AssistantComputerControl {
                 using (WebClient client = new WebClient()) {
                     latestReleaseJson = client.DownloadString(releaseJsonUrl);
                 }
-                if (latestReleaseJson == string.Empty)
+                if (latestReleaseJson == string.Empty) {
                     latestReleaseJson = null;
+                }
             }
 
             //Check and get beta
@@ -36,7 +37,7 @@ namespace AssistantComputerControl {
                     latestBetaJson = client.DownloadString(betaJsonUrl);
                 }
                 if (latestBetaJson == string.Empty)
-                    latestReleaseJson = null;
+                    latestBetaJson = null;
             }
 
             if (latestReleaseJson != null || latestBetaJson != null) {
@@ -72,7 +73,7 @@ namespace AssistantComputerControl {
                         newVersion = latestRelease;
                     } else {
                         //Not new, move on
-                        MainProgram.DoDebug("Software up to date");
+                        MainProgram.DoDebug("Software up to date :D");
                         return false;
                     }
                 } else if (latestReleaseJson == null && latestBetaJson != null) {
