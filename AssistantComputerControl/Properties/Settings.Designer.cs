@@ -153,5 +153,28 @@ namespace AssistantComputerControl.Properties {
                 this["SendAnonymousAnalytics"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public int[] AssistantType {
+            get {
+                return ((int[])(this["AssistantType"]));
+            }
+            set {
+                this["AssistantType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UID {
+            get {
+                return ((string)(this["UID"]));
+            }
+            set {
+                this["UID"] = value;
+            }
+        }
     }
 }

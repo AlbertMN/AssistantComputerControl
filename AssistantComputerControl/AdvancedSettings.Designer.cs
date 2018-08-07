@@ -50,9 +50,9 @@
             // 
             // actionFolderPath
             // 
-            this.actionFolderPath.Location = new System.Drawing.Point(6, 117);
+            this.actionFolderPath.Location = new System.Drawing.Point(7, 117);
             this.actionFolderPath.Name = "actionFolderPath";
-            this.actionFolderPath.Size = new System.Drawing.Size(205, 20);
+            this.actionFolderPath.Size = new System.Drawing.Size(341, 20);
             this.actionFolderPath.TabIndex = 1;
             // 
             // label2
@@ -60,9 +60,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.Size = new System.Drawing.Size(189, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Action folder path";
+            this.label2.Text = "Action folder path (press enter to save)";
             // 
             // label3
             // 
@@ -105,7 +105,7 @@
             // 
             // pickFolderBtn
             // 
-            this.pickFolderBtn.Location = new System.Drawing.Point(211, 116);
+            this.pickFolderBtn.Location = new System.Drawing.Point(348, 116);
             this.pickFolderBtn.Name = "pickFolderBtn";
             this.pickFolderBtn.Size = new System.Drawing.Size(23, 22);
             this.pickFolderBtn.TabIndex = 7;
@@ -125,7 +125,7 @@
             this.mainPanel.Controls.Add(this.actionFolderPath);
             this.mainPanel.Location = new System.Drawing.Point(12, 12);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(259, 213);
+            this.mainPanel.Size = new System.Drawing.Size(382, 301);
             this.mainPanel.TabIndex = 8;
             // 
             // AdvancedSettings
@@ -133,7 +133,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(283, 237);
+            this.ClientSize = new System.Drawing.Size(406, 325);
             this.Controls.Add(this.mainPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -13,10 +13,10 @@ using System.Threading;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.0.2",
-            releaseDate = "2018-07-21 21:19",
+        public const string softwareVersion = "1.0.3",
+            releaseDate = "2018-08-07 15:33",
             appName = "AssistantComputerControl";
-        static public bool debug = false,
+        static public bool debug = true,
             unmuteVolumeChange = true,
             isPerformingAction = false,
             isCheckingForUpdate = false,
@@ -48,6 +48,8 @@ namespace AssistantComputerControl {
         private static SettingsForm settingsForm = null;
         public static GettingStarted gettingStarted = null;
 
+
+        //Start main function
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
@@ -60,10 +62,21 @@ namespace AssistantComputerControl {
                 CreateLogFile();
 
             //Check if software already runs, if so kill this instance
-            if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location)).Length > 1) {
-                DoDebug("ACC is already running, killing this proccess");
-                MessageBox.Show("ACC is already running.", "Already running | " + messageBoxTitle + "");
-                Process.GetCurrentProcess().Kill();
+            var otherACCs = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(currentLocationFull));
+            if (otherACCs.Length > 1) {
+                //DoDebug("ACC is already running, killing this proccess");
+                //MessageBox.Show("ACC is already running.", "Already running | " + messageBoxTitle + "");
+                //Process.GetCurrentProcess().Kill();
+
+                Process.GetCurrentProcess();
+
+                //Try kill the _other_ process instead
+                foreach(Process p in otherACCs) {
+                    if(p.Id != Process.GetCurrentProcess().Id) {
+                        p.Kill();
+                        DoDebug("Other ACC instance was running. Killed it.");
+                    }
+                }
             }
 
             DoDebug("[ACC begun (v" + softwareVersion + ")]");
@@ -79,10 +92,11 @@ namespace AssistantComputerControl {
                 }
             }
             
-            if (File.Exists(Path.Combine(dataFolderLocation, "updated.txt"))) {
+            //"updated.txt" not created. Use registry instead (for 1.1.0)
+            /*if (File.Exists(Path.Combine(dataFolderLocation, "updated.txt"))) {
                 File.Delete(Path.Combine(dataFolderLocation, "updated.txt"));
                 new AboutVersion().Show();
-            }
+            }*/
 
             //On console close: hide NotifyIcon
             Application.ApplicationExit += new EventHandler(OnApplicationExit);
@@ -96,7 +110,8 @@ namespace AssistantComputerControl {
             //Create shortcut folder if doesn't exist
             if (!Directory.Exists(shortcutLocation)) {
                 Directory.CreateDirectory(shortcutLocation);
-
+            }
+            if(!File.Exists(Path.Combine(shortcutLocation, @"example.txt"))) {
                 //Create example-file
                 using (StreamWriter sw = File.CreateText(Path.Combine(shortcutLocation, @"example.txt"))) {
                     sw.WriteLine("This is an example file.");
@@ -111,7 +126,16 @@ namespace AssistantComputerControl {
                 }
             }
 
-            SetupListener();
+            //SetupListener();
+            watcher = new FileSystemWatcher() {
+                Path = CheckPath(),
+                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                Filter = "*." + Properties.Settings.Default.ActionFileExtension,
+                EnableRaisingEvents = true
+            };
+            watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
+            watcher.Created += new FileSystemEventHandler(ActionChecker.FileFound);
 
             DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
@@ -141,13 +165,53 @@ namespace AssistantComputerControl {
 
             Application.Run();
         }
+        //End main function
+
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args) {
             Exception e = (Exception)args.ExceptionObject;
             string errorLogLoc = Path.Combine(dataFolderLocation, "error_log.txt");
 
+            string subKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion";
+            RegistryKey thekey = Registry.LocalMachine;
+            RegistryKey skey = thekey.OpenSubKey(subKey);
+
+            string windowsVersionName = skey.GetValue("ProductName").ToString();
+            string rawWindowsVersion = Environment.OSVersion.ToString();
+
+            int totalExecutions = 0;
+            foreach(int action in Properties.Settings.Default.TotalActionsExecuted) {
+                totalExecutions += action;
+            }
+            if (File.Exists(errorLogLoc))
+                try {
+                    File.Delete(errorLogLoc);
+                } catch {
+                    DoDebug("Failed to delete error log");
+                }
+
             if (!File.Exists(errorLogLoc)) {
                 using (var tw = new StreamWriter(errorLogLoc, true)) {
+                    tw.WriteLine("OS;");
+                    tw.WriteLine("- " + windowsVersionName);
+                    tw.WriteLine("- " + rawWindowsVersion);
+                    tw.WriteLine();
+                    tw.WriteLine("ACC info;");
+                    tw.WriteLine("- Version; " + softwareVersion + ", " + releaseDate);
+                    tw.WriteLine("- UID; " + Properties.Settings.Default.UID);
+                    tw.WriteLine("- Running from; " + currentLocationFull);
+                    tw.WriteLine("- Start with Windows; " + (Properties.Settings.Default.StartWithWindows ? "[Yes]" : "[No]"));
+                    tw.WriteLine("- Analytics; " + (Properties.Settings.Default.SendAnonymousAnalytics ? "[Yes]" : "[No]"));
+                    tw.WriteLine("- Check for updates; " + (Properties.Settings.Default.CheckForUpdates ? "[Yes]" : "[No]"));
+                    tw.WriteLine("- In beta program; " + (Properties.Settings.Default.BetaProgram ? "[Yes]" : "[No]"));
+                    tw.WriteLine("- Has completed setup guide; " + (Properties.Settings.Default.HasCompletedTutorial ? "[Yes]" : "[No]"));
+                    tw.WriteLine("- Check path; " + CheckPath());
+                    tw.WriteLine("- Check extension; " + Properties.Settings.Default.ActionFileExtension);
+                    tw.WriteLine("- Has Dropbox; " + (GetDropboxFolder() == "" ? "[No]" : "[Yes]"));
+                    tw.WriteLine("- Actions executed; " + totalExecutions);
+                    tw.WriteLine("- Assistant type; " + "[Google Assistant: " + Properties.Settings.Default.AssistantType[0] + "] [Alexa: " + Properties.Settings.Default.AssistantType[1] + "] [Unknown: " + Properties.Settings.Default.AssistantType[1] + "]");
+                    tw.WriteLine();
+
                     tw.WriteLine(e);
                     tw.Close();
                 }
@@ -168,31 +232,51 @@ namespace AssistantComputerControl {
         }
 
         public static void SetupListener() {
-            if (Directory.Exists(CheckPath())) {
-                watcher = new FileSystemWatcher() {
-                    Path = CheckPath(),
-                    NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                       | NotifyFilters.FileName | NotifyFilters.DirectoryName,
-                    Filter = "*." + Properties.Settings.Default.ActionFileExtension,
-                    EnableRaisingEvents = true
-                };
-                watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
-            }
+            watcher.Path = CheckPath();
+            watcher.Filter = "*." + Properties.Settings.Default.ActionFileExtension;
+            DoDebug("Listener modified");
         }
 
         public static void SetCheckFolder(string setTo) {
+            Console.WriteLine(setTo);
+            if (!Directory.Exists(setTo) && setTo != null) {
+                string[] splitted1 = setTo.Split('\\');
+                string[] splitted2 = setTo.Split('\\');
+
+                string[] splitted3 = setTo.Split('/');
+                string[] splitted4 = setTo.Split('/');
+
+                if (splitted1[splitted1.Length - 1] == "AssistantComputerControl" || splitted2[splitted2.Length - 1] == "AssistantComputerControl" ||
+                    splitted3[splitted3.Length - 1] == "AssistantComputerControl" || splitted4[splitted4.Length - 1] == "AssistantComputerControl") {
+                    try {
+                        Directory.CreateDirectory(setTo);
+                    } catch {
+                        MessageBox.Show("Path not valid", "ACC");
+                        return;
+                    }
+                } else {
+                    MessageBox.Show("Path not valid", "ACC");
+                    return;
+                }
+            }
+
+            Console.WriteLine(setTo);
+
             SetRegKey("ActionFolder", setTo);
 
             Properties.Settings.Default.ActionFilePath = setTo;
             Properties.Settings.Default.Save();
 
             SetupListener();
+            DoDebug("Check folder updated (" + CheckPath() + ")");
         }
         public static void SetCheckExtension(string setTo) {
             SetRegKey("ActionExtension", setTo);
 
             Properties.Settings.Default.ActionFileExtension = setTo;
             Properties.Settings.Default.Save();
+
+            SetupListener();
         }
 
         public static void SetRegKey(string theKey, string setTo) {
@@ -228,6 +312,8 @@ namespace AssistantComputerControl {
         }
 
         private class DropboxJson {
+            public DropboxJson business { get; set; }
+            public DropboxJson personal { get; set; }
             public string Path { get; set; }
         }
 
@@ -240,17 +326,25 @@ namespace AssistantComputerControl {
                 if (!File.Exists(jsonPath)) jsonPath = Path.Combine(Environment.GetEnvironmentVariable("AppData"), infoPath);
                 if (!File.Exists(jsonPath)) return "";
 
-                string jsonContent = File.ReadAllText(jsonPath).Replace("{\"personal\":", "");
-                jsonContent = jsonContent.Remove(jsonContent.Length - 1, 1);
-                DropboxJson latestBeta = JsonConvert.DeserializeObject<DropboxJson>(jsonContent);
-
-                string dropboxPath = latestBeta.Path;
-
-                return dropboxPath;
+                string jsonContent = File.ReadAllText(jsonPath);
+                //if (jsonContent != String.Empty) jsonContent = jsonContent.Replace("{\"personal\":", ""); else return "";
+                //jsonContent = jsonContent.Remove(jsonContent.Length - 1, 1);
+                try {
+                    DropboxJson dropboxJson = JsonConvert.DeserializeObject<DropboxJson>(jsonContent);
+                    if (dropboxJson != null) {
+                        if (dropboxJson.personal != null) {
+                            return dropboxJson.personal.Path;
+                        }
+                    }
+                } catch {
+                    DoDebug("Failed to deserialize Dropbox Json");
+                    DoDebug(jsonContent);
+                }
             } else {
                 DoDebug("Dropbox not installed");
                 return "";
             }
+            return "";
         }
 
         public static void SetStartup(bool status) {
@@ -306,22 +400,44 @@ namespace AssistantComputerControl {
             return false;
         }
 
+        private static bool PathIsFile(string path) {
+            if (path == null) throw new ArgumentNullException("path");
+            path = path.Trim();
+
+            if (Directory.Exists(path))
+                return true;
+
+            if (File.Exists(path))
+                return false;
+
+            // neither file nor directory exists. guess intention
+
+            // if has trailing slash then it's a directory
+            if (new[] { "\\", "/" }.Any(x => path.EndsWith(x)))
+                return true; // ends with slash
+
+            // if has extension then its a file; directory otherwise
+            return string.IsNullOrWhiteSpace(Path.GetExtension(path));
+        }
+
         public static string CheckPath() {
-            string path = "";
+            string path = currentLocation;
 
             if (Properties.Settings.Default.ActionFilePath != "") {
                 //Custom path set
-                path = Properties.Settings.Default.ActionFilePath;
+                if (Directory.Exists(Properties.Settings.Default.ActionFilePath)) {
+                    path = Properties.Settings.Default.ActionFilePath;
+                }
             } else {
                 string dropboxFolder = GetDropboxFolder();
                 if (dropboxFolder == "" || dropboxFolder == null || !Directory.Exists(dropboxFolder)) {
-                    /*if (Properties.Settings.Default.HasCompletedTutorial) {
+                    if (Properties.Settings.Default.HasCompletedTutorial) {
                         //Dropbox not found & no custom filepath, go through setup again?
                         var msgBox = MessageBox.Show("Dropbox (required) doesn't seem to be installed... Do you want to go through the setup guide again?", "[ERROR] No folder specified | " + messageBoxTitle, MessageBoxButtons.YesNo);
                         if (msgBox == DialogResult.Yes) {
                             ShowGettingStarted();
                         }
-                    }*/
+                    }
                 } else {
                     string dropboxACCpath = dropboxFolder + @"\AssistantComputerControl";
                     if (!Directory.Exists(dropboxACCpath)) {
@@ -331,8 +447,8 @@ namespace AssistantComputerControl {
                     path = dropboxACCpath;
                 }
             }
-
-            return path;
+            
+            return Path.HasExtension(path) ? Path.GetDirectoryName(path) : path;
         }
 
         public static void DoDebug(string str) {

@@ -84,7 +84,7 @@ namespace AssistantComputerControl {
 
             expertLabel3.MouseHover += ExpertHovered;
             expertLabel3.Click += delegate {
-                Process.Start("https://github.com/AlbertMN/AssistantComputerControl/wiki/Application-advanced-settings-expert-setup");
+                Process.Start("https://acc.readme.io/v1.0/docs/application-advanced-settings-expert-setup");
             };
             tooltip.SetToolTip(expertLabel3, "This will open a link in your default browser");
 
@@ -105,11 +105,17 @@ namespace AssistantComputerControl {
                 }
             }
 
-            actionFolderPath.Text = Directory.Exists(MainProgram.CheckPath()) ? MainProgram.CheckPath() : Assembly.GetEntryAssembly().Location;
+            actionFolderPath.Text = MainProgram.CheckPath();
             actionFileExtension.Text = Properties.Settings.Default.ActionFileExtension;
 
-            actionFolderPath.KeyDown += delegate { MainProgram.SetCheckFolder(actionFolderPath.Text); };
-            actionFolderPath.KeyUp += delegate { MainProgram.SetCheckFolder(actionFolderPath.Text); };
+            actionFolderPath.KeyDown += delegate {
+                MainProgram.SetCheckFolder(actionFolderPath.Text);
+                actionFolderPath.Text = MainProgram.CheckPath();
+            };
+            actionFolderPath.KeyUp += delegate {
+                MainProgram.SetCheckFolder(actionFolderPath.Text);
+                actionFolderPath.Text = MainProgram.CheckPath();
+            };
 
             actionFileExtension.KeyDown += delegate { MainProgram.SetCheckExtension(actionFileExtension.Text); };
             actionFileExtension.KeyUp += delegate { MainProgram.SetCheckExtension(actionFileExtension.Text); };
@@ -282,11 +288,12 @@ namespace AssistantComputerControl {
 
         private void pickFolderBtn_Click(object sender, EventArgs e) {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog() {
-                InitialDirectory = Directory.Exists(MainProgram.CheckPath()) ? MainProgram.CheckPath() : Assembly.GetEntryAssembly().Location,
+                InitialDirectory = MainProgram.CheckPath(),
                 IsFolderPicker = true
             };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
-                actionFolderPath.Text = dialog.FileName;
+                MainProgram.SetCheckFolder(dialog.FileName);
+                actionFolderPath.Text = MainProgram.CheckPath();
             }
         }
 
@@ -307,6 +314,10 @@ namespace AssistantComputerControl {
             SetupDone();
             MainProgram.DoDebug("Skipped setup guide");
             Close();
+        }
+
+        private void gotoGoogleDriveGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://acc.readme.io/docs/use-google-drive-ifttt-instead-of-dropbox");
         }
     }
 }

@@ -28,10 +28,12 @@
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl = new System.Windows.Forms.TabControl();
             this.setupSelect = new System.Windows.Forms.TabPage();
+            this.skipGuide = new System.Windows.Forms.LinkLabel();
             this.finalOptionButton = new System.Windows.Forms.Button();
             this.recommended = new System.Windows.Forms.TabPage();
             this.GuideWebBrowser = new System.Windows.Forms.WebBrowser();
             this.expert = new System.Windows.Forms.TabPage();
+            this.gotoGoogleDriveGuide = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
             this.expertDoneButton = new System.Windows.Forms.Button();
             this.pickFolderBtn = new System.Windows.Forms.Button();
@@ -62,7 +64,6 @@
             this.recommendedLabel2 = new System.Windows.Forms.Label();
             this.recommendedLabel = new System.Windows.Forms.Label();
             this.recommendedImage = new System.Windows.Forms.PictureBox();
-            this.skipGuide = new System.Windows.Forms.LinkLabel();
             this.tabControl.SuspendLayout();
             this.setupSelect.SuspendLayout();
             this.recommended.SuspendLayout();
@@ -99,6 +100,18 @@
             this.setupSelect.Size = new System.Drawing.Size(783, 445);
             this.setupSelect.TabIndex = 0;
             this.setupSelect.Text = "Select setup";
+            // 
+            // skipGuide
+            // 
+            this.skipGuide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.skipGuide.AutoSize = true;
+            this.skipGuide.Location = new System.Drawing.Point(587, 429);
+            this.skipGuide.Name = "skipGuide";
+            this.skipGuide.Size = new System.Drawing.Size(193, 13);
+            this.skipGuide.TabIndex = 19;
+            this.skipGuide.TabStop = true;
+            this.skipGuide.Text = "No thanks, I don\'t need no guide! (skip)";
+            this.skipGuide.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.skipGuide_LinkClicked);
             // 
             // finalOptionButton
             // 
@@ -143,6 +156,7 @@
             // expert
             // 
             this.expert.BackColor = System.Drawing.Color.White;
+            this.expert.Controls.Add(this.gotoGoogleDriveGuide);
             this.expert.Controls.Add(this.label6);
             this.expert.Controls.Add(this.expertDoneButton);
             this.expert.Controls.Add(this.pickFolderBtn);
@@ -158,6 +172,17 @@
             this.expert.Size = new System.Drawing.Size(783, 445);
             this.expert.TabIndex = 2;
             this.expert.Text = "Expert chosen";
+            // 
+            // gotoGoogleDriveGuide
+            // 
+            this.gotoGoogleDriveGuide.AutoSize = true;
+            this.gotoGoogleDriveGuide.Location = new System.Drawing.Point(438, 210);
+            this.gotoGoogleDriveGuide.Name = "gotoGoogleDriveGuide";
+            this.gotoGoogleDriveGuide.Size = new System.Drawing.Size(57, 13);
+            this.gotoGoogleDriveGuide.TabIndex = 14;
+            this.gotoGoogleDriveGuide.TabStop = true;
+            this.gotoGoogleDriveGuide.Text = "Click here.";
+            this.gotoGoogleDriveGuide.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.gotoGoogleDriveGuide_LinkClicked);
             // 
             // label6
             // 
@@ -186,7 +211,7 @@
             // 
             // pickFolderBtn
             // 
-            this.pickFolderBtn.Location = new System.Drawing.Point(320, 243);
+            this.pickFolderBtn.Location = new System.Drawing.Point(320, 273);
             this.pickFolderBtn.Name = "pickFolderBtn";
             this.pickFolderBtn.Size = new System.Drawing.Size(25, 25);
             this.pickFolderBtn.TabIndex = 8;
@@ -199,7 +224,7 @@
             this.customSetupInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customSetupInfo.Location = new System.Drawing.Point(15, 46);
             this.customSetupInfo.Name = "customSetupInfo";
-            this.customSetupInfo.Size = new System.Drawing.Size(554, 168);
+            this.customSetupInfo.Size = new System.Drawing.Size(554, 187);
             this.customSetupInfo.TabIndex = 11;
             this.customSetupInfo.Text = resources.GetString("customSetupInfo.Text");
             // 
@@ -217,7 +242,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 299);
+            this.label1.Location = new System.Drawing.Point(16, 329);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(15, 24);
             this.label1.TabIndex = 9;
@@ -226,7 +251,7 @@
             // actionFileExtension
             // 
             this.actionFileExtension.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actionFileExtension.Location = new System.Drawing.Point(31, 302);
+            this.actionFileExtension.Location = new System.Drawing.Point(31, 332);
             this.actionFileExtension.Name = "actionFileExtension";
             this.actionFileExtension.Size = new System.Drawing.Size(73, 23);
             this.actionFileExtension.TabIndex = 7;
@@ -236,7 +261,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(15, 282);
+            this.label3.Location = new System.Drawing.Point(15, 312);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 17);
             this.label3.TabIndex = 8;
@@ -246,7 +271,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 224);
+            this.label2.Location = new System.Drawing.Point(13, 254);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 17);
             this.label2.TabIndex = 6;
@@ -255,7 +280,7 @@
             // actionFolderPath
             // 
             this.actionFolderPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.actionFolderPath.Location = new System.Drawing.Point(18, 244);
+            this.actionFolderPath.Location = new System.Drawing.Point(18, 274);
             this.actionFolderPath.Name = "actionFolderPath";
             this.actionFolderPath.Size = new System.Drawing.Size(302, 23);
             this.actionFolderPath.TabIndex = 5;
@@ -477,18 +502,6 @@
             this.recommendedImage.TabIndex = 0;
             this.recommendedImage.TabStop = false;
             // 
-            // skipGuide
-            // 
-            this.skipGuide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.skipGuide.AutoSize = true;
-            this.skipGuide.Location = new System.Drawing.Point(587, 429);
-            this.skipGuide.Name = "skipGuide";
-            this.skipGuide.Size = new System.Drawing.Size(193, 13);
-            this.skipGuide.TabIndex = 19;
-            this.skipGuide.TabStop = true;
-            this.skipGuide.Text = "No thanks, I don\'t need no guide! (skip)";
-            this.skipGuide.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.skipGuide_LinkClicked);
-            // 
             // GettingStarted
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -497,6 +510,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(815, 495);
             this.Controls.Add(this.tabControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "GettingStarted";
@@ -558,5 +572,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox startWithWindowsCheckbox;
         private System.Windows.Forms.LinkLabel skipGuide;
+        private System.Windows.Forms.LinkLabel gotoGoogleDriveGuide;
     }
 }

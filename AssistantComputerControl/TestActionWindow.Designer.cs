@@ -60,6 +60,7 @@
             this.ClientSize = new System.Drawing.Size(324, 450);
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.actionTesterLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TestActionWindow";
             this.Text = "Action tester";

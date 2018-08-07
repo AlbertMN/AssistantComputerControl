@@ -1,13 +1,9 @@
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.manifest
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.application
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.manifest
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.application
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
@@ -22,8 +18,6 @@ C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\assistantcomputercontrol\AssistantComputerControl.pdb
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.GettingStarted.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
-C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.manifest
-C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.application
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
@@ -35,8 +29,6 @@ C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCompu
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
-C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.manifest
-C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.application
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
@@ -54,3 +46,5 @@ C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCom
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.InstallerClass.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.InstallerClass.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.InstallerClass.resources

@@ -13,7 +13,7 @@ namespace AssistantComputerControl {
         public AdvancedSettings() {
             InitializeComponent();
 
-            actionFolderPath.KeyDown += new KeyEventHandler(FreakingStopDingSound);
+            actionFolderPath.KeyDown += new KeyEventHandler(FreakingStopDingSoundNoHandle);
             actionFileExtension.KeyDown += new KeyEventHandler(FreakingStopDingSound);
 
             void FreakingStopDingSound(Object o, KeyEventArgs e) {
@@ -23,17 +23,22 @@ namespace AssistantComputerControl {
                 }
             }
 
-            actionFolderPath.KeyDown += delegate { pathChanged(); };
-            actionFolderPath.KeyUp += delegate { pathChanged(); };
+            void FreakingStopDingSoundNoHandle(Object o, KeyEventArgs e) {
+                if (e.KeyCode == Keys.Enter) {
+                    e.SuppressKeyPress = true;
+                    e.Handled = true;
 
-            void pathChanged()  {
-                if (Directory.Exists(actionFolderPath.Text)) {
                     MainProgram.SetCheckFolder(actionFolderPath.Text);
-                } else {
-                    MessageBox.Show("Folder does not exist");
-                    actionFolderPath.Text = MainProgram.CheckPath();
                 }
             }
+
+            //actionFolderPath.KeyDown += delegate { pathChanged(); };
+            //actionFolderPath.KeyUp += delegate { pathChanged(); };
+
+            /*void pathChanged()  {
+                MainProgram.SetCheckFolder(actionFolderPath.Text);
+                actionFolderPath.Text = MainProgram.CheckPath();
+            }*/
 
             actionFileExtension.KeyDown += delegate { MainProgram.SetCheckExtension(actionFileExtension.Text); };
             actionFileExtension.KeyUp += delegate { MainProgram.SetCheckExtension(actionFileExtension.Text); };
@@ -47,16 +52,12 @@ namespace AssistantComputerControl {
 
         private void pickFolderBtn_Click(object sender, EventArgs e) {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog() {
-                InitialDirectory = Directory.Exists(MainProgram.CheckPath()) ? MainProgram.CheckPath() : Assembly.GetEntryAssembly().Location,
+                InitialDirectory = MainProgram.CheckPath(),
                 IsFolderPicker = true
             };
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
-                if (Directory.Exists(dialog.FileName)) {
-                    actionFolderPath.Text = dialog.FileName;
-                } else {
-                    MessageBox.Show("Folder does not exist");
-                }
-                MainProgram.SetCheckFolder(actionFolderPath.Text);
+                MainProgram.SetCheckFolder(dialog.FileName);
+                actionFolderPath.Text = MainProgram.CheckPath();
             }
         }
 

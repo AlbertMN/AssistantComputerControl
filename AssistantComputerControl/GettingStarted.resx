@@ -126,7 +126,9 @@ As you may (or may not) know, ACC uses a cloud-software like Dropbox to communic
 
 The default/recommended setup uses Dropbox, but you can use Google Drive, OneDrive or even a third option just as well. All ACC does is look for a specific filetype in a specific folder, the advanced settings (which we will go through here) allows you to modify these two settings.
 
-An "action" is the thing we want the computer to do. Say we tell our assistant "Shut down my computer", the action is "shutdown". The "Action folder" is the path that ACC looks in to find the action.</value>
+An "action" is the thing we want the computer to do. Say we tell our assistant "Shut down my computer", the action is "shutdown". The "Action folder" is the path that ACC looks in to find the action.
+
+If you wish to use Google Drive there's a guide on how to do that step by step!</value>
   </data>
   <metadata name="pickFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>105, 17</value>

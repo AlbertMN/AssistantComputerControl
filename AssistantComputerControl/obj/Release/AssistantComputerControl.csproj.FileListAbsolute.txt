@@ -1,16 +1,11 @@
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AssistantComputerControl.exe.config
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AssistantComputerControl.exe.manifest
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AssistantComputerControl.application
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AssistantComputerControl.pdb
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.Properties.Resources.resources
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csproj.GenerateResource.cache
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csproj.CoreCompileInputs.cache
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.exe.manifest
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.application
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.exe
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.pdb
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csprojResolveAssemblyReference.cache
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.AboutVersion.resources
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.AdvancedSettings.resources
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.SettingsForm.resources
@@ -31,3 +26,5 @@ C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCom
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.GettingStarted.resources
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csprojAssemblyReference.cache
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.InstallerClass.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.InstallerClass.resources
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csprojResolveAssemblyReference.cache

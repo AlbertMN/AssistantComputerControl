@@ -36,19 +36,22 @@ namespace AssistantComputerControl {
             return false;
         }
         public static bool FileInUse(string file) {
-            try {
-                using (Stream stream = new FileStream(file, FileMode.Open)) {
-                    // File/Stream manipulating code here
-                    MainProgram.DoDebug("Can read file");
-                    return false;
+            if(File.Exists(file)) {
+                try {
+                    using (Stream stream = new FileStream(file, FileMode.Open)) {
+                        // File/Stream manipulating code here
+                        MainProgram.DoDebug("Can read file");
+                        return false;
+                    }
+                } catch {
+                    MainProgram.DoDebug("File is in use, retrying");
+                    Thread.Sleep(50);
+                    return true;
                 }
-            } catch {
-                MainProgram.DoDebug("File is in use, retrying");
-                Thread.Sleep(50);
-                return true;
             }
+            return false;
         }
-
+        
         static public void FileFound(object source, FileSystemEventArgs e) {
             string file = e.FullPath
                 , action = null
@@ -60,6 +63,10 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("File exists, checking the content...");
 
                 while (FileInUse(file));
+                if (!File.Exists(file)) {
+                    MainProgram.isPerformingAction = false;
+                    return;
+                }
                 if (new FileInfo(file).Length != 0) {
                     MainProgram.DoDebug("Action set. File is not empty...");
                     action = "empty file";
@@ -69,23 +76,19 @@ namespace AssistantComputerControl {
                     DateTime lastModified = File.GetLastWriteTime(file);
                     action = line;
                     fullContent = line;
-                    string timeParam = null;
+                    string assistantParam = null;
 
                     if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) > DateTime.Now) {
                         //If file has been modified recently - check for action
                         MainProgram.DoDebug("File modified within the last " + Properties.Settings.Default.FileEditedMargin + " seconds...");
 
-                        //Check for timestamp param - for future use (possibly) to calculate how long the request took -
-                        //however Google Assistant doesn't return second-stamp, only hour and minute, so unless they implement it; can't be used
+                        //Whether it's Google Assistant or Amazon Alexa (included in the default IFTTT applets)
                         if (line.Contains("[") && line.Contains("]")) {
                             action = line.Split('[')[0];
-                            timeParam = line.Split('[')[1];
-                            timeParam.Replace("]", "");
+                            assistantParam = line.Split('[')[1];
+                            assistantParam = assistantParam.Split(']')[0];
 
-                            if (timeParam.Contains("time;")) {
-                                timeParam = timeParam.Split(';')[1];
-                                MainProgram.DoDebug("Action has time parameter; " + timeParam);
-                            }
+                            MainProgram.DoDebug("Executed using; " + assistantParam);
                         }
 
                         if (action.Contains(":")) {
@@ -98,6 +101,7 @@ namespace AssistantComputerControl {
                         if (MainProgram.testingAction)
                             MainProgram.DoDebug("Test went through: " + action);
 
+                        //TO-DO; Optimize action-execution (less code) & make it its own function
                         int? actionNumber = null;
                         switch (action) {
                             case "shutdown":
@@ -180,10 +184,7 @@ namespace AssistantComputerControl {
                                     }
                                     if (!MainProgram.testingAction) {
                                         MainProgram.DoDebug("Sleeping computer...");
-                                        successMessage = "Put computer to sleep";
                                         Application.SetSuspendState(PowerState.Suspend, doForce, true);
-                                    } else {
-                                        successMessage = "Simulated PC sleep";
                                     }
                                 }
 
@@ -191,6 +192,40 @@ namespace AssistantComputerControl {
                                     successMessage = "Simulated PC sleep";
                                 } else {
                                     successMessage = "Put computer to sleep";
+                                }
+                                break;
+                            case "hibernate":
+                                //Hibernates computer
+                                actionNumber = 12;
+                                if (parameter == null) {
+                                    if (!MainProgram.testingAction) {
+                                        MainProgram.DoDebug("Hibernating computer...");
+                                        Application.SetSuspendState(PowerState.Hibernate, true, true);
+                                    }
+                                } else {
+                                    bool doForce = true;
+                                    switch (parameter) {
+                                        case "true":
+                                            doForce = true;
+                                            break;
+                                        case "false":
+                                            doForce = false;
+                                            break;
+                                        default:
+                                            MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
+                                            MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
+                                            break;
+                                    }
+                                    if (!MainProgram.testingAction) {
+                                        MainProgram.DoDebug("Hibernating computer...");
+                                        Application.SetSuspendState(PowerState.Hibernate, doForce, true);
+                                    }
+                                }
+
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated PC hibernate";
+                                } else {
+                                    successMessage = "Put computer in hibernation";
                                 }
                                 break;
                             case "logout":
@@ -324,7 +359,7 @@ namespace AssistantComputerControl {
                                 break;
                             case "open":
                                 if (requireParameter(parameter)) {
-                                    string fileLocation = Path.Combine(MainProgram.shortcutLocation, parameter);
+                                    string fileLocation = (!parameter.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
                                     if (File.Exists(fileLocation)) {
                                         if (!MainProgram.testingAction) {
                                             Process.Start(fileLocation);
@@ -356,10 +391,10 @@ namespace AssistantComputerControl {
                         if (successMessage != "") {
                             if (actionNumber != null) {
                                 //Has specified number
-                                AnalyticsSettings.AddCount((int)actionNumber);
+                                AnalyticsSettings.AddCount((int)actionNumber, assistantParam);
                             } else {
                                 //YOLO
-                                AnalyticsSettings.AddCount(action);
+                                AnalyticsSettings.AddCount(action, assistantParam);
                             }
 
                             MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");

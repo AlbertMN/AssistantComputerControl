@@ -38,6 +38,7 @@ namespace AssistantComputerControl {
             };
 
             VisibleChanged += VisibilityChanged;
+            FormClosed += delegate { MainProgram.testingAction = false; };
         }
 
         public void ActionExecuted(string successMessage, string errorMessage, string action, string parameters, string fullContent) {
@@ -95,7 +96,7 @@ namespace AssistantComputerControl {
                 if (!this.IsHandleCreated) {
                     this.CreateHandle();
                 }
-                webBrowser.Invoke(new Action(() => {
+                sWebBrowser.Invoke(new Action(() => {
                     sWebBrowser.Document.InvokeScript(function, objArray);
                 }));
             }
