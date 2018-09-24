@@ -1,21 +1,17 @@
-﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 
 namespace AssistantComputerControl {
     class AnalyticsSettings {
-        //private static string requestKey = null; // < version 1.1
-        const string getKeyUrl = "https://acc.albe.pw/functions/ReceiveAnalyticsData.php";
-        const string sendDataUrl = "https://acc.albe.pw/functions/ReceiveAnalyticsData.php";
-        private static readonly HttpClient client = new HttpClient();
+        //ACC truly is open source, but for security reasons we will not share this one file with the whole world.
+        //This file handles sending analytics to the developers' webserver and contains a few variables that contain -
+        //sensitive access-tokens to integrations like Sentry.IO
 
-        public static readonly string[] actions = new String[13] { //No changing this order!
+        //The public version of this file is exactly like the full version, but stripped of -
+        //API-keys and sensitive information.
+        //Cencored items have placeholders to ensure that everyone can fork and run the project without errors
+        public const string sentryToken = "super_secret";
+
+        public static readonly string[] actions = new String[] { //No changing this order!
             "shutdown",         //0
             "restart",          //1
             "open",             //2
@@ -29,9 +25,18 @@ namespace AssistantComputerControl {
             "next_song",        //10
             "die",              //11
             "hibernate",        //12
+            "monitors_off",     //13
+            "keypress",         //14
+            "write_out",        //15
+
+            "key_shortcut",     //16
+            "create_file",      //17
+            "delete_file",      //18
+            "append_text",      //19
+            "message_box",      //20
         };
 
-        public static readonly string[] assistants = new String[4] { //No changing this order!
+        public static readonly string[] assistants = new String[] { //No changing this order!
             "google",
             "alexa",
             "cortana",
@@ -43,7 +48,7 @@ namespace AssistantComputerControl {
             public string Message { get; set; }
             public string Key { get; set; }
         }
-        
+
         public static void SetupAnalyticsAsync() {
             //Unique user-ID
             if (Properties.Settings.Default.UID == "" || Properties.Settings.Default.UID == null) {
@@ -66,7 +71,7 @@ namespace AssistantComputerControl {
 
                 int[] actionsExecuted = Properties.Settings.Default.TotalActionsExecuted;
                 if (actions.Length != actionsExecuted.Length) {
-                    MainProgram.DoDebug(actions.Length + "!= " + actionsExecuted.Length);
+                    //MainProgram.DoDebug(actions.Length + " != " + actionsExecuted.Length);
 
                     //New action most likely added
                     int[] oldSettings = actionsExecuted
@@ -74,11 +79,12 @@ namespace AssistantComputerControl {
 
                     //Populate new analytics array with old values
                     int i = 0;
-                    foreach(int ac in oldSettings) {
-                        newSettings[i] = ac;
+                    foreach (int ac in oldSettings) {
+                        if (i != newSettings.Length)
+                            newSettings[i] = ac;
                         i++;
                     }
-                    
+
                     Properties.Settings.Default.TotalActionsExecuted = newSettings;
                     Properties.Settings.Default.Save();
                 }
@@ -94,7 +100,6 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Annonymous analytics are not being shared");
             }
         }
-
         public static void PrintAnalytics() {
             int i = 0
                 , totalCount = 0;
@@ -114,11 +119,14 @@ namespace AssistantComputerControl {
             AddTypeCount(type);
             int pos = Array.IndexOf(actions, action);
             if (pos > -1) {
+                //MainProgram.DoDebug("Added +1 to " + action + " at pos " + pos);
                 Properties.Settings.Default.TotalActionsExecuted[pos]++;
                 Properties.Settings.Default.Save();
             } else {
                 MainProgram.DoDebug("Could not find action \"" + action + "\" in action-array (analytics)");
             }
+
+            SendAnalyticsData();
         }
         public static void AddCount(int action, string type) {
             AddTypeCount(type);
@@ -145,22 +153,14 @@ namespace AssistantComputerControl {
             }
         }
 
-        /*public static async System.Threading.Tasks.Task SendDataAsync() { // < for version 1.1
-            if (ACC_Updater.RemoteFileExists(sendDataUrl)) {
-                using (var wb = new WebClient()) {
-
-                    var values = new Dictionary<string, string> {
-                        { "actions_executed", JsonConvert.SerializeObject(Properties.Settings.Default.TotalActionsExecuted) },
-                        { "thing2", "world" }
-                    };
-                    var content = new FormUrlEncodedContent(values);
-                    var response = await client.PostAsync("http://www.example.com/recepticle.aspx", content);
-
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "Your Oauth token");
-
-                    var responseString = await response.Content.ReadAsStringAsync();
-                }
+        public static string SendAnalyticsData() {
+            //Sends analytics data to the server
+            if (Properties.Settings.Default.SendAnonymousAnalytics) {
+                //Do it (sensitive code)
+            } else {
+                //Don't do it (does nothing here)
             }
-        }*/
+            return "";
+        }
     }
 }
