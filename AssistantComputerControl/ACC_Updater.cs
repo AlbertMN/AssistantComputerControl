@@ -5,12 +5,13 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.Threading;
 
 namespace AssistantComputerControl {
     class ACC_Updater {
         private const string releaseJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=release";
         private const string betaJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=beta";
-        
+
         public bool Check() {
             if (MainProgram.isCheckingForUpdate)
                 return false;
@@ -50,7 +51,8 @@ namespace AssistantComputerControl {
                     latestRelease = JsonConvert.DeserializeObject<Version>(latestReleaseJson);
                     latestBeta = JsonConvert.DeserializeObject<Version>(latestBetaJson);
 
-                    if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) || DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
+                    if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) ||
+                        DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
                         //Both latest release and beta is ahead of this current build
                         if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(latestBeta.datetime)) {
                             //Release is newest
@@ -73,7 +75,7 @@ namespace AssistantComputerControl {
                         newVersion = latestRelease;
                     } else {
                         //Not new, move on
-                        MainProgram.DoDebug("Software up to date :D");
+                        MainProgram.DoDebug("Software up to date");
                         return false;
                     }
                 } else if (latestReleaseJson == null && latestBetaJson != null) {
@@ -116,17 +118,12 @@ namespace AssistantComputerControl {
 
         public static bool RemoteFileExists(string url) {
             try {
-                //Creating the HttpWebRequest
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                //Setting the Request method HEAD, you can also use GET too.
                 request.Method = "HEAD";
-                //Getting the Web Response.
                 HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                //Returns TRUE if the Status code == 200
                 response.Close();
                 return (response.StatusCode == HttpStatusCode.OK);
             } catch {
-                //Any exception will returns false.
                 return false;
             }
         }
@@ -134,9 +131,14 @@ namespace AssistantComputerControl {
         private static string targetLocation = "";
         public static void DownloadFile(string url) {
             if (RemoteFileExists(url)) {
-
+                MainProgram.DoDebug("Downloading file...");
                 WebClient client = new WebClient();
                 Uri uri = new Uri(url);
+
+                MainProgram.updateProgressWindow = new UpdateProgress();
+                MainProgram.updateProgressWindow.Show();
+
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(FileDownloadedCallback);
 
                 targetLocation = Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Downloads"), "ACCsetup.exe");
@@ -149,13 +151,26 @@ namespace AssistantComputerControl {
                     }
                 }
                 client.DownloadFileAsync(uri, targetLocation);
+
+                Application.Run();
             } else {
                 MainProgram.DoDebug("Failed to update, installation URL does not exist (" + url + ").");
                 MessageBox.Show("Couldn't find the new version online. Please try again later.", "Error | " + MainProgram.messageBoxTitle);
             }
         }
+        static private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
+            if (MainProgram.updateProgressWindow != null)
+                MainProgram.updateProgressWindow.SetProgress(e);
+        }
 
         private static void FileDownloadedCallback(object sender, AsyncCompletedEventArgs e) {
+            if (MainProgram.updateProgressWindow != null) {
+                MainProgram.updateProgressWindow.Close();
+                MainProgram.updateProgressWindow = null;
+            }
+
+            MainProgram.DoDebug("Finished downloading");
+
             if (!e.Cancelled) {
                 //Download success
                 Process.Start(targetLocation);
@@ -164,6 +179,8 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Failed to download new version of ACC. Error; " + e.Error);
                 MessageBox.Show("Failed to download new version. Try again later!", "Error | " + MainProgram.messageBoxTitle);
             }
+
+            Thread.CurrentThread.Abort();
         }
     }
 }

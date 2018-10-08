@@ -130,6 +130,10 @@ An "action" is the thing we want the computer to do. Say we tell our assistant "
 
 If you wish to use Google Drive there's a guide on how to do that step by step!</value>
   </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>AssistantComputerControl is free, open source and doesn't have an income. We do however want to get to know
+our users to enhance the software and make it even better, which is why ACC has anonymous analytics gathering.</value>
+  </data>
   <metadata name="pickFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>105, 17</value>
   </metadata>

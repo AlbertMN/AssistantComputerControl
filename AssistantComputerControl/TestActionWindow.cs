@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Threading;
 
 namespace AssistantComputerControl {
     public partial class TestActionWindow : Form {
@@ -29,6 +20,7 @@ namespace AssistantComputerControl {
             string listeningInText = "\n\nListening in: " + MainProgram.CheckPath() + "\nfor \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions";
             actionTesterLabel.Text += listeningInText;
 
+            //TODO: Make it local
             //webBrowser.Url = new Uri(String.Format("file:///{0}/test.html", MainProgram.currentLocation));
             sWebBrowser.Url = new Uri("http://acc.albe.pw/success_error_listen.html");
 
@@ -53,7 +45,7 @@ namespace AssistantComputerControl {
                     SetImage(Images.success, "Success; " + action, description);
                 } else if (errorMessage != "") {
                     //Error
-                    string description = "<b>Error message:</b> " + successMessage + "<br><b>Parameters:</b> " + parameters + "<br><b>Full file content:</b> " + fullContent;
+                    string description = "<b>Error message:</b> " + errorMessage + "<br><b>Parameters:</b> " + parameters + "<br><b>Full file content:</b> " + fullContent;
                     SetImage(Images.error, "Error; " + action, description);
                 }
             } else {

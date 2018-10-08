@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="15.1" PreviousModules="simple" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="15.3" PreviousModules="simple" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
   </COMPONENT>
@@ -11,26 +11,36 @@
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.11.0.2\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll" Value="..\packages\Sentry.PlatformAbstractions.1.0.0-rc\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll" Value="..\packages\Sentry.Protocol.1.0.0-rc2\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.dll" Value="..\packages\Sentry.1.0.0-rc2\lib\netstandard2.0"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll" Value="..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" Value="AssistantComputerControl.exe"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config" Value="AssistantComputerControl.exe.config"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="Microsoft.WindowsAPICodePack.Shell.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="Microsoft.WindowsAPICodePack.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll" Value="Newtonsoft.Json.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll" Value="Sentry.PlatformAbstractions.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll" Value="Sentry.Protocol.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll" Value="Sentry.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll" Value="System.Collections.Immutable.dll"/>
     <ROW Property="AI_ThemeStyle" Value="aero" MsiKey="AI_ThemeStyle"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="The software that lets you control your computer using your assistants (Amazon Alexa or Google Assistant)" ValueLocId="*"/>
     <ROW Property="ARPCONTACT" Value="https://twitter.com/ACC_HomeAlexa"/>
-    <ROW Property="ARPHELPLINK" Value="https://github.com/AlbertMN/AssistantComputerControl/issues"/>
+    <ROW Property="ARPHELPLINK" Value="https://acc.albe.pw/#get-in-touch"/>
     <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPNOREPAIR" Value="1" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="logoico.exe" Type="8"/>
+    <ROW Property="ARPURLINFOABOUT" Value="https://acc.albe.pw/"/>
+    <ROW Property="ARPURLUPDATEINFO" Value="https://acc.albe.pw/"/>
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{7CE46ADC-D2D6-408E-9F03-6067331DC76D} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{759BA58E-9896-49F2-B2C0-D8685040C505} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.0.3" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.1.1" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -45,9 +55,11 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
     <ROW Directory="AssistantComputerControl_Dir" Directory_Parent="PersonalFolder" DefaultDir="ASSIST~1|AssistantComputerControl"/>
+    <ROW Directory="NewFolder_Dir" Directory_Parent="APPDIR" DefaultDir="ABOUTV~1|AboutVersionWeb"/>
     <ROW Directory="PersonalFolder" Directory_Parent="TARGETDIR" DefaultDir="PERSON~1|PersonalFolder" IsPseudoRoot="1"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="assets_Dir" Directory_Parent="NewFolder_Dir" DefaultDir="assets"/>
     <ROW Directory="shortcuts_Dir" Directory_Parent="AssistantComputerControl_Dir" DefaultDir="SHORTC~1|shortcuts"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
@@ -57,10 +69,12 @@
     <ROW Component="AssistantComputerControl_PrimaryOutput" ComponentId="{6D6B0D60-588B-4115-BB23-8350BF6AD151}" Directory_="APPDIR" Attributes="0" KeyPath="AssistantComputerControl.exe.config"/>
     <ROW Component="ProductInformation" ComponentId="{72E5C433-D45C-45F4-AF47-0DD66CC8E52E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{4405308F-0979-4250-8A8D-0622FA7AF17C}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="acc_logo.png" ComponentId="{1B4574A4-7ACC-4427-829D-EDF16B7C0CDC}" Directory_="assets_Dir" Attributes="0" KeyPath="acc_logo.png" Type="0"/>
+    <ROW Component="index.html" ComponentId="{B4547172-2B7D-42F0-A492-A45125B194BF}" Directory_="NewFolder_Dir" Attributes="0" KeyPath="index.html" Type="0"/>
     <ROW Component="shortcuts" ComponentId="{3AD7B8C4-6A66-4FF8-99B1-47940292F2CC}" Directory_="shortcuts_Dir" Attributes="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll AssistantComputerControl_PrimaryOutput ProductInformation SHORTCUTDIR shortcuts"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll AssistantComputerControl_PrimaryOutput ProductInformation SHORTCUTDIR acc_logo.png index.html shortcuts"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
@@ -68,7 +82,14 @@
     <ROW File="AssistantComputerControl.exe.config" Component_="AssistantComputerControl_PrimaryOutput" FileName="ASSIST~1.CON|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.dll"/>
     <ROW File="Microsoft.WindowsAPICodePack.Shell.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll&gt;" SelfReg="false" NextFile="Newtonsoft.Json.dll"/>
     <ROW File="Microsoft.WindowsAPICodePack.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.Shell.dll"/>
-    <ROW File="Newtonsoft.Json.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="NEWTON~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Newtonsoft.Json.dll&gt;" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="NEWTON~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Newtonsoft.Json.dll&gt;" SelfReg="false" NextFile="Sentry.dll"/>
+    <ROW File="Sentry.PlatformAbstractions.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.PlatformAbstractions.dll&gt;" SelfReg="false" NextFile="Sentry.Protocol.dll"/>
+    <ROW File="Sentry.Protocol.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.Protocol.dll&gt;" SelfReg="false" NextFile="System.Collections.Immutable.dll"/>
+    <ROW File="Sentry.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.dll&gt;" SelfReg="false" NextFile="Sentry.PlatformAbstractions.dll"/>
+    <ROW File="System.Collections.Immutable.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Collections.Immutable.dll&gt;" SelfReg="false" NextFile="index.html"/>
+    <ROW File="acc_logo.png" Component_="acc_logo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\AboutVersionWeb\assets\acc_logo.png" SelfReg="false" NextFile="bootstrap.min.css"/>
+    <ROW File="bootstrap.min.css" Component_="acc_logo.png" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\AboutVersionWeb\assets\bootstrap.min.css" SelfReg="false"/>
+    <ROW File="index.html" Component_="index.html" FileName="INDEX~1.HTM|index.html" Attributes="0" SourcePath="..\AssistantComputerControl\AboutVersionWeb\index.html" SelfReg="false" NextFile="acc_logo.png"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
@@ -76,6 +97,10 @@
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Newtonsoft.Json.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Sentry.PlatformAbstractions.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Sentry.Protocol.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Sentry.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Sentry.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Collections.Immutable.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll]" Type="2" Content="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -240,5 +265,9 @@
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Microsoft.WindowsAPICodePack.dll"/>
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Microsoft.WindowsAPICodePack.Shell.dll"/>
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Newtonsoft.Json.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Sentry.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Sentry.PlatformAbstractions.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Sentry.Protocol.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Collections.Immutable.dll"/>
   </COMPONENT>
 </DOCUMENT>

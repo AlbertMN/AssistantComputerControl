@@ -12,7 +12,7 @@ namespace AssistantComputerControl.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -174,6 +174,102 @@ namespace AssistantComputerControl.Properties {
             }
             set {
                 this["UID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WriteOutUCFirst {
+            get {
+                return ((bool)(this["WriteOutUCFirst"]));
+            }
+            set {
+                this["WriteOutUCFirst"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WriteOutDotLast {
+            get {
+                return ((bool)(this["WriteOutDotLast"]));
+            }
+            set {
+                this["WriteOutDotLast"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WarnWhenDeletingManyFiles {
+            get {
+                return ((bool)(this["WarnWhenDeletingManyFiles"]));
+            }
+            set {
+                this["WarnWhenDeletingManyFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int MaxDeleteFiles {
+            get {
+                return ((int)(this["MaxDeleteFiles"]));
+            }
+            set {
+                this["MaxDeleteFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AnalyticsInformed {
+            get {
+                return ((bool)(this["AnalyticsInformed"]));
+            }
+            set {
+                this["AnalyticsInformed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AnalyticsThisDay {
+            get {
+                return ((string)(this["AnalyticsThisDay"]));
+            }
+            set {
+                this["AnalyticsThisDay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AnalyticsUnsentData {
+            get {
+                return ((bool)(this["AnalyticsUnsentData"]));
+            }
+            set {
+                this["AnalyticsUnsentData"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastKnownVersion {
+            get {
+                return ((string)(this["LastKnownVersion"]));
+            }
+            set {
+                this["LastKnownVersion"] = value;
             }
         }
     }

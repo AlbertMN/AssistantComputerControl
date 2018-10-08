@@ -35,6 +35,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.logButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.deprecated = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.maxDeleteFiles = new System.Windows.Forms.NumericUpDown();
+            this.warnDeletion = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.anonymousAnalyticsCheckbox = new System.Windows.Forms.CheckBox();
             this.doSetupAgain = new System.Windows.Forms.Button();
@@ -44,6 +49,7 @@
             this.fileEditedMargin = new System.Windows.Forms.NumericUpDown();
             this.infoTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.mainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxDeleteFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileEditedMargin)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,6 +66,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(4, 126);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 13);
@@ -93,7 +100,7 @@
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(150, 23);
             this.testButton.TabIndex = 6;
-            this.testButton.Text = "Test assistant";
+            this.testButton.Text = "Action Simulator";
             this.testButton.UseVisualStyleBackColor = true;
             this.testButton.Click += new System.EventHandler(this.testButton_Click);
             // 
@@ -139,6 +146,11 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.mainPanel.Controls.Add(this.deprecated);
+            this.mainPanel.Controls.Add(this.label5);
+            this.mainPanel.Controls.Add(this.label4);
+            this.mainPanel.Controls.Add(this.maxDeleteFiles);
+            this.mainPanel.Controls.Add(this.warnDeletion);
             this.mainPanel.Controls.Add(this.label3);
             this.mainPanel.Controls.Add(this.anonymousAnalyticsCheckbox);
             this.mainPanel.Controls.Add(this.doSetupAgain);
@@ -161,11 +173,71 @@
             this.mainPanel.TabIndex = 11;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
+            // deprecated
+            // 
+            this.deprecated.AutoSize = true;
+            this.deprecated.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deprecated.Location = new System.Drawing.Point(133, 144);
+            this.deprecated.Name = "deprecated";
+            this.deprecated.Size = new System.Drawing.Size(120, 13);
+            this.deprecated.TabIndex = 22;
+            this.deprecated.Text = "deprecated as of v1.1.0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(308, 324);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "(\"delete\" action)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(165, 324);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(138, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "files are about to be deleted";
+            // 
+            // maxDeleteFiles
+            // 
+            this.maxDeleteFiles.Location = new System.Drawing.Point(113, 322);
+            this.maxDeleteFiles.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.maxDeleteFiles.Name = "maxDeleteFiles";
+            this.maxDeleteFiles.Size = new System.Drawing.Size(46, 20);
+            this.maxDeleteFiles.TabIndex = 19;
+            this.maxDeleteFiles.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // warnDeletion
+            // 
+            this.warnDeletion.AutoSize = true;
+            this.warnDeletion.Checked = true;
+            this.warnDeletion.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.warnDeletion.Location = new System.Drawing.Point(8, 323);
+            this.warnDeletion.Name = "warnDeletion";
+            this.warnDeletion.Size = new System.Drawing.Size(108, 17);
+            this.warnDeletion.TabIndex = 18;
+            this.warnDeletion.Text = "Warn when over ";
+            this.warnDeletion.UseVisualStyleBackColor = true;
+            this.warnDeletion.CheckedChanged += new System.EventHandler(this.warnDeletion_CheckedChanged);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(155, 301);
+            this.label3.Location = new System.Drawing.Point(157, 301);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(165, 13);
             this.label3.TabIndex = 17;
@@ -202,7 +274,7 @@
             this.versionInfo.Name = "versionInfo";
             this.versionInfo.Size = new System.Drawing.Size(231, 23);
             this.versionInfo.TabIndex = 14;
-            this.versionInfo.Text = "Version 0.3.3";
+            this.versionInfo.Text = "Version x";
             this.versionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // checkForUpdate
@@ -228,6 +300,7 @@
             // 
             // fileEditedMargin
             // 
+            this.fileEditedMargin.Enabled = false;
             this.fileEditedMargin.Location = new System.Drawing.Point(7, 142);
             this.fileEditedMargin.Name = "fileEditedMargin";
             this.fileEditedMargin.Size = new System.Drawing.Size(120, 20);
@@ -248,6 +321,7 @@
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxDeleteFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileEditedMargin)).EndInit();
             this.ResumeLayout(false);
 
@@ -273,5 +347,10 @@
         private System.Windows.Forms.Button doSetupAgain;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox anonymousAnalyticsCheckbox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown maxDeleteFiles;
+        private System.Windows.Forms.CheckBox warnDeletion;
+        private System.Windows.Forms.Label deprecated;
     }
 }

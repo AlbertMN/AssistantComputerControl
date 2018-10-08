@@ -20,13 +20,23 @@ namespace AssistantComputerControl {
         private MyPanel selectedPanel = null;
         public WebBrowser theWebBrowser = null;
 
-        public GettingStarted() {
+        public GettingStarted(int startTab = 0) {
             InitializeComponent();
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
+            FormClosed += delegate {
+                if (MainProgram.aboutVersionAwaiting) {
+                    Properties.Settings.Default.LastKnownVersion = MainProgram.softwareVersion;
+                    new NewVersion().Show();
+                    Properties.Settings.Default.Save();
+                }
+            };
 
             tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.ItemSize = new Size(0, 1);
             tabControl.SizeMode = TabSizeMode.Fixed;
             tabControl.BackColor = Color.Transparent;
+            tabControl.SelectTab(startTab);
 
             tabControl.Selected += delegate {
                 if (tabControl.SelectedIndex == 1) {
@@ -132,6 +142,9 @@ namespace AssistantComputerControl {
 
             closeWindowButton.FlatStyle = FlatStyle.Flat;
             closeWindowButton.FlatAppearance.BorderSize = 0;
+
+            analyticsMoveOn.FlatStyle = FlatStyle.Flat;
+            analyticsMoveOn.FlatAppearance.BorderSize = 0;
 
             //Browser
             theWebBrowser = GuideWebBrowser;
@@ -272,6 +285,11 @@ namespace AssistantComputerControl {
 
                 MainProgram.DoDebug("Starting with Windows now");
             }
+            Properties.Settings.Default.AnalyticsInformed = true;
+            AnalyticsSettings.UpdateSharing(analyticsEnabledBox.Checked);
+
+            MainProgram.DoDebug("Anonymous analyitcs " + (analyticsEnabledBox.Checked ? "IS" : "is NOT") + " enabled");
+
             MainProgram.DoDebug("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
             Properties.Settings.Default.Save();
@@ -318,6 +336,20 @@ namespace AssistantComputerControl {
 
         private void gotoGoogleDriveGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://acc.readme.io/docs/use-google-drive-ifttt-instead-of-dropbox");
+        }
+
+        private void analyticsLearnMore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://acc.readme.io/v1.1.0/docs/how-analytics-work");
+        }
+
+        private void analyticsMoveOn_Click(object sender, EventArgs e) {
+            tabControl.SelectTab(4);
+        }
+
+        private void analyticsEnabledBox_CheckedChanged(object sender, EventArgs e) {
+            Properties.Settings.Default.AnalyticsInformed = true;
+            Properties.Settings.Default.Save();
+            AnalyticsSettings.UpdateSharing(analyticsEnabledBox.Checked);
         }
     }
 }

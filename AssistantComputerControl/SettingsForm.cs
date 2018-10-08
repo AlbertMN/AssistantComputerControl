@@ -27,9 +27,12 @@ namespace AssistantComputerControl {
             checkUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
             betaProgram.Checked = Properties.Settings.Default.BetaProgram;
             anonymousAnalyticsCheckbox.Checked = Properties.Settings.Default.SendAnonymousAnalytics;
+            warnDeletion.Checked = Properties.Settings.Default.WarnWhenDeletingManyFiles;
 
             computerName.Text = Properties.Settings.Default.ComputerName;
             fileEditedMargin.Value = (decimal)Properties.Settings.Default.FileEditedMargin;
+            maxDeleteFiles.Value = Properties.Settings.Default.MaxDeleteFiles;
+            maxDeleteFiles.Enabled = warnDeletion.Checked;
 
             infoTooltip.SetToolTip(betaProgram, "Receive updates on new beta versions (often unstable, experimental builds)");
 
@@ -40,6 +43,7 @@ namespace AssistantComputerControl {
             computerName.KeyDown += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); };
             computerName.KeyUp += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); };
             fileEditedMargin.ValueChanged += delegate { Properties.Settings.Default.FileEditedMargin = (float)fileEditedMargin.Value; Properties.Settings.Default.Save(); };
+            maxDeleteFiles.ValueChanged += delegate { Properties.Settings.Default.MaxDeleteFiles = (int)maxDeleteFiles.Value; Properties.Settings.Default.Save(); };
         }
 
         private void advancedSettingsButton_Click(object sender, EventArgs e) {
@@ -140,16 +144,18 @@ namespace AssistantComputerControl {
             bool theStatus = anonymousAnalyticsCheckbox.Checked;
             MainProgram.DoDebug("Send annonymous analytics; " + theStatus);
 
-            Properties.Settings.Default.SendAnonymousAnalytics = theStatus;
-            Properties.Settings.Default.Save();
-
-            if (theStatus) {
-                AnalyticsSettings.SetupAnalyticsAsync();
-            }
+            AnalyticsSettings.UpdateSharing(theStatus);
         }
 
         private void doSetupAgain_Click(object sender, EventArgs e) {
             MainProgram.ShowGettingStarted();
+        }
+
+        private void warnDeletion_CheckedChanged(object sender, EventArgs e) {
+            maxDeleteFiles.Enabled = warnDeletion.Checked;
+
+            Properties.Settings.Default.SendAnonymousAnalytics = warnDeletion.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

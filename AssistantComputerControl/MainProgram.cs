@@ -10,18 +10,19 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Threading;
+using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.0.3",
-            releaseDate = "2018-08-07 15:33",
+        public const string softwareVersion = "1.1.0",
+            releaseDate = "2018-10-08 23:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
-            isPerformingAction = false,
             isCheckingForUpdate = false,
 
-            testingAction = false;
+            testingAction = false,
+            aboutVersionAwaiting = false;
 
         public TestStatus currentTestStatus = TestStatus.ongoing;
         public enum TestStatus {
@@ -47,123 +48,168 @@ namespace AssistantComputerControl {
         public static TestActionWindow testActionWindow = new TestActionWindow();
         private static SettingsForm settingsForm = null;
         public static GettingStarted gettingStarted = null;
+        public static UpdateProgress updateProgressWindow;
 
 
         //Start main function
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            if (AnalyticsSettings.sentryToken != "super_secret") {
+                //Tracking issues with Sentry.IO - not forked from GitHub, official version
+                bool sentryOK = false;
+                try {
+                    if (Properties.Settings.Default.UID != "") {
+                        SentrySdk.ConfigureScope(scope => {
+                            scope.User = new Sentry.Protocol.User {
+                                Id = Properties.Settings.Default.UID
+                            };
+                        });
+                    }
 
-            SetupDataFolder();
-            if (File.Exists(logFilePath))
-                File.WriteAllText(logFilePath, string.Empty);
-            else
-                CreateLogFile();
+                    using (SentrySdk.Init(AnalyticsSettings.sentryToken)) {
+                        sentryOK = true;
+                    }
+                } catch {
+                    //Sentry failed. Error sentry's side or invalid key - don't let this stop the app from running
+                    DoDebug("Sentry initiation failed");
+                    ActualMain();
+                }
 
-            //Check if software already runs, if so kill this instance
-            var otherACCs = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(currentLocationFull));
-            if (otherACCs.Length > 1) {
-                //DoDebug("ACC is already running, killing this proccess");
-                //MessageBox.Show("ACC is already running.", "Already running | " + messageBoxTitle + "");
-                //Process.GetCurrentProcess().Kill();
-
-                Process.GetCurrentProcess();
-
-                //Try kill the _other_ process instead
-                foreach(Process p in otherACCs) {
-                    if(p.Id != Process.GetCurrentProcess().Id) {
-                        p.Kill();
-                        DoDebug("Other ACC instance was running. Killed it.");
+                if (sentryOK) {
+                    using (SentrySdk.Init(AnalyticsSettings.sentryToken)) {
+                        DoDebug("Sentry initiated");
+                        ActualMain();
                     }
                 }
-            }
-
-            DoDebug("[ACC begun (v" + softwareVersion + ")]");
-            AnalyticsSettings.SetupAnalyticsAsync();
-
-            if (Properties.Settings.Default.CheckForUpdates) {
-                if (HasInternet()) {
-                    new Thread(() => {
-                        new ACC_Updater().Check();
-                    }).Start();
-                } else {
-                    DoDebug("Couldn't check for new update as PC does not have access to the internet");
-                }
-            }
-            
-            //"updated.txt" not created. Use registry instead (for 1.1.0)
-            /*if (File.Exists(Path.Combine(dataFolderLocation, "updated.txt"))) {
-                File.Delete(Path.Combine(dataFolderLocation, "updated.txt"));
-                new AboutVersion().Show();
-            }*/
-
-            //On console close: hide NotifyIcon
-            Application.ApplicationExit += new EventHandler(OnApplicationExit);
-            handler = new ConsoleEventDelegate(ConsoleEventCallback);
-            SetConsoleCtrlHandler(handler, true);
-
-            //Check if software starts with Windows
-            if (!Properties.Settings.Default.StartWithWindows)
-                sysIcon.AddOpenOnStartupMenu();
-
-            //Create shortcut folder if doesn't exist
-            if (!Directory.Exists(shortcutLocation)) {
-                Directory.CreateDirectory(shortcutLocation);
-            }
-            if(!File.Exists(Path.Combine(shortcutLocation, @"example.txt"))) {
-                //Create example-file
-                using (StreamWriter sw = File.CreateText(Path.Combine(shortcutLocation, @"example.txt"))) {
-                    sw.WriteLine("This is an example file.");
-                    sw.WriteLine("If you haven't already, make your assistant open this file!");
-                }
-            }
-
-            //Delete all old action files
-            if (Directory.Exists(CheckPath())) {
-                foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
-                    ClearFile(file);
-                }
-            }
-
-            //SetupListener();
-            watcher = new FileSystemWatcher() {
-                Path = CheckPath(),
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName,
-                Filter = "*." + Properties.Settings.Default.ActionFileExtension,
-                EnableRaisingEvents = true
-            };
-            watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
-            watcher.Created += new FileSystemEventHandler(ActionChecker.FileFound);
-
-            DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
-
-            Application.EnableVisualStyles();
-            sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon;
-            
-            RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
-            if (Registry.GetValue(key.Name + "\\AssistantComputerControl", "FirstTime", null) == null) {
-                key.CreateSubKey("AssistantComputerControl");
-                key = key.OpenSubKey("AssistantComputerControl", true);
-                key.SetValue("FirstTime", false);
-
-                Properties.Settings.Default.HasCompletedTutorial = true;
-                Properties.Settings.Default.Save();
-
-                ShowGettingStarted();
-
-                DoDebug("Starting setup guide");
             } else {
-                if (!Properties.Settings.Default.HasCompletedTutorial) {
-                    ShowGettingStarted();
-                    DoDebug("Didn't finish setup guide last time, opening again");
-                }
+                //Code is (most likely) forked - skip issue tracking
+                ActualMain();
             }
-            SetRegKey("ActionFolder", CheckPath());
-            SetRegKey("ActionExtension", Properties.Settings.Default.ActionFileExtension);
 
-            Application.Run();
+            void ActualMain() {
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+                SetupDataFolder();
+                if (File.Exists(logFilePath))
+                    File.WriteAllText(logFilePath, string.Empty);
+                else
+                    CreateLogFile();
+
+                //Check if software already runs, if so kill this instance
+                var otherACCs = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(currentLocationFull));
+                if (otherACCs.Length > 1) {
+                    //DoDebug("ACC is already running, killing this proccess");
+                    //MessageBox.Show("ACC is already running.", "Already running | " + messageBoxTitle + "");
+                    //Process.GetCurrentProcess().Kill();
+
+                    //Try kill the _other_ process instead
+                    foreach (Process p in otherACCs) {
+                        if (p.Id != Process.GetCurrentProcess().Id) {
+                            p.Kill();
+                            DoDebug("Other ACC instance was running. Killed it.");
+                        }
+                    }
+                }
+
+                DoDebug("[ACC begun (v" + softwareVersion + ")]");
+                AnalyticsSettings.SetupAnalytics();
+
+                if (Properties.Settings.Default.CheckForUpdates) {
+                    if (HasInternet()) {
+                        new Thread(() => {
+                            new ACC_Updater().Check();
+                        }).Start();
+                    } else {
+                        DoDebug("Couldn't check for new update as PC does not have access to the internet");
+                    }
+                }
+
+                //On console close: hide NotifyIcon
+                Application.ApplicationExit += new EventHandler(OnApplicationExit);
+                handler = new ConsoleEventDelegate(ConsoleEventCallback);
+                SetConsoleCtrlHandler(handler, true);
+
+                //Check if software starts with Windows
+                if (!Properties.Settings.Default.StartWithWindows)
+                    sysIcon.AddOpenOnStartupMenu();
+
+                //Create shortcut folder if doesn't exist
+                if (!Directory.Exists(shortcutLocation)) {
+                    Directory.CreateDirectory(shortcutLocation);
+                }
+                if (!File.Exists(Path.Combine(shortcutLocation, @"example.txt"))) {
+                    //Create example-file
+                    using (StreamWriter sw = File.CreateText(Path.Combine(shortcutLocation, @"example.txt"))) {
+                        sw.WriteLine("This is an example file.");
+                        sw.WriteLine("If you haven't already, make your assistant open this file!");
+                    }
+                }
+
+                //Delete all old action files
+                if (Directory.Exists(CheckPath())) {
+                    foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
+                        ClearFile(file);
+                    }
+                }
+
+                //SetupListener();
+                watcher = new FileSystemWatcher() {
+                    Path = CheckPath(),
+                    NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                        | NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                    Filter = "*." + Properties.Settings.Default.ActionFileExtension,
+                    EnableRaisingEvents = true
+                };
+                watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
+                watcher.Created += new FileSystemEventHandler(ActionChecker.FileFound);
+
+                DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
+
+                Application.EnableVisualStyles();
+                sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon;
+
+                RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
+                if (Registry.GetValue(key.Name + "\\AssistantComputerControl", "FirstTime", null) == null) {
+                    key.CreateSubKey("AssistantComputerControl");
+                    key = key.OpenSubKey("AssistantComputerControl", true);
+                    key.SetValue("FirstTime", false);
+
+                    Properties.Settings.Default.HasCompletedTutorial = true;
+                    Properties.Settings.Default.Save();
+
+                    ShowGettingStarted();
+
+                    DoDebug("Starting setup guide");
+                } else {
+                    if (!Properties.Settings.Default.HasCompletedTutorial) {
+                        ShowGettingStarted();
+                        DoDebug("Didn't finish setup guide last time, opening again");
+                    }
+                }
+                SetRegKey("ActionFolder", CheckPath());
+                SetRegKey("ActionExtension", Properties.Settings.Default.ActionFileExtension);
+
+                if (gettingStarted is null && !Properties.Settings.Default.AnalyticsInformed) {
+                    //"Getting started" not shown but user hasn't been told about analytics gathering yet
+                    ShowGettingStarted(3);
+                }
+
+                //If newly updated
+                if (Properties.Settings.Default.LastKnownVersion != softwareVersion) {
+                    //Up(or down)-grade, display version notes
+                    if (gettingStarted != null) {
+                        DoDebug("'AboutVersion' window awaits, as 'Getting Started' is showing");
+                        aboutVersionAwaiting = true;
+                    } else {
+                        Properties.Settings.Default.LastKnownVersion = softwareVersion;
+                        new NewVersion().Show();
+                        Properties.Settings.Default.Save();
+                    }
+                }
+
+                Application.Run();
+            }
         }
         //End main function
 
@@ -221,7 +267,7 @@ namespace AssistantComputerControl {
             if (debug) {
                 Console.WriteLine(e);
             }
-            MessageBox.Show("An unhandled critical error occurred. Please contact the developer (https://github.com/AlbertMN/AssistantComputerControl/issues)");
+            MessageBox.Show("A critical error occurred. The developer has been notified and will resolve this issue ASAP! Try and start ACC again, and avoid whatever just made it crash (for now) :)", "ACC | Error");
         }
 
         private static void CreateLogFile() {
@@ -327,8 +373,6 @@ namespace AssistantComputerControl {
                 if (!File.Exists(jsonPath)) return "";
 
                 string jsonContent = File.ReadAllText(jsonPath);
-                //if (jsonContent != String.Empty) jsonContent = jsonContent.Replace("{\"personal\":", ""); else return "";
-                //jsonContent = jsonContent.Remove(jsonContent.Length - 1, 1);
                 try {
                     DropboxJson dropboxJson = JsonConvert.DeserializeObject<DropboxJson>(jsonContent);
                     if (dropboxJson != null) {
@@ -470,6 +514,7 @@ namespace AssistantComputerControl {
             if (File.Exists(filePath)) {
                 while (ActionChecker.FileInUse(filePath)) ;
                 File.Delete(filePath);
+                while (File.Exists(filePath)) ;
                 DoDebug("Action-file deleted");
             } else {
                 DoDebug("No file to delete");
@@ -495,10 +540,10 @@ namespace AssistantComputerControl {
             }
         }
 
-        public static void ShowGettingStarted() {
+        public static void ShowGettingStarted(int startTab = 0) {
             if (gettingStarted is null) {
                 //New instance
-                gettingStarted = new GettingStarted();
+                gettingStarted = new GettingStarted(startTab);
                 gettingStarted.Show();
 
                 gettingStarted.FormClosing += delegate { settingsForm = null; };
