@@ -35,7 +35,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="AnalyticsSettings.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="FlashWindow.cs" />
     <Compile Include="GettingStarted.cs">
       <SubType>Form</SubType>
     </Compile>

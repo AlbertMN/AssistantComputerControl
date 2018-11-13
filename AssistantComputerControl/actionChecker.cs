@@ -57,7 +57,6 @@ namespace AssistantComputerControl {
                 try {
                     using (Stream stream = new FileStream(file, FileMode.Open)) {
                         // File/Stream manipulating code here
-                        MainProgram.DoDebug("Can read file");
                         return false;
                     }
                 } catch {
@@ -76,41 +75,81 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Failed to press key \"" + c.ToString() + "\", exception; " + e);
             }
         }
-        
+
         static public void FileFound(object source, FileSystemEventArgs e) {
-            string file = e.FullPath;
+            ProcessFile(e.FullPath);
+        }
+
+        private static DateTime lastActionModified;
+
+        static public void ProcessFile(string file) {
             string originalFileName = file;
 
-            if (!File.Exists(file) || inProgressFileNames.Contains(e.FullPath) || file.Contains("in_progress")) {
+            if (!File.Exists(file)/* || inProgressFileNames.Contains(file) || file.Contains("in_progress")*/) {
+                return;
+            }
+            DateTime lastModified = File.GetCreationTime(file);
+            //MainProgram.DoDebug(lastModified.ToString());
+
+            if (lastModified == lastActionModified || (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden) {
+                //If file is hidden or has exact same "last modified" date as last file (possible trying to do the same twice)
+                return;
+            }
+            lastActionModified = lastModified;
+
+            if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
+                MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
+                MainProgram.DoDebug("File creation time: " + lastModified.ToString());
+                MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
                 return;
             }
             inProgressFileNames.Add(originalFileName);
 
             MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
-            MainProgram.DoDebug(file);
-            MainProgram.DoDebug("File exists, checking the content...");
+            MainProgram.DoDebug(" - " + file);
+            MainProgram.DoDebug(" - File exists, checking the content...");
 
-            while (FileInUse(file));
+            try {
+                Thread.Sleep(200);
+                File.SetAttributes(file, FileAttributes.Hidden);
+            } catch {
+                //
+            }
+
+            /*while (FileInUse(file));
             string newFileName = Path.Combine(MainProgram.CheckPath(), "in_progress_" + Guid.NewGuid().ToString("n").Substring(0, 8) + "." + Properties.Settings.Default.ActionFileExtension);
+            inProgressFileNames.Add(newFileName);
             try {
                 File.Move(file, newFileName);
-                inProgressFileNames.Add(newFileName);
+                MainProgram.DoDebug(" - File moved");
             } catch {
                 //File in use
                 inProgressFileNames.Remove(file);
                 inProgressFileNames.Remove(originalFileName);
-                MainProgram.DoDebug("Can't move file - used by another process");
+                MainProgram.DoDebug(" - Can't move file - used by another process, ignoring");
+
+                try {
+                    Thread.Sleep(200);
+                    File.SetAttributes(file, FileAttributes.Hidden);
+                } catch {
+                    //
+                }
+
                 return;
             }
             file = newFileName;
-            while (File.Exists(originalFileName) && !File.Exists(newFileName));
+            while (File.Exists(originalFileName));
+            while (!File.Exists(file)) ;*/
 
             if (new FileInfo(file).Length != 0) {
-                MainProgram.DoDebug("Action set. File is not empty...");
                 //string line = Regex.Replace(File.ReadAllText(file), @"\t|\n|\r", "");
                 string fullContent = Regex.Replace(File.ReadAllText(file), @"\t|\r", "");
-                MainProgram.DoDebug("Read complete, content: " + fullContent);
-                    
+                MainProgram.DoDebug(" - Read complete, content: " + fullContent);
+
+                //MainProgram.ClearFile(file);
+                //while (File.Exists(file)) ;
+                File.SetAttributes(file, FileAttributes.Hidden);
+
                 using (StringReader reader = new StringReader(fullContent)) {
                     string theLine = string.Empty;
                     do {
@@ -123,17 +162,20 @@ namespace AssistantComputerControl {
                     } while (theLine != null);
                 }
             } else {
-                MainProgram.DoDebug("File is empty");
+                MainProgram.DoDebug(" - File is empty");
                 MainProgram.errorMessage = "No action set (file is empty)";
+
+                //MainProgram.ClearFile(file);
+                //while (File.Exists(file)) ;
+                File.SetAttributes(file, FileAttributes.Hidden);
             }
 
-            MainProgram.ClearFile(file);
-            while (File.Exists(file)) ;
+
+            MainProgram.DoDebug("[ -- DONE -- ]");
             inProgressFileNames.Remove(file);
             inProgressFileNames.Remove(originalFileName);
-            MainProgram.DoDebug("[ -- DONE -- ]");
 
-            if (MainProgram.errorMessage.Length != 0 && !MainProgram.debug) {
+            if (MainProgram.errorMessage.Length != 0) {
                 MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);
                 MainProgram.errorMessage = "";
             }
@@ -154,7 +196,7 @@ namespace AssistantComputerControl {
                 assistantParam = theLine.Split('[')[1];
                 assistantParam = assistantParam.Split(']')[0];
 
-                MainProgram.DoDebug("Executing using; " + assistantParam);
+                MainProgram.DoDebug(" - Executing using; " + assistantParam);
             }
 
             if (action.Contains(":")) {
@@ -175,11 +217,11 @@ namespace AssistantComputerControl {
             }
 
             if (MainProgram.testingAction)
-                MainProgram.DoDebug("Test went through: " + action);
+                MainProgram.DoDebug(" - Test went through: " + action);
 
-            MainProgram.DoDebug("Action: " + action);
-            MainProgram.DoDebug("Parameter: " + parameter);
-            MainProgram.DoDebug("Full line: " + theLine);
+            MainProgram.DoDebug(" - Action: " + action);
+            MainProgram.DoDebug(" - Parameter: " + parameter);
+            MainProgram.DoDebug(" - Full line: " + theLine);
             ExecuteAction(action, theLine, parameter, assistantParam);
         }
 
@@ -222,7 +264,7 @@ namespace AssistantComputerControl {
 
         private static void ExecuteAction(string action, string line, string parameter, string assistantParam) {
             int? actionNumber = null;
-            switch (action) {
+            switch (action.ToLower()) {
                 case "shutdown":
                     //Shuts down the computer
                     string shutdownParameters = "/s /t 0";
@@ -659,7 +701,7 @@ namespace AssistantComputerControl {
                                     bool doDelete = true;
                                     if (d.GetFiles().Length > Properties.Settings.Default.MaxDeleteFiles && Properties.Settings.Default.WarnWhenDeletingManyFiles) {
                                         //Has more than x files - do warning
-                                        DialogResult dialogResult = MessageBox.Show("You're about to delete more than 10 files at " + fileLocation + " - are you sure you wish to proceed?",
+                                        DialogResult dialogResult = MessageBox.Show("You're about to delete more than " + Properties.Settings.Default.MaxDeleteFiles.ToString() + " files at " + fileLocation + " - are you sure you wish to proceed?",
                                             "Are you sure?", MessageBoxButtons.YesNo);
                                         if (dialogResult == DialogResult.Yes) {
 

@@ -14,15 +14,16 @@ using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.1.0",
-            releaseDate = "2018-10-08 23:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.1.3",
+            releaseDate = "2018-11-12 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
             isCheckingForUpdate = false,
 
             testingAction = false,
-            aboutVersionAwaiting = false;
+            aboutVersionAwaiting = false,
+            hasAskedForSetupAgain = false;
 
         public TestStatus currentTestStatus = TestStatus.ongoing;
         public enum TestStatus {
@@ -56,7 +57,7 @@ namespace AssistantComputerControl {
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
             if (AnalyticsSettings.sentryToken != "super_secret") {
-                //Tracking issues with Sentry.IO - not forked from GitHub, official version
+                //Tracking issues with Sentry.IO - not forked from GitHub (official version)
                 bool sentryOK = false;
                 try {
                     if (Properties.Settings.Default.UID != "") {
@@ -378,6 +379,8 @@ namespace AssistantComputerControl {
                     if (dropboxJson != null) {
                         if (dropboxJson.personal != null) {
                             return dropboxJson.personal.Path;
+                        } else if (dropboxJson.business != null) {
+                            return dropboxJson.business.Path;
                         }
                     }
                 } catch {
@@ -475,8 +478,9 @@ namespace AssistantComputerControl {
             } else {
                 string dropboxFolder = GetDropboxFolder();
                 if (dropboxFolder == "" || dropboxFolder == null || !Directory.Exists(dropboxFolder)) {
-                    if (Properties.Settings.Default.HasCompletedTutorial) {
+                    if (Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain) {
                         //Dropbox not found & no custom filepath, go through setup again?
+                        hasAskedForSetupAgain = true;
                         var msgBox = MessageBox.Show("Dropbox (required) doesn't seem to be installed... Do you want to go through the setup guide again?", "[ERROR] No folder specified | " + messageBoxTitle, MessageBoxButtons.YesNo);
                         if (msgBox == DialogResult.Yes) {
                             ShowGettingStarted();
@@ -505,7 +509,7 @@ namespace AssistantComputerControl {
                     Console.WriteLine(str);
                 }
             } catch (Exception e) {
-                Console.WriteLine("Failed to write to log, exception; " + e);
+                Console.WriteLine("Failed to write to log, exception");
             }
         }
 

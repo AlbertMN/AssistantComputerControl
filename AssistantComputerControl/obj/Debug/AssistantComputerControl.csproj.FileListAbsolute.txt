@@ -20,7 +20,6 @@ C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCompu
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojResolveAssemblyReference.cache
-C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AboutVersion.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AdvancedSettings.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.GettingStarted.resources
 C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
@@ -58,3 +57,9 @@ C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComput
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.config
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.NewVersion.resources
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.UpdateProgress.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AboutVersionWeb\assets\acc_logo.png
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AboutVersionWeb\assets\bootstrap.min.css
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\AboutVersionWeb\index.html
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.config
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.NewVersion.resources
+C:\Users\Albert\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.UpdateProgress.resources

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -66,7 +66,7 @@ namespace AssistantComputerControl {
 
             SetupAnalytics();
         }
-        
+
         public static void SetupAnalytics() {
             //Unique user-ID
             if (Properties.Settings.Default.UID == "" || Properties.Settings.Default.UID == null) {
@@ -97,12 +97,12 @@ namespace AssistantComputerControl {
 
                     //Populate new analytics array with old values
                     int i = 0;
-                    foreach(int ac in oldSettings) {
+                    foreach (int ac in oldSettings) {
                         if (i != newSettings.Length)
                             newSettings[i] = ac;
                         i++;
                     }
-                    
+
                     Properties.Settings.Default.TotalActionsExecuted = newSettings;
                     Properties.Settings.Default.Save();
                 }
@@ -149,13 +149,17 @@ namespace AssistantComputerControl {
             int pos = Array.IndexOf(actions, action);
             if (pos > -1) {
                 //MainProgram.DoDebug("Added +1 to " + action + " at pos " + pos);
-                Properties.Settings.Default.TotalActionsExecuted[pos]++;
+                if (Properties.Settings.Default.TotalActionsExecuted.Length >= pos) {
+                    Properties.Settings.Default.TotalActionsExecuted[pos]++;
 
-                if (!Properties.Settings.Default.AnalyticsUnsentData) {
-                    Properties.Settings.Default.AnalyticsUnsentData = true;
-                    ScheduleAnalyticsSend();
+                    if (!Properties.Settings.Default.AnalyticsUnsentData) {
+                        Properties.Settings.Default.AnalyticsUnsentData = true;
+                        ScheduleAnalyticsSend();
+                    }
+                    Properties.Settings.Default.Save();
+                } else {
+                    MainProgram.DoDebug("Index " + pos.ToString() + " exceeds 'TotalActionsExecuted' property, which has length; " + Properties.Settings.Default.TotalActionsExecuted.Length.ToString());
                 }
-                Properties.Settings.Default.Save();
             } else {
                 MainProgram.DoDebug("Could not find action \"" + action + "\" in action-array (analytics)");
             }
@@ -229,7 +233,7 @@ namespace AssistantComputerControl {
                         ["beta_program"] = Properties.Settings.Default.BetaProgram ? "true" : "false",
                         ["date"] = Properties.Settings.Default.AnalyticsThisDay
                     };
-                    
+
                     try {
                         var response = client.PostAsync(sendDataUrl, new FormUrlEncodedContent(parameters)).Result;
                         var contents = response.Content.ReadAsStringAsync().Result;

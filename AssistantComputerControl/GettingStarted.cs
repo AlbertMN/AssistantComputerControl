@@ -41,7 +41,7 @@ namespace AssistantComputerControl {
             tabControl.Selected += delegate {
                 if (tabControl.SelectedIndex == 1) {
                     //Clicked on recommended setup guide (HTML), can show "move on" popover now
-                    theWebBrowser.Document.InvokeScript("showHelpPopover");
+                    //theWebBrowser.Document.InvokeScript("showHelpPopover"); // Why would I do this...?
                 } else if (tabControl.SelectedIndex == 2) {
                     expert.Focus();
                 }
@@ -161,12 +161,31 @@ namespace AssistantComputerControl {
                 MainProgram.testingAction = false;
                 MainProgram.gettingStarted = null;
             };
+
+
+            this.HandleCreated += delegate {
+                Invoke(new Action(() => {
+                    FlashWindow.Flash(this);
+                    if (Application.OpenForms[this.Name] != null) {
+                        Application.OpenForms[this.Name].Activate();
+                        Application.OpenForms[this.Name].Focus();
+                    }
+                }));
+            };
         }
 
         public void SendActionThrough(Object[] objArray) {
             if ((string)objArray[0] == "success") {
                 SetupDone();
             }
+            this.Invoke(new Action(() => {
+                FlashWindow.Flash(this);
+                if (Application.OpenForms[this.Name] != null) {
+                    Application.OpenForms[this.Name].Activate();
+                    Application.OpenForms[this.Name].Focus();
+                }
+            }));
+
             theWebBrowser.Invoke(new Action(() => {
                 theWebBrowser.Document.InvokeScript("actionWentThrough", objArray);
             }));
@@ -212,12 +231,16 @@ namespace AssistantComputerControl {
         void link_MouseUp(object sender, HtmlElementEventArgs e) {
             Regex pattern = new Regex("href=\\\"(.+?)\\\"");
             Match match = pattern.Match((sender as HtmlElement).OuterHtml);
-            string link = match.Groups[1].Value;
+            if (match.Groups.Count >= 1) {
+                string link = match.Groups[1].Value;
 
-            if (link[0] != '#')
-                Process.Start(link);
-            else if (link == "#recommendedFinished") {
-                tabControl.SelectTab(3);
+                if (link.Length > 0) {
+                    if (link[0] != '#')
+                        Process.Start(link);
+                    else if (link == "#recommendedFinished") {
+                        tabControl.SelectTab(3);
+                    }
+                }
             }
         }
         private void NewBrowserWindow(object sender, CancelEventArgs e) {
@@ -286,7 +309,9 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Starting with Windows now");
             }
             Properties.Settings.Default.AnalyticsInformed = true;
-            AnalyticsSettings.UpdateSharing(analyticsEnabledBox.Checked);
+            if (Properties.Settings.Default.SendAnonymousAnalytics != analyticsEnabledBox.Checked) {
+                AnalyticsSettings.UpdateSharing(analyticsEnabledBox.Checked);
+            }
 
             MainProgram.DoDebug("Anonymous analyitcs " + (analyticsEnabledBox.Checked ? "IS" : "is NOT") + " enabled");
 

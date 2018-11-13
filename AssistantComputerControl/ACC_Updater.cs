@@ -12,7 +12,7 @@ namespace AssistantComputerControl {
         private const string releaseJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=release";
         private const string betaJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=beta";
 
-        public bool Check() {
+        public bool Check(bool debug = false) {
             if (MainProgram.isCheckingForUpdate)
                 return false;
 
@@ -64,6 +64,8 @@ namespace AssistantComputerControl {
                     } else {
                         //None of them are newer. Nothing new
                         MainProgram.DoDebug("Software up to date (beta program enabled)");
+
+                        MainProgram.isCheckingForUpdate = false;
                         return false;
                     }
                 } else if (latestReleaseJson != null && latestBetaJson == null) {
@@ -76,6 +78,7 @@ namespace AssistantComputerControl {
                     } else {
                         //Not new, move on
                         MainProgram.DoDebug("Software up to date");
+                        MainProgram.isCheckingForUpdate = false;
                         return false;
                     }
                 } else if (latestReleaseJson == null && latestBetaJson != null) {
@@ -89,6 +92,7 @@ namespace AssistantComputerControl {
                         } else {
                             //Not new, move on
                             MainProgram.DoDebug("Software up to date (beta program enabled)");
+                            MainProgram.isCheckingForUpdate = false;
                             return false;
                         }
                     }
@@ -106,13 +110,19 @@ namespace AssistantComputerControl {
                     } else if (dialogResult == DialogResult.No) {
                         MainProgram.DoDebug("User did not want to install update");
                     }
+                    MainProgram.isCheckingForUpdate = false;
                     return true;
                 } else {
                     MainProgram.DoDebug("Software up to date");
+                    if (debug)
+                        MessageBox.Show("No new update found. You're up to date!", "Check for update | " + MainProgram.messageBoxTitle);
                 }
             } else {
                 MainProgram.DoDebug("Could not reach the webserver (both 'release' and 'beta' json files couldn't be reached)");
+                if (debug)
+                    MessageBox.Show("Could not reach the ACC webservers - try again later", "Check for update | " + MainProgram.messageBoxTitle);
             }
+            MainProgram.isCheckingForUpdate = false;
             return false;
         }
 

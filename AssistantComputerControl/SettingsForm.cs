@@ -102,11 +102,9 @@ namespace AssistantComputerControl {
         }
 
         private void checkForUpdate_Click(object sender, EventArgs e) {
+            //Doesn't return true for some reason... To fix
             if (MainProgram.HasInternet()) {
-                if (!new ACC_Updater().Check()) {
-                    //No new update
-                    MessageBox.Show("No new update found. You're up to date!", "Check for update | " + MainProgram.messageBoxTitle);
-                }
+                new ACC_Updater().Check(true);
             } else {
                 MessageBox.Show("Could not check for update as your computer is not connected to the internet", "Error | " + MainProgram.messageBoxTitle);
             }

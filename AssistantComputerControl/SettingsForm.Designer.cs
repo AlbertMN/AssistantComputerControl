@@ -66,7 +66,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(4, 126);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 13);
@@ -179,9 +179,9 @@
             this.deprecated.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deprecated.Location = new System.Drawing.Point(133, 144);
             this.deprecated.Name = "deprecated";
-            this.deprecated.Size = new System.Drawing.Size(120, 13);
+            this.deprecated.Size = new System.Drawing.Size(134, 13);
             this.deprecated.TabIndex = 22;
-            this.deprecated.Text = "deprecated as of v1.1.0";
+            this.deprecated.Text = "reimplemented as of v1.1.3";
             // 
             // label5
             // 
@@ -300,7 +300,6 @@
             // 
             // fileEditedMargin
             // 
-            this.fileEditedMargin.Enabled = false;
             this.fileEditedMargin.Location = new System.Drawing.Point(7, 142);
             this.fileEditedMargin.Name = "fileEditedMargin";
             this.fileEditedMargin.Size = new System.Drawing.Size(120, 20);

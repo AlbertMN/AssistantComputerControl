@@ -26,7 +26,7 @@ namespace AssistantComputerControl {
 
             //System tray creation
             TrayIcon = new NotifyIcon() {
-                Text = MainProgram.appName,
+                Text = MainProgram.appName + " v" + MainProgram.softwareVersion,
                 Icon = Properties.Resources.ACC_loading_icon
             };
             
@@ -44,7 +44,7 @@ namespace AssistantComputerControl {
             MainProgram.Exit();
         }
         private void TrayOpenHelp(object sender, EventArgs e) {
-            Process.Start("https://github.com/AlbertMN/AssistantComputerControl/wiki");
+            Process.Start("https://acc.albe.pw/#get-in-touch");
         }
 
         private static void TrayCreateStartupLink(object sender, EventArgs e) {
