@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using System;
 
 namespace AssistantComputerControl {
     class AnalyticsSettings {
-        const string sendDataUrl = "https://acc.albe.pw/api/ReceiveAnalyticsData.php";
-        const string sendSharingUrl = "https://acc.albe.pw/api/IsSharing.php";
-        public const string sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269";
-        private static readonly HttpClient client = new HttpClient();
+        //ACC truly is open source, but for security reasons we will not share this one file with the whole world.
+        //This file handles sending analytics to the developers' webserver and contains a few variables that contain -
+        //sensitive access-tokens to integrations like Sentry.IO
+
+        //The public version of this file is exactly like the full version, but stripped of -
+        //API-keys and sensitive information.
+        //Cencored items have placeholders to ensure that everyone can fork and run the project without errors
+        public const string sentryToken = "super_secret";
 
         public static readonly string[] actions = new String[] { //No changing this order!
             "shutdown",         //0
@@ -43,31 +43,13 @@ namespace AssistantComputerControl {
             "unknown",
         };
 
-        public static void UpdateSharing(bool doShare) {
-            Properties.Settings.Default.SendAnonymousAnalytics = doShare;
-            Properties.Settings.Default.Save();
-
-            //Notify server whether
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", @"jmF}AXK6NH!#{@/:ZHV#qK6r#YxytM>K/W6#5q/}tEK!&*_Gd\_YNUBNN/$a+$r");
-
-            var parameters = new Dictionary<string, string> {
-                ["uid"] = Properties.Settings.Default.UID,
-                ["share"] = doShare ? "true" : "false"
-            };
-
-            try {
-                var response = client.PostAsync(sendSharingUrl, new FormUrlEncodedContent(parameters)).Result;
-                var contents = response.Content.ReadAsStringAsync().Result;
-                MainProgram.DoDebug("Posted user response");
-            } catch (Exception e) {
-                MainProgram.DoDebug("Failed to send analytics data - something wrong with the server?");
-                MainProgram.DoDebug(e.ToString());
-            }
-
-            SetupAnalytics();
+        class KeyHandler {
+            public bool Status { get; set; }
+            public string Message { get; set; }
+            public string Key { get; set; }
         }
-        
-        public static void SetupAnalytics() {
+
+        public static void SetupAnalyticsAsync() {
             //Unique user-ID
             if (Properties.Settings.Default.UID == "" || Properties.Settings.Default.UID == null) {
                 string newUID = Guid.NewGuid().ToString("N");
@@ -97,12 +79,12 @@ namespace AssistantComputerControl {
 
                     //Populate new analytics array with old values
                     int i = 0;
-                    foreach(int ac in oldSettings) {
+                    foreach (int ac in oldSettings) {
                         if (i != newSettings.Length)
                             newSettings[i] = ac;
                         i++;
                     }
-                    
+
                     Properties.Settings.Default.TotalActionsExecuted = newSettings;
                     Properties.Settings.Default.Save();
                 }
@@ -113,22 +95,11 @@ namespace AssistantComputerControl {
                     Properties.Settings.Default.Save();
                 }
 
-                DateTime dateTime = DateTime.UtcNow.Date;
-                string thisDay = dateTime.ToString("yyyy/MM/dd");
-                if (Properties.Settings.Default.AnalyticsUnsentData && Properties.Settings.Default.AnalyticsThisDay == thisDay) {
-                    //Resume data for today
-                    ScheduleAnalyticsSend();
-                } else if (Properties.Settings.Default.AnalyticsUnsentData && Properties.Settings.Default.AnalyticsThisDay != thisDay) {
-                    //Didn't send last time - sending now
-                    SendAnalyticsData();
-                }
-
                 MainProgram.DoDebug("Annonymous analytics setup done");
             } else {
                 MainProgram.DoDebug("Annonymous analytics are not being shared");
             }
         }
-
         public static void PrintAnalytics() {
             int i = 0
                 , totalCount = 0;
@@ -150,25 +121,17 @@ namespace AssistantComputerControl {
             if (pos > -1) {
                 //MainProgram.DoDebug("Added +1 to " + action + " at pos " + pos);
                 Properties.Settings.Default.TotalActionsExecuted[pos]++;
-
-                if (!Properties.Settings.Default.AnalyticsUnsentData) {
-                    Properties.Settings.Default.AnalyticsUnsentData = true;
-                    ScheduleAnalyticsSend();
-                }
                 Properties.Settings.Default.Save();
             } else {
                 MainProgram.DoDebug("Could not find action \"" + action + "\" in action-array (analytics)");
             }
+
+            SendAnalyticsData();
         }
         public static void AddCount(int action, string type) {
             AddTypeCount(type);
             if (actions[action] != null) {
                 Properties.Settings.Default.TotalActionsExecuted[action]++;
-
-                if (!Properties.Settings.Default.AnalyticsUnsentData) {
-                    Properties.Settings.Default.AnalyticsUnsentData = true;
-                    ScheduleAnalyticsSend();
-                }
                 Properties.Settings.Default.Save();
             } else {
                 MainProgram.DoDebug("Could not find action with index \"" + action + "\" in action-array (analytics)");
@@ -190,67 +153,14 @@ namespace AssistantComputerControl {
             }
         }
 
-        static void ScheduleAnalyticsSend() {
-            //Time when method needs to be called
-            MainProgram.DoDebug("Analytics scheduled to be sent at 00:00");
-
-            DateTime dateTime = DateTime.UtcNow.Date;
-            Properties.Settings.Default.AnalyticsThisDay = dateTime.ToString("yyyy/MM/dd");
-            Properties.Settings.Default.Save();
-
-            var DailyTime = "00:00:00";
-            var timeParts = DailyTime.Split(new char[1] { ':' });
-
-            var dateNow = DateTime.Now;
-            var date = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day,
-                       int.Parse(timeParts[0]), int.Parse(timeParts[1]), int.Parse(timeParts[2]));
-            TimeSpan ts;
-            if (date > dateNow)
-                ts = date - dateNow;
-            else {
-                date = date.AddDays(1);
-                ts = date - dateNow;
-            }
-
-            Task.Delay(ts).ContinueWith((x) => SendAnalyticsData());
-        }
-
         public static string SendAnalyticsData() {
+            //Sends analytics data to the server
             if (Properties.Settings.Default.SendAnonymousAnalytics) {
-                if (MainProgram.HasInternet()) {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", @"jmF}AXK6NH!#{@/:ZHV#qK6r#YxytM>K/W6#5q/}tEK!&*_Gd\_YNUBNN/$a+$r");
-
-                    var parameters = new Dictionary<string, string> {
-                        ["uid"] = Properties.Settings.Default.UID,
-                        ["actions"] = string.Join(",", Properties.Settings.Default.TotalActionsExecuted),
-                        ["assistants"] = string.Join(",", Properties.Settings.Default.AssistantType),
-                        ["start_with_windows"] = Properties.Settings.Default.StartWithWindows ? "true" : "false",
-                        ["version"] = MainProgram.softwareVersion,
-                        ["beta_program"] = Properties.Settings.Default.BetaProgram ? "true" : "false",
-                        ["date"] = Properties.Settings.Default.AnalyticsThisDay
-                    };
-                    
-                    try {
-                        var response = client.PostAsync(sendDataUrl, new FormUrlEncodedContent(parameters)).Result;
-                        var contents = response.Content.ReadAsStringAsync().Result;
-
-                        //Success
-                        Properties.Settings.Default.AnalyticsUnsentData = false;
-                        Properties.Settings.Default.Save();
-                        MainProgram.DoDebug("Analytics successfully posted");
-                        return contents;
-                    } catch (Exception e) {
-                        MainProgram.DoDebug("Failed to send analytics data - something wrong with the server?");
-                        MainProgram.DoDebug(e.ToString());
-                        return "";
-                    }
-                } else {
-                    MainProgram.DoDebug("Failed to send analytics data; no internet connection");
-                    return "";
-                }
+                //Do it (sensitive code)
             } else {
-                return "";
+                //Don't do it (does nothing here)
             }
+            return "";
         }
     }
 }

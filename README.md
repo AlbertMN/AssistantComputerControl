@@ -41,7 +41,8 @@ For more nerdy technical info you can go to the [Wiki](https://github.com/Albert
 
 So as you can see no coding is required! But if you're up for it and want to add your own features to the project it's easy! The entire project is made made in C# and the code is opensource and quite simple, so feel free to use the code in your own fork or even better; submit pull requests!
 
-### Opensource & services we like
+### Things ACC likes
 * Huge thanks to [readme.io](https://readme.io/) and [Advanced Installer](https://www.advancedinstaller.com/) for letting us use their services for free, giving back to the opensource community
 * [Json.NET](https://www.newtonsoft.com/json); free Json library for .NET
-* _Based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
+* [Sentry.IO](https://sentry.io/welcome/); great issue-tracking making it much easier to resolve issues
+* _Software based on idea by YouTuber [Hylke Jellema](https://www.youtube.com/user/hylke101)'s [video](https://www.youtube.com/watch?v=gOt1IyEAIxA)_
