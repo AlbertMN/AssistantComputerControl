@@ -12,6 +12,7 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+AssistantComputerControl/AnalyticsSettings.cs
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
