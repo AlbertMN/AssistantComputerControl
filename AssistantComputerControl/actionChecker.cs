@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AssistantComputerControl {
     class ActionChecker {
@@ -484,16 +485,31 @@ namespace AssistantComputerControl {
                     break;
                 case "open":
                     if (RequireParameter(parameter)) {
-                        string fileLocation = (!parameter.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
+                        string fileLocationWithArguments = (!parameter.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
+                        var fileLocationList = Regex.Matches(fileLocationWithArguments, @"[\""].+?[\""]|[^ ]+")
+                                    .Cast<Match>()
+                                    .Select(m => m.Value)
+                                    .ToList();
+                        string fileLocation = fileLocationList.ElementAt(0).Replace("\"", "");
+                        string fileArguments = String.Join(" ", fileLocationList.Skip(1).ToArray());
 
-                        if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
-                            if (!MainProgram.testingAction) {
-                                Process.Start(fileLocation);
+                        if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute))
+                        {
+                            if (!MainProgram.testingAction)
+                            {
+                                Process p = new Process();
+                                p.StartInfo.FileName = fileLocation;
+                                p.StartInfo.Arguments = fileArguments;
+                                p.Start();
                                 successMessage = "OPEN: opened file/url; " + fileLocation;
-                            } else {
+                            }
+                            else
+                            {
                                 successMessage = "OPEN: simulated opening file; " + fileLocation;
                             }
-                        } else {
+                        }
+                        else
+                        {
                             MainProgram.DoDebug("ERROR: file or directory doesn't exist (" + fileLocation + ")");
                             MainProgram.errorMessage = "File or directory doesn't exist (" + fileLocation + ")";
                         }
