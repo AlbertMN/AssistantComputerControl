@@ -1,10 +1,13 @@
 # AssistantComputerControl
 Control your computer using your **Google Home**, **Amazon Alexa** and **Microsoft Cortana** assistants!
 
+_The git repository is currently not up to date. Having merging issues. Download from [acc.albe.pw](https://acc.albe.pw/)_
+
 This is a simple but powerful tool that allows you to perform tasks on your Windows computer like;
 ### Supported computer actions
+* **Full and better list of what ACC can do [can be found here](https://acc.albe.pw/#what-can-it-do)**
 * Shutdown [[GH](https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer)][[Alexa](https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer)]
-* Open a file [[GH](https://ifttt.com/applets/Pny8DKBL-acc-open-file-example)][[Alexa](https://ifttt.com/applets/EsP6zWpe-acc-open-file-example)]
+* Open a file (or multiple) [[GH](https://ifttt.com/applets/Pny8DKBL-acc-open-file-example)][[Alexa](https://ifttt.com/applets/EsP6zWpe-acc-open-file-example)]
 * Restart [[GH](https://ifttt.com/applets/nsvdVxZ9-acc-restart-computer)][[Alexa](https://ifttt.com/applets/kkwxdE9T-acc-restart-computer)]
 * Sleep / Hibernate [[GH](https://ifttt.com/applets/mEbJCP8F-acc-sleep-computer)][[Alexa](https://ifttt.com/applets/Kagf93wH-acc-sleep-computer)]
 * Lock [[GH](https://ifttt.com/applets/epbqzfCa-acc-lock-computer)][[Alexa](https://ifttt.com/applets/Gv9Ts8ip-acc-lock-computer)]
@@ -23,7 +26,7 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
 This software only works on Windows and has yet only been tested on Windows 10, 8 & 7.
 
 ## Install
-Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](http://acc.albe.pw/download_latest.php?ref=https://github.com/AlbertMN/AssistantComputerControl) to your computer, open it and the setup guide will take you through the very short setup guide!
+Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](http://acc.albe.pw/) to your computer, open it and the setup guide will take you through the very short setup guide!
 
 _Note: [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account is required for the default setup. Dropbox will need to be running at all times for ACC to work_
 
