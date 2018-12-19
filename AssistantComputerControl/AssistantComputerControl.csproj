@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{404B42F4-E135-4D2F-8FD0-20A590814930}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AssistantComputerControl</RootNamespace>
     <AssemblyName>AssistantComputerControl</AssemblyName>
@@ -163,10 +163,10 @@
     </Compile>
     <Compile Include="MainProgram.cs" />
     <Compile Include="MyPanel.cs" />
-    <Compile Include="AboutVersionWeb\NewVersion.cs">
+    <Compile Include="WebFiles\NewVersion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutVersionWeb\NewVersion.Designer.cs">
+    <Compile Include="WebFiles\NewVersion.Designer.cs">
       <DependentUpon>NewVersion.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,13 +206,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AboutVersionWeb\assets\acc_logo.png">
+    <Content Include="WebFiles\assets\acc_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AboutVersionWeb\assets\bootstrap.min.css">
+    <Content Include="WebFiles\assets\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="AboutVersionWeb\index.html">
+    <Content Include="WebFiles\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FodyWeavers.xml" />
@@ -242,7 +242,7 @@
     <EmbeddedResource Include="InstallerClass.resx">
       <DependentUpon>InstallerClass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AboutVersionWeb\NewVersion.resx">
+    <EmbeddedResource Include="WebFiles\NewVersion.resx">
       <DependentUpon>NewVersion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

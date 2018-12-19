@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.1.3, 15-11-2018
+ * 
+ * Use:
+ * - Checks and execute action files
+ */
+
+using System;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -10,7 +19,6 @@ using System.Collections.Generic;
 namespace AssistantComputerControl {
     class ActionChecker {
         private static string successMessage = "";
-        private static List<string> inProgressFileNames = new List<string>();
 
         //Logout
         [DllImport("user32.dll", SetLastError = true)]
@@ -85,7 +93,7 @@ namespace AssistantComputerControl {
         static public void ProcessFile(string file) {
             string originalFileName = file;
 
-            if (!File.Exists(file)/* || inProgressFileNames.Contains(file) || file.Contains("in_progress")*/) {
+            if (!File.Exists(file)) {
                 return;
             }
             DateTime lastModified = File.GetCreationTime(file);
@@ -103,51 +111,21 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
                 return;
             }
-            inProgressFileNames.Add(originalFileName);
 
             MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
             MainProgram.DoDebug(" - " + file);
             MainProgram.DoDebug(" - File exists, checking the content...");
 
             try {
-                Thread.Sleep(200);
+                //Thread.Sleep(200);
                 File.SetAttributes(file, FileAttributes.Hidden);
             } catch {
                 //
             }
 
-            /*while (FileInUse(file));
-            string newFileName = Path.Combine(MainProgram.CheckPath(), "in_progress_" + Guid.NewGuid().ToString("n").Substring(0, 8) + "." + Properties.Settings.Default.ActionFileExtension);
-            inProgressFileNames.Add(newFileName);
-            try {
-                File.Move(file, newFileName);
-                MainProgram.DoDebug(" - File moved");
-            } catch {
-                //File in use
-                inProgressFileNames.Remove(file);
-                inProgressFileNames.Remove(originalFileName);
-                MainProgram.DoDebug(" - Can't move file - used by another process, ignoring");
-
-                try {
-                    Thread.Sleep(200);
-                    File.SetAttributes(file, FileAttributes.Hidden);
-                } catch {
-                    //
-                }
-
-                return;
-            }
-            file = newFileName;
-            while (File.Exists(originalFileName));
-            while (!File.Exists(file)) ;*/
-
             if (new FileInfo(file).Length != 0) {
-                //string line = Regex.Replace(File.ReadAllText(file), @"\t|\n|\r", "");
                 string fullContent = Regex.Replace(File.ReadAllText(file), @"\t|\r", "");
                 MainProgram.DoDebug(" - Read complete, content: " + fullContent);
-
-                //MainProgram.ClearFile(file);
-                //while (File.Exists(file)) ;
                 File.SetAttributes(file, FileAttributes.Hidden);
 
                 using (StringReader reader = new StringReader(fullContent)) {
@@ -172,8 +150,6 @@ namespace AssistantComputerControl {
 
 
             MainProgram.DoDebug("[ -- DONE -- ]");
-            inProgressFileNames.Remove(file);
-            inProgressFileNames.Remove(originalFileName);
 
             if (MainProgram.errorMessage.Length != 0) {
                 MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);

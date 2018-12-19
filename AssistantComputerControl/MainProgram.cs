@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.1.4, 15-11-2018
+ * 
+ * Use:
+ * - Main class. Starts everything.
+ */
+
+using System;
 using System.IO;
 using System.Diagnostics;
 using System.Reflection;
@@ -14,8 +23,8 @@ using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.1.3",
-            releaseDate = "2018-11-12 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.1.4",
+            releaseDate = "2018-12-13 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -113,6 +122,8 @@ namespace AssistantComputerControl {
                     }
                 }
 
+                Application.EnableVisualStyles();
+
                 DoDebug("[ACC begun (v" + softwareVersion + ")]");
                 AnalyticsSettings.SetupAnalytics();
 
@@ -167,7 +178,6 @@ namespace AssistantComputerControl {
 
                 DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
-                Application.EnableVisualStyles();
                 sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon;
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);

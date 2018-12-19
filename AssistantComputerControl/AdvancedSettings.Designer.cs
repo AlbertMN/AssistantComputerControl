@@ -50,6 +50,7 @@
             // 
             // actionFolderPath
             // 
+            this.actionFolderPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.actionFolderPath.Location = new System.Drawing.Point(7, 117);
             this.actionFolderPath.Name = "actionFolderPath";
             this.actionFolderPath.Size = new System.Drawing.Size(341, 20);
@@ -75,6 +76,7 @@
             // 
             // actionFileExtension
             // 
+            this.actionFileExtension.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.actionFileExtension.Location = new System.Drawing.Point(6, 163);
             this.actionFileExtension.Name = "actionFileExtension";
             this.actionFileExtension.Size = new System.Drawing.Size(73, 20);
@@ -105,6 +107,7 @@
             // 
             // pickFolderBtn
             // 
+            this.pickFolderBtn.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.pickFolderBtn.Location = new System.Drawing.Point(348, 116);
             this.pickFolderBtn.Name = "pickFolderBtn";
             this.pickFolderBtn.Size = new System.Drawing.Size(23, 22);

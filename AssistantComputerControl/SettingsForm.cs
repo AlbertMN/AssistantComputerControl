@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.1.4, 13-12-2018
+ * 
+ * Use:
+ * - Settings Form
+ */
+
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
@@ -10,6 +19,7 @@ namespace AssistantComputerControl {
 
         public SettingsForm() {
             InitializeComponent();
+
             versionInfo.Text = "Version " + MainProgram.softwareVersion;
 
             computerName.KeyDown += new KeyEventHandler(FreakingStopDingSound);

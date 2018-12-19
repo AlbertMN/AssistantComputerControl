@@ -76,9 +76,10 @@
             // checkUpdates
             // 
             this.checkUpdates.AutoSize = true;
+            this.checkUpdates.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkUpdates.Location = new System.Drawing.Point(7, 53);
             this.checkUpdates.Name = "checkUpdates";
-            this.checkUpdates.Size = new System.Drawing.Size(119, 17);
+            this.checkUpdates.Size = new System.Drawing.Size(125, 18);
             this.checkUpdates.TabIndex = 4;
             this.checkUpdates.Text = "Check for updates?";
             this.checkUpdates.UseVisualStyleBackColor = true;
@@ -86,6 +87,7 @@
             // 
             // advancedSettingsButton
             // 
+            this.advancedSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.advancedSettingsButton.Location = new System.Drawing.Point(7, 184);
             this.advancedSettingsButton.Name = "advancedSettingsButton";
             this.advancedSettingsButton.Size = new System.Drawing.Size(150, 23);
@@ -96,6 +98,7 @@
             // 
             // testButton
             // 
+            this.testButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.testButton.Location = new System.Drawing.Point(7, 242);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(150, 23);
@@ -107,9 +110,10 @@
             // startWithWindows
             // 
             this.startWithWindows.AutoSize = true;
+            this.startWithWindows.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.startWithWindows.Location = new System.Drawing.Point(7, 30);
             this.startWithWindows.Name = "startWithWindows";
-            this.startWithWindows.Size = new System.Drawing.Size(123, 17);
+            this.startWithWindows.Size = new System.Drawing.Size(129, 18);
             this.startWithWindows.TabIndex = 7;
             this.startWithWindows.Text = "Start with Windows?";
             this.startWithWindows.UseVisualStyleBackColor = true;
@@ -117,6 +121,7 @@
             // 
             // computerName
             // 
+            this.computerName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.computerName.Enabled = false;
             this.computerName.Location = new System.Drawing.Point(7, 98);
             this.computerName.Name = "computerName";
@@ -135,6 +140,7 @@
             // 
             // logButton
             // 
+            this.logButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.logButton.Location = new System.Drawing.Point(7, 213);
             this.logButton.Name = "logButton";
             this.logButton.Size = new System.Drawing.Size(150, 23);
@@ -205,6 +211,7 @@
             // 
             // maxDeleteFiles
             // 
+            this.maxDeleteFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.maxDeleteFiles.Location = new System.Drawing.Point(113, 322);
             this.maxDeleteFiles.Maximum = new decimal(new int[] {
             1000000,
@@ -225,9 +232,10 @@
             this.warnDeletion.AutoSize = true;
             this.warnDeletion.Checked = true;
             this.warnDeletion.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.warnDeletion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.warnDeletion.Location = new System.Drawing.Point(8, 323);
             this.warnDeletion.Name = "warnDeletion";
-            this.warnDeletion.Size = new System.Drawing.Size(108, 17);
+            this.warnDeletion.Size = new System.Drawing.Size(114, 18);
             this.warnDeletion.TabIndex = 18;
             this.warnDeletion.Text = "Warn when over ";
             this.warnDeletion.UseVisualStyleBackColor = true;
@@ -248,9 +256,10 @@
             this.anonymousAnalyticsCheckbox.AutoSize = true;
             this.anonymousAnalyticsCheckbox.Checked = true;
             this.anonymousAnalyticsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.anonymousAnalyticsCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.anonymousAnalyticsCheckbox.Location = new System.Drawing.Point(8, 300);
             this.anonymousAnalyticsCheckbox.Name = "anonymousAnalyticsCheckbox";
-            this.anonymousAnalyticsCheckbox.Size = new System.Drawing.Size(152, 17);
+            this.anonymousAnalyticsCheckbox.Size = new System.Drawing.Size(158, 18);
             this.anonymousAnalyticsCheckbox.TabIndex = 16;
             this.anonymousAnalyticsCheckbox.Text = "Send anonymous analytics";
             this.anonymousAnalyticsCheckbox.UseVisualStyleBackColor = true;
@@ -258,6 +267,7 @@
             // 
             // doSetupAgain
             // 
+            this.doSetupAgain.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.doSetupAgain.Location = new System.Drawing.Point(7, 271);
             this.doSetupAgain.Name = "doSetupAgain";
             this.doSetupAgain.Size = new System.Drawing.Size(150, 23);
@@ -279,6 +289,7 @@
             // 
             // checkForUpdate
             // 
+            this.checkForUpdate.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.checkForUpdate.Location = new System.Drawing.Point(7, 400);
             this.checkForUpdate.Name = "checkForUpdate";
             this.checkForUpdate.Size = new System.Drawing.Size(109, 23);
@@ -290,9 +301,10 @@
             // betaProgram
             // 
             this.betaProgram.AutoSize = true;
+            this.betaProgram.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.betaProgram.Location = new System.Drawing.Point(132, 53);
             this.betaProgram.Name = "betaProgram";
-            this.betaProgram.Size = new System.Drawing.Size(134, 17);
+            this.betaProgram.Size = new System.Drawing.Size(140, 18);
             this.betaProgram.TabIndex = 12;
             this.betaProgram.Text = "Join the beta program?";
             this.betaProgram.UseVisualStyleBackColor = true;
@@ -300,6 +312,7 @@
             // 
             // fileEditedMargin
             // 
+            this.fileEditedMargin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fileEditedMargin.Location = new System.Drawing.Point(7, 142);
             this.fileEditedMargin.Name = "fileEditedMargin";
             this.fileEditedMargin.Size = new System.Drawing.Size(120, 20);
