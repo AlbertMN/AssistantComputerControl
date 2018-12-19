@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+
+    <title>About new version</title>
+
+    <style>
+        .scroller {
+            height:200px;
+            overflow-y:auto;
+        }
+		.card-body img {
+			width:100%;
+		}
+		.card-body {
+			height:250px;
+		}
+		.noselect {
+		  -webkit-touch-callout: none; /* iOS Safari */
+			-webkit-user-select: none; /* Safari */
+			 -khtml-user-select: none; /* Konqueror HTML */
+			   -moz-user-select: none; /* Firefox */
+				-ms-user-select: none; /* Internet Explorer/Edge */
+					user-select: none; /* Non-prefixed version, currently
+										  supported by Chrome and Opera */
+		}
+		.card-selected {
+			border:2px solid blue;
+		}
+    </style>
+</head>
+<body class="container-fluid noselect">
+
+<div class="row text-center" style="margin-top:10px;">
+    <div class="col-md-12">
+		<h2>Welcome to AssistantComputerControl!</h2>
+		<p>
+			This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.
+		</p>
+	</div>
+	
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="card" data-name="Dropbox">
+					<div class="card-body">
+						<h5 class="card-title">Dropbox</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+						<img draggable="false" src="assets/cloud_services/dropbox.png">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card" data-name="OneDrive">
+					<div class="card-body">
+						<h5 class="card-title">OneDrive</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+						<img draggable="false" src="assets/cloud_services/onedrive.png">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card" data-name="Google Drive">
+					<div class="card-body">
+						<h5 class="card-title">Google Drive</h5>
+						<h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+						<img draggable="false" src="assets/cloud_services/googledrive.png">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card" data-name="the expert setup">
+					<div class="card-body">
+						<h5 class="card-title">Expert setup</h5>
+						<h6 class="card-subtitle mb-2 text-muted"><small>Choose me if you want more freedom (custom setup, no help)</small></h6>
+						<img draggable="false" src="assets/cloud_services/expert.png">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12" style="margin-top:20px;">
+		<button id="pick_btn" class="btn btn-primary btn-block btn-lg" disabled>Pick a cloud service</button>
+	</div>
+	
+	<div class="col-md-12" style="margin-top:40px;">
+		<a href="#">Click here to skip the setup guide <i>(not recommended)</i></a>
+	</div>
+</div>
+
+<script src="assets/jquery.js"></script>
+<script>
+	$(".card").on("click", function() {
+		$(".card").removeClass("card-selected");
+		$(this).addClass("card-selected");
+		
+		$("#pick_btn").prop("disabled", false).text("Proceed with " + $(this).attr("data-name"));
+	});
+</script>
+
+</body>
+</html>
