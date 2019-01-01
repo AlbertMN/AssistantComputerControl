@@ -9,8 +9,8 @@ using System.Threading;
 
 namespace AssistantComputerControl {
     class ACC_Updater {
-        private const string releaseJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=release";
-        private const string betaJsonUrl = "http://acc.albe.pw/versions/latest_version.php?type=beta";
+        private const string releaseJsonUrl = "https://assistantcomputercontrol.com/versions/latest_version.php?type=release";
+        private const string betaJsonUrl = "https://assistantcomputercontrol.com/versions/latest_version.php?type=beta";
 
         public bool Check(bool debug = false) {
             if (MainProgram.isCheckingForUpdate)

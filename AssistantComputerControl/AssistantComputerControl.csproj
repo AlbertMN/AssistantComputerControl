@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://acc.albe.pw/</InstallUrl>
+    <InstallUrl>https://assistantcomputercontrol.com/</InstallUrl>
     <SupportUrl>https://github.com/AlbertMN/AssistantComputerControl/issues</SupportUrl>
     <ErrorReportUrl>https://github.com/AlbertMN/AssistantComputerControl/issues</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
@@ -35,7 +35,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.1.3.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.5.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="ACC_Updater.cs" />
     <Compile Include="ActionChecker.cs" />
+    <Compile Include="Actions.cs" />
     <Compile Include="AdvancedSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,13 +207,40 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="WebFiles\AboutVersion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="WebFiles\assets\acc_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebFiles\assets\bootstrap.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\index.html">
+    <Content Include="WebFiles\assets\cloud_services\dropbox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\cloud_services\expert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\cloud_services\googledrive.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\cloud_services\onedrive.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\gifs\onedrive_howto.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\gifs\sync_all_folders.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\gifs\sync_specific_folder.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\jquery.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\GettingStarted.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FodyWeavers.xml" />

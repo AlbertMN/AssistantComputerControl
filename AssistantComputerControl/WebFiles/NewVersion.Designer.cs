@@ -41,6 +41,7 @@
             this.webBrowser.Size = new System.Drawing.Size(628, 349);
             this.webBrowser.TabIndex = 4;
             this.webBrowser.WebBrowserShortcutsEnabled = false;
+            this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
             // 
             // label1
             // 

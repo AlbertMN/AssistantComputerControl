@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Thanks to Chris Pietschmann for this
+ * http://pietschsoft.com/post/2009/01/26/CSharp-Flash-Window-in-Taskbar-via-Win32-FlashWindowEx
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;

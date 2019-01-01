@@ -15,7 +15,7 @@ namespace AssistantComputerControl {
         public NewVersion() {
             InitializeComponent();
 
-            string fileName = Path.Combine(MainProgram.currentLocation, "AboutVersionWeb/index.html");
+            string fileName = Path.Combine(MainProgram.currentLocation, "WebFiles/AboutVersion.html");
             if (File.Exists(fileName)) {
                 string fileLoc = "file:///" + fileName;
                 Uri theUri = new Uri(fileLoc);
@@ -23,6 +23,10 @@ namespace AssistantComputerControl {
             } else {
                 webBrowser.Visible = false;
             }
+        }
+
+        private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
+
         }
     }
 }

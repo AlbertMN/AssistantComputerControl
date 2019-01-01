@@ -1,4 +1,13 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.1.3, 15-11-2018
+ * 
+ * Use:
+ * - The 'Getting Started' setup guide
+ */
+
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +17,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -15,14 +25,202 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AssistantComputerControl {
+    [ComVisible(true)]
     public partial class GettingStarted : Form {
 
-        private MyPanel selectedPanel = null;
-        public WebBrowser theWebBrowser = null;
+        public static WebBrowser theWebBrowser = null;
+        private static TabControl theTabControl;
+
+        [ComVisible(true)]
+        public class WebBrowserHandler {
+            private static string backgroundCheckerServiceName;
+            public static bool stopCheck = false;
+            private static string customSetPath = String.Empty;
+
+            private bool CheckSetPath(string chosenService) {
+                if (customSetPath != String.Empty) {
+                    if (Directory.Exists(customSetPath)) {
+                        if (!customSetPath.Contains("AssistantComputerControl") && !customSetPath.Contains("assistantcomputercontrol")) {
+                            customSetPath = Path.Combine(customSetPath, "AssistantComputerControl");
+                            MainProgram.DoDebug("Changed path to include 'AssistantComputerControl': " + customSetPath);
+
+                            if (!Directory.Exists(customSetPath))
+                                Directory.CreateDirectory(customSetPath);
+                        }
+
+                        Properties.Settings.Default.ActionFilePath = customSetPath;
+                        Properties.Settings.Default.Save();
+
+                        MainProgram.SetupListener();
+                        return true;
+                    }
+                } else {
+                    string checkPath = MainProgram.GetCloudServicePath(chosenService);
+                    MainProgram.DoDebug("Checking: " + checkPath);
+                    if (!String.IsNullOrEmpty(checkPath)) {
+                        if (Directory.Exists(checkPath)) {
+                            if (!checkPath.Contains("AssistantComputerControl") && !checkPath.Contains("assistantcomputercontrol")) {
+                                checkPath = Path.Combine(checkPath, "AssistantComputerControl");
+                                MainProgram.DoDebug("Changed path to include 'AssistantComputerControl': " + checkPath);
+
+                                if (!Directory.Exists(checkPath))
+                                    Directory.CreateDirectory(checkPath);
+                            }
+
+                            Properties.Settings.Default.ActionFilePath = checkPath;
+                            Properties.Settings.Default.Save();
+
+                            MainProgram.SetupListener();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            public void SetPath(string chosenService) {
+                if (!CheckSetPath(chosenService)) {
+                    theWebBrowser.Document.InvokeScript("DoneError");
+                }
+            }
+            
+            public void AllDone(string chosenService) {
+                MainProgram.DoDebug("'AllDone' pressed");
+                if (CheckSetPath(chosenService)) {
+                    theTabControl.SelectTab(2);
+
+                    MainProgram.SetRegKey("ActionFolder", MainProgram.CheckPath());
+                } else {
+                    theWebBrowser.Document.InvokeScript("DoneError");
+                }
+            }
+
+            public void ClearCustomSetPath() {
+                customSetPath = String.Empty;
+            }
+            
+            public void ExpertChosen() {
+                theTabControl.SelectTab(1);
+            }
+
+            public void StopCheck() {
+                stopCheck = true;
+            }
+
+            public void CheckManualPath(string path) {
+                MainProgram.DoDebug("Checking manually-entered path...");
+                try {
+                    Path.GetFullPath(path);
+                } catch {
+                    MainProgram.DoDebug("Path not good");
+                    theWebBrowser.Document.InvokeScript("ManualPathValidated", new Object[1] { false });
+                    return;
+                }
+                if (Directory.Exists(path)) {
+                    //Good
+                    theWebBrowser.Document.InvokeScript("ManualPathValidated", new Object[1] { true });
+                    MainProgram.DoDebug("Path good");
+                    customSetPath = path;
+                } else {
+                    theWebBrowser.Document.InvokeScript("ManualPathValidated", new Object[1] { false });
+                    MainProgram.DoDebug("Path not good");
+                }
+            }
+
+            public void SkipGuide() {
+                MainProgram.gettingStarted.SetupDone();
+                MainProgram.DoDebug("Skipped setup guide");
+                MainProgram.gettingStarted.Close();
+            }
+
+            public void CloudServiceChosen(string service = "") {
+                switch (service) {
+                    case "dropbox":
+                    case "onedrive":
+                    case "googledrive":
+                        backgroundCheckerServiceName = service;
+                        break;
+                    default:
+                        return;
+                }
+
+                if (MainProgram.GetCloudServicePath(backgroundCheckerServiceName) != "") {
+                    //Cloud service found
+                    MainProgram.DoDebug("Cloud service " + backgroundCheckerServiceName + " is installed");
+                    if (backgroundCheckerServiceName == "googledrive") {
+                        bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
+                        theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
+                        if (partial)
+                            CheckLocalGoogleDrive();
+                    } else {
+                        theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
+                    }
+                } else {
+                    //Not found
+                    new Thread(() => {
+                        Thread.CurrentThread.IsBackground = true;
+                        string checkValue = "";
+                        stopCheck = false;
+
+                        MainProgram.DoDebug("Could not find cloud service. Running loop to check");
+                        while (checkValue == "" && !stopCheck) {
+                            checkValue = MainProgram.GetCloudServicePath(backgroundCheckerServiceName);
+                            Thread.Sleep(1000);
+                        }
+                        if (stopCheck) {
+                            stopCheck = false;
+                            return;
+                        }
+                        
+                        //Cloud service has been installed since we last checked!
+                        MainProgram.DoDebug("Cloud service has been installed since last check. Proceed.");
+                        
+                        theWebBrowser.Invoke(new Action(() => {
+                            if (backgroundCheckerServiceName == "googledrive") {
+                                bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
+                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
+                                if (partial)
+                                    CheckLocalGoogleDrive();
+                            } else {
+                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
+                            }
+                        }));
+                    }).Start();
+                }
+            }
+
+            private void CheckLocalGoogleDrive() {
+                new Thread(() => {
+                    Thread.CurrentThread.IsBackground = true;
+                    stopCheck = false;
+
+                    MainProgram.DoDebug("Starting loop to check for Google Drive folder locally");
+                    while (backgroundCheckerServiceName == "googledrive" && MainProgram.GetGoogleDriveFolder() == String.Empty && !stopCheck) {
+                        Thread.Sleep(1000);
+                    }
+                    if (stopCheck) {
+                        stopCheck = false;
+                        return;
+                    }
+
+                    if (backgroundCheckerServiceName == "googledrive") {
+                        //Cloud service has been installed since we last checked!
+                        MainProgram.DoDebug("Google Drive has been added to local PC. Proceed.");
+                        theWebBrowser.Invoke(new Action(() => {
+                            theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, false });
+                        }));
+                    } else {
+                        MainProgram.DoDebug("Service has since been changed. Stopping the search for Google Drive.");
+                    }
+                }).Start();
+            }
+        }
 
         public GettingStarted(int startTab = 0) {
             InitializeComponent();
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
+            theTabControl = tabControl;
 
             FormClosed += delegate {
                 if (MainProgram.aboutVersionAwaiting) {
@@ -47,62 +245,24 @@ namespace AssistantComputerControl {
                 }
             };
 
-            //Auto-select "recommended" panel
-            RecommendedClicked(null, null);
-            finalOptionButton.FlatStyle = FlatStyle.Flat;
-            finalOptionButton.FlatAppearance.BorderSize = 0;
+            //Set GettingStarted web-browser things
+            string fileName = Path.Combine(MainProgram.currentLocation, "WebFiles/GettingStarted.html");
+            if (File.Exists(fileName)) {
+                string fileLoc = "file:///" + fileName;
+                Uri theUri = new Uri(fileLoc);
+                GettingStartedWebBrowser.Url = theUri;
+            } else {
+                GettingStartedWebBrowser.Visible = false;
+            }
+            GettingStartedWebBrowser.ObjectForScripting = new WebBrowserHandler();
 
-            setupSelect.MouseHover += delegate {
-                if (selectedPanel != recommendedPanel) {
-                    recommendedPanel.borderColor = Pens.Black;
-                    recommendedPanel.Refresh();
-                }
-                if (selectedPanel != expertPanel) {
-                    expertPanel.borderColor = Pens.Black;
-                    expertPanel.Refresh();
-                }
-            };
+            theWebBrowser = GettingStartedWebBrowser;
 
-            //Recommended panel
-            recommendedPanel.MouseHover += RecommendedHovered;
-            recommendedPanel.Click += RecommendedClicked;
+            theWebBrowser.DocumentCompleted += BrowserDocumentCompleted;
+            theWebBrowser.Navigating += BrowserNavigating;
+            theWebBrowser.NewWindow += NewBrowserWindow;
 
-            recommendedLabel.MouseHover += RecommendedHovered;
-            recommendedLabel.Click += RecommendedClicked;
 
-            recommendedLabel2.MouseHover += RecommendedHovered;
-            recommendedLabel2.Click += RecommendedClicked;
-
-            recommendedLabel3.MouseHover += RecommendedHovered;
-            recommendedLabel3.Click += RecommendedClicked;
-
-            recommendedImage.MouseHover += RecommendedHovered;
-            recommendedImage.Click += RecommendedClicked;
-
-            //Expert panel
-            expertPanel.MouseHover += ExpertHovered;
-            expertPanel.Click += ExpertClicked;
-
-            expertLabel1.MouseHover += ExpertHovered;
-            expertLabel1.Click += ExpertClicked;
-
-            expertLabel2.MouseHover += ExpertHovered;
-            expertLabel2.Click += ExpertClicked;
-
-            expertLabel2.MouseHover += ExpertHovered;
-            expertLabel2.Click += ExpertClicked;
-
-            expertLabel3.MouseHover += ExpertHovered;
-            expertLabel3.Click += delegate {
-                Process.Start("https://acc.readme.io/v1.0/docs/application-advanced-settings-expert-setup");
-            };
-            tooltip.SetToolTip(expertLabel3, "This will open a link in your default browser");
-
-            expertLabel4.MouseHover += ExpertHovered;
-            expertLabel4.Click += ExpertClicked;
-
-            expertImage.MouseHover += ExpertHovered;
-            expertImage.Click += ExpertClicked;
 
             //Further expert settings
             actionFolderPath.KeyDown += new KeyEventHandler(FreakingStopDingSound);
@@ -145,13 +305,6 @@ namespace AssistantComputerControl {
 
             analyticsMoveOn.FlatStyle = FlatStyle.Flat;
             analyticsMoveOn.FlatAppearance.BorderSize = 0;
-
-            //Browser
-            theWebBrowser = GuideWebBrowser;
-
-            theWebBrowser.DocumentCompleted += BrowserDocumentCompleted;
-            theWebBrowser.Navigating += BrowserNavigating;
-            theWebBrowser.NewWindow += NewBrowserWindow;
 
             VisibleChanged += delegate {
                 MainProgram.testingAction = Visible;
@@ -200,24 +353,8 @@ namespace AssistantComputerControl {
             e.Cancel = true;
             Process.Start(e.Url.ToString());
         }
+
         private void BrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
-            if (MainProgram.GetDropboxFolder() != "") {
-                //Dropbox found
-                theWebBrowser.Document.InvokeScript("dropboxInstalled", new Object[1] { true });
-            } else {
-                //Not found
-                new Thread(() => {
-                    Thread.CurrentThread.IsBackground = true;
-                    
-                    while (MainProgram.GetDropboxFolder() == "") {
-                        Thread.Sleep(1000);
-                    }
-                    //Dropbox has been installed!
-                    theWebBrowser.Document.InvokeScript("dropboxInstalled", new Object[1] { true });
-                }).Start();
-            }
-
-
             string tagUpper = "";
 
             foreach (HtmlElement tag in (sender as WebBrowser).Document.All) {
@@ -237,9 +374,9 @@ namespace AssistantComputerControl {
                 if (link.Length > 0) {
                     if (link[0] != '#')
                         Process.Start(link);
-                    else if (link == "#recommendedFinished") {
-                        tabControl.SelectTab(3);
-                    }
+                    /*else if (link == "#recommendedFinished") {
+                        tabControl.SelectTab(2);
+                    }*/
                 }
             }
         }
@@ -247,56 +384,6 @@ namespace AssistantComputerControl {
             e.Cancel = true;
         }
 
-
-        //Recommended panel
-        void RecommendedHovered(object sender, EventArgs e) {
-            if (selectedPanel != recommendedPanel) {
-                recommendedPanel.borderColor = Pens.CornflowerBlue;
-                recommendedPanel.Refresh();
-            }
-            if (selectedPanel != expertPanel) {
-                expertPanel.borderColor = Pens.Black;
-                expertPanel.Refresh();
-            }
-        }
-        void RecommendedClicked(object sender, EventArgs e) {
-            if (selectedPanel != recommendedPanel) {
-                MainProgram.DoDebug("Selected recommended");
-                finalOptionButton.Text = "Recommended setup";
-                selectedPanel = recommendedPanel;
-                recommendedPanel.borderColor = Pens.Blue;
-
-                expertPanel.borderColor = Pens.Black;
-                expertPanel.Refresh();
-            }
-
-            recommendedPanel.Refresh();
-        }
-        
-        //Expert panel
-        void ExpertHovered(object sender, EventArgs e) {
-            if (selectedPanel != expertPanel) {
-                expertPanel.borderColor = Pens.CornflowerBlue;
-                expertPanel.Refresh();
-            }
-            if (selectedPanel != recommendedPanel) {
-                recommendedPanel.borderColor = Pens.Black;
-                recommendedPanel.Refresh();
-            }
-        }
-        void ExpertClicked(object sender, EventArgs e) {
-            if (selectedPanel != expertPanel) {
-                MainProgram.DoDebug("Selected expert");
-                finalOptionButton.Text = "Expert setup (are you sure?)";
-                selectedPanel = expertPanel;
-                expertPanel.borderColor = Pens.Blue;
-
-                recommendedPanel.borderColor = Pens.Black;
-                recommendedPanel.Refresh();
-
-            }
-            expertPanel.Refresh();
-        } 
 
         private void SetupDone() {
             //Start with Windows if user said so
@@ -308,9 +395,10 @@ namespace AssistantComputerControl {
 
                 MainProgram.DoDebug("Starting with Windows now");
             }
+
             Properties.Settings.Default.AnalyticsInformed = true;
             if (Properties.Settings.Default.SendAnonymousAnalytics != analyticsEnabledBox.Checked) {
-                AnalyticsSettings.UpdateSharing(analyticsEnabledBox.Checked);
+                MainProgram.UpdateAnalyticsSharing(analyticsEnabledBox.Checked);
             }
 
             MainProgram.DoDebug("Anonymous analyitcs " + (analyticsEnabledBox.Checked ? "IS" : "is NOT") + " enabled");
@@ -318,15 +406,6 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
             Properties.Settings.Default.Save();
-        }
-
-        private void finalOptionButton_Click(object sender, EventArgs e) {
-            if (selectedPanel == recommendedPanel) {
-                tabControl.SelectTab(1);
-            } else {
-                tabControl.SelectTab(2);
-                expert.Focus();
-            }
         }
 
         private void pickFolderBtn_Click(object sender, EventArgs e) {
@@ -341,7 +420,7 @@ namespace AssistantComputerControl {
         }
 
         private void expertDoneButton_Click(object sender, EventArgs e) {
-            tabControl.SelectTab(3);
+            tabControl.SelectTab(2);
         }
 
         private void closeWindowButton_Click(object sender, EventArgs e) {
@@ -368,13 +447,13 @@ namespace AssistantComputerControl {
         }
 
         private void analyticsMoveOn_Click(object sender, EventArgs e) {
-            tabControl.SelectTab(4);
+            tabControl.SelectTab(3);
         }
 
         private void analyticsEnabledBox_CheckedChanged(object sender, EventArgs e) {
             Properties.Settings.Default.AnalyticsInformed = true;
             Properties.Settings.Default.Save();
-            AnalyticsSettings.UpdateSharing(analyticsEnabledBox.Checked);
+            MainProgram.UpdateAnalyticsSharing(analyticsEnabledBox.Checked);
         }
     }
 }

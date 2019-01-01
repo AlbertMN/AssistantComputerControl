@@ -120,10 +120,6 @@
   <metadata name="tooltip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="label17.Text" xml:space="preserve">
-    <value>This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.
-If you want the easy and recommended install, pick one of the supporter cloud services. Otherwise, choose "expert setup"</value>
-  </data>
   <data name="customSetupInfo.Text" xml:space="preserve">
     <value>This setup is for those who wish more freedom over AssistantComputerControl. 
 As you may (or may not) know, ACC uses a cloud-software like Dropbox to communicate with IFTTT, which handles the assistant command &amp; response.

@@ -22,7 +22,7 @@ namespace AssistantComputerControl {
 
             //TODO: Make it local
             //webBrowser.Url = new Uri(String.Format("file:///{0}/test.html", MainProgram.currentLocation));
-            sWebBrowser.Url = new Uri("http://acc.albe.pw/success_error_listen.html");
+            sWebBrowser.Url = new Uri("https://assistantcomputercontrol.com/success_error_listen.html");
 
             sWebBrowser.DocumentCompleted += delegate {
                 browserLoaded = true;

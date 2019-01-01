@@ -43,9 +43,6 @@ C:\Users\albe0731\Dropbox\AssistantComputerControl\AssistantComputerControl\obj\
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.exe.config
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.UpdateProgress.resources
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.NewVersion.resources
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AboutVersionWeb\assets\acc_logo.png
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AboutVersionWeb\assets\bootstrap.min.css
-C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AboutVersionWeb\index.html
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.exe.config
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.NewVersion.resources
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.UpdateProgress.resources
@@ -73,3 +70,15 @@ C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCom
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AboutVersionWeb\assets\bootstrap.min.css
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\AboutVersionWeb\index.html
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csprojAssemblyReference.cache
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\AboutVersion.html
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\acc_logo.png
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\bootstrap.min.css
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\cloud_services\dropbox.png
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\cloud_services\expert.png
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\cloud_services\googledrive.png
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\cloud_services\onedrive.png
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\gifs\onedrive_howto.gif
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\gifs\sync_all_folders.gif
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\gifs\sync_specific_folder.gif
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\jquery.js
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\GettingStarted.html

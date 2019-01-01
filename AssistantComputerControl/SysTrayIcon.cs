@@ -44,7 +44,7 @@ namespace AssistantComputerControl {
             MainProgram.Exit();
         }
         private void TrayOpenHelp(object sender, EventArgs e) {
-            Process.Start("https://acc.albe.pw/#get-in-touch");
+            Process.Start("https://assistantcomputercontrol.com/#get-in-touch");
         }
 
         private static void TrayCreateStartupLink(object sender, EventArgs e) {

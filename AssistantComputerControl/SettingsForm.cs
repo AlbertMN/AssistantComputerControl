@@ -151,8 +151,7 @@ namespace AssistantComputerControl {
         private void anonymousAnalyticsCheckbox_CheckedChanged(object sender, EventArgs e) {
             bool theStatus = anonymousAnalyticsCheckbox.Checked;
             MainProgram.DoDebug("Send annonymous analytics; " + theStatus);
-
-            AnalyticsSettings.UpdateSharing(theStatus);
+            MainProgram.UpdateAnalyticsSharing(theStatus);
         }
 
         private void doSetupAgain_Click(object sender, EventArgs e) {

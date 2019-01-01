@@ -1,106 +1,1035 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <style>.btn-default {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.2);
+    }</style>
     <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.22.2/sweetalert2.min.css"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     <title>About new version</title>
 
+    <!-- Thanks to dcs9988 from Bootsnipp for the step-wizard(https://bootsnipp.com/snippets/e3MBM) -->
+    <style>
+        #nextButton {
+            position: fixed;
+            right: 20px;
+            height: 70%;
+            top: 70px;
+            background-color: transparent;
+            border-color: transparent;
+            color: #212121;
+            transition: 0.1s;
+            border-radius: 0px;
+            z-index: 9999;
+        }
+
+        #previousButton {
+            position: fixed;
+            left: 20px;
+            height: 70%;
+            top: 70px;
+            background-color: transparent;
+            border-color: transparent;
+            color: #212121;
+            transition: 0.1s;
+            border-radius: 0px;
+            z-index: 9999;
+        }
+
+        #nextButton:hover, #previousButton:hover {
+            color: #fff !important;
+            background-color: #428bca;
+            border-color: #357ebd;
+        }
+
+        body {
+            margin-top: 10px;
+            font-size: 15px;
+            overflow: hidden;
+        }
+
+        .stepwizard-step p {
+            margin-top: 10px;
+        }
+
+        .stepwizard-row {
+            display: table-row;
+        }
+
+        .stepwizard {
+            display: table;
+            width: 100%;
+            position: relative;
+        }
+
+        .stepwizard-step button[disabled] {
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+        }
+
+        .stepwizard-row:before {
+            top: 14px;
+            bottom: 0;
+            position: absolute;
+            content: " ";
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            z-order: 0;
+        }
+
+        .stepwizard-step {
+            display: table-cell;
+            text-align: center;
+            position: relative;
+        }
+
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+            -webkit-appearance: button-bevel !important;
+        }
+
+        /* Loading */
+        #dropboxImage {
+            transition: 1s;
+            opacity: 0.6;
+        }
+
+        .loading_container {
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading_elements1 {
+            text-align: center;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: row;
+            margin-top: -100px;
+            margin-right: -100px;
+            text-align: right;
+            float: right;
+        }
+
+        .loading_elements2 {
+            text-align: center;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: row;
+            /*margin-top: -100px;
+            margin-right: 260px;*/
+            position: fixed;
+            left: 43%;
+        }
+
+        .elements .el {
+            width: 10px;
+            height: 40px;
+            background: #212121;
+            margin: 5px;
+            animation-name: hover;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+            animation-direction: alternate;
+            animation-timing-function: ease-out;
+            transform: translate3d(0, 20%, 0);
+        }
+
+        .elements .el:nth-of-type(2) {
+            animation-delay: 0.2s;
+        }
+
+        .elements .el:nth-of-type(3) {
+            animation-delay: 0.4s;
+        }
+
+        .elements .el:nth-of-type(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes hover {
+            0% {
+                transform: translate3d(0, 20%, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate3d(0, -20%, 0);
+                opacity: 0.9;
+            }
+        }
+
+        .blink_me {
+            transition: 0.1s;
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            0% {
+                color: black;
+            }
+            50% {
+                color: green;
+            }
+        }
+
+        .btn.disabled {
+            pointer-events: auto;
+        }
+
+        ol {
+            margin: 0 0 1.5em;
+            padding: 0;
+            counter-reset: item;
+        }
+
+        ol > li {
+            margin: 0;
+            padding: 0 0 0 2em;
+            text-indent: -2em;
+            list-style-type: none;
+            counter-increment: item;
+        }
+
+        ol > li:before {
+            display: inline-block;
+            width: 1em;
+            padding-right: 0.5em;
+            font-weight: bold;
+            text-align: right;
+            content: counter(item) ".";
+        }
+
+        .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left] {
+            left: -1.5em;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right] {
+            right: -1.5em;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+        .container {
+            padding-right: 60px;
+            padding-left: 60px;
+        }
+    </style>
+
     <style>
         .scroller {
-            height:200px;
-            overflow-y:auto;
+            height: 200px;
+            overflow-y: auto;
         }
-		.card-body img {
-			width:100%;
-		}
-		.card-body {
-			height:250px;
-		}
-		.noselect {
-		  -webkit-touch-callout: none; /* iOS Safari */
-			-webkit-user-select: none; /* Safari */
-			 -khtml-user-select: none; /* Konqueror HTML */
-			   -moz-user-select: none; /* Firefox */
-				-ms-user-select: none; /* Internet Explorer/Edge */
-					user-select: none; /* Non-prefixed version, currently
-										  supported by Chrome and Opera */
-		}
-		.card-selected {
-			border:2px solid blue;
-		}
+
+        .card-body img {
+            /*width:100%;*/
+            max-width: 100%;
+            max-height: 100px;
+        }
+
+        .card-body {
+            height: 250px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                                     supported by Chrome and Opera */
+        }
+
+        .card-selected {
+            border: 2px solid blue;
+        }
     </style>
 </head>
-<body class="container-fluid noselect">
+<body class="container-fluid noselect" style="margin-bottom:10px;">
 
-<div class="row text-center" style="margin-top:10px;">
+<div id="choose_cloud_service" class="row text-center">
     <div class="col-md-12">
-		<h2>Welcome to AssistantComputerControl!</h2>
-		<p>
-			This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.
-		</p>
-	</div>
-	
-	<div class="col-md-12">
-		<div class="row">
-			<div class="col-md-3">
-				<div class="card" data-name="Dropbox">
-					<div class="card-body">
-						<h5 class="card-title">Dropbox</h5>
-						<h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
-						<img draggable="false" src="assets/cloud_services/dropbox.png">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card" data-name="OneDrive">
-					<div class="card-body">
-						<h5 class="card-title">OneDrive</h5>
-						<h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
-						<img draggable="false" src="assets/cloud_services/onedrive.png">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card" data-name="Google Drive">
-					<div class="card-body">
-						<h5 class="card-title">Google Drive</h5>
-						<h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
-						<img draggable="false" src="assets/cloud_services/googledrive.png">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card" data-name="the expert setup">
-					<div class="card-body">
-						<h5 class="card-title">Expert setup</h5>
-						<h6 class="card-subtitle mb-2 text-muted"><small>Choose me if you want more freedom (custom setup, no help)</small></h6>
-						<img draggable="false" src="assets/cloud_services/expert.png">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12" style="margin-top:20px;">
-		<button id="pick_btn" class="btn btn-primary btn-block btn-lg" disabled>Pick a cloud service</button>
-	</div>
-	
-	<div class="col-md-12" style="margin-top:40px;">
-		<a href="#">Click here to skip the setup guide <i>(not recommended)</i></a>
-	</div>
+        <h2>Welcome to AssistantComputerControl!</h2>
+        <p>
+            This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.
+        </p>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card" data-name="Dropbox" data-num="1" data-image="assets/cloud_services/dropbox.png">
+                    <div class="card-body">
+                        <h5 class="card-title">Dropbox</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+                        <img alt="Dropbox logo" draggable="false" src="assets/cloud_services/dropbox.png">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" data-name="OneDrive" data-num="2" data-image="assets/cloud_services/onedrive.png">
+                    <div class="card-body">
+                        <h5 class="card-title">OneDrive</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+                        <img alt="OneDrive logo" draggable="false" src="assets/cloud_services/onedrive.png">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" data-name="Google Drive" data-num="3"
+                     data-image="assets/cloud_services/googledrive.png">
+                    <div class="card-body">
+                        <h5 class="card-title">Google Drive</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+                        <img alt="Google Drive logo" draggable="false" src="assets/cloud_services/googledrive.png">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card" data-name="the expert setup" data-num="4">
+                    <div class="card-body">
+                        <h5 class="card-title">Expert setup</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <small>Choose me if you want more freedom (custom setup, no help)</small>
+                        </h6>
+                        <img alt="Expert solution icon" draggable="false" src="assets/cloud_services/expert.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top:20px;">
+        <button id="pick_btn" class="btn btn-primary btn-block btn-lg" disabled>Pick a cloud service</button>
+    </div>
+
+    <div class="col-md-12">
+        <a id="skip_guide_text" href="#">Click here to skip the setup guide <i>(not recommended)</i></a>
+    </div>
+</div>
+
+<!-- -- -->
+<div id="cloud_setup" class="container" style="display:none;max-width:100%;">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <a id="step-1-btn" data-step-num="1" href="#step-1" type="button"
+                   class="btn btn-primary btn-circle">1</a>
+                <p>Install <span id="install_step_name"></span></p>
+            </div>
+            <div class="stepwizard-step">
+                <a id="step-2-btn" data-step-num="2" href="#step-2" type="button" class="btn btn-default btn-circle"
+                   disabled="disabled">2</a>
+                <p>Set up IFTTT</p>
+            </div>
+            <div class="stepwizard-step">
+                <a id="step-3-btn" data-step-num="3" href="#step-3" type="button" class="btn btn-default btn-circle"
+                   disabled="disabled">3</a>
+                <p>Done! Test actions</p>
+            </div>
+        </div>
+    </div>
+
+    <form role="form" action="" method="post" style="text-align:center;">
+        <div class="row setup-content" id="step-1">
+            <div class="col-md-12">
+                <h3><span id="step-1-title">Install <span class="service-name"></span></span>
+                    <small id="looking_text">looking...</small>
+                    <span id="service_found" style="display:none;"> - <b>installed!</b></span>
+                </h3>
+                <p id="couldNotFindService">
+                    We could not locate <span class="service-name"></span> on your computer.
+                </p>
+                <small><i>(click <a data-toggle="modal" data-target="#doesntWorkModal" href="#">here</a> if <span class="service-name"></span> <u>is</u> installed, and you <u>have</u> followed the instructions step-by-step, but ACC won't let you proceed)</i></small>.<br>
+
+                <img id="chosenCloudServiceImage" alt="Cloud service logo" style="max-width:150px;" src="">
+                <div id="loading_container1" class="loading_container row">
+                    <div id="loading_elements1" class="elements">
+                        <div class="el"></div>
+                        <div class="el"></div>
+                        <div class="el"></div>
+                        <div class="el"></div>
+                    </div>
+                </div>
+
+                <!-- Dropbox -->
+                <div id="dropbox-install-guide" style="display:none;">
+                    <ol>
+                        <li class="strike-out-if-installed"><a href="https://www.dropbox.com/register">Sign up</a> for Dropbox
+                            <small>(if you haven't already)</small>
+                        </li>
+                        <li class="strike-out-if-installed"><a href="https://www.dropbox.com/downloading">Download the Dropbox installer</a></li>
+                        <li class="strike-out-if-installed">Open the installer, and install Dropbox on your computer</li>
+                    </ol>
+                </div>
+                <!-- OneDrive -->
+                <div id="onedrive-install-guide" style="display:none;">
+                    <ol>
+                        <li class="strike-out-if-installed"><a href="https://onedrive.live.com/">Sign up</a> for OneDrive (the same as an Microsoft account)
+                            <small>(if you haven't already)</small>
+                        </li>
+                        <li class="strike-out-if-installed">If you're using Windows 8 or up, you will most likely have OneDrive<br>on your computer already. If not, <a href="https://onedrive.live.com/about/en-sg/download/">download and run the OneDrive installer</a></li>
+                        <li class="strike-out-if-installed">Go to the OneDrive folder in the file explorer</li>
+                        <li class="strike-out-if-installed-partial">Create a folder called "AssistantComputerControl"</li>
+                        <li>Right-click the created folder and press "Always keep on this device" <b><i>(quite important)</i></b></li>
+                    </ol>
+                    <img style="max-width:100%;max-height:300px;" type="gif" alt="" src="assets/gifs/onedrive_howto.gif">
+                </div>
+                <!-- Google Drive -->
+                <div id="google-drive-install-guide" style="display:none;">
+                    <ol>
+                        <li class="strike-out-if-installed">You most likely already have a Google account - if not, <a href="https://accounts.google.com/signup/v2">make one</a></li>
+                        <li class="strike-out-if-installed">Download Google Drive for your computer <a href="https://www.google.com/drive/download/">choose "Private; Backup and Sync"</a> <small>(if you haven't already)</small></li>
+                        <li class="strike-out-if-installed">Run the installer and finish the install</li>
+                        <li class="strike-out-if-installed-partial">Click on the "Backup and sync" logo in your taskbar</li>
+                        <li class="strike-out-if-installed-partial">Press the three dots in the right corner, and go to <b>"Preferences"</b></li>
+                        <li class="strike-out-if-installed-partial">Go to the <b>"Google Drive"</b> tab and make sure <b>"Sync My Drive to this computer"</b> is ticked</li>
+                    </ol>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Want all your Google Drive files on your computer?</h5>
+                            <ol>
+                                <li>Choose "Sync everything in My Drive (x GB)"</li>
+                            </ol>
+                            <img style="width:100%;" type="gif" alt="" src="assets/gifs/sync_all_folders.gif">
+                        </div>
+                        <div class="col-md-6">
+                            <h5>... or <i>just</i> for the sake of AssistantComputerControl?</h5>
+                            <ol>
+                                <li><a href="https://drive.google.com/drive/">Go to your Google Drive (in your browser)</a></li>
+                                <li>In the "My drive" tab, right-click the section files-section or press the "My drive" dropdown, and choose <b>"New folder"</b></li>
+                                <li>Name the folder "AssistantComputerControl" <i>(it's important that there are no typos here)</i></li>
+                                <li>Choose "Sync these folders only...", and un-tick everything but the folder called "AssistantComputerControl"</li>
+                            </ol>
+                            <img style="width:100%;" type="gif" alt="" src="assets/gifs/sync_specific_folder.gif">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-2" style="display:none;">
+            <div class="col-md-12">
+                <h3>Set up your IFTTT account<br>
+                    <small><i>With the AssistantComputerControl applets</i></small>
+                </h3>
+
+                <ol style="text-align:left;">
+                    <li><a href="https://ifttt.com/join">Sign up for IFTTT</a> <i>
+                        <small>(it's smart to sign up with your Google account if you're using Google Assistant)</small>
+                    </i></li>
+                    <li>Enable the applets you want. Let's start with the <code>shutdown</code> action
+                        <small>(shuts down your computer)</small>
+                        . Click <a href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">here if you're using
+                            Google Home</a>, and <a href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">here
+                            if you use Amazon Alexa</a></li>
+                    <li>Click "Turn on" on the IFTTT applet</li>
+                    <li>If you haven't linked your <span class="service-name"></span> or Google/Amazon account yet, you will be asked to link your
+                        accounts
+                        <small>(press "OK" and go through the link process)</small>
+                    </li>
+                    <li>You're now all set! <b><a href="https://assistantcomputercontrol.com/#what-can-it-do">Click here</a></b> for a list of
+                        all the supported applets/actions, and enable as many as you like!
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row setup-content" id="step-3" style="display:none;">
+            <div class="col-md-12">
+                <div id="timeToTryText">
+                    <h3>Time to try!</h3>
+                    <p>
+                        Now all that's left to do is try the software. With <span class="service-name"></span> fully set up, an IFTTT account
+                        and ACC applets enabled, we can now test in a safe environment.<br><br>
+
+                        Pick one of the applets you have enabled, and say the trigger.
+                        Let's try with the shutdown applet <i>(<a
+                            href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">[GH]</a><a
+                            href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">[Alexa]</a>)</i>.
+                        <br>
+                        The <b>Google Assistant</b> trigger would be; <i>"Hey Google, turn off my computer"</i><br>
+                        For <b>Alexa</b>, you'd need to say <i>"Alexa, trigger turn off my computer"</i>
+
+                        <br><br>
+                        <b>The actions you say
+                        will <i>not</i> be executed, but simulated.</b> Try!
+                        <br>
+                        <small><i>If the actions don't work, try to go through <a href="#" style="cursor:pointer;" onclick="setStep(2);">step 2</a> again,
+                            or go through the <a href="https://acc.readme.io/docs/troubleshooting">troubleshooting guide</a></i></small>
+                    </p>
+
+                    <div class="loading_container row">
+                        <p style="z-index:9999;color:gray;"><b><i>Listening for actions...</i></b></p>
+                        <div class="elements loading_elements2">
+                            <div class="el"></div>
+                            <div class="el"></div>
+                            <div class="el"></div>
+                            <div class="el"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success & error icon -->
+                <div id="success_icon" class="swal2-icon swal2-success swal2-animate-success-icon"
+                     style="display: none;">
+                    <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                    <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+                    <div class="swal2-success-ring"></div>
+                    <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                    <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                </div>
+                <div id="error_icon" class="swal2-icon swal2-error swal2-animate-error-icon" style="display:none;"><span
+                        class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span
+                        class="swal2-x-mark-line-right"></span></span></div>
+
+                <h3 id="status_message"></h3>
+                <h4 id="fast_message" style="display:none;">You're a fast learner!</h4>
+                <h4 id="too_fast_message" style="display:none;">You were fast, but, were you <i>too</i> fast...?</h4>
+
+                <button id="continue_button" style="border-radius:0;display:none;" class="btn btn-primary btn-block btn-lg">Continue, and finish the setup!</button>
+                <p id="you_can_also_stay" class="text-muted">You can also stay here and try more actions if you'd like.</p>
+            </div>
+        </div>
+    </form>
+
+    <button id="previousButton" class="btn btn-primary btn-lg leftRightBtn" type="button">
+        <i class="fas fa-2x fa-chevron-left"></i>
+    </button>
+    <div id="nextButtonWrapper" data-toggle="tooltip" title="test">
+        <button id="nextButton" disabled class="btn btn-primary nextBtn btn-lg leftRightBtn" type="button"
+                data-toggle="popover" title="<b>Ahem...</b>" data-html="true" data-placement="left"
+                data-content="We <i>have</i> found the cloud service, you may proceed!">
+            <i class="fas fa-2x fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<!-- "Doesn't work" modal -->
+<div class="modal fade" id="doesntWorkModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Manual setup</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="fixModalContent" style="display:none;">
+                    <form>
+                        <p>If you're positive that this service <i>is indeed</i> installed and you have followed all the steps, but ACC won't let you go to the next one;
+                            fill out the field below.<br>If you have chosen a custom path during the installation, ACC might not be able to detect it.</p>
+
+                        <div class="form-group">
+                            <label>Action folder path</label>
+                            <p class="text-muted">Full path to your <span class="service-name"></span> folder. This will most likely be something like
+                                <code>C:/Users/your_user/<span class="service-name"></span></code></p>
+                            <input id="manualCheckPath" class="form-control" placeholder="C:/Users/myuser/service/AssistantComputerControl">
+                        </div>
+                        <br>
+                        <button type="submit" id="custom_path_submit" class="btn btn-primary btn-block">Submit and check</button>
+                    </form>
+                </div>
+                <div id="loadingModalContent" class="text-center" style="display:none;">
+                    <h4>Checking path...</h4>
+                    <h2><i class="fas fa-spinner fa-spin"></i></h2>
+                </div>
+                <div id="pathSuccess" class="text-center" style="display:none;">
+                    <h4>Success! Path manually entered. You may now proceed.</h4>
+                    <h1><i style="color:green;" class="fas fa-check"></i></h1>
+                    <button data-dismiss="modal" class="btn btn-secondary">Close this window</button>
+                </div>
+                <div id="pathError" class="text-center" style="display:none;">
+                    <h4>Error. Path is not valid - please check it again.</h4>
+                    <h1><i style="color:red;" class="fas fa-times"></i></h1>
+                    <p class="help-text">This message will disappear in 8 seconds</p>
+                    <button onclick="$('#pathError').hide();$('#fixModalContent').show();if(activeTimeout !== null) clearTimeout(activeTimeout);" class="btn-sm btn btn-secondary"><i>Try again</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error on finish -->
+<div class="modal fade" id="finishError" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h4>Something went wrong - the desired path could not be found</h4>
+                <p class="text-muted"></p>
+                <h1><i style="color:red;" class="fas fa-times"></i></h1>
+                <p class="help-text">This message will disappear in 10 seconds</p>
+                <button data-dismiss="modal" class="btn-sm btn btn-secondary"><i>Try again</i></button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="assets/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.22.2/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 <script>
-	$(".card").on("click", function() {
-		$(".card").removeClass("card-selected");
-		$(this).addClass("card-selected");
-		
-		$("#pick_btn").prop("disabled", false).text("Proceed with " + $(this).attr("data-name"));
-	});
+    var activeStep = 1
+        , cloudServiceInstalled = false
+        , canProceed = false
+        , showProceedTip = false
+        , tipTimeout = null
+        , nextButton = $("#nextButton")
+        , previousButton = $("#previousButton")
+        , tipShown = false
+
+        , hasBeenAtStep3 = false
+        , actionErrorTimer = null
+        , canPopover = false
+
+        , chosenCloudService = ""
+        , chosenCloudServiceNum = 0
+        , chosenCloudServiceImage
+
+        , stepDivs = [$("#dropbox-install-guide"), $("#onedrive-install-guide"), $("#google-drive-install-guide")]
+        , activeTimeout = null
+        , hasSetCustomPath = false;
+
+    $("#skip_guide_text").on("click", function() {
+        window.external.SkipGuide();
+    });
+
+    $("#custom_path_submit").on("click", function(e) {
+        e.preventDefault();
+        window.external.CheckManualPath($("#manualCheckPath").val());
+        $("#fixModalContent").hide();
+        $("#loadingModalContent").show();
+    });
+
+    $('#doesntWorkModal').on('hidden.bs.modal', function () {
+        $("#pathError").hide();
+        $("#pathSuccess").hide();
+        $("#loadingModalContent").hide();
+        $("#fixModalContent").show();
+    });
+
+    function ManualPathValidated(success) {
+        setTimeout(function() {
+            if (success) {
+                hasSetCustomPath = true;
+                canPopover = true;
+                canProceed = true;
+                cloudServiceInstalled = true;
+
+                $("#loading_container1").stop().fadeOut();
+                $("#couldNotFindService").stop().fadeOut();
+                $(".strike-out-if-installed").css("text-decoration", "line-through");
+                $("#looking_text").stop().fadeOut();
+                $("#service_found").stop().fadeIn();
+
+                if (activeStep == 1)
+                    setNext(true);
+
+                if (canPopover)
+                    showProceedTip = true;
+                    //showHelpPopover();
+
+                $("#loadingModalContent").stop().fadeOut("fast", function() {
+                    $("#pathSuccess").stop().fadeIn("fast");
+                });
+            } else {
+                $("#loadingModalContent").stop().fadeOut("fast", function() {
+                    $("#pathError").stop().fadeIn("fast");
+
+                    activeTimeout = setTimeout(function() {
+                        $("#pathError").stop().fadeOut("medium", function() {
+                            $("#fixModalContent").stop().fadeIn("medium");
+                        });
+                    }, 8000)
+                });
+            }
+        }, 500);
+    }
+
+    $("#continue_button").on("click", function() {
+        window.external.AllDone(chosenCloudService.replace(" ", "").toLocaleLowerCase());
+    });
+
+    function DoneError() {
+        canProceed = false;
+        tipTimeout = null;
+        tipShown = false;
+        actionErrorTimer = null;
+        hasBeenAtStep3 = false;
+        canPopover = false;
+
+        $("#cloud_setup").fadeOut("medium", function() {
+            $("#choose_cloud_service").fadeIn("medium");
+        });
+
+        stepDivs[0].hide();
+        stepDivs[1].hide();
+        stepDivs[2].hide();
+
+        chosenCloudService = "";
+        chosenCloudServiceNum = 0;
+
+        $("#finishError").modal("show");
+
+        setTimeout(function() {
+            $("#finishError").modal("hide");
+        }, 10000);
+    }
+
+    $(".card").on("click", function () {
+        $(".card").removeClass("card-selected");
+        $(this).addClass("card-selected");
+
+        let theName = $(this).attr("data-name");
+        $("#pick_btn").prop("disabled", false).text("Proceed with " + theName);
+        chosenCloudService = theName;
+        chosenCloudServiceNum = $(this).attr("data-num");
+        chosenCloudServiceImage = $(this).attr("data-image");
+        cloudServiceInstalled = false;
+    });
+
+    $("#pick_btn").on("click", function () {
+        if (chosenCloudServiceNum != 4) {
+            $(".service-name").text(chosenCloudService);
+            previousButton.stop().fadeIn();
+            canProceed = false;
+            tipTimeout = null;
+            tipShown = false;
+            actionErrorTimer = null;
+            hasBeenAtStep3 = false;
+            canPopover = false;
+            nextButton.prop("disabled", true).removeClass("blink_me");
+
+            $("#fixModalContent").show();
+            $("#loadingModalContent").hide();
+            setStep(1);
+
+            $("body").css("overflow", "auto");
+            stepDivs[chosenCloudServiceNum - 1].show();
+            $(".strike-out-if-installed").css("text-decoration", "none");
+            $(".strike-out-if-installed-partial").css("text-decoration", "none");
+
+            $("#looking_text").show();
+            $("#service_found").hide();
+
+            $("#manualCheckPath").val("");
+
+            window.external.CloudServiceChosen(chosenCloudService.replace(" ", "").toLocaleLowerCase());
+
+            $("#install_step_name").text(chosenCloudService);
+            $("#step-1-title").html("Install " + chosenCloudService);
+            $("#chosenCloudServiceImage").attr("src", chosenCloudServiceImage);
+
+            $("#choose_cloud_service").stop().fadeOut("medium", function () {
+                $("#cloud_setup").stop().fadeIn("medium");
+            });
+
+            if (hasSetCustomPath) {
+                hasSetCustomPath = false;
+                window.external.ClearCustomSetPath();
+            }
+        } else {
+            window.external.ExpertChosen();
+        }
+    });
+
+    function actionWentThrough(status, title) {
+        if (activeStep != 3) {
+            //Done action before step 3, way to go!
+            if (!hasBeenAtStep3) {
+                if (status == "success") {
+                    $("#fast_message").show();
+                } else {
+                    $("#too_fast_message").show();
+                }
+            }
+            setStep(3);
+        }
+
+        if (status == "success") {
+            $("#timeToTryText").stop().fadeOut("fast", function () {
+                $("#continue_button").attr("disabled", false);
+                $("#error_icon").stop().fadeOut("fast", function () {
+                    $("#success_icon").stop().fadeIn();
+                    $("#continue_button").stop().fadeIn();
+                    $("#you_can_also_stay").stop().fadeIn();
+                });
+            });
+        } else if (status == "error") {
+            $("#timeToTryText").stop().fadeOut("fast", function () {
+                $("#continue_button").attr("disabled", true);
+                $("#success_icon").stop().fadeOut("fast", function () {
+                    $("#error_icon").stop().fadeIn();
+                    $("#continue_button").stop().fadeIn();
+                });
+            });
+
+            //Fadeout after 20 seconds <---------------- NEEDS TESTING
+            actionErrorTimer = setTimeout(function () {
+                resetActionTester();
+            }, 20000);
+        }
+        $("#status_message").text(title);
+    }
+
+    function resetActionTester(force) {
+        if (force == null)
+            force = false;
+
+        if (actionErrorTimer != null)
+            clearTimeout(actionErrorTimer);
+
+        $("#fast_message").hide();
+        $("#too_fast_message").hide();
+
+        if (!force) {
+            $("#continue_button").stop().fadeOut("fast", function () {
+                $(this).attr("disabled", false);
+            });
+            $("#you_can_also_stay").stop().fadeOut("fast");
+            $("#error_icon").stop().fadeOut("fast", function () {
+                $("#status_message").text("");
+                $("#timeToTryText").stop().fadeIn();
+            });
+            $("#success_icon").stop().fadeOut();
+        } else {
+            $("#success_icon").hide();
+            $("#continue_button").hide().attr("disabled", false);
+            $("#you_can_also_stay").hide();
+            $("#error_icon").hide();
+            $("#status_message").text("");
+            $("#timeToTryText").show();
+        }
+
+    }
+
+    $('[data-toggle="popover"]').popover();
+    CloudServiceInstalled(cloudServiceInstalled);
+
+    nextButton.on("show.bs.popover", function (e) {
+        if (!showProceedTip)
+            e.preventDefault();
+        else
+            tipShown = true;
+    });
+
+    function canShowPopover() {
+        canPopover = true;
+
+        if (cloudServiceInstalled)
+            showHelpPopover();
+    }
+
+    function showHelpPopover() {
+        tipTimeout = setTimeout(function () {
+            showProceedTip = true;
+            nextButton.popover("toggle");
+        }, 5000);
+    }
+
+    function CloudServiceInstalled(status, partial) {
+        if (partial == null)
+            partial = false;
+
+        cloudServiceInstalled = status;
+        if (status) {
+            //Service installed
+            $("#loading_container1").stop().fadeOut();
+            $("#couldNotFindService").stop().fadeOut();
+            $(".strike-out-if-installed").css("text-decoration", "line-through");
+            $("#looking_text").stop().fadeOut();
+            $("#service_found").stop().fadeIn();
+
+            if (!partial)
+                $(".strike-out-if-installed-partial").css("text-decoration", "line-through");
+
+            if (activeStep == 1 && !partial)
+                setNext(true);
+
+            if (canPopover && !partial)
+                showProceedTip = true;
+                //showHelpPopover();
+        } else {
+            //Service not installed
+            $(".strike-out-if-installed").css("text-decoration", "none");
+            $(".strike-out-if-installed-partial").css("text-decoration", "none");
+
+            $("#loading_container1").stop().fadeIn();
+            $("#couldNotFindService").stop().fadeIn();
+            //$("#step-1-title").html("Install " + chosenCloudService);
+            $("#looking_text").stop().fadeIn("fast");
+            $("#service_found").stop().fadeOut();
+
+            $("#step-2-btn").attr("disabled", true);
+            $("#step-3-btn").attr("disabled", true);
+            if (activeStep != 1) {
+                setNext(false);
+                setStep(1);
+            }
+        }
+    }
+
+    function setStep(step) {
+        activeStep = step;
+        if (step == 1) {
+            //previousButton.stop().fadeOut();
+            nextButton.stop().fadeIn();
+            CloudServiceInstalled(cloudServiceInstalled);
+        } else if (step == 2) {
+            window.external.SetPath(chosenCloudService.replace(" ", "").toLocaleLowerCase());
+
+            previousButton.stop().fadeIn();
+            nextButton.stop().fadeIn();
+            setNext(true);
+
+            resetActionTester(true);
+        } else if (step == 3) {
+            hasBeenAtStep3 = true;
+
+            previousButton.stop().fadeIn();
+            nextButton.stop().fadeOut();
+        }
+
+        if (step != 1) {
+            $("#step-2-btn").attr("disabled", false);
+            $("#step-3-btn").attr("disabled", false);
+        }
+
+        $("#step-" + step + "-btn").attr("disabled", false).click();
+    }
+
+    $("#nextButton, #previousButton").hover(function () {
+        if (canProceed) {
+            $(this).removeClass("blink_me");
+        }
+        $(this).css("color", "#fff");
+        $(this).css("background-color", "#428bca");
+        $(this).css("border-color", "#357ebd");
+    }, function () {
+        $(this).css("color", "#212121");
+        $(this).css("background-color", "transparent");
+        $(this).css("border-color", "transparent");
+
+        if (canProceed && $(this) == nextButton) {
+            $(this).addClass("blink_me");
+        }
+    });
+
+    previousButton.on("click", function () {
+        if (activeStep == 2) {
+            $("#step-1-btn").attr("disabled", false).click();
+            activeStep = 1;
+        } else if (activeStep == 3) {
+            $("#step-2-btn").attr("disabled", false).click();
+            activeStep = 2;
+        } else if (activeStep == 1) {
+            //Back to selection
+            $("body").css("overflow", "hidden");
+            $("#cloud_setup").stop().fadeOut("medium", function() {
+                stepDivs[0].hide();
+                stepDivs[1].hide();
+                stepDivs[2].hide();
+
+                chosenCloudService = "";
+                chosenCloudServiceNum = 0;
+
+                $("#choose_cloud_service").stop().fadeIn("medium");
+            });
+        }
+        setStep(activeStep);
+    });
+
+    function handlePopover() {
+        if (tipTimeout != null)
+            clearTimeout(tipTimeout);
+        showProceedTip = false;
+        if (tipShown)
+            nextButton.popover("hide");
+    }
+
+    nextButton.on("click", function () {
+        handlePopover();
+
+        if (activeStep == 1 && cloudServiceInstalled) {
+            $("#step-2-btn").attr("disabled", false).click();
+            activeStep = 2;
+        } else if (activeStep == 2) {
+            $("#step-3-btn").attr("disabled", false).click();
+            activeStep = 3;
+        }
+        setStep(activeStep);
+    });
+
+    function setNext(status) {
+        canProceed = status;
+        if (status) {
+            nextButton.prop("disabled", false).addClass("blink_me");
+        } else {
+            nextButton.prop("disabled", true).removeClass("blink_me");
+        }
+    }
+
+    var navListItems = $('div.setup-panel div a'),
+        allWells = $('.setup-content');
+
+    navListItems.click(function (e) {
+        e.preventDefault();
+        var $target = $($(this).attr('href')),
+            $item = $(this),
+            navNum = $item.attr("data-step-num");
+
+        activeStep = navNum;
+        if (activeStep == 3)
+            hasBeenAtStep3 = true;
+
+        handlePopover();
+        if (activeStep == 1) {
+            CloudServiceInstalled(cloudServiceInstalled);
+            //previousButton.stop().fadeOut();
+            nextButton.stop().fadeIn();
+        } else if (activeStep == 3) {
+            previousButton.stop().fadeIn();
+            nextButton.stop().fadeOut();
+        }
+
+        if (!$item.hasClass('disabled')) {
+            navListItems.removeClass('btn-primary').addClass('btn-default');
+            $item.addClass('btn-primary');
+            allWells.hide();
+            $target.show();
+            $target.find('input:eq(0)').focus();
+        }
+    });
+
+    $('div.setup-panel div a.btn-primary').trigger('click');
 </script>
 
 </body>

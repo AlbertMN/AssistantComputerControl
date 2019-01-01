@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.1.3, 15-11-2018
+ * Updated: v1.2.0, 01-01-2019
  * 
  * Use:
  * - Checks and execute action files
@@ -15,10 +15,12 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AssistantComputerControl {
     class ActionChecker {
         private static string successMessage = "";
+        private static bool lastActionWasFatal;
 
         //Logout
         [DllImport("user32.dll", SetLastError = true)]
@@ -76,14 +78,6 @@ namespace AssistantComputerControl {
             return false;
         }
 
-        private static void PressKey(char c) {
-            try {
-                SendKeys.SendWait(c.ToString());
-            } catch (Exception e) {
-                MainProgram.DoDebug("Failed to press key \"" + c.ToString() + "\", exception; " + e);
-            }
-        }
-
         static public void FileFound(object source, FileSystemEventArgs e) {
             ProcessFile(e.FullPath);
         }
@@ -94,23 +88,36 @@ namespace AssistantComputerControl {
             string originalFileName = file;
 
             if (!File.Exists(file)) {
+                //MainProgram.DoDebug("File doesn't exist.");
                 return;
             }
-            DateTime lastModified = File.GetCreationTime(file);
+            //DateTime lastModified = File.GetCreationTime(file);
+            DateTime lastModified = File.GetLastWriteTime(file);
             //MainProgram.DoDebug(lastModified.ToString());
 
             if (lastModified == lastActionModified || (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden) {
                 //If file is hidden or has exact same "last modified" date as last file (possible trying to do the same twice)
+                MainProgram.DoDebug("Dublicate");
+
+                try {
+                    File.Delete(file);
+                } catch {
+
+                }
                 return;
             }
             lastActionModified = lastModified;
 
             if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
-                MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
-                MainProgram.DoDebug("File creation time: " + lastModified.ToString());
-                MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
-                return;
-            }
+                //if (File.GetLastWriteTime(file).AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
+                    //Extra security - sometimes the "creation" time is a bit behind, but the "modify" timestamp is usually right.
+
+                    MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
+                    MainProgram.DoDebug("File creation time: " + lastModified.ToString());
+                    MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
+                    return;
+                //}
+            } 
 
             MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
             MainProgram.DoDebug(" - " + file);
@@ -134,7 +141,7 @@ namespace AssistantComputerControl {
                         theLine = reader.ReadLine();
                         if (theLine != null) {
                             MainProgram.DoDebug("\n[EXECUTING ACTION]");
-                            CheckAction(theLine);
+                            CheckAction(theLine, file);
                         }
 
                     } while (theLine != null);
@@ -157,7 +164,7 @@ namespace AssistantComputerControl {
             }
         }
 
-        private static void CheckAction(string theLine) {
+        private static void CheckAction(string theLine, string theFile) {
             string action = theLine
                 , parameter = null
                 , fullContent = null;
@@ -198,10 +205,29 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug(" - Action: " + action);
             MainProgram.DoDebug(" - Parameter: " + parameter);
             MainProgram.DoDebug(" - Full line: " + theLine);
+
+            lastActionWasFatal = false;
             ExecuteAction(action, theLine, parameter, assistantParam);
+
+            if (!lastActionWasFatal) {
+                MainProgram.DoDebug("Non-fatal action. Deleting.");
+                try {
+                    File.Delete(theFile);
+                } catch {
+                    MainProgram.DoDebug("Error trying to delete action-file.");
+                }
+            } else {
+                MainProgram.DoDebug("Action was fatal action - won't delete just yet - renaming.");
+                try {
+                    string newName = string.Format(@"{0}." + Properties.Settings.Default.ActionFileExtension, DateTime.Now.Ticks);
+                    File.Move(theFile, Path.Combine(Path.GetDirectoryName(theFile), newName));
+                } catch {
+                    MainProgram.DoDebug("Failed to rename file.");
+                }
+            }
         }
 
-        private static string[] GetSecondaryParam(string param) {
+        public static string[] GetSecondaryParam(string param) {
             if (param.Contains("{") && param.Contains("}")) {
                 string[] toReturn = param.Split('{');
                 int i = 0;
@@ -240,325 +266,80 @@ namespace AssistantComputerControl {
 
         private static void ExecuteAction(string action, string line, string parameter, string assistantParam) {
             int? actionNumber = null;
+
+            Actions actionExecution = new Actions();
+
             switch (action.ToLower()) {
                 case "shutdown":
                     //Shuts down the computer
-                    string shutdownParameters = "/s /t 0";
-                    if (parameter != null) {
-                        if (parameter == "abort") {
-                            shutdownParameters = "abort";
-                        } else {
-                            if (parameter.Contains("/t")) {
-                                shutdownParameters = !parameter.Contains("/s") ? "/s " : "" + parameter;
-                            } else {
-                                shutdownParameters = !parameter.Contains("/s") ? "/s " : "" + parameter + " /t 0";
-                            }
-                        }
-                    }
-
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated shutdown";
-                    } else {
-                        if (shutdownParameters != "abort") {
-                            MainProgram.DoDebug("Shutting down computer...");
-                            successMessage = "Shutting down";
-                            Process.Start("shutdown", shutdownParameters);
-                        } else {
-                            MainProgram.DoDebug("Cancelling shutdown...");
-                            Process.Start("shutdown", "/a");
-                            successMessage = "Aborted shutdown";
-                        }
-                    }
+                    actionExecution.Shutdown(parameter);
                     break;
                 case "restart":
                     //Restart the computer
-                    string restartParameters = "/r /t 0";
-                    if (parameter != null) {
-                        if (parameter == "abort") {
-                            restartParameters = "abort";
-                        } else {
-                            if (parameter.Contains("/t")) {
-                                restartParameters = !parameter.Contains("/r") ? "/s " : "" + parameter;
-                            } else {
-                                restartParameters = !parameter.Contains("/r") ? "/s " : "" + parameter + " /t 0";
-                            }
-                        }
-                    }
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated restart";
-                    } else {
-                        if (restartParameters != "abort") {
-                            MainProgram.DoDebug("Restarting computer...");
-                            successMessage = "Restarting";
-                            Process.Start("shutdown", restartParameters);
-                        } else {
-                            MainProgram.DoDebug("Cancelling restart...");
-                            Process.Start("shutdown", "/a");
-                            successMessage = "Aborted restart";
-                        }
-                    }
+                    actionExecution.Restart(parameter);
                     break;
                 case "sleep":
                     //Puts computer to sleep
-                    if (parameter == null) {
-                        if (!MainProgram.testingAction) {
-                            MainProgram.DoDebug("Sleeping computer...");
-                            Application.SetSuspendState(PowerState.Suspend, true, true);
-                        }
-                    } else {
-                        bool doForce = true;
-                        switch (parameter) {
-                            case "true":
-                                doForce = true;
-                                break;
-                            case "false":
-                                doForce = false;
-                                break;
-                            default:
-                                MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
-                                MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
-                                break;
-                        }
-                        if (!MainProgram.testingAction) {
-                            MainProgram.DoDebug("Sleeping computer...");
-                            Application.SetSuspendState(PowerState.Suspend, doForce, true);
-                        }
-                    }
-
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated PC sleep";
-                    } else {
-                        successMessage = "Put computer to sleep";
-                    }
+                    actionExecution.Sleep(parameter);
                     break;
                 case "hibernate":
                     //Hibernates computer
                     actionNumber = 12;
-                    if (parameter == null) {
-                        if (!MainProgram.testingAction) {
-                            MainProgram.DoDebug("Hibernating computer...");
-                            Application.SetSuspendState(PowerState.Hibernate, true, true);
-                        }
-                    } else {
-                        bool doForce = true;
-                        switch (parameter) {
-                            case "true":
-                                doForce = true;
-                                break;
-                            case "false":
-                                doForce = false;
-                                break;
-                            default:
-                                MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
-                                MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
-                                break;
-                        }
-                        if (!MainProgram.testingAction) {
-                            MainProgram.DoDebug("Hibernating computer...");
-                            Application.SetSuspendState(PowerState.Hibernate, doForce, true);
-                        }
-                    }
-
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated PC hibernate";
-                    } else {
-                        successMessage = "Put computer in hibernation";
-                    }
+                    actionExecution.Hibernate(parameter);
                     break;
                 case "logout":
                     //Logs out of the current user
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated logout";
-                    } else {
-                        MainProgram.DoDebug("Logging out of user...");
-                        successMessage = "Logged out of user";
-                        ExitWindowsEx(0, 0);
-                    }
+                    actionExecution.Logout(parameter);
                     break;
                 case "lock":
                     //Lock computer
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated PC lock";
-                    } else {
-                        MainProgram.DoDebug("Locking computer...");
-                        LockWorkStation();
-                        successMessage = "Locked pc";
-                    }
+                    actionExecution.Lock(parameter);
                     break;
                 case "mute":
                     //Mutes windows
                     //Parameter optional (true/false)
-                    bool doMute = true;
-
-                    if (parameter == null) {
-                        //No parameter - toggle
-                        doMute = !AudioManager.GetMasterVolumeMute();
-                    } else {
-                        //Parameter set;
-                        switch (parameter) {
-                            case "true":
-                                doMute = true;
-                                break;
-                            case "false":
-                                doMute = false;
-                                break;
-                            default:
-                                MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"" + action + "\". Accepted parameters: \"true\" and \"false\"");
-                                MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"" + action + "\" action. Accepted parameters: \"true\" and \"false\")";
-                                break;
-                        }
-                    }
-
-                    if (MainProgram.testingAction) {
-                        successMessage = "Simulated PC" + (doMute ? "muted " : "unmute");
-                    } else {
-                        AudioManager.SetMasterVolumeMute(doMute);
-                        successMessage = (doMute ? "Muted " : "Unmuted") + " pc";
-                    }
+                    actionExecution.Mute(parameter);
                     break;
                 case "set_volume":
                     //Sets volume to a specific percent
                     //Requires parameter (percent, int)
                     if (RequireParameter(parameter)) {
-                        if (double.TryParse(parameter, out double volumeLevel)) {
-                            if (volumeLevel >= 0 && volumeLevel <= 100) {
-                                if (!MainProgram.testingAction) {
-                                    if (Properties.Settings.Default.UnmuteOnVolumeChange) {
-                                        AudioManager.SetMasterVolumeMute(false);
-                                    }
-                                    AudioManager.SetMasterVolume((float)volumeLevel);
-                                }
-                                if (!MainProgram.testingAction) {
-                                    if ((int)AudioManager.GetMasterVolume() != (int)volumeLevel) {
-                                        //Something went wrong... Audio not set to parameter-level
-                                        MainProgram.DoDebug("ERROR: Volume was not set properly. Master volume is " + AudioManager.GetMasterVolume() + ", not " + volumeLevel);
-                                        MainProgram.errorMessage = "Something went wrong when setting the volume";
-                                    } else {
-                                        successMessage = "Set volume to " + volumeLevel + "%";
-                                    }
-                                } else {
-                                    successMessage = "Simulated setting system volume to " + volumeLevel + "%";
-                                }
-                            } else {
-                                MainProgram.DoDebug("ERROR: Parameter is an invalid number, range; 0-100 (" + volumeLevel + ")");
-                                MainProgram.errorMessage = "Can't set volume to " + volumeLevel + "%, has to be a number from 0-100";
-                            }
-                        } else {
-                            MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") not convertable to double");
-                            MainProgram.errorMessage = "Not a valid parameter (has to be a number)";
-                        }
+                        actionExecution.SetVolume(parameter);
                     }
                     break;
                 case "music":
                     if (RequireParameter(parameter)) {
                         switch (parameter) {
                             case "previous":
-                                actionNumber = 8;
-
-                                if (MainProgram.testingAction) {
-                                    successMessage = "MUSIC: Simulated going to previous track";
-                                } else {
-                                    keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                    successMessage = "MUSIC: Skipped song";
-                                }
-                                break;
                             case "previousx2":
                                 actionNumber = 8;
-                                if (MainProgram.testingAction) {
-                                    successMessage = "MUSIC: Simulated double-previous track";
-                                } else {
-                                    keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                    Thread.Sleep(100);
-                                    keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                    successMessage = "MUSIC: Skipped song (x2)";
-                                }
                                 break;
                             case "next":
                                 actionNumber = 10;
-
-                                if (MainProgram.testingAction) {
-                                    successMessage = "MUSIC: Simulated going to next song";
-                                } else {
-                                    keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                    successMessage = "MUSIC: Next song";
-                                }
                                 break;
                             case "play_pause":
                                 actionNumber = 9;
-
-                                if (MainProgram.testingAction) {
-                                    successMessage = "MUSIC: Simulated play/pause";
-                                } else {
-                                    keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                    successMessage = "MUSIC: Played/Paused";
-                                }
-                                break;
-                            default:
-                                MainProgram.DoDebug("ERROR: Unknown parameter");
-                                MainProgram.errorMessage = "Unknown parameter \"" + parameter + "\"";
                                 break;
                         }
+                        actionExecution.Music(parameter);
                     }
                     break;
                 case "open":
                     if (RequireParameter(parameter)) {
-                        string fileLocation = (!parameter.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
-
-                        if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
-                            if (!MainProgram.testingAction) {
-                                Process.Start(fileLocation);
-                                successMessage = "OPEN: opened file/url; " + fileLocation;
-                            } else {
-                                successMessage = "OPEN: simulated opening file; " + fileLocation;
-                            }
-                        } else {
-                            MainProgram.DoDebug("ERROR: file or directory doesn't exist (" + fileLocation + ")");
-                            MainProgram.errorMessage = "File or directory doesn't exist (" + fileLocation + ")";
-                        }
+                        actionExecution.Open(parameter);
                     }
                     break;
                 case "open_all":
                     if (RequireParameter(parameter)) {
-                        string fileLocation = (!parameter.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
-
-                        if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
-                            DirectoryInfo d = new DirectoryInfo(fileLocation);
-                            int x = 0;
-                            foreach (var dirFile in d.GetFiles()) {
-                                if (!MainProgram.testingAction)
-                                    Process.Start(dirFile.FullName);
-                                x++;
-                            }
-
-                            if (!MainProgram.testingAction) {
-                                successMessage = "OPEN: opened " + x + " files in; " + fileLocation;
-                            } else {
-                                successMessage = "OPEN: simulated opening " + x + " files in; " + fileLocation;
-                            }
-                        } else {
-                            MainProgram.DoDebug("ERROR: directory doesn't exist (" + fileLocation + ")");
-                            MainProgram.errorMessage = "Directory doesn't exist (" + fileLocation + ")";
-                        }
+                        actionExecution.OpenAll(parameter);
                     }
                     break;
                 case "die":
                     //Exit ACC
-                    if (!MainProgram.testingAction) {
-                        successMessage = "Shutting down ACC";
-                        Application.Exit();
-                    } else {
-                        successMessage = "Simulated shutting down ACC";
-                    }
+                    actionExecution.Die(parameter);
                     break;
                 case "monitors_off":
-                    if (!MainProgram.testingAction) {
-                        Form f = new Form();
-                        SendMessage(f.Handle, WM_SYSCOMMAND, (IntPtr)SC_MONITORPOWER, (IntPtr)2);
-                        f.Close();
-                        successMessage = "Turned monitors off";
-                    } else {
-                        successMessage = "Simulated turning monitors off";
-                    }
+                    actionExecution.MonitorsOff(parameter);
                     break;
                 /*case "keypress":
                     if (RequireParameter(parameter)) {
@@ -577,24 +358,7 @@ namespace AssistantComputerControl {
                     break;*/
                 case "write_out":
                     if (RequireParameter(parameter)) {
-                        int i = 0;
-                        string writtenString = "";
-                        foreach (char c in parameter) {
-                            char toWrite = (i == 0 && Properties.Settings.Default.WriteOutUCFirst ? Char.ToUpper(c) : c);
-                            if (!MainProgram.testingAction) PressKey(toWrite);
-                            writtenString += toWrite;
-
-                            if (i > line.Length && Properties.Settings.Default.WriteOutDotLast) {
-                                if (!MainProgram.testingAction) PressKey('.');
-                                writtenString += ".";
-                            }
-                            i++;
-                        }
-                        if (!MainProgram.testingAction) {
-                            successMessage = "Wrote \"" + writtenString + "\"";
-                        } else {
-                            successMessage = "Simulated writing \"" + writtenString + "\"";
-                        }
+                        actionExecution.WriteOut(parameter, line);
                     }
                     break;
                 /*case "key_shortcut": //TODO - version 1.3(?)
@@ -616,202 +380,22 @@ namespace AssistantComputerControl {
                     break;*/
                 case "create_file":
                     if (RequireParameter(parameter)) {
-                        string fileLocation = parameter;
-                        if (!File.Exists(fileLocation)) {
-                            string parentPath = Path.GetDirectoryName(fileLocation);
-                            if (Directory.Exists(parentPath)) {
-                                bool succeeded = true;
-                                try {
-                                    string toDelete;
-                                    //Is file
-                                    if (MainProgram.testingAction) {
-                                        //Create a test-file and delete it to test if has permission
-                                        toDelete = Path.Combine(parentPath, "acc_testfile.txt");
-                                        var myFile = File.Create(toDelete);
-                                        myFile.Close();
-                                        while (!File.Exists(toDelete)) ;
-                                        while (!FileInUse(toDelete)) ;
-                                        File.Delete(toDelete);
-                                    } else {
-                                        //Actually create file
-                                        var myFile = File.Create(fileLocation);
-                                        myFile.Close();
-                                    }
-                                } catch (Exception exc) {
-                                    succeeded = false;
-                                    MainProgram.DoDebug(exc.Message);
-                                    MainProgram.errorMessage = "Couldn't create file - folder might be locked. Try running ACC as administrator.";
-                                }
-
-                                if (succeeded) {
-                                    if (!MainProgram.testingAction) {
-                                        successMessage = "Created file at " + fileLocation;
-                                    } else {
-                                        successMessage = "Simulated creating file at " + fileLocation;
-                                    }
-                                }
-                            } else {
-                                MainProgram.errorMessage = "File parent folder doesn't exist (" + parentPath + ")";
-                                MainProgram.DoDebug("File parent folder doesn't exist (" + parentPath + ")");
-                            }
-                        } else {
-                            MainProgram.errorMessage = "File already exists";
-                            MainProgram.DoDebug("File already exists");
-                        }
+                        actionExecution.CreateFile(parameter);
                     }
                     break;
                 case "delete_file":
                     if (RequireParameter(parameter)) {
-                        string fileLocation = parameter;
-                        if (File.Exists(fileLocation) || Directory.Exists(fileLocation)) {
-                            FileAttributes attr = File.GetAttributes(fileLocation);
-                            bool succeeded = true;
-                            MainProgram.DoDebug("Deleting file/folder at " + fileLocation);
-
-                            try {
-                                string toDelete;
-                                if (attr.HasFlag(FileAttributes.Directory)) {
-                                    //Is folder
-                                    MainProgram.DoDebug("Deleting folder...");
-                                    DirectoryInfo d = new DirectoryInfo(fileLocation);
-                                    bool doDelete = true;
-                                    if (d.GetFiles().Length > Properties.Settings.Default.MaxDeleteFiles && Properties.Settings.Default.WarnWhenDeletingManyFiles) {
-                                        //Has more than x files - do warning
-                                        DialogResult dialogResult = MessageBox.Show("You're about to delete more than " + Properties.Settings.Default.MaxDeleteFiles.ToString() + " files at " + fileLocation + " - are you sure you wish to proceed?",
-                                            "Are you sure?", MessageBoxButtons.YesNo);
-                                        if (dialogResult == DialogResult.Yes) {
-
-                                        } else if (dialogResult == DialogResult.No) {
-                                            doDelete = false;
-                                        }
-                                    }
-
-                                    if (doDelete) {
-                                        if (MainProgram.testingAction) {
-                                            //Make test-folder and delete it to test if has permission
-                                            toDelete = Path.Combine(Directory.GetParent(fileLocation).FullName, "acc_testfolder");
-                                            Directory.CreateDirectory(toDelete);
-                                            Directory.Delete(toDelete);
-                                        } else {
-                                            //Actually delete folder
-                                            Directory.Delete(fileLocation);
-                                            MainProgram.DoDebug("Deleted directory at " + fileLocation);
-                                        }
-                                    } else {
-                                        MainProgram.errorMessage = "";
-                                    }
-                                } else {
-                                    //Is file
-                                    if (MainProgram.testingAction) {
-                                        //Make test-file and delete it to test if has permission
-                                        MainProgram.DoDebug("(Fake) Deleting file...");
-
-                                        toDelete = Path.Combine(fileLocation, "acc_testfile.txt");
-                                        File.Create(toDelete);
-                                        File.Delete(toDelete);
-                                    } else {
-                                        //Actually delete file
-                                        MainProgram.DoDebug("Deleting file...");
-                                        File.Delete(fileLocation);
-                                    }
-                                }
-                            } catch (Exception exc) {
-                                succeeded = false;
-                                MainProgram.DoDebug(exc.Message);
-                                MainProgram.errorMessage = "Couldn't access file/folder - file might be in use or locked. Try running ACC as administrator.";
-                            }
-
-                            if (succeeded) {
-                                if (!MainProgram.testingAction) {
-                                    successMessage = "Deleted file/folder at " + fileLocation;
-                                } else {
-                                    successMessage = "Simulated deleting file/folder at " + fileLocation;
-                                }
-                            }
-                        } else {
-                            MainProgram.errorMessage = "File or folder doesn't exist";
-                            MainProgram.DoDebug("File or folder doesn't exist");
-                        }
+                        actionExecution.DeleteFile(parameter);
                     }
                     break;
                 case "append_text":
                     if (RequireParameter(parameter)) {
-                        string fileLocation = GetSecondaryParam(parameter)[0]
-                            , toAppend = GetSecondaryParam(parameter).Length > 1 ? GetSecondaryParam(parameter)[1] : null;
-
-                        MainProgram.DoDebug("Appending \"" + toAppend + "\" to " + fileLocation);
-
-                        if (fileLocation != null && toAppend != null) {
-                            if (toAppend != "") {
-                                if (File.Exists(fileLocation)) {
-                                    string parentPath = Path.GetDirectoryName(fileLocation);
-                                    bool succeeded = true;
-                                    try {
-                                        //Is file
-                                        if (MainProgram.testingAction) {
-                                            //Write empty string to file to test permission
-                                            using (StreamWriter w = File.AppendText(fileLocation)) {
-                                                w.Write(String.Empty);
-                                            }
-                                        } else {
-                                            //Actually write to file
-                                            using (StreamWriter w = File.AppendText(fileLocation)) {
-                                                //string[] lines = toAppend.Split(new string[] { "\n" }, StringSplitOptions.None);
-                                                string[] lines = toAppend.Split(new string[] { "\\n" }, StringSplitOptions.None);
-                                                MainProgram.DoDebug(lines.Length.ToString());
-                                                int i = 0;
-                                                foreach (string appendChild in lines) {
-                                                    if (i == 0)
-                                                        w.Write(appendChild);
-                                                    else {
-                                                        w.WriteLine(String.Empty);
-                                                        w.Write(appendChild);
-                                                    }
-
-                                                    i++;
-                                                }
-                                            }
-                                        }
-                                    } catch (Exception exc) {
-                                        succeeded = false;
-                                        MainProgram.DoDebug(exc.Message);
-                                        MainProgram.errorMessage = "Couldn't create file - folder might be locked. Try running ACC as administrator.";
-                                    }
-
-                                    if (succeeded) {
-                                        if (!MainProgram.testingAction) {
-                                            successMessage = "Appended \"" + toAppend + "\" to file at " + fileLocation;
-                                        } else {
-                                            successMessage = "Simulated appending \"" + toAppend + "\" to file at " + fileLocation;
-                                        }
-                                    }
-                                } else {
-                                    MainProgram.errorMessage = "File doesn't exists";
-                                    MainProgram.DoDebug("File doesn't exists");
-                                }
-                            } else {
-                                MainProgram.errorMessage = "Can't append nothing";
-                                MainProgram.DoDebug("Can't append nothing");
-                            }
-                        } else {
-                            MainProgram.errorMessage = "Parameter doesn't contain a string to append";
-                            MainProgram.DoDebug("Parameter doesn't contain a string to append");
-                        }
+                        actionExecution.AppendText(parameter);
                     }
                     break;
                 case "message_box":
                     if (RequireParameter(parameter)) {
-                        string theMessage = GetSecondaryParam(parameter)[0]
-                            , theTitle = (GetSecondaryParam(parameter).Length > 1 ? GetSecondaryParam(parameter)[1] : null);
-
-                        if (MainProgram.testingAction) {
-                            successMessage = "Simulated making a message box with the content \"" + theMessage + "\" and " + (theTitle == null ? "no title" : "title \"" + theTitle + "\"");
-                        } else {
-                            new Thread(() => {
-                                Thread.CurrentThread.Priority = ThreadPriority.Highest;
-                                MessageBox.Show(theMessage, theTitle ?? "ACC Generated Message Box");
-                            }).Start();
-                        }
+                        actionExecution.DoMessageBox(parameter);
                     }
                     break;
                 default:
@@ -820,13 +404,21 @@ namespace AssistantComputerControl {
                     MainProgram.errorMessage = "Unknown action \"" + action + "\"";
                     break;
             }
+
+            successMessage = actionExecution.successMessage;
+
+            if (actionExecution.wasFatal) {
+                lastActionWasFatal = true;
+                actionExecution.wasFatal = false;
+            }
+
             if (successMessage != "") {
                 if (actionNumber != null) {
                     //Has specified number
-                    AnalyticsSettings.AddCount((int)actionNumber, assistantParam);
+                    MainProgram.AnalyticsAddCount(null, (int)actionNumber, assistantParam);
                 } else {
                     //YOLO
-                    AnalyticsSettings.AddCount(action, assistantParam);
+                    MainProgram.AnalyticsAddCount(action, null, assistantParam);
                 }
 
                 MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");

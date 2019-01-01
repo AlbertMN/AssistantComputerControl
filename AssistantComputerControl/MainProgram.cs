@@ -6,6 +6,7 @@
  * Use:
  * - Main class. Starts everything.
  */
+#define HasAnalyticsClass //Uncommented for official releases where the private 'AnalyticsSettings.cs' file is present - uncommenting will result in unhandled exceptions
 
 using System;
 using System.IO;
@@ -23,8 +24,8 @@ using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.1.4",
-            releaseDate = "2018-12-13 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.1.5",
+            releaseDate = "2018-12-30 15:42:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -32,7 +33,8 @@ namespace AssistantComputerControl {
 
             testingAction = false,
             aboutVersionAwaiting = false,
-            hasAskedForSetupAgain = false;
+            hasAskedForSetupAgain = false,
+            hasAnalyticsClass;
 
         public TestStatus currentTestStatus = TestStatus.ongoing;
         public enum TestStatus {
@@ -60,12 +62,23 @@ namespace AssistantComputerControl {
         public static GettingStarted gettingStarted = null;
         public static UpdateProgress updateProgressWindow;
 
-
         //Start main function
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
-            if (AnalyticsSettings.sentryToken != "super_secret") {
+            hasAnalyticsClass = Type.GetType("AssistantComputerControl.AnalyticsSettings") != null;
+
+            string sentryToken;
+            
+            if (hasAnalyticsClass) {
+#if (HasAnalyticsClass)
+                sentryToken = AnalyticsSettings.sentryToken;
+#endif
+            } else {
+                sentryToken = "super_secret";
+            }
+
+            if (sentryToken != "super_secret") {
                 //Tracking issues with Sentry.IO - not forked from GitHub (official version)
                 bool sentryOK = false;
                 try {
@@ -77,7 +90,7 @@ namespace AssistantComputerControl {
                         });
                     }
 
-                    using (SentrySdk.Init(AnalyticsSettings.sentryToken)) {
+                    using (SentrySdk.Init(sentryToken)) {
                         sentryOK = true;
                     }
                 } catch {
@@ -87,7 +100,7 @@ namespace AssistantComputerControl {
                 }
 
                 if (sentryOK) {
-                    using (SentrySdk.Init(AnalyticsSettings.sentryToken)) {
+                    using (SentrySdk.Init(sentryToken)) {
                         DoDebug("Sentry initiated");
                         ActualMain();
                     }
@@ -125,7 +138,9 @@ namespace AssistantComputerControl {
                 Application.EnableVisualStyles();
 
                 DoDebug("[ACC begun (v" + softwareVersion + ")]");
+#if (HasAnalyticsClass)
                 AnalyticsSettings.SetupAnalytics();
+#endif
 
                 if (Properties.Settings.Default.CheckForUpdates) {
                     if (HasInternet()) {
@@ -219,11 +234,33 @@ namespace AssistantComputerControl {
                     }
                 }
 
+
+                //ShowGettingStarted();
+
                 Application.Run();
             }
         }
         //End main function
 
+
+        public static void UpdateAnalyticsSharing(bool theBool) {
+            //Purpose of this function is to only define "HasAnalyticsClass" one place
+#if (HasAnalyticsClass)
+            AnalyticsSettings.UpdateSharing(theBool);
+#endif
+        }
+
+        public static void AnalyticsAddCount(string actionStr = null, int? actionInt = null, string param = "") {
+#if (HasAnalyticsClass)
+            if (actionStr == null && actionInt != null) {
+                //By number
+                AnalyticsSettings.AddCount((int)actionInt, param);
+            } else {
+                //By action name
+                AnalyticsSettings.AddCount(actionStr, param);
+            }
+#endif
+        }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs args) {
             Exception e = (Exception)args.ExceptionObject;
@@ -324,6 +361,8 @@ namespace AssistantComputerControl {
             Properties.Settings.Default.ActionFilePath = setTo;
             Properties.Settings.Default.Save();
 
+            SetRegKey("ActionFolder", setTo);
+
             SetupListener();
             DoDebug("Check folder updated (" + CheckPath() + ")");
         }
@@ -332,6 +371,8 @@ namespace AssistantComputerControl {
 
             Properties.Settings.Default.ActionFileExtension = setTo;
             Properties.Settings.Default.Save();
+
+            SetRegKey("ActionExtension", Properties.Settings.Default.ActionFileExtension);
 
             SetupListener();
         }
@@ -372,6 +413,45 @@ namespace AssistantComputerControl {
             public DropboxJson business { get; set; }
             public DropboxJson personal { get; set; }
             public string Path { get; set; }
+        }
+
+        public static string GetCloudServicePath(string type = "") {
+            switch (type) {
+                case "dropbox":
+                    return GetDropboxFolder();
+                case "onedrive":
+                    return GetOneDriveFolder();
+                case "googledrive":
+                    return GetGoogleDriveFolder();
+            }
+
+            return "";
+        }
+
+        public static bool GoogleDriveInstalled() {
+            return GetGoogleDriveFolder() != String.Empty;
+        }
+        public static string GetGoogleDriveFolder() {
+            string registryKey = @"Software\Google\Drive";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(registryKey);
+            if (key != null) {
+                string installed = key.GetValue("Installed").ToString();
+                key.Close();
+                if (installed == "True") {
+                    string checkPath = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Google Drive");
+                    if (Directory.Exists(checkPath)) {
+                        return checkPath;
+                    }
+                    return "partial";
+                }
+            }
+            return "";
+        }
+        public static bool OneDriveInstalled() {
+            return GetOneDriveFolder() != String.Empty;
+        }
+        public static string GetOneDriveFolder() {
+            return Environment.GetEnvironmentVariable("OneDrive");
         }
 
         public static string GetDropboxFolder() {
@@ -518,7 +598,7 @@ namespace AssistantComputerControl {
                 if (debug) {
                     Console.WriteLine(str);
                 }
-            } catch (Exception e) {
+            } catch {
                 Console.WriteLine("Failed to write to log, exception");
             }
         }
@@ -560,7 +640,7 @@ namespace AssistantComputerControl {
                 gettingStarted = new GettingStarted(startTab);
                 gettingStarted.Show();
 
-                gettingStarted.FormClosing += delegate { settingsForm = null; };
+                gettingStarted.FormClosing += delegate { settingsForm = null; GettingStarted.WebBrowserHandler.stopCheck = true; };
             } else {
                 //Focus
                 gettingStarted.Focus();
