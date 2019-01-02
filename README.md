@@ -1,7 +1,7 @@
 # AssistantComputerControl
 Control your computer using your **Google Home**, **Amazon Alexa** and **Microsoft Cortana** assistants!
 
-_TLDR; download at [https://assistantcomputercontrol.com/](assistantcomputercontrol.com)_
+_TLDR; download at [assistantcomputercontrol.com](https://assistantcomputercontrol.com/)_
 
 This is a simple but powerful tool that allows you to perform tasks on your Windows computer like;
 ### Supported computer actions
