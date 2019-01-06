@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.2.0, 05-01-2019
+ * 
+ * Use:
+ * - Functions for all the actions
+ */
+
+using System;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -55,6 +64,7 @@ namespace AssistantComputerControl {
 
             if (MainProgram.testingAction) {
                 successMessage = "Simulated shutdown";
+                wasFatal = true;
             } else {
                 if (shutdownParameters != "abort") {
                     MainProgram.DoDebug("Shutting down computer...");
@@ -63,7 +73,7 @@ namespace AssistantComputerControl {
                     Process.Start("shutdown", shutdownParameters);
                 } else {
                     MainProgram.DoDebug("Cancelling shutdown...");
-                    wasFatal = true;
+                    wasFatal = false;
                     Process.Start("shutdown", "/a");
                     successMessage = "Aborted shutdown";
                 }

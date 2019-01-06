@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.0, 01-01-2019
+ * Updated: v1.2.0, 05-01-2019
  * 
  * Use:
  * - Checks and execute action files
@@ -97,13 +97,13 @@ namespace AssistantComputerControl {
 
             if (lastModified == lastActionModified || (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden) {
                 //If file is hidden or has exact same "last modified" date as last file (possible trying to do the same twice)
-                MainProgram.DoDebug("Dublicate");
+                /*MainProgram.DoDebug("Dublicate");
 
                 try {
-                    File.Delete(file);
+                    //File.Delete(file);
                 } catch {
 
-                }
+                }*/
                 return;
             }
             lastActionModified = lastModified;
@@ -206,7 +206,7 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug(" - Parameter: " + parameter);
             MainProgram.DoDebug(" - Full line: " + theLine);
 
-            lastActionWasFatal = false;
+            lastActionWasFatal = true;
             ExecuteAction(action, theLine, parameter, assistantParam);
 
             if (!lastActionWasFatal) {
@@ -220,7 +220,7 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Action was fatal action - won't delete just yet - renaming.");
                 try {
                     string newName = string.Format(@"{0}." + Properties.Settings.Default.ActionFileExtension, DateTime.Now.Ticks);
-                    File.Move(theFile, Path.Combine(Path.GetDirectoryName(theFile), newName));
+                    //File.Move(theFile, Path.Combine(Path.GetDirectoryName(theFile), newName));
                 } catch {
                     MainProgram.DoDebug("Failed to rename file.");
                 }
@@ -407,10 +407,8 @@ namespace AssistantComputerControl {
 
             successMessage = actionExecution.successMessage;
 
-            if (actionExecution.wasFatal) {
-                lastActionWasFatal = true;
-                actionExecution.wasFatal = false;
-            }
+            lastActionWasFatal = actionExecution.wasFatal;
+            actionExecution.wasFatal = false;
 
             if (successMessage != "") {
                 if (actionNumber != null) {

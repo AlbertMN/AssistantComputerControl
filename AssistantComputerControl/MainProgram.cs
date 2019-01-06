@@ -1,12 +1,12 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.1.4, 15-11-2018
+ * Updated: v1.2.0, 04-01-2019
  * 
  * Use:
  * - Main class. Starts everything.
  */
-#define HasAnalyticsClass //Uncommented for official releases where the private 'AnalyticsSettings.cs' file is present - uncommenting will result in unhandled exceptions
+//#define HasAnalyticsClass //Uncommented for official releases where the private 'AnalyticsSettings.cs' file is present - uncommenting will result in unhandled exceptions
 
 using System;
 using System.IO;
@@ -24,8 +24,8 @@ using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.1.5",
-            releaseDate = "2018-12-30 15:42:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.2.1",
+            releaseDate = "2019-01-05 02:48:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -68,14 +68,12 @@ namespace AssistantComputerControl {
         static void Main(string[] args) {
             hasAnalyticsClass = Type.GetType("AssistantComputerControl.AnalyticsSettings") != null;
 
-            string sentryToken;
+            string sentryToken = "super_secret";
             
             if (hasAnalyticsClass) {
 #if (HasAnalyticsClass)
                 sentryToken = AnalyticsSettings.sentryToken;
 #endif
-            } else {
-                sentryToken = "super_secret";
             }
 
             if (sentryToken != "super_secret") {
@@ -234,13 +232,27 @@ namespace AssistantComputerControl {
                     }
                 }
 
-
-                //ShowGettingStarted();
+                //SystemEvents.PowerModeChanged += OnPowerChange;
 
                 Application.Run();
             }
         }
         //End main function
+
+        /*private static void OnPowerChange(object s, PowerModeChangedEventArgs e) {
+            switch (e.Mode) {
+                case PowerModes.Resume:
+                    //Delete all old action files
+                    if (Directory.Exists(CheckPath())) {
+                        foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
+                            ClearFile(file);
+                        }
+                    }
+                    break;
+                case PowerModes.Suspend:
+                    break;
+            }
+        }*/
 
 
         public static void UpdateAnalyticsSharing(bool theBool) {

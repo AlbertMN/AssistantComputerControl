@@ -1,4 +1,13 @@
-﻿using System.IO;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.2.0, 05-01-2019
+ * 
+ * Use:
+ * - Checks for updates
+ */
+
+using System.IO;
 using System.Windows.Forms;
 using System.Net;
 using System.Diagnostics;
