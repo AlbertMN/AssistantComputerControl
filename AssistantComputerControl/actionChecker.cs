@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.0, 05-01-2019
+ * Updated: v1.2.1, 06-01-2019
  * 
  * Use:
  * - Checks and execute action files
@@ -131,7 +131,14 @@ namespace AssistantComputerControl {
             }
 
             if (new FileInfo(file).Length != 0) {
-                string fullContent = Regex.Replace(File.ReadAllText(file), @"\t|\r", "");
+                string fullContent = "";
+                try {
+                    //Sentry issue @804439508
+                    fullContent = Regex.Replace(File.ReadAllText(file), @"\t|\r", "");
+                } catch {
+                    MainProgram.DoDebug("Could not read file.");
+                    return;
+                }
                 MainProgram.DoDebug(" - Read complete, content: " + fullContent);
                 File.SetAttributes(file, FileAttributes.Hidden);
 

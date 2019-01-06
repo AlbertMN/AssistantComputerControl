@@ -224,7 +224,13 @@ namespace AssistantComputerControl {
             if (MainProgram.testingAction) {
                 successMessage = "Simulated PC" + (doMute ? "muted " : "unmute");
             } else {
-                AudioManager.SetMasterVolumeMute(doMute);
+                try {
+                    //Sometimes fails - sentry @833243007
+                    AudioManager.SetMasterVolumeMute(doMute);
+                } catch {
+                    MainProgram.DoDebug("Failed to set PC mute static. Exception caught.");
+                    MainProgram.errorMessage = "Failed to set PC mute status";
+                }
                 successMessage = (doMute ? "Muted " : "Unmuted") + " pc";
             }
         }
@@ -233,7 +239,13 @@ namespace AssistantComputerControl {
                 if (volumeLevel >= 0 && volumeLevel <= 100) {
                     if (!MainProgram.testingAction) {
                         if (Properties.Settings.Default.UnmuteOnVolumeChange) {
-                            AudioManager.SetMasterVolumeMute(false);
+                            try {
+                                //Sometimes fails - sentry @833243007
+                                AudioManager.SetMasterVolumeMute(false);
+                            } catch {
+                                MainProgram.DoDebug("Failed to unmute PC. Exception caught.");
+                                MainProgram.errorMessage = "Failed to unmute PC";
+                            }
                         }
                         AudioManager.SetMasterVolume((float)volumeLevel);
                     }

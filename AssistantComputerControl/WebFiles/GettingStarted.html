@@ -1,18 +1,22 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <style>.btn-default {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.2);
-    }</style>
+    <style>
+        .btn-default {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    </style>
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/sweetalert2.min.css" />
-    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
 
     <title>About new version</title>
 
@@ -44,11 +48,11 @@
             z-index: 9999;
         }
 
-        #nextButton:hover, #previousButton:hover {
-            color: #fff !important;
-            background-color: #428bca;
-            border-color: #357ebd;
-        }
+            #nextButton:hover, #previousButton:hover {
+                color: #fff !important;
+                background-color: #428bca;
+                border-color: #357ebd;
+            }
 
         body {
             margin-top: 10px;
@@ -150,23 +154,24 @@
             transform: translate3d(0, 20%, 0);
         }
 
-        .elements .el:nth-of-type(2) {
-            animation-delay: 0.2s;
-        }
+            .elements .el:nth-of-type(2) {
+                animation-delay: 0.2s;
+            }
 
-        .elements .el:nth-of-type(3) {
-            animation-delay: 0.4s;
-        }
+            .elements .el:nth-of-type(3) {
+                animation-delay: 0.4s;
+            }
 
-        .elements .el:nth-of-type(4) {
-            animation-delay: 0.6s;
-        }
+            .elements .el:nth-of-type(4) {
+                animation-delay: 0.6s;
+            }
 
         @keyframes hover {
             0% {
                 transform: translate3d(0, 20%, 0);
                 opacity: 0.5;
             }
+
             100% {
                 transform: translate3d(0, -20%, 0);
                 opacity: 0.9;
@@ -182,6 +187,7 @@
             0% {
                 color: black;
             }
+
             50% {
                 color: green;
             }
@@ -197,22 +203,22 @@
             counter-reset: item;
         }
 
-        ol > li {
-            margin: 0;
-            padding: 0 0 0 2em;
-            text-indent: -2em;
-            list-style-type: none;
-            counter-increment: item;
-        }
+            ol > li {
+                margin: 0;
+                padding: 0 0 0 2em;
+                text-indent: -2em;
+                list-style-type: none;
+                counter-increment: item;
+            }
 
-        ol > li:before {
-            display: inline-block;
-            width: 1em;
-            padding-right: 0.5em;
-            font-weight: bold;
-            text-align: right;
-            content: counter(item) ".";
-        }
+                ol > li:before {
+                    display: inline-block;
+                    width: 1em;
+                    padding-right: 0.5em;
+                    font-weight: bold;
+                    text-align: right;
+                    content: counter(item) ".";
+                }
 
         .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left] {
             left: -1.5em;
@@ -225,6 +231,7 @@
             -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
         }
+
         .container {
             padding-right: 60px;
             padding-left: 60px;
