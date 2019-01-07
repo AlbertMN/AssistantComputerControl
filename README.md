@@ -44,6 +44,11 @@ For more nerdy technical info you can go to the [Wiki](https://acc.readme.io/doc
 
 So as you can see no coding is required! But if you're up for it and want to add your own features to the project it's easy! The entire project is made made in C# and the code is opensource and quite simple, so feel free to use the code in your own fork or even better; submit pull requests!
 
+## Donations
+AssistantComputerControl is made by me - an 18 year old student from Denmark, who enjoys developing it as a free time project. The project will remain free, but donations are welcomed as there are expenses such as hosting and the domain.
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/albermn)
+
 ### Services and people we like
 * Huge thanks to [readme.io](https://readme.io/) and [Advanced Installer](https://www.advancedinstaller.com/) for letting us use their services for free, giving back to the open source community
 * [Json.NET](https://www.newtonsoft.com/json); free Json library for .NET
