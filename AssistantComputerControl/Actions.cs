@@ -54,10 +54,10 @@ namespace AssistantComputerControl {
                 if (parameter == "abort") {
                     shutdownParameters = "abort";
                 } else {
-                    if (parameter.Contains("/t")) {
-                        shutdownParameters = !parameter.Contains("/s") ? "/s " : "" + parameter;
+                    if (parameter.Contains("/t") || parameter.Contains("-t")) {
+                        shutdownParameters = !parameter.Contains("/s") && !parameter.Contains("-s") ? "/s " : "" + parameter;
                     } else {
-                        shutdownParameters = !parameter.Contains("/s") ? "/s " : "" + parameter + " /t 0";
+                        shutdownParameters = !parameter.Contains("/s") && !parameter.Contains("-s") ? "/s " : "" + parameter + " /t 0";
                     }
                 }
             }
@@ -86,10 +86,10 @@ namespace AssistantComputerControl {
                 if (parameter == "abort") {
                     restartParameters = "abort";
                 } else {
-                    if (parameter.Contains("/t")) {
-                        restartParameters = !parameter.Contains("/r") ? "/s " : "" + parameter;
+                    if (parameter.Contains("/t") || parameter.Contains("-t")) {
+                        restartParameters = !parameter.Contains("/r") && !parameter.Contains("-r") ? "/r " : "" + parameter;
                     } else {
-                        restartParameters = !parameter.Contains("/r") ? "/s " : "" + parameter + " /t 0";
+                        restartParameters = !parameter.Contains("/r") && !parameter.Contains("-r") ? "/r " : "" + parameter + " /t 0";
                     }
                 }
             }
@@ -194,7 +194,7 @@ namespace AssistantComputerControl {
                 successMessage = "Simulated PC lock";
             } else {
                 MainProgram.DoDebug("Locking computer...");
-                //wasFatal = true;
+                wasFatal = true;
                 LockWorkStation();
                 successMessage = "Locked pc";
             }
@@ -204,7 +204,12 @@ namespace AssistantComputerControl {
 
             if (parameter == null) {
                 //No parameter - toggle
-                doMute = !AudioManager.GetMasterVolumeMute();
+                try {
+                    doMute = !AudioManager.GetMasterVolumeMute();
+                } catch {
+                    MainProgram.DoDebug("No volume object (most likely)");
+                    MainProgram.errorMessage = "Failed to mute; no volume object.";
+                }
             } else {
                 //Parameter set;
                 switch (parameter) {
@@ -247,15 +252,25 @@ namespace AssistantComputerControl {
                                 MainProgram.errorMessage = "Failed to unmute PC";
                             }
                         }
-                        AudioManager.SetMasterVolume((float)volumeLevel);
+                        try {
+                            AudioManager.SetMasterVolume((float)volumeLevel);
+                        } catch {
+                            //Might not have an audio device...
+                            MainProgram.DoDebug("Failed to set PC volume. Exception caught.");
+                            MainProgram.errorMessage = "Failed to set PC volume";
+                        }
                     }
                     if (!MainProgram.testingAction) {
-                        if ((int)AudioManager.GetMasterVolume() != (int)volumeLevel) {
-                            //Something went wrong... Audio not set to parameter-level
-                            MainProgram.DoDebug("ERROR: Volume was not set properly. Master volume is " + AudioManager.GetMasterVolume() + ", not " + volumeLevel);
-                            MainProgram.errorMessage = "Something went wrong when setting the volume";
-                        } else {
-                            successMessage = "Set volume to " + volumeLevel + "%";
+                        try {
+                            if ((int)AudioManager.GetMasterVolume() != (int)volumeLevel) {
+                                //Something went wrong... Audio not set to parameter-level
+                                MainProgram.DoDebug("ERROR: Volume was not set properly. Master volume is " + AudioManager.GetMasterVolume() + ", not " + volumeLevel);
+                                MainProgram.errorMessage = "Something went wrong when setting the volume";
+                            } else {
+                                successMessage = "Set volume to " + volumeLevel + "%";
+                            }
+                        } catch {
+                            MainProgram.errorMessage = "Failed to check volume";
                         }
                     } else {
                         successMessage = "Simulated setting system volume to " + volumeLevel + "%";
@@ -313,16 +328,21 @@ namespace AssistantComputerControl {
         }
         public void Open(string parameter) {
             string location = ActionChecker.GetSecondaryParam(parameter)[0], arguments = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
-            string fileLocation = (!location.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, location) : location;
+            string fileLocation = (!location.Contains(@":\") || !location.Contains(@":/")) ? Path.Combine(MainProgram.shortcutLocation, location) : location;
 
             if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                 if (!MainProgram.testingAction) {
-                    Process p = new Process();
-                    p.StartInfo.FileName = fileLocation;
-                    if (arguments != null)
-                        p.StartInfo.Arguments = arguments;
-                    p.Start();
-                    successMessage = "OPEN: opened file/url; " + fileLocation;
+                    try {
+                        Process p = new Process();
+                        p.StartInfo.FileName = fileLocation;
+                        if (arguments != null)
+                            p.StartInfo.Arguments = arguments;
+                        p.Start();
+                        successMessage = "OPEN: opened file/url; " + fileLocation;
+                    } catch {
+                        MainProgram.DoDebug("Failed to open file at " + fileLocation + "");
+                        MainProgram.errorMessage = "Failed to open file (" + fileLocation + ")";
+                    }
                 } else {
                     successMessage = "OPEN: simulated opening file; " + fileLocation;
                 }
@@ -332,7 +352,7 @@ namespace AssistantComputerControl {
             }
         }
         public void OpenAll(string parameter) {
-            string fileLocation = (!parameter.Contains(@":\")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
+            string fileLocation = (!parameter.Contains(@":\") || !parameter.Contains(@":/")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
 
             if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                 DirectoryInfo d = new DirectoryInfo(fileLocation);

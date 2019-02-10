@@ -482,7 +482,7 @@
 
                             Pick one of the applets you have enabled, and say the trigger.
                             Let's try with the shutdown applet <i>
-                                (<a href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">[GH]</a><a href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">[Alexa]</a>)
+                                (<a id="shutdown_test_link_gh" href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">[GH]</a><a id="shutdown_test_link_alexa" href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">[Alexa]</a>)
                             </i>.
                             <br>
                             The <b>Google Assistant</b> trigger would be; <i>"Hey Google, turn off my computer"</i><br>
@@ -778,7 +778,23 @@
 
                 $("#manualCheckPath").val("");
 
+                let stlgh = $("#shutdown_test_link_gh"), stla = $("#shutdown_test_link_alexa");
+
                 window.external.CloudServiceChosen(chosenCloudService.replace(" ", "").toLocaleLowerCase());
+                switch (chosenCloudService.toLowerCase()) {
+                    case "google drive":
+                        stlgh.attr("href", "https://ifttt.com/applets/N5LtdnWq-acc-shut-down-computer-google-drive");
+                        stla.attr("href", "https://ifttt.com/applets/zjKANwgB-acc-shut-down-computer-google-drive");
+                        break;
+                    case "dropbox":
+                        stlgh.attr("href", "https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer-dropbox");
+                        stla.attr("href", "https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer-dropbox");
+                        break;
+                    case "onedrive":
+                        stlgh.attr("href", "https://ifttt.com/applets/SUZHkGLx-acc-shut-down-computer-onedrive");
+                        stla.attr("href", "https://ifttt.com/applets/JgERNdXS-acc-shut-down-computer-onedrive");
+                        break;
+                }
 
                 $("#install_step_name").text(chosenCloudService);
                 $("#step-1-title").html("Install " + chosenCloudService);

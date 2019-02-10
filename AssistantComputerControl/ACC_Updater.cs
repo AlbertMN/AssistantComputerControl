@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.0, 05-01-2019
+ * Updated: v1.2.2, 06-01-2019
  * 
  * Use:
  * - Checks for updates
@@ -19,6 +19,7 @@ using System.Threading;
 namespace AssistantComputerControl {
     class ACC_Updater {
         private const string releaseJsonUrl = "https://assistantcomputercontrol.com/versions/latest_version.php?type=release";
+        //private const string releaseJsonUrl = "https://assistantcomputercontrol.com/versions/latest_version.php?type=release&dev_test";
         private const string betaJsonUrl = "https://assistantcomputercontrol.com/versions/latest_version.php?type=beta";
 
         public bool Check(bool debug = false) {
@@ -194,6 +195,7 @@ namespace AssistantComputerControl {
                 //Download success
                 Process.Start(targetLocation);
                 MainProgram.DoDebug("New installer successfully downloaded and opened.");
+                Application.Exit();
             } else {
                 MainProgram.DoDebug("Failed to download new version of ACC. Error; " + e.Error);
                 MessageBox.Show("Failed to download new version. Try again later!", "Error | " + MainProgram.messageBoxTitle);

@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.1, 06-01-2019
+ * Updated: v1.2.2, 10-02-2019
  * 
  * Use:
  * - Checks and execute action files
@@ -21,32 +21,6 @@ namespace AssistantComputerControl {
     class ActionChecker {
         private static string successMessage = "";
         private static bool lastActionWasFatal;
-
-        //Logout
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern int ExitWindowsEx(uint uFlags, uint dwReason);
-
-        //Lock
-        [DllImport("user32.dll")]
-        public static extern bool LockWorkStation();
-
-        //Turn off monitor
-        const int WM_SYSCOMMAND = 0x112;
-        const int SC_MONITORPOWER = 0xF170;
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
-
-        //Music-control
-        public const int KEYEVENTF_EXTENTEDKEY = 1;
-        public const int KEYEVENTF_KEYUP = 0;
-        public const int VK_MEDIA_NEXT_TRACK = 0xB0; //Next track
-        public const int VK_MEDIA_PLAY_PAUSE = 0xB3; //Play/pause
-        public const int VK_MEDIA_PREV_TRACK = 0xB1; //Previous track
-        public const int VK_RCONTROL = 0xA3; //Right Control key code
-
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
         private static bool RequireParameter(string param) {
             if(param != null) {
@@ -93,17 +67,14 @@ namespace AssistantComputerControl {
             }
             //DateTime lastModified = File.GetCreationTime(file);
             DateTime lastModified = File.GetLastWriteTime(file);
-            //MainProgram.DoDebug(lastModified.ToString());
-
-            if (lastModified == lastActionModified || (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden) {
-                //If file is hidden or has exact same "last modified" date as last file (possible trying to do the same twice)
-                /*MainProgram.DoDebug("Dublicate");
-
-                try {
-                    //File.Delete(file);
-                } catch {
-
-                }*/
+            bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
+            if (lastModified == lastActionModified || hidden) {
+                if (!hidden)
+                    try {
+                        File.SetAttributes(file, FileAttributes.Hidden);
+                    } catch {
+                        //
+                    }
                 return;
             }
             lastActionModified = lastModified;
@@ -124,7 +95,6 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug(" - File exists, checking the content...");
 
             try {
-                //Thread.Sleep(200);
                 File.SetAttributes(file, FileAttributes.Hidden);
             } catch {
                 //
@@ -132,9 +102,11 @@ namespace AssistantComputerControl {
 
             if (new FileInfo(file).Length != 0) {
                 string fullContent = "";
+                //Sentry issue @804439508
                 try {
-                    //Sentry issue @804439508
-                    fullContent = Regex.Replace(File.ReadAllText(file), @"\t|\r", "");
+                    string fileContent;
+                    fileContent = File.ReadAllText(file);
+                    fullContent = Regex.Replace(fileContent, @"\t|\r", "");
                 } catch {
                     MainProgram.DoDebug("Could not read file.");
                     return;
@@ -157,9 +129,13 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug(" - File is empty");
                 MainProgram.errorMessage = "No action set (file is empty)";
 
-                //MainProgram.ClearFile(file);
-                //while (File.Exists(file)) ;
-                File.SetAttributes(file, FileAttributes.Hidden);
+                if ((File.GetAttributes(file) & FileAttributes.Hidden) != FileAttributes.Hidden) {
+                    try {
+                        File.SetAttributes(file, FileAttributes.Hidden);
+                    } catch {
+                        //
+                    }
+                }
             }
 
 
@@ -247,31 +223,7 @@ namespace AssistantComputerControl {
             return new string[1] { param };
         }
 
-
-
-
-        public const int KEYEVENTF_EXTENDEDKEY = 0x0001; //Key down flag
-        public const int VK_LCONTROL = 0xA2; //Left Control key code
-        public const int A = 0x41; //A key code
-        public const int C = 0x43; //C key code
-
-        public static void PressKeys() {
-            // Hold Control down and press A
-            keybd_event(VK_LCONTROL, 0, KEYEVENTF_EXTENDEDKEY, 0);
-            keybd_event(A, 0, KEYEVENTF_EXTENDEDKEY, 0);
-            keybd_event(A, 0, KEYEVENTF_KEYUP, 0);
-            keybd_event(VK_LCONTROL, 0, KEYEVENTF_KEYUP, 0);
-
-            // Hold Control down and press C
-            keybd_event(VK_LCONTROL, 0, KEYEVENTF_EXTENDEDKEY, 0);
-            keybd_event(C, 0, KEYEVENTF_EXTENDEDKEY, 0);
-            keybd_event(C, 0, KEYEVENTF_KEYUP, 0);
-            keybd_event(VK_LCONTROL, 0, KEYEVENTF_KEYUP, 0);
-        }
-
-
-
-        private static void ExecuteAction(string action, string line, string parameter, string assistantParam) {
+        public static void ExecuteAction(string action, string line, string parameter, string assistantParam) {
             int? actionNumber = null;
 
             Actions actionExecution = new Actions();

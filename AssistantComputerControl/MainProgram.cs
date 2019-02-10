@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.0, 04-01-2019
+ * Updated: v1.2.2, 10-02-2019
  * 
  * Use:
  * - Main class. Starts everything.
@@ -24,8 +24,8 @@ using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.2.1",
-            releaseDate = "2019-01-05 02:48:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.2.2",
+            releaseDate = "2019-02-10 19:24:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -113,22 +113,26 @@ namespace AssistantComputerControl {
 
                 SetupDataFolder();
                 if (File.Exists(logFilePath))
-                    File.WriteAllText(logFilePath, string.Empty);
+                    try {
+                        File.WriteAllText(logFilePath, string.Empty);
+                    } catch {
+                        // Don't let this being DENIED crash the software
+                    }
                 else
                     CreateLogFile();
 
                 //Check if software already runs, if so kill this instance
                 var otherACCs = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(currentLocationFull));
                 if (otherACCs.Length > 1) {
-                    //DoDebug("ACC is already running, killing this proccess");
-                    //MessageBox.Show("ACC is already running.", "Already running | " + messageBoxTitle + "");
-                    //Process.GetCurrentProcess().Kill();
-
                     //Try kill the _other_ process instead
                     foreach (Process p in otherACCs) {
                         if (p.Id != Process.GetCurrentProcess().Id) {
-                            p.Kill();
-                            DoDebug("Other ACC instance was running. Killed it.");
+                            try {
+                                p.Kill();
+                                DoDebug("Other ACC instance was running. Killed it.");
+                            } catch {
+                                DoDebug("Could not kill other process of ACC; access denied");
+                            }
                         }
                     }
                 }
@@ -165,9 +169,13 @@ namespace AssistantComputerControl {
                 }
                 if (!File.Exists(Path.Combine(shortcutLocation, @"example.txt"))) {
                     //Create example-file
-                    using (StreamWriter sw = File.CreateText(Path.Combine(shortcutLocation, @"example.txt"))) {
-                        sw.WriteLine("This is an example file.");
-                        sw.WriteLine("If you haven't already, make your assistant open this file!");
+                    try {
+                        using (StreamWriter sw = File.CreateText(Path.Combine(shortcutLocation, @"example.txt"))) {
+                            sw.WriteLine("This is an example file.");
+                            sw.WriteLine("If you haven't already, make your assistant open this file!");
+                        }
+                    } catch {
+                        DoDebug("Could not create or write to example file");
                     }
                 }
 
@@ -232,27 +240,23 @@ namespace AssistantComputerControl {
                     }
                 }
 
-                //SystemEvents.PowerModeChanged += OnPowerChange;
-
+                SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();
             }
         }
         //End main function
 
-        /*private static void OnPowerChange(object s, PowerModeChangedEventArgs e) {
-            switch (e.Mode) {
-                case PowerModes.Resume:
-                    //Delete all old action files
-                    if (Directory.Exists(CheckPath())) {
-                        foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
-                            ClearFile(file);
-                        }
+        //If woken up from sleep, make sure the sleep 'computerAction' is deleted
+        static void SystemEvents_SessionSwitch(object sender, SessionSwitchEventArgs e) {
+            if (e.Reason == SessionSwitchReason.SessionUnlock) {
+                //Unlock. Clear folder.
+                if (Directory.Exists(CheckPath())) {
+                    foreach (string file in Directory.GetFiles(CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
+                        ClearFile(file);
                     }
-                    break;
-                case PowerModes.Suspend:
-                    break;
+                }
             }
-        }*/
+        }
 
 
         public static void UpdateAnalyticsSharing(bool theBool) {
@@ -297,29 +301,33 @@ namespace AssistantComputerControl {
                 }
 
             if (!File.Exists(errorLogLoc)) {
-                using (var tw = new StreamWriter(errorLogLoc, true)) {
-                    tw.WriteLine("OS;");
-                    tw.WriteLine("- " + windowsVersionName);
-                    tw.WriteLine("- " + rawWindowsVersion);
-                    tw.WriteLine();
-                    tw.WriteLine("ACC info;");
-                    tw.WriteLine("- Version; " + softwareVersion + ", " + releaseDate);
-                    tw.WriteLine("- UID; " + Properties.Settings.Default.UID);
-                    tw.WriteLine("- Running from; " + currentLocationFull);
-                    tw.WriteLine("- Start with Windows; " + (Properties.Settings.Default.StartWithWindows ? "[Yes]" : "[No]"));
-                    tw.WriteLine("- Analytics; " + (Properties.Settings.Default.SendAnonymousAnalytics ? "[Yes]" : "[No]"));
-                    tw.WriteLine("- Check for updates; " + (Properties.Settings.Default.CheckForUpdates ? "[Yes]" : "[No]"));
-                    tw.WriteLine("- In beta program; " + (Properties.Settings.Default.BetaProgram ? "[Yes]" : "[No]"));
-                    tw.WriteLine("- Has completed setup guide; " + (Properties.Settings.Default.HasCompletedTutorial ? "[Yes]" : "[No]"));
-                    tw.WriteLine("- Check path; " + CheckPath());
-                    tw.WriteLine("- Check extension; " + Properties.Settings.Default.ActionFileExtension);
-                    tw.WriteLine("- Has Dropbox; " + (GetDropboxFolder() == "" ? "[No]" : "[Yes]"));
-                    tw.WriteLine("- Actions executed; " + totalExecutions);
-                    tw.WriteLine("- Assistant type; " + "[Google Assistant: " + Properties.Settings.Default.AssistantType[0] + "] [Alexa: " + Properties.Settings.Default.AssistantType[1] + "] [Unknown: " + Properties.Settings.Default.AssistantType[1] + "]");
-                    tw.WriteLine();
+                try {
+                    using (var tw = new StreamWriter(errorLogLoc, true)) {
+                        tw.WriteLine("OS;");
+                        tw.WriteLine("- " + windowsVersionName);
+                        tw.WriteLine("- " + rawWindowsVersion);
+                        tw.WriteLine();
+                        tw.WriteLine("ACC info;");
+                        tw.WriteLine("- Version; " + softwareVersion + ", " + releaseDate);
+                        tw.WriteLine("- UID; " + Properties.Settings.Default.UID);
+                        tw.WriteLine("- Running from; " + currentLocationFull);
+                        tw.WriteLine("- Start with Windows; " + (Properties.Settings.Default.StartWithWindows ? "[Yes]" : "[No]"));
+                        tw.WriteLine("- Analytics; " + (Properties.Settings.Default.SendAnonymousAnalytics ? "[Yes]" : "[No]"));
+                        tw.WriteLine("- Check for updates; " + (Properties.Settings.Default.CheckForUpdates ? "[Yes]" : "[No]"));
+                        tw.WriteLine("- In beta program; " + (Properties.Settings.Default.BetaProgram ? "[Yes]" : "[No]"));
+                        tw.WriteLine("- Has completed setup guide; " + (Properties.Settings.Default.HasCompletedTutorial ? "[Yes]" : "[No]"));
+                        tw.WriteLine("- Check path; " + CheckPath());
+                        tw.WriteLine("- Check extension; " + Properties.Settings.Default.ActionFileExtension);
+                        tw.WriteLine("- Has Dropbox; " + (GetDropboxFolder() == "" ? "[No]" : "[Yes]"));
+                        tw.WriteLine("- Actions executed; " + totalExecutions);
+                        tw.WriteLine("- Assistant type; " + "[Google Assistant: " + Properties.Settings.Default.AssistantType[0] + "] [Alexa: " + Properties.Settings.Default.AssistantType[1] + "] [Unknown: " + Properties.Settings.Default.AssistantType[1] + "]");
+                        tw.WriteLine();
 
-                    tw.WriteLine(e);
-                    tw.Close();
+                        tw.WriteLine(e);
+                        tw.Close();
+                    }
+                } catch {
+                    //Caught exception when trying to log exception... *sigh*
                 }
             }
 
@@ -331,9 +339,13 @@ namespace AssistantComputerControl {
         }
 
         private static void CreateLogFile() {
-            using (var tw = new StreamWriter(logFilePath, true)) {
-                tw.WriteLine(string.Empty);
-                tw.Close();
+            try {
+                using (var tw = new StreamWriter(logFilePath, true)) {
+                    tw.WriteLine(string.Empty);
+                    tw.Close();
+                }
+            } catch {
+                DoDebug("Could not clear log file.");
             }
         }
 
@@ -449,12 +461,14 @@ namespace AssistantComputerControl {
             if (key != null) {
                 string installed = key.GetValue("Installed").ToString();
                 key.Close();
-                if (installed == "True") {
-                    string checkPath = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Google Drive");
-                    if (Directory.Exists(checkPath)) {
-                        return checkPath;
+                if (installed != null) {
+                    if (installed == "True") {
+                        string checkPath = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Google Drive");
+                        if (Directory.Exists(checkPath)) {
+                            return checkPath;
+                        }
+                        return "partial";
                     }
-                    return "partial";
                 }
             }
             return "";

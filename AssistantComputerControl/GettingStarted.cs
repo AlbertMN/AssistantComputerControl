@@ -149,11 +149,15 @@ namespace AssistantComputerControl {
                     MainProgram.DoDebug("Cloud service " + backgroundCheckerServiceName + " is installed");
                     if (backgroundCheckerServiceName == "googledrive") {
                         bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
-                        theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
+                        if (theWebBrowser != null)
+                            if (theWebBrowser.Handle != null)
+                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
                         if (partial)
                             CheckLocalGoogleDrive();
                     } else {
-                        theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
+                        if (theWebBrowser != null)
+                            if (theWebBrowser.Handle != null)
+                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
                     }
                 } else {
                     //Not found
@@ -174,17 +178,21 @@ namespace AssistantComputerControl {
                         
                         //Cloud service has been installed since we last checked!
                         MainProgram.DoDebug("Cloud service has been installed since last check. Proceed.");
-                        
-                        theWebBrowser.Invoke(new Action(() => {
-                            if (backgroundCheckerServiceName == "googledrive") {
-                                bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
-                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
-                                if (partial)
-                                    CheckLocalGoogleDrive();
-                            } else {
-                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
+
+                        if (theWebBrowser != null) {
+                            if (theWebBrowser.Handle != null) {
+                                theWebBrowser.Invoke(new Action(() => {
+                                    if (backgroundCheckerServiceName == "googledrive") {
+                                        bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
+                                        theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
+                                        if (partial)
+                                            CheckLocalGoogleDrive();
+                                    } else {
+                                        theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
+                                    }
+                                }));
                             }
-                        }));
+                        }
                     }).Start();
                 }
             }
