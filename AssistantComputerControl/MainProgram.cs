@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.2, 10-02-2019
+ * Updated: v1.2.3, 10-02-2019
  * 
  * Use:
  * - Main class. Starts everything.
@@ -24,8 +24,8 @@ using Sentry;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.2.2",
-            releaseDate = "2019-02-10 19:24:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.2.3",
+            releaseDate = "2019-03-24 19:10:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl";
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -46,7 +46,6 @@ namespace AssistantComputerControl {
         private static FileSystemWatcher watcher;
 
         static public string currentLocationFull = Assembly.GetEntryAssembly().Location,
-            defaultActionFolder = CheckPath(),
 
             currentLocation = Path.GetDirectoryName(currentLocationFull),
             dataFolderLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AssistantComputerControl"),
@@ -66,60 +65,22 @@ namespace AssistantComputerControl {
         [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         static void Main(string[] args) {
-            hasAnalyticsClass = Type.GetType("AssistantComputerControl.AnalyticsSettings") != null;
-
-            string sentryToken = "super_secret";
-            
-            if (hasAnalyticsClass) {
-#if (HasAnalyticsClass)
-                sentryToken = AnalyticsSettings.sentryToken;
-#endif
-            }
-
-            if (sentryToken != "super_secret") {
-                //Tracking issues with Sentry.IO - not forked from GitHub (official version)
-                bool sentryOK = false;
-                try {
-                    if (Properties.Settings.Default.UID != "") {
-                        SentrySdk.ConfigureScope(scope => {
-                            scope.User = new Sentry.Protocol.User {
-                                Id = Properties.Settings.Default.UID
-                            };
-                        });
-                    }
-
-                    using (SentrySdk.Init(sentryToken)) {
-                        sentryOK = true;
-                    }
-                } catch {
-                    //Sentry failed. Error sentry's side or invalid key - don't let this stop the app from running
-                    DoDebug("Sentry initiation failed");
-                    ActualMain();
-                }
-
-                if (sentryOK) {
-                    using (SentrySdk.Init(sentryToken)) {
-                        DoDebug("Sentry initiated");
-                        ActualMain();
-                    }
-                }
-            } else {
-                //Code is (most likely) forked - skip issue tracking
-                ActualMain();
-            }
+            Console.WriteLine("Log location; " + logFilePath);
 
             void ActualMain() {
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
                 SetupDataFolder();
-                if (File.Exists(logFilePath))
+                if (File.Exists(logFilePath)) {
                     try {
                         File.WriteAllText(logFilePath, string.Empty);
                     } catch {
                         // Don't let this being DENIED crash the software
                     }
-                else
+                } else {
+                    Console.WriteLine("Trying to create log");
                     CreateLogFile();
+                }
 
                 //Check if software already runs, if so kill this instance
                 var otherACCs = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(currentLocationFull));
@@ -243,6 +204,48 @@ namespace AssistantComputerControl {
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();
             }
+
+            hasAnalyticsClass = Type.GetType("AssistantComputerControl.AnalyticsSettings") != null;
+
+            string sentryToken = "super_secret";
+
+            if (hasAnalyticsClass) {
+#if (HasAnalyticsClass)
+                sentryToken = AnalyticsSettings.sentryToken;
+#endif
+            }
+
+            if (sentryToken != "super_secret") {
+                //Tracking issues with Sentry.IO - not forked from GitHub (official version)
+                bool sentryOK = false;
+                try {
+                    if (Properties.Settings.Default.UID != "") {
+                        SentrySdk.ConfigureScope(scope => {
+                            scope.User = new Sentry.Protocol.User {
+                                Id = Properties.Settings.Default.UID
+                            };
+                        });
+                    }
+
+                    using (SentrySdk.Init(sentryToken)) {
+                        sentryOK = true;
+                    }
+                } catch {
+                    //Sentry failed. Error sentry's side or invalid key - don't let this stop the app from running
+                    DoDebug("Sentry initiation failed");
+                    ActualMain();
+                }
+
+                if (sentryOK) {
+                    using (SentrySdk.Init(sentryToken)) {
+                        DoDebug("Sentry initiated");
+                        ActualMain();
+                    }
+                }
+            } else {
+                //Code is (most likely) forked - skip issue tracking
+                ActualMain();
+            }
         }
         //End main function
 
@@ -290,7 +293,7 @@ namespace AssistantComputerControl {
             string rawWindowsVersion = Environment.OSVersion.ToString();
 
             int totalExecutions = 0;
-            foreach(int action in Properties.Settings.Default.TotalActionsExecuted) {
+            foreach (int action in Properties.Settings.Default.TotalActionsExecuted) {
                 totalExecutions += action;
             }
             if (File.Exists(errorLogLoc))
@@ -338,15 +341,18 @@ namespace AssistantComputerControl {
             MessageBox.Show("A critical error occurred. The developer has been notified and will resolve this issue ASAP! Try and start ACC again, and avoid whatever just made it crash (for now) :)", "ACC | Error");
         }
 
-        private static void CreateLogFile() {
+        private static bool CreateLogFile() {
             try {
                 using (var tw = new StreamWriter(logFilePath, true)) {
                     tw.WriteLine(string.Empty);
                     tw.Close();
                 }
-            } catch {
-                DoDebug("Could not clear log file.");
+            } catch (Exception e) {
+                Console.WriteLine("Could not create/clear log file; " + e.Message);
+                return false;
             }
+
+            return true;
         }
 
         public static void SetupListener() {
@@ -592,33 +598,35 @@ namespace AssistantComputerControl {
                     path = Properties.Settings.Default.ActionFilePath;
                 }
             } else {
-                string dropboxFolder = GetDropboxFolder();
-                if (dropboxFolder == "" || dropboxFolder == null || !Directory.Exists(dropboxFolder)) {
-                    if (Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain) {
-                        //Dropbox not found & no custom filepath, go through setup again?
-                        hasAskedForSetupAgain = true;
-                        var msgBox = MessageBox.Show("Dropbox (required) doesn't seem to be installed... Do you want to go through the setup guide again?", "[ERROR] No folder specified | " + messageBoxTitle, MessageBoxButtons.YesNo);
-                        if (msgBox == DialogResult.Yes) {
-                            ShowGettingStarted();
-                        }
+                /*string dropboxFolder = GetDropboxFolder();
+                if (dropboxFolder == "" || dropboxFolder == null || !Directory.Exists(dropboxFolder)) {*/
+                if (Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain) {
+                    //Dropbox not found & no custom filepath, go through setup again?
+                    hasAskedForSetupAgain = true;
+                    var msgBox = MessageBox.Show("You do not seem to have chosen a cloud-service. Do you want to go through the setup guide again?", "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
+                    if (msgBox == DialogResult.Yes) {
+                        ShowGettingStarted();
                     }
-                } else {
+                }
+                /*} else {
                     string dropboxACCpath = dropboxFolder + @"\AssistantComputerControl";
                     if (!Directory.Exists(dropboxACCpath)) {
                         DirectoryInfo di = Directory.CreateDirectory(dropboxACCpath);
                         di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                     }
                     path = dropboxACCpath;
-                }
+                }*/
             }
-            
+
             return Path.HasExtension(path) ? Path.GetDirectoryName(path) : path;
         }
 
         public static void DoDebug(string str) {
             try {
                 if (!File.Exists(logFilePath)) {
-                    CreateLogFile();
+                    Console.WriteLine("Log file does not exist, trying to create it");
+                    if (!CreateLogFile())
+                        return;
                 }
                 File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + str + Environment.NewLine);
                 if (debug) {

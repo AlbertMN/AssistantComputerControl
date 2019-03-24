@@ -201,6 +201,7 @@ namespace AssistantComputerControl {
                 MessageBox.Show("Failed to download new version. Try again later!", "Error | " + MainProgram.messageBoxTitle);
             }
 
+            Thread.Sleep(500);
             Thread.CurrentThread.Abort();
         }
     }

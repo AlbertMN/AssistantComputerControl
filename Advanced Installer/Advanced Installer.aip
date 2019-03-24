@@ -10,10 +10,10 @@
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.11.0.2\lib\net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll" Value="..\packages\Sentry.PlatformAbstractions.1.0.0-rc\lib\net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll" Value="..\packages\Sentry.Protocol.1.0.0-rc2\lib\net46"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.dll" Value="..\packages\Sentry.1.0.0-rc2\lib\netstandard2.0"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.12.0.1\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll" Value="..\packages\Sentry.PlatformAbstractions.1.0.0\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll" Value="..\packages\Sentry.Protocol.1.0.4\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.dll" Value="..\packages\Sentry.1.1.2\lib\net461"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll" Value="..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" Value="AssistantComputerControl.exe"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config" Value="AssistantComputerControl.exe.config"/>
@@ -37,10 +37,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{6A723DD4-5278-4D60-8A57-361116141F86} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{F6AD077F-7B7F-41E0-BC10-8F9257D1E03A} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.2.2.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.2.3.0" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
