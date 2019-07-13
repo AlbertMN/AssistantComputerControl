@@ -32,9 +32,6 @@
     <Setting Name="TotalActionsExecuted" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="SendAnonymousAnalytics" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="AssistantType" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -52,15 +49,6 @@
     </Setting>
     <Setting Name="MaxDeleteFiles" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
-    </Setting>
-    <Setting Name="AnalyticsInformed" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="AnalyticsThisDay" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="AnalyticsUnsentData" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LastKnownVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

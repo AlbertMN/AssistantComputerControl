@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="15.3" PreviousModules="simple" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="15.6" PreviousModules="simple" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
-    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
+    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;FixupComponent"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
@@ -24,6 +24,7 @@
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll" Value="Sentry.Protocol.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll" Value="Sentry.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll" Value="System.Collections.Immutable.dll"/>
+    <ROW Property="AI_RUN_AS_ADMIN" Value="0"/>
     <ROW Property="AI_ThemeStyle" Value="aero" MsiKey="AI_ThemeStyle"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="The software that lets you control your computer using your personal assistants (Amazon Alexa or Google Assistant)" ValueLocId="*"/>
@@ -31,16 +32,16 @@
     <ROW Property="ARPHELPLINK" Value="https://assistantcomputercontrol.com/#get-in-touch"/>
     <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPNOREPAIR" Value="1" MultiBuildValue="DefaultBuild:1"/>
-    <ROW Property="ARPPRODUCTICON" Value="logoico.exe" Type="8"/>
+    <ROW Property="ARPPRODUCTICON" Value="logo_ico.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://assistantcomputercontrol.com/"/>
     <ROW Property="ARPURLUPDATEINFO" Value="https://assistantcomputercontrol.com/"/>
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{F6AD077F-7B7F-41E0-BC10-8F9257D1E03A} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{CAAFD843-42AE-4386-9031-52DFB2170D36} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.2.3.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.3.0" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -83,7 +84,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="AboutVersion.html" Component_="AboutVersion.html" FileName="ABOUTV~1.HTM|AboutVersion.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\AboutVersion.html" SelfReg="false" NextFile="GettingStarted.html"/>
-    <ROW File="AssistantComputerControl.exe" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" FileName="ASSIST~1.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe&gt;" SelfReg="false" NextFile="AssistantComputerControl.exe.config" DigSign="true"/>
+    <ROW File="AssistantComputerControl.exe" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" FileName="ASSIST~1.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Version="65535.65535.65535.65535" Attributes="512" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe&gt;" SelfReg="false" NextFile="AssistantComputerControl.exe.config" DigSign="true"/>
     <ROW File="AssistantComputerControl.exe.config" Component_="AssistantComputerControl_PrimaryOutput" FileName="ASSIST~1.CON|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.dll"/>
     <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false" NextFile="NewVersion.cs"/>
     <ROW File="Microsoft.WindowsAPICodePack.Shell.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll&gt;" SelfReg="false" NextFile="Newtonsoft.Json.dll"/>
@@ -126,14 +127,14 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\ACC stuff\Images\Icons\logo ico.ico" UseLargeSchema="true" ExeName="ACCsetup"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\ACC stuff\Images\Icons\logo_ico.ico" UseLargeSchema="true" ExeName="ACCsetup"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1"/>
+    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Thumbprint="a245f9f65b4520255edc006e003525de7c4fd3ad Subject: TestCert_2019-5-23_22-20-47&#10;Issuer: TestCert_2019-5-23_22-20-47&#10;Valid from 05/23/2019 to 05/23/2020"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -222,7 +223,7 @@
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
-    <ROW Name="logoico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo ico.ico" Index="0"/>
+    <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>

@@ -35,7 +35,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.2.%2a</ApplicationVersion>
+    <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -71,7 +71,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>A11F159F4F4FE3DEA3D920DE0238C12162022396</ManifestCertificateThumbprint>
@@ -90,7 +90,10 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>ACCKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>acc_key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -150,8 +153,9 @@
     <Compile Include="AdvancedSettings.Designer.cs">
       <DependentUpon>AdvancedSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="AnalyticsSettings.cs" />
     <Compile Include="AudioManager.cs" />
+    <Compile Include="CleanupService.cs" />
+    <Compile Include="CloudServiceFunctions.cs" />
     <Compile Include="FlashWindow.cs" />
     <Compile Include="GettingStarted.cs">
       <SubType>Form</SubType>
@@ -159,11 +163,13 @@
     <Compile Include="GettingStarted.Designer.cs">
       <DependentUpon>GettingStarted.cs</DependentUpon>
     </Compile>
-    <Compile Include="InstallerClass.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MainProgram.cs" />
     <Compile Include="MyPanel.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="WebFiles\NewVersion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,11 +177,6 @@
       <DependentUpon>NewVersion.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -203,7 +204,7 @@
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ACCKey.pfx" />
+    <None Include="acc_key.snk" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -256,7 +257,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FodyWeavers.xml" />
-    <Content Include="logo ico.ico" />
     <None Include="Resources\logo PNG.png" />
     <None Include="app.manifest" />
     <None Include="Resources\1484353419397.png" />
@@ -278,9 +278,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GettingStarted.resx">
       <DependentUpon>GettingStarted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InstallerClass.resx">
-      <DependentUpon>InstallerClass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WebFiles\NewVersion.resx">
       <DependentUpon>NewVersion.cs</DependentUpon>

@@ -35,6 +35,7 @@
             this.pickFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.pickFolderBtn = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.saveActionFolder = new System.Windows.Forms.Button();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,16 +60,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(189, 13);
+            this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Action folder path (press enter to save)";
+            this.label2.Text = "Action folder path";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 146);
+            this.label3.Location = new System.Drawing.Point(0, 184);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 13);
             this.label3.TabIndex = 4;
@@ -77,7 +79,7 @@
             // actionFileExtension
             // 
             this.actionFileExtension.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.actionFileExtension.Location = new System.Drawing.Point(6, 163);
+            this.actionFileExtension.Location = new System.Drawing.Point(7, 200);
             this.actionFileExtension.Name = "actionFileExtension";
             this.actionFileExtension.Size = new System.Drawing.Size(73, 20);
             this.actionFileExtension.TabIndex = 3;
@@ -118,6 +120,7 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.Controls.Add(this.saveActionFolder);
             this.mainPanel.Controls.Add(this.label1);
             this.mainPanel.Controls.Add(this.pickFolderBtn);
             this.mainPanel.Controls.Add(this.label4);
@@ -130,6 +133,17 @@
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(382, 301);
             this.mainPanel.TabIndex = 8;
+            // 
+            // saveActionFolder
+            // 
+            this.saveActionFolder.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.saveActionFolder.Location = new System.Drawing.Point(7, 143);
+            this.saveActionFolder.Name = "saveActionFolder";
+            this.saveActionFolder.Size = new System.Drawing.Size(342, 23);
+            this.saveActionFolder.TabIndex = 8;
+            this.saveActionFolder.Text = "Save action folder";
+            this.saveActionFolder.UseVisualStyleBackColor = true;
+            this.saveActionFolder.Click += new System.EventHandler(this.saveActionFolder_Click);
             // 
             // AdvancedSettings
             // 
@@ -162,5 +176,6 @@
         private System.Windows.Forms.FolderBrowserDialog pickFolder;
         private System.Windows.Forms.Button pickFolderBtn;
         private System.Windows.Forms.Panel mainPanel;
+        private System.Windows.Forms.Button saveActionFolder;
     }
 }

@@ -65,6 +65,12 @@ namespace AssistantComputerControl {
                 //MainProgram.DoDebug("File doesn't exist.");
                 return;
             }
+
+            /*if (CleanupService.cleanedFiles.Contains(file)) {
+                MainProgram.DoDebug("Accidentially picked up cleaned file. Ignoring...");
+                return;
+            }*/
+
             //DateTime lastModified = File.GetCreationTime(file);
             DateTime lastModified = File.GetLastWriteTime(file);
             bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
@@ -83,10 +89,12 @@ namespace AssistantComputerControl {
                 //if (File.GetLastWriteTime(file).AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
                     //Extra security - sometimes the "creation" time is a bit behind, but the "modify" timestamp is usually right.
 
-                    MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
-                    MainProgram.DoDebug("File creation time: " + lastModified.ToString());
-                    MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
-                    return;
+                MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
+                MainProgram.DoDebug("File creation time: " + lastModified.ToString());
+                MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
+
+                new CleanupService().Start();
+                return;
                 //}
             } 
 
@@ -97,18 +105,29 @@ namespace AssistantComputerControl {
             try {
                 File.SetAttributes(file, FileAttributes.Hidden);
             } catch {
-                //
+                MainProgram.DoDebug("Failed to set attribute; hidden on action file");
             }
 
             if (new FileInfo(file).Length != 0) {
                 string fullContent = "";
                 //Sentry issue @804439508
+
+                int tries = 0;
+                while (FileInUse(file) || tries >= 20) {
+                    tries++;
+                }
+
+                if (tries >= 20 && FileInUse(file)) {
+                    MainProgram.DoDebug("File still in use and can't be read. Try again.");
+                    return;
+                }
+
                 try {
                     string fileContent;
                     fileContent = File.ReadAllText(file);
                     fullContent = Regex.Replace(fileContent, @"\t|\r", "");
-                } catch {
-                    MainProgram.DoDebug("Could not read file.");
+                } catch (Exception e) {
+                    MainProgram.DoDebug("Could not read file; " + e);
                     return;
                 }
                 MainProgram.DoDebug(" - Read complete, content: " + fullContent);
@@ -193,20 +212,22 @@ namespace AssistantComputerControl {
             ExecuteAction(action, theLine, parameter, assistantParam);
 
             if (!lastActionWasFatal) {
-                MainProgram.DoDebug("Non-fatal action. Deleting.");
-                try {
+                MainProgram.DoDebug("Non-fatal action. Starting cleanup service.");
+                /*try {
                     File.Delete(theFile);
                 } catch {
                     MainProgram.DoDebug("Error trying to delete action-file.");
-                }
+                }*/
+
+                new CleanupService().Start();
             } else {
-                MainProgram.DoDebug("Action was fatal action - won't delete just yet - renaming.");
+               /* MainProgram.DoDebug("Action was fatal action - won't delete just yet - renaming.");
                 try {
                     string newName = string.Format(@"{0}." + Properties.Settings.Default.ActionFileExtension, DateTime.Now.Ticks);
                     //File.Move(theFile, Path.Combine(Path.GetDirectoryName(theFile), newName));
                 } catch {
                     MainProgram.DoDebug("Failed to rename file.");
-                }
+                }*/
             }
         }
 
@@ -224,8 +245,6 @@ namespace AssistantComputerControl {
         }
 
         public static void ExecuteAction(string action, string line, string parameter, string assistantParam) {
-            int? actionNumber = null;
-
             Actions actionExecution = new Actions();
 
             switch (action.ToLower()) {
@@ -243,7 +262,6 @@ namespace AssistantComputerControl {
                     break;
                 case "hibernate":
                     //Hibernates computer
-                    actionNumber = 12;
                     actionExecution.Hibernate(parameter);
                     break;
                 case "logout":
@@ -271,13 +289,10 @@ namespace AssistantComputerControl {
                         switch (parameter) {
                             case "previous":
                             case "previousx2":
-                                actionNumber = 8;
                                 break;
                             case "next":
-                                actionNumber = 10;
                                 break;
                             case "play_pause":
-                                actionNumber = 9;
                                 break;
                         }
                         actionExecution.Music(parameter);
@@ -357,6 +372,11 @@ namespace AssistantComputerControl {
                         actionExecution.DoMessageBox(parameter);
                     }
                     break;
+                case "move":
+                    if (RequireParameter(parameter)) {
+                        actionExecution.MoveSubject(parameter);
+                    }
+                    break;
                 default:
                     //Unknown action
                     MainProgram.DoDebug("ERROR: Unknown action \"" + action + "\"");
@@ -370,14 +390,6 @@ namespace AssistantComputerControl {
             actionExecution.wasFatal = false;
 
             if (successMessage != "") {
-                if (actionNumber != null) {
-                    //Has specified number
-                    MainProgram.AnalyticsAddCount(null, (int)actionNumber, assistantParam);
-                } else {
-                    //YOLO
-                    MainProgram.AnalyticsAddCount(action, null, assistantParam);
-                }
-
                 MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");
             }
 

@@ -55,7 +55,7 @@ namespace AssistantComputerControl {
                         return true;
                     }
                 } else {
-                    string checkPath = MainProgram.GetCloudServicePath(chosenService);
+                    string checkPath = CloudServiceFunctions.GetCloudServicePath(chosenService);
                     MainProgram.DoDebug("Checking: " + checkPath);
                     if (!String.IsNullOrEmpty(checkPath)) {
                         if (Directory.Exists(checkPath)) {
@@ -133,6 +133,11 @@ namespace AssistantComputerControl {
                 MainProgram.gettingStarted.Close();
             }
 
+            public void SetODtype(string type) {
+                MainProgram.DoDebug("Setting OneDrive type to " + type);
+                MainProgram.SetCheckFolder(Environment.GetEnvironmentVariable(type));
+            }
+
             public void CloudServiceChosen(string service = "") {
                 switch (service) {
                     case "dropbox":
@@ -144,11 +149,11 @@ namespace AssistantComputerControl {
                         return;
                 }
 
-                if (MainProgram.GetCloudServicePath(backgroundCheckerServiceName) != "") {
+                if (CloudServiceFunctions.GetCloudServicePath(backgroundCheckerServiceName) != "") {
                     //Cloud service found
                     MainProgram.DoDebug("Cloud service " + backgroundCheckerServiceName + " is installed");
                     if (backgroundCheckerServiceName == "googledrive") {
-                        bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
+                        bool partial = CloudServiceFunctions.GetGoogleDriveFolder() != String.Empty;
                         if (theWebBrowser != null)
                             if (theWebBrowser.Handle != null)
                                 theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
@@ -168,7 +173,7 @@ namespace AssistantComputerControl {
 
                         MainProgram.DoDebug("Could not find cloud service. Running loop to check");
                         while (checkValue == "" && !stopCheck) {
-                            checkValue = MainProgram.GetCloudServicePath(backgroundCheckerServiceName);
+                            checkValue = CloudServiceFunctions.GetCloudServicePath(backgroundCheckerServiceName);
                             Thread.Sleep(1000);
                         }
                         if (stopCheck) {
@@ -183,7 +188,7 @@ namespace AssistantComputerControl {
                             if (theWebBrowser.Handle != null) {
                                 theWebBrowser.Invoke(new Action(() => {
                                     if (backgroundCheckerServiceName == "googledrive") {
-                                        bool partial = MainProgram.GetGoogleDriveFolder() != String.Empty;
+                                        bool partial = CloudServiceFunctions.GetGoogleDriveFolder() != String.Empty;
                                         theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
                                         if (partial)
                                             CheckLocalGoogleDrive();
@@ -203,7 +208,7 @@ namespace AssistantComputerControl {
                     stopCheck = false;
 
                     MainProgram.DoDebug("Starting loop to check for Google Drive folder locally");
-                    while (backgroundCheckerServiceName == "googledrive" && MainProgram.GetGoogleDriveFolder() == String.Empty && !stopCheck) {
+                    while (backgroundCheckerServiceName == "googledrive" && CloudServiceFunctions.GetGoogleDriveFolder() == String.Empty && !stopCheck) {
                         Thread.Sleep(1000);
                     }
                     if (stopCheck) {
@@ -311,9 +316,6 @@ namespace AssistantComputerControl {
             closeWindowButton.FlatStyle = FlatStyle.Flat;
             closeWindowButton.FlatAppearance.BorderSize = 0;
 
-            analyticsMoveOn.FlatStyle = FlatStyle.Flat;
-            analyticsMoveOn.FlatAppearance.BorderSize = 0;
-
             VisibleChanged += delegate {
                 MainProgram.testingAction = Visible;
                 MainProgram.gettingStarted = Visible ? this : null;
@@ -365,6 +367,11 @@ namespace AssistantComputerControl {
         private void BrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
             string tagUpper = "";
 
+            //OneDrive business?
+            bool hasWorkDrive = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("OneDriveCommercial")) && !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("OneDriveConsumer"));
+            MainProgram.DoDebug("Has work OneDrive? " + hasWorkDrive);
+            theWebBrowser.Document.InvokeScript("HasWorkOneDrive", new Object[1] { hasWorkDrive });
+
             foreach (HtmlElement tag in (sender as WebBrowser).Document.All) {
                 tagUpper = tag.TagName.ToUpper();
 
@@ -392,7 +399,6 @@ namespace AssistantComputerControl {
             e.Cancel = true;
         }
 
-
         private void SetupDone() {
             //Start with Windows if user said so
             if (Properties.Settings.Default.StartWithWindows != startWithWindowsCheckbox.Checked) {
@@ -403,13 +409,6 @@ namespace AssistantComputerControl {
 
                 MainProgram.DoDebug("Starting with Windows now");
             }
-
-            Properties.Settings.Default.AnalyticsInformed = true;
-            if (Properties.Settings.Default.SendAnonymousAnalytics != analyticsEnabledBox.Checked) {
-                MainProgram.UpdateAnalyticsSharing(analyticsEnabledBox.Checked);
-            }
-
-            MainProgram.DoDebug("Anonymous analyitcs " + (analyticsEnabledBox.Checked ? "IS" : "is NOT") + " enabled");
 
             MainProgram.DoDebug("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
@@ -437,7 +436,7 @@ namespace AssistantComputerControl {
         }
 
         private void iftttActions_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://github.com/AlbertMN/AssistantComputerControl#supported-computer-actions");
+            Process.Start("https://assistantcomputercontrol.com/#what-can-it-do");
         }
 
         private void skipGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
@@ -448,20 +447,6 @@ namespace AssistantComputerControl {
 
         private void gotoGoogleDriveGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://acc.readme.io/docs/use-google-drive-ifttt-instead-of-dropbox");
-        }
-
-        private void analyticsLearnMore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://acc.readme.io/v1.1.0/docs/how-analytics-work");
-        }
-
-        private void analyticsMoveOn_Click(object sender, EventArgs e) {
-            tabControl.SelectTab(3);
-        }
-
-        private void analyticsEnabledBox_CheckedChanged(object sender, EventArgs e) {
-            Properties.Settings.Default.AnalyticsInformed = true;
-            Properties.Settings.Default.Save();
-            MainProgram.UpdateAnalyticsSharing(analyticsEnabledBox.Checked);
         }
     }
 }

@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace AssistantComputerControl {
     class Actions {
         public bool wasFatal = false;
@@ -48,6 +49,15 @@ namespace AssistantComputerControl {
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
+        //Baisc things
+        private void Error(string errorMsg, string debugMsg = null) {
+            MainProgram.DoDebug("ERROR: " + (String.IsNullOrEmpty(debugMsg) ? errorMsg : debugMsg));
+            MainProgram.errorMessage = errorMsg;
+        }
+
+        /*
+         * Actions
+         */
         public void Shutdown(string parameter) {
             string shutdownParameters = "/s /t 0";
             if (parameter != null) {
@@ -127,8 +137,7 @@ namespace AssistantComputerControl {
                         doForce = false;
                         break;
                     default:
-                        MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"sleep\". Accepted parameters: \"true\" and \"false\"");
-                        MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"sleep\" action. Accepted parameters: \"true\" and \"false\")";
+                        Error("Parameter \"" + parameter + "\" is invalid for the \"sleep\" action. Accepted parameters: \"true\" and \"false\")");
                         break;
                 }
                 if (!MainProgram.testingAction) {
@@ -162,8 +171,7 @@ namespace AssistantComputerControl {
                         doForce = false;
                         break;
                     default:
-                        MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"hibernate\". Accepted parameters: \"true\" and \"false\"");
-                        MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"hibernate\" action. Accepted parameters: \"true\" and \"false\")";
+                        Error("Parameter \"" + parameter + "\" is invalid for the \"hibernate\" action. Accepted parameters: \"true\" and \"false\")");
                         break;
                 }
                 if (!MainProgram.testingAction) {
@@ -207,8 +215,7 @@ namespace AssistantComputerControl {
                 try {
                     doMute = !AudioManager.GetMasterVolumeMute();
                 } catch {
-                    MainProgram.DoDebug("No volume object (most likely)");
-                    MainProgram.errorMessage = "Failed to mute; no volume object.";
+                    Error("Failed to mute; no volume object.");
                 }
             } else {
                 //Parameter set;
@@ -220,8 +227,7 @@ namespace AssistantComputerControl {
                         doMute = false;
                         break;
                     default:
-                        MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") is invalid for \"mute\". Accepted parameters: \"true\" and \"false\"");
-                        MainProgram.errorMessage = "Parameter \"" + parameter + "\" is invalid for the \"mute\" action. Accepted parameters: \"true\" and \"false\")";
+                        Error("Parameter \"" + parameter + "\" is invalid for the \"mute\" action. Accepted parameters: \"true\" and \"false\")");
                         break;
                 }
             }
@@ -233,8 +239,7 @@ namespace AssistantComputerControl {
                     //Sometimes fails - sentry @833243007
                     AudioManager.SetMasterVolumeMute(doMute);
                 } catch {
-                    MainProgram.DoDebug("Failed to set PC mute static. Exception caught.");
-                    MainProgram.errorMessage = "Failed to set PC mute status";
+                    Error("Failed to set PC mute status", "Failed to set PC mute static. Exception caught.");
                 }
                 successMessage = (doMute ? "Muted " : "Unmuted") + " pc";
             }
@@ -248,40 +253,39 @@ namespace AssistantComputerControl {
                                 //Sometimes fails - sentry @833243007
                                 AudioManager.SetMasterVolumeMute(false);
                             } catch {
-                                MainProgram.DoDebug("Failed to unmute PC. Exception caught.");
-                                MainProgram.errorMessage = "Failed to unmute PC";
+                                Error("Failed to unmute PC", "Failed to unmute PC. Exception caught.");
                             }
                         }
                         try {
                             AudioManager.SetMasterVolume((float)volumeLevel);
                         } catch {
                             //Might not have an audio device...
-                            MainProgram.DoDebug("Failed to set PC volume. Exception caught.");
-                            MainProgram.errorMessage = "Failed to set PC volume";
+                            Error("Failed to set PC volume", "Failed to set PC volume. Exception caught.");
                         }
                     }
                     if (!MainProgram.testingAction) {
                         try {
-                            if ((int)AudioManager.GetMasterVolume() != (int)volumeLevel) {
+                            /*if ((int)AudioManager.GetMasterVolume() != (int)volumeLevel) {
                                 //Something went wrong... Audio not set to parameter-level
                                 MainProgram.DoDebug("ERROR: Volume was not set properly. Master volume is " + AudioManager.GetMasterVolume() + ", not " + volumeLevel);
                                 MainProgram.errorMessage = "Something went wrong when setting the volume";
                             } else {
                                 successMessage = "Set volume to " + volumeLevel + "%";
-                            }
+                            }*/
+                            //Don't check - have faith. The check causes trouble (removed in v1.2.4)
+                            successMessage = "Set volume to " + volumeLevel + "%";
+
                         } catch {
-                            MainProgram.errorMessage = "Failed to check volume";
+                            Error("Failed to check volume");
                         }
                     } else {
                         successMessage = "Simulated setting system volume to " + volumeLevel + "%";
                     }
                 } else {
-                    MainProgram.DoDebug("ERROR: Parameter is an invalid number, range; 0-100 (" + volumeLevel + ")");
-                    MainProgram.errorMessage = "Can't set volume to " + volumeLevel + "%, has to be a number from 0-100";
+                    Error("Can't set volume to " + volumeLevel + "%, has to be a number from 0-100");
                 }
             } else {
-                MainProgram.DoDebug("ERROR: Parameter (" + parameter + ") not convertable to double");
-                MainProgram.errorMessage = "Not a valid parameter (has to be a number)";
+                Error("Not a valid parameter (has to be a number)", "Parameter (" + parameter + ") not convertable to double");
             }
         }
         public void Music(string parameter) {
@@ -321,8 +325,7 @@ namespace AssistantComputerControl {
                     }
                     break;
                 default:
-                    MainProgram.DoDebug("ERROR: Unknown parameter");
-                    MainProgram.errorMessage = "Unknown parameter \"" + parameter + "\"";
+                    Error("Unknown parameter \"" + parameter + "\"");
                     break;
             }
         }
@@ -340,15 +343,13 @@ namespace AssistantComputerControl {
                         p.Start();
                         successMessage = "OPEN: opened file/url; " + fileLocation;
                     } catch {
-                        MainProgram.DoDebug("Failed to open file at " + fileLocation + "");
-                        MainProgram.errorMessage = "Failed to open file (" + fileLocation + ")";
+                        Error("Failed to open file (" + fileLocation + ")");
                     }
                 } else {
                     successMessage = "OPEN: simulated opening file; " + fileLocation;
                 }
             } else {
-                MainProgram.DoDebug("ERROR: file or directory doesn't exist (" + fileLocation + ")");
-                MainProgram.errorMessage = "File or directory doesn't exist (" + fileLocation + ")";
+                Error("File or directory doesn't exist (" + fileLocation + ")");
             }
         }
         public void OpenAll(string parameter) {
@@ -369,8 +370,7 @@ namespace AssistantComputerControl {
                     successMessage = "OPEN: simulated opening " + x + " files in; " + fileLocation;
                 }
             } else {
-                MainProgram.DoDebug("ERROR: directory doesn't exist (" + fileLocation + ")");
-                MainProgram.errorMessage = "Directory doesn't exist (" + fileLocation + ")";
+                Error("Directory doesn't exist (" + fileLocation + ")");
             }
         }
         public void Die(string parameter) {
@@ -393,6 +393,7 @@ namespace AssistantComputerControl {
         }
 
         private static void PressKey(char c) {
+            //TODO
             try {
                 SendKeys.SendWait(c.ToString());
             } catch (Exception e) {
@@ -444,8 +445,7 @@ namespace AssistantComputerControl {
                         }
                     } catch (Exception exc) {
                         succeeded = false;
-                        MainProgram.DoDebug(exc.Message);
-                        MainProgram.errorMessage = "Couldn't create file - folder might be locked. Try running ACC as administrator.";
+                        Error("Couldn't create file - folder might be locked. Try running ACC as administrator.", exc.Message);
                     }
 
                     if (succeeded) {
@@ -456,12 +456,10 @@ namespace AssistantComputerControl {
                         }
                     }
                 } else {
-                    MainProgram.errorMessage = "File parent folder doesn't exist (" + parentPath + ")";
-                    MainProgram.DoDebug("File parent folder doesn't exist (" + parentPath + ")");
+                    Error("File parent folder doesn't exist (" + parentPath + ")");
                 }
             } else {
-                MainProgram.errorMessage = "File already exists";
-                MainProgram.DoDebug("File already exists");
+                Error("File already exists");
             }
         }
         public void DeleteFile(string parameter) {
@@ -520,8 +518,7 @@ namespace AssistantComputerControl {
                     }
                 } catch (Exception exc) {
                     succeeded = false;
-                    MainProgram.DoDebug(exc.Message);
-                    MainProgram.errorMessage = "Couldn't access file/folder - file might be in use or locked. Try running ACC as administrator.";
+                    Error("Couldn't access file/folder - file might be in use or locked. Try running ACC as administrator.", exc.Message);
                 }
 
                 if (succeeded) {
@@ -532,8 +529,7 @@ namespace AssistantComputerControl {
                     }
                 }
             } else {
-                MainProgram.errorMessage = "File or folder doesn't exist";
-                MainProgram.DoDebug("File or folder doesn't exist");
+                Error("File or folder doesn't exist");
             }
         }
         public void AppendText(string parameter) {
@@ -575,8 +571,7 @@ namespace AssistantComputerControl {
                             }
                         } catch (Exception exc) {
                             succeeded = false;
-                            MainProgram.DoDebug(exc.Message);
-                            MainProgram.errorMessage = "Couldn't create file - folder might be locked. Try running ACC as administrator.";
+                            Error("Couldn't create file - folder might be locked. Try running ACC as administrator.", exc.Message);
                         }
 
                         if (succeeded) {
@@ -587,16 +582,13 @@ namespace AssistantComputerControl {
                             }
                         }
                     } else {
-                        MainProgram.errorMessage = "File doesn't exists";
-                        MainProgram.DoDebug("File doesn't exists");
+                        Error("File doesn't exists");
                     }
                 } else {
-                    MainProgram.errorMessage = "Can't append nothing";
-                    MainProgram.DoDebug("Can't append nothing");
+                    Error("Can't append nothing");
                 }
             } else {
-                MainProgram.errorMessage = "Parameter doesn't contain a string to append";
-                MainProgram.DoDebug("Parameter doesn't contain a string to append");
+                Error("Parameter doesn't contain a string to append");
             }
         }
         public void DoMessageBox(string parameter) {
@@ -612,5 +604,45 @@ namespace AssistantComputerControl {
                 }).Start();
             }
         }
+
+        public void MoveSubject(string parameter) {
+            string theSubject = ActionChecker.GetSecondaryParam(parameter)[0]
+                            , moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
+
+            FileAttributes attr = File.GetAttributes(theSubject);
+            if (attr.HasFlag(FileAttributes.Directory)) {
+                //Is directory
+                if (Directory.Exists(theSubject)) {
+                    if (Directory.Exists(moveTo)) {
+                        //Move subject to folder
+                    } else {
+                        if (Directory.Exists(Path.GetDirectoryName(moveTo))) {
+                            //Move subject folder and rename it to x
+                        } else {
+                            //error
+                        }
+                    }
+                } else {
+                    Error("Directory doesn't exist");
+                }
+            } else {
+                //Is file
+                if (File.Exists(theSubject)) {
+
+                } else {
+                    Error("File doesn't exist");
+                }
+            }
+
+            if (MainProgram.testingAction) {
+                
+            }
+        }
+
+        public void WindowsToast() {
+            //Todo - quite a bit of work
+        }
+
+        /* End of actions */
     }
 }

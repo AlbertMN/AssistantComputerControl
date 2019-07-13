@@ -41,7 +41,6 @@
             this.maxDeleteFiles = new System.Windows.Forms.NumericUpDown();
             this.warnDeletion = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.anonymousAnalyticsCheckbox = new System.Windows.Forms.CheckBox();
             this.doSetupAgain = new System.Windows.Forms.Button();
             this.versionInfo = new System.Windows.Forms.Label();
             this.checkForUpdate = new System.Windows.Forms.Button();
@@ -158,7 +157,6 @@
             this.mainPanel.Controls.Add(this.maxDeleteFiles);
             this.mainPanel.Controls.Add(this.warnDeletion);
             this.mainPanel.Controls.Add(this.label3);
-            this.mainPanel.Controls.Add(this.anonymousAnalyticsCheckbox);
             this.mainPanel.Controls.Add(this.doSetupAgain);
             this.mainPanel.Controls.Add(this.versionInfo);
             this.mainPanel.Controls.Add(this.checkForUpdate);
@@ -250,20 +248,6 @@
             this.label3.Size = new System.Drawing.Size(165, 13);
             this.label3.TabIndex = 17;
             this.label3.Text = "(amount of executed actions etc.)";
-            // 
-            // anonymousAnalyticsCheckbox
-            // 
-            this.anonymousAnalyticsCheckbox.AutoSize = true;
-            this.anonymousAnalyticsCheckbox.Checked = true;
-            this.anonymousAnalyticsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.anonymousAnalyticsCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.anonymousAnalyticsCheckbox.Location = new System.Drawing.Point(8, 300);
-            this.anonymousAnalyticsCheckbox.Name = "anonymousAnalyticsCheckbox";
-            this.anonymousAnalyticsCheckbox.Size = new System.Drawing.Size(158, 18);
-            this.anonymousAnalyticsCheckbox.TabIndex = 16;
-            this.anonymousAnalyticsCheckbox.Text = "Send anonymous analytics";
-            this.anonymousAnalyticsCheckbox.UseVisualStyleBackColor = true;
-            this.anonymousAnalyticsCheckbox.CheckedChanged += new System.EventHandler(this.anonymousAnalyticsCheckbox_CheckedChanged);
             // 
             // doSetupAgain
             // 
@@ -358,7 +342,6 @@
         private System.Windows.Forms.Label versionInfo;
         private System.Windows.Forms.Button doSetupAgain;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox anonymousAnalyticsCheckbox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown maxDeleteFiles;

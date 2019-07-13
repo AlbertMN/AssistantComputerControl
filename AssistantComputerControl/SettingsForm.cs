@@ -36,7 +36,6 @@ namespace AssistantComputerControl {
             startWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
             checkUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
             betaProgram.Checked = Properties.Settings.Default.BetaProgram;
-            anonymousAnalyticsCheckbox.Checked = Properties.Settings.Default.SendAnonymousAnalytics;
             warnDeletion.Checked = Properties.Settings.Default.WarnWhenDeletingManyFiles;
 
             computerName.Text = Properties.Settings.Default.ComputerName;
@@ -148,12 +147,6 @@ namespace AssistantComputerControl {
             }
         }
 
-        private void anonymousAnalyticsCheckbox_CheckedChanged(object sender, EventArgs e) {
-            bool theStatus = anonymousAnalyticsCheckbox.Checked;
-            MainProgram.DoDebug("Send annonymous analytics; " + theStatus);
-            MainProgram.UpdateAnalyticsSharing(theStatus);
-        }
-
         private void doSetupAgain_Click(object sender, EventArgs e) {
             MainProgram.ShowGettingStarted();
         }
@@ -161,7 +154,6 @@ namespace AssistantComputerControl {
         private void warnDeletion_CheckedChanged(object sender, EventArgs e) {
             maxDeleteFiles.Enabled = warnDeletion.Checked;
 
-            Properties.Settings.Default.SendAnonymousAnalytics = warnDeletion.Checked;
             Properties.Settings.Default.Save();
         }
     }

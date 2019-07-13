@@ -62,7 +62,11 @@ namespace AssistantComputerControl {
         }
 
         private void shouldIEditLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://github.com/AlbertMN/AssistantComputerControl/wiki/Application-advanced-settings-expert-setup");
+            Process.Start("https://acc.readme.io/docs/application-advanced-settings-expert-setup");
+        }
+
+        private void saveActionFolder_Click(object sender, EventArgs e) {
+            MainProgram.SetCheckFolder(actionFolderPath.Text);
         }
     }
 }

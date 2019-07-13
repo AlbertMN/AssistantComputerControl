@@ -365,6 +365,14 @@
                     <p id="couldNotFindService">
                         We could not locate <span class="service-name"></span> on your computer.
                     </p>
+					
+					<div id="multipleOneDrive" style="display:none;">
+						<p>We can see you have a personal and work OneDrive - which one do you want to use?</p>
+						
+						<button data-onedrive-type="OneDriveConsumer" class="onedrive_type chosen_onedrive_type btn btn-primary btn-sm" style="margin-right:10px;">Personal OneDrive</button>
+						<button data-onedrive-type="OneDriveCommercial" class="onedrive_type btn btn-default btn-sm">Work OneDrive</button>
+					</div>
+					
                     <small><i>(click <a data-toggle="modal" data-target="#doesntWorkModal" href="#">here</a> if <span class="service-name"></span> <u>is</u> installed, and you <u>have</u> followed the instructions step-by-step, but ACC won't let you proceed)</i></small>.<br>
 
                     <img id="chosenCloudServiceImage" alt="Cloud service logo" style="max-width:150px;" src="">
@@ -646,8 +654,9 @@
 
             , stepDivs = [$("#dropbox-install-guide"), $("#onedrive-install-guide"), $("#google-drive-install-guide")]
             , activeTimeout = null
-            , hasSetCustomPath = false;
-
+            , hasSetCustomPath = false
+			, hasWorkOnedrive = false;
+			
         $("#skip_guide_text").on("click", function () {
             window.external.SkipGuide();
         });
@@ -746,6 +755,13 @@
             chosenCloudServiceNum = $(this).attr("data-num");
             chosenCloudServiceImage = $(this).attr("data-image");
             cloudServiceInstalled = false;
+			
+			if (theName == "OneDrive" && hasWorkOnedrive) {
+				$("#multipleOneDrive").show();
+				window.external.SetODtype("OneDriveConsumer");
+			} else {
+				$("#multipleOneDrive").hide();
+			}
         });
 
         $("#pick_btn").on("click", function () {
@@ -1084,6 +1100,17 @@
         });
 
         $('div.setup-panel div a.btn-primary').trigger('click');
+		
+		function HasWorkOneDrive(doesHas) {
+			hasWorkOnedrive = doesHas;
+		}
+		
+		$(".onedrive_type").on("click", function() {
+			$(".onedrive_type").addClass("btn-default").removeClass("btn-primary chosen_onedrive_type");
+			$(this).removeClass("btn-default").addClass("btn-primary chosen_onedrive_type");
+			
+			window.external.SetODtype($(this).attr("data-onedrive-type"));
+		});
     </script>
 
 </body>
