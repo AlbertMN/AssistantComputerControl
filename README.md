@@ -5,22 +5,28 @@ _TLDR; download at [assistantcomputercontrol.com](https://assistantcomputercontr
 
 This is a simple but powerful tool that allows you to perform tasks on your Windows computer like;
 ### Supported computer actions
-* **Full and better list of what ACC can do [can be found here](https://assistantcomputercontrol.com/#what-can-it-do)**
-* Shutdown [[GH](https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer)][[Alexa](https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer)]
-* Open a file (or multiple) [[GH](https://ifttt.com/applets/Pny8DKBL-acc-open-file-example)][[Alexa](https://ifttt.com/applets/EsP6zWpe-acc-open-file-example)]
-* Restart [[GH](https://ifttt.com/applets/nsvdVxZ9-acc-restart-computer)][[Alexa](https://ifttt.com/applets/kkwxdE9T-acc-restart-computer)]
-* Sleep / Hibernate [[GH](https://ifttt.com/applets/mEbJCP8F-acc-sleep-computer)][[Alexa](https://ifttt.com/applets/Kagf93wH-acc-sleep-computer)]
-* Lock [[GH](https://ifttt.com/applets/epbqzfCa-acc-lock-computer)][[Alexa](https://ifttt.com/applets/Gv9Ts8ip-acc-lock-computer)]
-* Logout [[GH](https://ifttt.com/applets/TXr8DLHR-acc-log-out-of-your-computer)][[Alexa](https://ifttt.com/applets/QYJyc8HT-acc-log-out-of-your-computer)]
-* Set volume to `percent` [[GH](https://ifttt.com/applets/scgDySn4-acc-set-computer-volume-percent)] _Alexa doesn't support parameters in applets_
-* Mute / unmute [[GH](https://ifttt.com/applets/ju6VYneQ-acc-toggle-mute-on-computer)][[Alexa](https://ifttt.com/applets/UZT7hv9a-acc-toggle-mute-on-computer)]
+* **Full and better list of what ACC can do (with links) [can be found here](https://assistantcomputercontrol.com/#what-can-it-do)**
+* Shutdown
+* Open file, folder or website
+* Restart
+* Sleep & Hibernate
+* Lock
+* Monitors off
+* Log out
+* Set volume to `percent` _No Alexa support; Alexa doesn't support parameters in applets_
+* Mute / unmute
 * Music control:
-  * Previous song [[GH](https://ifttt.com/applets/qCJL4d9i-acc-play-previous-song-on-computer)][[Alexa](https://ifttt.com/applets/FACuUJKj-acc-play-previous-song-on-computer)]
-  * Pause / play [[GH](https://ifttt.com/applets/Wt2uXyAi-acc-play-pause-music-on-computer)][[Alexa](https://ifttt.com/applets/G7ZpsDWM-acc-play-pause-music-on-computer)]
-  * Next song [[GH](https://ifttt.com/applets/urhc2Ug8-acc-play-next-song-on-computer)][[Alexa](https://ifttt.com/applets/hq7nxkf3-acc-play-next-song-on-computer)]
+  * Previous song
+  * Pause / play
+  * Next song
+* Message Box
+* Create file
+* Delete file
+* Append text to file
+* Write Out _(speech to text)_
 * _more to come_
 
-- **Join our Discord server:** https://discord.gg/ukkUu26
+- **Join our Discord server:** https://discord.gg/B9YGPNF
 - **Follow me on Twitter for updates:** https://twitter.com/ACC_HomeAlexa
 
 This software only works on Windows and has yet only been tested on Windows 10, 8 & 7.
