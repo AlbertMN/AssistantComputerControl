@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -15,8 +15,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/sweetalert2.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-
-
 
     <title>About new version</title>
 
@@ -459,10 +457,10 @@
                         <li>
                             Enable the applets you want. Let's start with the <code>shutdown</code> action
                             <small>(shuts down your computer)</small>
-                            . Click <a href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">
+                            . Click <a class="shutdown_test_link_gh" href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">
                                 here if you're using
-                                Google Home
-                            </a>, and <a href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">
+                                Google Assistant
+                            </a>, and <a class="shutdown_test_link_alexa" href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">
                                 here
                                 if you use Amazon Alexa
                             </a>
@@ -474,7 +472,7 @@
                             <small>(press "OK" and go through the link process)</small>
                         </li>
                         <li>
-                            You're now all set! <b><a href="https://assistantcomputercontrol.com/#what-can-it-do">Click here</a></b> for a list of
+                            You're now all set! <b><a id="acc_action_list" href="https://assistantcomputercontrol.com/#what-can-it-do">Click here</a></b> for a list of
                             all the supported applets/actions, and enable as many as you like!
                         </li>
                     </ol>
@@ -490,7 +488,7 @@
 
                             Pick one of the applets you have enabled, and say the trigger.
                             Let's try with the shutdown applet <i>
-                                (<a id="shutdown_test_link_gh" href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">[GH]</a><a id="shutdown_test_link_alexa" href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">[Alexa]</a>)
+                                (<a class="shutdown_test_link_gh" href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">[GH]</a><a class="shutdown_test_link_alexa" href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">[Alexa]</a>)
                             </i>.
                             <br>
                             The <b>Google Assistant</b> trigger would be; <i>"Hey Google, turn off my computer"</i><br>
@@ -737,7 +735,6 @@
             chosenCloudServiceNum = 0;
 
             $(".card-selected").click();
-
             $("#finishError").modal("show");
 
             setTimeout(function () {
@@ -746,10 +743,10 @@
         }
 
         $(".card").on("click", function () {
+            let theThis = $(this), theName = $(this).attr("data-name");
             $(".card").removeClass("card-selected");
             $(this).addClass("card-selected");
 
-            let theName = $(this).attr("data-name");
             $("#pick_btn").prop("disabled", false).text("Proceed with " + theName);
             chosenCloudService = theName;
             chosenCloudServiceNum = $(this).attr("data-num");
@@ -794,19 +791,23 @@
 
                 $("#manualCheckPath").val("");
 
-                let stlgh = $("#shutdown_test_link_gh"), stla = $("#shutdown_test_link_alexa");
+                let stlgh = $(".shutdown_test_link_gh"), stla = $(".shutdown_test_link_alexa"), actionListLink = $("#acc_action_list");
 
                 window.external.CloudServiceChosen(chosenCloudService.replace(" ", "").toLocaleLowerCase());
+                //alert("Changing links!");
                 switch (chosenCloudService.toLowerCase()) {
                     case "google drive":
+                        actionListLink.attr("href", "https://assistantcomputercontrol.com/?cloud=gd#what-can-it-do");
                         stlgh.attr("href", "https://ifttt.com/applets/N5LtdnWq-acc-shut-down-computer-google-drive");
                         stla.attr("href", "https://ifttt.com/applets/zjKANwgB-acc-shut-down-computer-google-drive");
                         break;
                     case "dropbox":
+                        actionListLink.attr("href", "https://assistantcomputercontrol.com/?cloud=db#what-can-it-do");
                         stlgh.attr("href", "https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer-dropbox");
                         stla.attr("href", "https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer-dropbox");
                         break;
                     case "onedrive":
+                        actionListLink.attr("href", "https://assistantcomputercontrol.com/?cloud=od#what-can-it-do");
                         stlgh.attr("href", "https://ifttt.com/applets/SUZHkGLx-acc-shut-down-computer-onedrive");
                         stla.attr("href", "https://ifttt.com/applets/JgERNdXS-acc-shut-down-computer-onedrive");
                         break;

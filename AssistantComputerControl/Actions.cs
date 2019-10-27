@@ -74,7 +74,7 @@ namespace AssistantComputerControl {
 
             if (MainProgram.testingAction) {
                 successMessage = "Simulated shutdown";
-                wasFatal = true;
+                wasFatal = false;
             } else {
                 if (shutdownParameters != "abort") {
                     MainProgram.DoDebug("Shutting down computer...");
@@ -342,7 +342,8 @@ namespace AssistantComputerControl {
                             p.StartInfo.Arguments = arguments;
                         p.Start();
                         successMessage = "OPEN: opened file/url; " + fileLocation;
-                    } catch {
+                    } catch (Exception e) {
+                        MainProgram.DoDebug("Failed to open file; " + e.Message);
                         Error("Failed to open file (" + fileLocation + ")");
                     }
                 } else {

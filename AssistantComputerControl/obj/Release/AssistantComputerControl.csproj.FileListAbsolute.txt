@@ -111,3 +111,11 @@ C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCom
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\sweetalert2.min.js
 C:\Users\albe0731\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\GettingStarted.html
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csprojAssemblyReference.cache
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\Interop.Shell32.dll
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csproj.ResolveComReference.cache
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\IECheck.html
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.UserFeedback.resources
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.csprojAssemblyReference.cache
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.exe.config
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.exe
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Release\AssistantComputerControl.pdb

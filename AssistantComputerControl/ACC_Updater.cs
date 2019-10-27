@@ -150,29 +150,36 @@ namespace AssistantComputerControl {
 
         private static string targetLocation = "";
         public static void DownloadFile(string url) {
+            url += "&upgrade_id=" + Guid.NewGuid();
             if (RemoteFileExists(url)) {
-                MainProgram.DoDebug("Downloading file...");
-                WebClient client = new WebClient();
-                Uri uri = new Uri(url);
+                MainProgram.DoDebug("Downloading file from url; " + url);
 
-                MainProgram.updateProgressWindow = new UpdateProgress();
-                MainProgram.updateProgressWindow.Show();
+                try {
+                    WebClient client = new WebClient();
+                    Uri uri = new Uri(url);
 
-                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
-                client.DownloadFileCompleted += new AsyncCompletedEventHandler(FileDownloadedCallback);
+                    MainProgram.updateProgressWindow = new UpdateProgress();
+                    MainProgram.updateProgressWindow.Show();
 
-                targetLocation = Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Downloads"), "ACCsetup.exe");
-                if (File.Exists(targetLocation)) {
-                    try {
-                        File.Delete(targetLocation);
-                    } catch (Exception ex) {
-                        MainProgram.DoDebug("Failed to delete file at " + targetLocation);
-                        MainProgram.DoDebug("Error; " + ex);
+                    client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
+                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(FileDownloadedCallback);
+
+                    targetLocation = Path.Combine(Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Downloads"), "ACCsetup.exe");
+                    if (File.Exists(targetLocation)) {
+                        try {
+                            File.Delete(targetLocation);
+                        } catch (Exception ex) {
+                            MainProgram.DoDebug("Failed to delete file at " + targetLocation);
+                            MainProgram.DoDebug("Error; " + ex);
+                        }
                     }
-                }
-                client.DownloadFileAsync(uri, targetLocation);
+                    client.DownloadFileAsync(uri, targetLocation);
 
-                Application.Run();
+                    Application.Run();
+                } catch (Exception e) {
+                    MainProgram.DoDebug("Failed to download the new ACC installer; " + e.Message);
+                    MessageBox.Show("Failed to download the new ACC installer. Try again later, or download it manually from AssistantComputerControl.com", "Error | " + MainProgram.messageBoxTitle);
+                }
             } else {
                 MainProgram.DoDebug("Failed to update, installation URL does not exist (" + url + ").");
                 MessageBox.Show("Couldn't find the new version online. Please try again later.", "Error | " + MainProgram.messageBoxTitle);

@@ -24,6 +24,7 @@ namespace AssistantComputerControl {
 
             computerName.KeyDown += new KeyEventHandler(FreakingStopDingSound);
             fileEditedMargin.KeyDown += new KeyEventHandler(FreakingStopDingSound);
+            fileReadDelay.KeyDown += new KeyEventHandler(FreakingStopDingSound);
 
             void FreakingStopDingSound(Object o, KeyEventArgs e) {
                 if (e.KeyCode == Keys.Enter) {
@@ -40,6 +41,7 @@ namespace AssistantComputerControl {
 
             computerName.Text = Properties.Settings.Default.ComputerName;
             fileEditedMargin.Value = (decimal)Properties.Settings.Default.FileEditedMargin;
+            fileReadDelay.Value = (decimal)Properties.Settings.Default.FileReadDelay;
             maxDeleteFiles.Value = Properties.Settings.Default.MaxDeleteFiles;
             maxDeleteFiles.Enabled = warnDeletion.Checked;
 
@@ -52,6 +54,7 @@ namespace AssistantComputerControl {
             computerName.KeyDown += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); };
             computerName.KeyUp += delegate { Properties.Settings.Default.ComputerName = computerName.Text; Properties.Settings.Default.Save(); };
             fileEditedMargin.ValueChanged += delegate { Properties.Settings.Default.FileEditedMargin = (float)fileEditedMargin.Value; Properties.Settings.Default.Save(); };
+            fileReadDelay.ValueChanged += delegate { Properties.Settings.Default.FileReadDelay = (float)fileReadDelay.Value; Properties.Settings.Default.Save(); };
             maxDeleteFiles.ValueChanged += delegate { Properties.Settings.Default.MaxDeleteFiles = (int)maxDeleteFiles.Value; Properties.Settings.Default.Save(); };
         }
 
@@ -113,7 +116,9 @@ namespace AssistantComputerControl {
         private void checkForUpdate_Click(object sender, EventArgs e) {
             //Doesn't return true for some reason... To fix
             if (MainProgram.HasInternet()) {
-                new ACC_Updater().Check(true);
+                if (!new ACC_Updater().Check(true)) {
+                    MessageBox.Show("No new update found. Your ACC software is fully up to date!", MainProgram.messageBoxTitle);
+                }
             } else {
                 MessageBox.Show("Could not check for update as your computer is not connected to the internet", "Error | " + MainProgram.messageBoxTitle);
             }

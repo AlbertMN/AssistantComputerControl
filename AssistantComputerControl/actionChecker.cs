@@ -52,36 +52,42 @@ namespace AssistantComputerControl {
             return false;
         }
 
+        [STAThread]
         static public void FileFound(object source, FileSystemEventArgs e) {
             ProcessFile(e.FullPath);
         }
 
         private static DateTime lastActionModified;
+        private static int unsuccessfulReads = 0;
 
-        static public void ProcessFile(string file) {
+        [STAThread]
+        static public void ProcessFile(string file, bool tryingAgain = false) {
+            MainProgram.DoDebug("Processing file...");
             string originalFileName = file;
 
+            float fileReadDelay = Properties.Settings.Default.FileReadDelay;
+            if (fileReadDelay > 0) {
+                MainProgram.DoDebug("User has set file delay to " + fileReadDelay.ToString() + "s, waiting before processing...");
+                Thread.Sleep((int)fileReadDelay * 1000);
+            }
+
             if (!File.Exists(file)) {
-                //MainProgram.DoDebug("File doesn't exist.");
+                MainProgram.DoDebug("File doesn't exist (anymore).");
                 return;
             }
 
-            /*if (CleanupService.cleanedFiles.Contains(file)) {
-                MainProgram.DoDebug("Accidentially picked up cleaned file. Ignoring...");
+            bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
+            if (hidden && !tryingAgain) {
+                MainProgram.DoDebug("File is hidden and has therefore (most likely) already been processed and executed. Ignoring it...");
                 return;
-            }*/
+            }
 
             //DateTime lastModified = File.GetCreationTime(file);
             DateTime lastModified = File.GetLastWriteTime(file);
-            bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
-            if (lastModified == lastActionModified || hidden) {
-                if (!hidden)
-                    try {
-                        File.SetAttributes(file, FileAttributes.Hidden);
-                    } catch {
-                        //
-                    }
+            if (lastModified == lastActionModified && !tryingAgain) {
+                MainProgram.DoDebug("File has the exact same 'last modified' timestamp as the previous action - most likely a dublicate; ignoring");
                 return;
+                
             }
             lastActionModified = lastModified;
 
@@ -96,7 +102,7 @@ namespace AssistantComputerControl {
                 new CleanupService().Start();
                 return;
                 //}
-            } 
+            }
 
             MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
             MainProgram.DoDebug(" - " + file);
@@ -127,11 +133,20 @@ namespace AssistantComputerControl {
                     fileContent = File.ReadAllText(file);
                     fullContent = Regex.Replace(fileContent, @"\t|\r", "");
                 } catch (Exception e) {
-                    MainProgram.DoDebug("Could not read file; " + e);
-                    return;
+                    if (unsuccessfulReads < 20) {
+                        MainProgram.DoDebug("Failed to read file - trying again in 200ms... (trying max 20 times)");
+                        unsuccessfulReads++;
+                        Thread.Sleep(200);
+                        ProcessFile(file, true);
+
+                        return;
+                    } else {
+                        MainProgram.DoDebug("Could not read file on final try; " + e);
+                        unsuccessfulReads = 0;
+                        return;
+                    }
                 }
                 MainProgram.DoDebug(" - Read complete, content: " + fullContent);
-                File.SetAttributes(file, FileAttributes.Hidden);
 
                 using (StringReader reader = new StringReader(fullContent)) {
                     string theLine = string.Empty;
@@ -156,7 +171,6 @@ namespace AssistantComputerControl {
                     }
                 }
             }
-
 
             MainProgram.DoDebug("[ -- DONE -- ]");
 
@@ -208,26 +222,12 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug(" - Parameter: " + parameter);
             MainProgram.DoDebug(" - Full line: " + theLine);
 
-            lastActionWasFatal = true;
+            lastActionWasFatal = false;
             ExecuteAction(action, theLine, parameter, assistantParam);
 
             if (!lastActionWasFatal) {
                 MainProgram.DoDebug("Non-fatal action. Starting cleanup service.");
-                /*try {
-                    File.Delete(theFile);
-                } catch {
-                    MainProgram.DoDebug("Error trying to delete action-file.");
-                }*/
-
                 new CleanupService().Start();
-            } else {
-               /* MainProgram.DoDebug("Action was fatal action - won't delete just yet - renaming.");
-                try {
-                    string newName = string.Format(@"{0}." + Properties.Settings.Default.ActionFileExtension, DateTime.Now.Ticks);
-                    //File.Move(theFile, Path.Combine(Path.GetDirectoryName(theFile), newName));
-                } catch {
-                    MainProgram.DoDebug("Failed to rename file.");
-                }*/
             }
         }
 

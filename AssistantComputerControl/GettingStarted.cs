@@ -7,6 +7,7 @@
  * - The 'Getting Started' setup guide
  */
 
+using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace AssistantComputerControl {
 
         public static WebBrowser theWebBrowser = null;
         private static TabControl theTabControl;
+        public static GettingStarted theInstance;
 
         [ComVisible(true)]
         public class WebBrowserHandler {
@@ -87,7 +89,7 @@ namespace AssistantComputerControl {
             public void AllDone(string chosenService) {
                 MainProgram.DoDebug("'AllDone' pressed");
                 if (CheckSetPath(chosenService)) {
-                    theTabControl.SelectTab(2);
+                    theTabControl.SelectTab(3);
 
                     MainProgram.SetRegKey("ActionFolder", MainProgram.CheckPath());
                 } else {
@@ -98,9 +100,9 @@ namespace AssistantComputerControl {
             public void ClearCustomSetPath() {
                 customSetPath = String.Empty;
             }
-            
+
             public void ExpertChosen() {
-                theTabControl.SelectTab(1);
+                theTabControl.SelectTab(2);
             }
 
             public void StopCheck() {
@@ -131,6 +133,11 @@ namespace AssistantComputerControl {
                 MainProgram.gettingStarted.SetupDone();
                 MainProgram.DoDebug("Skipped setup guide");
                 MainProgram.gettingStarted.Close();
+            }
+
+            public void ValidIE() {
+                theInstance.backToSetupGuide.Visible = true;
+                theTabControl.SelectTab(1);
             }
 
             public void SetODtype(string type) {
@@ -258,8 +265,31 @@ namespace AssistantComputerControl {
                 }
             };
 
-            //Set GettingStarted web-browser things
-            string fileName = Path.Combine(MainProgram.currentLocation, "WebFiles/GettingStarted.html");
+            backToSetupGuide.Visible = false;
+            theInstance = this;
+
+            //Set GettingStarted web-browser things (unless user has IE >9)
+            //Check for IE version using JS, as the C# way requires admin rights, which we don't want to ask for just because of this...
+
+            string fileName = Path.Combine(MainProgram.currentLocation, "WebFiles/IECheck.html");
+            /* Internet Explorer test */
+            if (File.Exists(fileName)) {
+                string fileLoc = "file:///" + fileName;
+                Uri theUri = new Uri(fileLoc);
+                ieWebBrowser.Url = theUri;
+            } else {
+                ieWebBrowser.Visible = false;
+            }
+
+            ieWebBrowser.ObjectForScripting = new WebBrowserHandler();
+            theWebBrowser = ieWebBrowser;
+
+            //theWebBrowser.DocumentCompleted += BrowserDocumentCompleted;
+            theWebBrowser.Navigating += BrowserNavigating;
+            theWebBrowser.NewWindow += NewBrowserWindow;
+
+            /* Getting Started */
+            fileName = Path.Combine(MainProgram.currentLocation, "WebFiles/GettingStarted.html");
             if (File.Exists(fileName)) {
                 string fileLoc = "file:///" + fileName;
                 Uri theUri = new Uri(fileLoc);
@@ -267,14 +297,13 @@ namespace AssistantComputerControl {
             } else {
                 GettingStartedWebBrowser.Visible = false;
             }
-            GettingStartedWebBrowser.ObjectForScripting = new WebBrowserHandler();
 
+            GettingStartedWebBrowser.ObjectForScripting = new WebBrowserHandler();
             theWebBrowser = GettingStartedWebBrowser;
 
             theWebBrowser.DocumentCompleted += BrowserDocumentCompleted;
             theWebBrowser.Navigating += BrowserNavigating;
             theWebBrowser.NewWindow += NewBrowserWindow;
-
 
 
             //Further expert settings
@@ -427,7 +456,7 @@ namespace AssistantComputerControl {
         }
 
         private void expertDoneButton_Click(object sender, EventArgs e) {
-            tabControl.SelectTab(2);
+            tabControl.SelectTab(3);
         }
 
         private void closeWindowButton_Click(object sender, EventArgs e) {
@@ -447,6 +476,10 @@ namespace AssistantComputerControl {
 
         private void gotoGoogleDriveGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://acc.readme.io/docs/use-google-drive-ifttt-instead-of-dropbox");
+        }
+
+        private void backToSetupGuide_Click(object sender, EventArgs e) {
+            tabControl.SelectTab(1);
         }
     }
 }

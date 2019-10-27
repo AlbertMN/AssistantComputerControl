@@ -47,9 +47,13 @@
             this.betaProgram = new System.Windows.Forms.CheckBox();
             this.fileEditedMargin = new System.Windows.Forms.NumericUpDown();
             this.infoTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.fileReadDelay = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maxDeleteFiles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileEditedMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileReadDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // headingLabel
@@ -87,7 +91,7 @@
             // advancedSettingsButton
             // 
             this.advancedSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.advancedSettingsButton.Location = new System.Drawing.Point(7, 184);
+            this.advancedSettingsButton.Location = new System.Drawing.Point(7, 214);
             this.advancedSettingsButton.Name = "advancedSettingsButton";
             this.advancedSettingsButton.Size = new System.Drawing.Size(150, 23);
             this.advancedSettingsButton.TabIndex = 5;
@@ -98,7 +102,7 @@
             // testButton
             // 
             this.testButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.testButton.Location = new System.Drawing.Point(7, 242);
+            this.testButton.Location = new System.Drawing.Point(7, 272);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(150, 23);
             this.testButton.TabIndex = 6;
@@ -140,7 +144,7 @@
             // logButton
             // 
             this.logButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.logButton.Location = new System.Drawing.Point(7, 213);
+            this.logButton.Location = new System.Drawing.Point(7, 243);
             this.logButton.Name = "logButton";
             this.logButton.Size = new System.Drawing.Size(150, 23);
             this.logButton.TabIndex = 10;
@@ -151,6 +155,9 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.mainPanel.Controls.Add(this.label7);
+            this.mainPanel.Controls.Add(this.fileReadDelay);
+            this.mainPanel.Controls.Add(this.label6);
             this.mainPanel.Controls.Add(this.deprecated);
             this.mainPanel.Controls.Add(this.label5);
             this.mainPanel.Controls.Add(this.label4);
@@ -191,7 +198,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(308, 324);
+            this.label5.Location = new System.Drawing.Point(308, 354);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 21;
@@ -201,7 +208,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(165, 324);
+            this.label4.Location = new System.Drawing.Point(165, 354);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(138, 13);
             this.label4.TabIndex = 20;
@@ -210,7 +217,7 @@
             // maxDeleteFiles
             // 
             this.maxDeleteFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.maxDeleteFiles.Location = new System.Drawing.Point(113, 322);
+            this.maxDeleteFiles.Location = new System.Drawing.Point(113, 352);
             this.maxDeleteFiles.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -231,7 +238,7 @@
             this.warnDeletion.Checked = true;
             this.warnDeletion.CheckState = System.Windows.Forms.CheckState.Checked;
             this.warnDeletion.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.warnDeletion.Location = new System.Drawing.Point(8, 323);
+            this.warnDeletion.Location = new System.Drawing.Point(8, 353);
             this.warnDeletion.Name = "warnDeletion";
             this.warnDeletion.Size = new System.Drawing.Size(114, 18);
             this.warnDeletion.TabIndex = 18;
@@ -243,7 +250,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(157, 301);
+            this.label3.Location = new System.Drawing.Point(157, 331);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(165, 13);
             this.label3.TabIndex = 17;
@@ -252,7 +259,7 @@
             // doSetupAgain
             // 
             this.doSetupAgain.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.doSetupAgain.Location = new System.Drawing.Point(7, 271);
+            this.doSetupAgain.Location = new System.Drawing.Point(7, 301);
             this.doSetupAgain.Name = "doSetupAgain";
             this.doSetupAgain.Size = new System.Drawing.Size(150, 23);
             this.doSetupAgain.TabIndex = 15;
@@ -298,9 +305,49 @@
             // 
             this.fileEditedMargin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fileEditedMargin.Location = new System.Drawing.Point(7, 142);
+            this.fileEditedMargin.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.fileEditedMargin.Name = "fileEditedMargin";
             this.fileEditedMargin.Size = new System.Drawing.Size(120, 20);
             this.fileEditedMargin.TabIndex = 11;
+            // 
+            // fileReadDelay
+            // 
+            this.fileReadDelay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fileReadDelay.Location = new System.Drawing.Point(7, 184);
+            this.fileReadDelay.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.fileReadDelay.Name = "fileReadDelay";
+            this.fileReadDelay.Size = new System.Drawing.Size(120, 20);
+            this.fileReadDelay.TabIndex = 24;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(5, 168);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(124, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "File read delay (seconds)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(133, 186);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "what is this? (hover)";
+            this.infoTooltip.SetToolTip(this.label7, "Sometimes the software might read a file before it has been properly synced. This" +
+        " setting will delay the file read x amount of seconds");
             // 
             // SettingsForm
             // 
@@ -319,6 +366,7 @@
             this.mainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maxDeleteFiles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fileEditedMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileReadDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -347,5 +395,8 @@
         private System.Windows.Forms.NumericUpDown maxDeleteFiles;
         private System.Windows.Forms.CheckBox warnDeletion;
         private System.Windows.Forms.Label deprecated;
+        private System.Windows.Forms.NumericUpDown fileReadDelay;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

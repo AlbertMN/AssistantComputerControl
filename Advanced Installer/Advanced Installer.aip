@@ -38,10 +38,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{CAAFD843-42AE-4386-9031-52DFB2170D36} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{C1681279-6544-47D9-91C8-29CA6B4EA6FE} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.3.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.3.2" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -87,6 +87,7 @@
     <ROW File="AssistantComputerControl.exe" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" FileName="ASSIST~1.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Version="65535.65535.65535.65535" Attributes="512" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe&gt;" SelfReg="false" NextFile="AssistantComputerControl.exe.config" DigSign="true"/>
     <ROW File="AssistantComputerControl.exe.config" Component_="AssistantComputerControl_PrimaryOutput" FileName="ASSIST~1.CON|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.dll"/>
     <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false" NextFile="NewVersion.cs"/>
+    <ROW File="IECheck.html" Component_="AboutVersion.html" FileName="IECHEC~1.HTM|IECheck.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\IECheck.html" SelfReg="false"/>
     <ROW File="Microsoft.WindowsAPICodePack.Shell.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll&gt;" SelfReg="false" NextFile="Newtonsoft.Json.dll"/>
     <ROW File="Microsoft.WindowsAPICodePack.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.Shell.dll"/>
     <ROW File="NewVersion.Designer.cs" Component_="AboutVersion.html" FileName="NEWVER~2.CS|NewVersion.Designer.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.Designer.cs" SelfReg="false" NextFile="NewVersion.resx"/>
@@ -108,7 +109,7 @@
     <ROW File="onedrive_howto.gif" Component_="onedrive_howto.gif" FileName="ONEDRI~1.GIF|onedrive_howto.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\onedrive_howto.gif" SelfReg="false" NextFile="sync_all_folders.gif"/>
     <ROW File="popper.min.js" Component_="acc_logo.png" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\popper.min.js" SelfReg="false" NextFile="sweetalert2.min.css"/>
     <ROW File="sweetalert2.min.css" Component_="acc_logo.png" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.css" SelfReg="false" NextFile="sweetalert2.min.js"/>
-    <ROW File="sweetalert2.min.js" Component_="acc_logo.png" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.js" SelfReg="false"/>
+    <ROW File="sweetalert2.min.js" Component_="acc_logo.png" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.js" SelfReg="false" NextFile="IECheck.html"/>
     <ROW File="sync_all_folders.gif" Component_="onedrive_howto.gif" FileName="SYNC_A~1.GIF|sync_all_folders.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_all_folders.gif" SelfReg="false" NextFile="sync_specific_folder.gif"/>
     <ROW File="sync_specific_folder.gif" Component_="onedrive_howto.gif" FileName="SYNC_S~1.GIF|sync_specific_folder.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_specific_folder.gif" SelfReg="false" NextFile="jquery.js"/>
   </COMPONENT>
@@ -134,7 +135,7 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Thumbprint="a245f9f65b4520255edc006e003525de7c4fd3ad Subject: TestCert_2019-5-23_22-20-47&#10;Issuer: TestCert_2019-5-23_22-20-47&#10;Valid from 05/23/2019 to 05/23/2020"/>
+    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Thumbprint="afa6b9566c7c7423bdb32b766390d51fb71090ba Subject: AssistantComputerControl&#10;Issuer: AssistantComputerControl&#10;Valid from 10/27/2019 to 10/27/2020"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>

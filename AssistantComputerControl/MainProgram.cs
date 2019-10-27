@@ -19,11 +19,12 @@ using System.Net;
 using System.Linq;
 using System.Threading;
 using Sentry;
+using System.Configuration;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.3.0",
-            releaseDate = "2019-07-13 22:27:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.3.2",
+            releaseDate = "2019-10-27 18:41:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
             sentryToken = "super_secret";
@@ -63,20 +64,63 @@ namespace AssistantComputerControl {
         public static UpdateProgress updateProgressWindow;
 
         //Start main function
-        [STAThread]
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        [STAThread]
         static void Main(string[] args) {
             Console.WriteLine("Log location; " + logFilePath);
 
             void ActualMain() {
                 //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-                SetupDataFolder();
+                //Upgrade settings
+                if (Properties.Settings.Default.UpdateSettings) {
+                    /* Copy old setting-files in case the Evidence type and Evidence Hash has changed (which it does sometimes) - easier than creating a whole new settings system */
+                    try {
+                        Configuration accConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                        string currentFolder = new DirectoryInfo(accConfiguration.FilePath).Parent.Parent.FullName;
+                        string[] directories = Directory.GetDirectories(new DirectoryInfo(currentFolder).Parent.FullName);
+
+                        foreach (string dir in directories) {
+                            if (dir != currentFolder.ToString()) {
+                                var directoriesInDir = Directory.GetDirectories(dir);
+                                foreach (string childDir in directoriesInDir) {
+                                    string checkPath = Path.Combine(currentFolder, Path.GetFileName(childDir));
+                                    if (!Directory.Exists(checkPath)) {
+                                        string checkFile = Path.Combine(childDir, "user.config");
+                                        if (File.Exists(checkFile)) {
+                                            Directory.CreateDirectory(checkPath);
+                                            File.Copy(checkFile, Path.Combine(checkPath, "user.config"), true);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        Console.WriteLine("Error getting settings from older versions of ACC" + e.Message);
+                    }
+                    /* End "copy settings" */
+
+                    Properties.Settings.Default.Upgrade();
+                    Properties.Settings.Default.UpdateSettings = false;
+                    Properties.Settings.Default.Save();
+
+                    Console.WriteLine("Upgraded settings to match last version");
+                }
+
+                if (Properties.Settings.Default.LastUpdated == DateTime.MinValue) {
+                    Properties.Settings.Default.LastUpdated = DateTime.Now;
+                }
+
+                Properties.Settings.Default.TimesOpened += 1;
+                Properties.Settings.Default.Save();
+
+                    SetupDataFolder();
                 if (File.Exists(logFilePath)) {
                     try {
                         File.WriteAllText(logFilePath, string.Empty);
                     } catch {
                         // Don't let this being DENIED crash the software
+                        Console.WriteLine("Failed to empty the log");
                     }
                 } else {
                     Console.WriteLine("Trying to create log");
@@ -179,7 +223,7 @@ namespace AssistantComputerControl {
                 sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon;
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
-                if (Registry.GetValue(key.Name + "\\AssistantComputerControl", "FirstTime", null) == null) {
+                if (Registry.GetValue(key.Name + @"\AssistantComputerControl", "FirstTime", null) == null) {
                     key.CreateSubKey("AssistantComputerControl");
                     key = key.OpenSubKey("AssistantComputerControl", true);
                     key.SetValue("FirstTime", false);
@@ -202,13 +246,40 @@ namespace AssistantComputerControl {
                 //If newly updated
                 if (Properties.Settings.Default.LastKnownVersion != softwareVersion) {
                     //Up(or down)-grade, display version notes
+                    Properties.Settings.Default.LastUpdated = DateTime.Now;
                     if (gettingStarted != null) {
                         DoDebug("'AboutVersion' window awaits, as 'Getting Started' is showing");
                         aboutVersionAwaiting = true;
                     } else {
                         Properties.Settings.Default.LastKnownVersion = softwareVersion;
                         new NewVersion().Show();
-                        Properties.Settings.Default.Save();
+                    }
+                    Properties.Settings.Default.Save();
+                }
+
+                /* 'Satisfied' user feedback implementation */
+                if ((DateTime.Now - Properties.Settings.Default.LastUpdated).TotalDays >= 7 && Properties.Settings.Default.TimesOpened >= 7
+                    && gettingStarted == null
+                    && !Properties.Settings.Default.HasPromptedFeedback) {
+                    //User has had the software/update for at least 7 days, and has opened the software more than 7 times - time to ask for feedback
+                    //(also the "getting started" window is not showing)
+                    if (HasInternet()) {
+                        try {
+                            WebRequest request = WebRequest.Create("https://satisfied.dk/");
+                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                            if (response == null || response.StatusCode != HttpStatusCode.OK) {
+                                DoDebug("'Satisfied' is down - won't show faulty feedback window");
+                            } else {
+                                DoDebug("Showing 'User Feedback' window");
+                                Properties.Settings.Default.HasPromptedFeedback = true;
+                                Properties.Settings.Default.Save();
+                                new UserFeedback().Show();
+                            }
+                        } catch {
+                            DoDebug("Failed to check for 'Satisfied'-availability");
+                        }
+                    } else {
+                        DoDebug("No internet connection, not showing user feedback window");
                     }
                 }
 
@@ -507,7 +578,7 @@ namespace AssistantComputerControl {
                     path = Properties.Settings.Default.ActionFilePath;
                 }
             } else {
-                if (Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain) {
+                if ((Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain)) {
                     //Dropbox not found & no custom filepath, go through setup again?
                     hasAskedForSetupAgain = true;
                     var msgBox = MessageBox.Show("You do not seem to have chosen a cloud-service. Do you want to go through the setup guide again?", "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);

@@ -90,6 +90,7 @@ namespace AssistantComputerControl {
                 }
                 sWebBrowser.Invoke(new Action(() => {
                     sWebBrowser.Document.InvokeScript(function, objArray);
+                    MainProgram.DoDebug("Function '" + function + "' should be executing in the Web Browser window");
                 }));
             }
         }
