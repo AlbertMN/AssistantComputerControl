@@ -315,43 +315,11 @@ namespace AssistantComputerControl {
                 case "monitors_off":
                     actionExecution.MonitorsOff(parameter);
                     break;
-                /*case "keypress":
+                case "key_shortcut": 
                     if (RequireParameter(parameter)) {
-                        if (parameter.Length > 1) {
-                            if (!MainProgram.testingAction) {
-                                successMessage = "Pressed \"" + parameter + "\"";
-                                PressKey((char)parameter[0]);
-                            } else {
-                                successMessage = "Simulated press of \"" + parameter + "\"";
-                            }
-                        } else {
-                            MainProgram.DoDebug("ERROR: Parameter can only be one character long");
-                            MainProgram.errorMessage = "(Keypress) Parameter can only be one character long";
-                        }
-                    }
-                    break;*/
-                case "write_out":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.WriteOut(parameter, line);
+                        actionExecution.KeyShortcut(parameter);
                     }
                     break;
-                /*case "key_shortcut": //TODO - version 1.3(?)
-                    //Currently just keeps holding CTRL down, fucking everything up
-                    //Do "testing" check
-                    if (RequireParameter(parameter)) {
-                        parameter = parameter.Replace("ctrl", "%");
-
-                        /*foreach (char c in parameter) {
-                            if (c == '%') {
-                                keybd_event(VK_RCONTROL, 0, KEYEVENTF_EXTENTEDKEY, 0);
-                                keybd_event(VK_RCONTROL, 0, KEYEVENTF_KEYUP, 0);
-                            } else {
-                                PressKey(c);
-                            }
-                        }*/
-                    /*}
-                    PressKeys();
-                    break;*/
                 case "create_file":
                     if (RequireParameter(parameter)) {
                         actionExecution.CreateFile(parameter);
