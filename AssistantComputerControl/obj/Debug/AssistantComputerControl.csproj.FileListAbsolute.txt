@@ -128,3 +128,39 @@ C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCompute
 C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
 C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.UpdateProgress.resources
 C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\AboutVersion.html
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\acc_logo.png
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\bootstrap.min.css
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\bootstrap.min.js
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\cloud_services\dropbox.png
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\cloud_services\expert.png
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\cloud_services\googledrive.png
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\cloud_services\onedrive.png
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\gifs\onedrive_howto.gif
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\gifs\sync_all_folders.gif
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\gifs\sync_specific_folder.gif
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\jquery.js
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\popper.min.js
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\sweetalert2.min.css
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\sweetalert2.min.js
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\GettingStarted.html
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\IECheck.html
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe.config
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.exe
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\bin\Debug\AssistantComputerControl.pdb
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csprojAssemblyReference.cache
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe.config
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\Interop.Shell32.dll
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.ResolveComReference.cache
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.AdvancedSettings.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.GettingStarted.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.UserFeedback.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.NewVersion.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.Properties.Resources.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.SettingsForm.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.TestActionWindow.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.UpdateProgress.resources
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.GenerateResource.cache
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.csproj.CoreCompileInputs.cache
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.exe
+C:\Users\22jmi\Desktop\My Projects\AssistantComputerControl\ACC-key\AssistantComputerControl\AssistantComputerControl\obj\Debug\AssistantComputerControl.pdb
