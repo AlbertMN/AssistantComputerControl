@@ -49,6 +49,59 @@ namespace AssistantComputerControl {
         [DllImport("user32.dll", SetLastError = true)]
         static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
+        //Key Shortcut
+        /* 
+         * Keys and how to convert
+         * Each one on the left is accepted as a key inside the paramater
+         */
+        String[,] charactersType = new String[,] {
+            { "BACKSPACE",          "{BACKSPACE}"},
+            { "BREAK",              "{BREAK}"},
+            { "CAPS_LOCK",          "{CAPSLOCK}"},
+            { "DEL",                "{DELETE}"},
+            { "DELETE",             "{DELETE}"},
+            { "DOWN_ARROW",         "{DOWN}"},
+            { "END",                "{END}"},
+            { "ENTER",              "{ENTER}"},
+            { "ESC",                "{ESC}"},
+            { "HELP",               "{HELP}"},
+            { "HOME",               "{HOME}"},
+            { "INS",                "{INS}"},
+            { "INSERT",             "{INSERT}"},
+            { "LEFT_ARROW",         "{LEFT}"},
+            { "NUM_LOCK",           "{NUMLOCK}"},
+            { "PAGE_DOWN",          "{PGDN}"},
+            { "PAGE_UP",            "{PGUP}"},
+            { "PRINT_SCREEN",       "{PRTSC}"},
+            { "RIGHT_ARROW",        "{RIGHT}"},
+            { "SCROLL_LOCK",        "{SCROLLLOCK}"},
+            { "TAB",                "{TAB}"},
+            { "UP_ARROW",           "{UP}"},
+            { "F1",                 "{F1}"},
+            { "F2",                 "{F2}"},
+            { "F3",                 "{F3}"},
+            { "F4",                 "{F4}"},
+            { "F5",                 "{F5}"},
+            { "F6",                 "{F6}"},
+            { "F7",                 "{F7}"},
+            { "F8",                 "{F8}"},
+            { "F9",                 "{F9}"},
+            { "F10",                "{F10}"},
+            { "F11",                "{F11}"},
+            { "F12",                "{F12}"},
+            { "F13",                "{F13}"},
+            { "F14",                "{F14}"},
+            { "F15",                "{F15}"},
+            { "F16",                "{F16}"},
+            { "Keypad_add",         "{ADD}"},
+            { "Keypad_subtract",    "{SUBTRACT}"},
+            { "Keypad_multiply",    "{MULTIPLY}"},
+            { "Keypad_divide",      "{DIVIDE}"},
+            { "SHIFT",              "+"},
+            { "CTRL",               "^"},
+            { "ALT",                "%"}
+        };
+
         //Baisc things
         private void Error(string errorMsg, string debugMsg = null) {
             MainProgram.DoDebug("ERROR: " + (String.IsNullOrEmpty(debugMsg) ? errorMsg : debugMsg));
@@ -422,6 +475,75 @@ namespace AssistantComputerControl {
                 successMessage = "Simulated writing \"" + writtenString + "\"";
             }
         }
+
+        public void KeyShortcut(string parameter) {
+            /*
+             * Added by : Joshua Miller
+             * How to use it :
+             *  - To seperate keys please us '+' (to use '+' do {ADD})
+             *  - Things like ctrl will be converted to control key
+             */
+
+            // Split up commands
+            char splitChar = '+';
+            String[] keyCombinationInput = parameter.Split(splitChar);
+            // Will be added onto to make what to type
+            String keyCombinationPress = "";
+            // Put commands into correct form
+            for (int index = 0; index < keyCombinationInput.Length; index++) {
+                // Get current command
+                String command = keyCombinationInput[index];
+                // If not empty
+                if (command != "") {
+                    // If one character (not command)
+                    if (command.Length == 1) {
+                        // Add to the out
+                        keyCombinationPress = keyCombinationPress + command.ToLower();
+                    }
+                    else {
+                        // If it is a command (probably)
+                        // Check if it is a possible command and needs to be changed
+                        bool foundYet = false;
+                        for (int countInCharacterArray = 0; countInCharacterArray < charactersType.GetLength(0) && foundYet == false; countInCharacterArray++) {
+                            String characterTestNow = charactersType[countInCharacterArray, 0];
+                            if (Equals(command.ToUpper(), characterTestNow)) {
+                                keyCombinationPress += charactersType[countInCharacterArray, 1];
+                                foundYet = true;
+                            } else if (Equals(command.ToUpper(), charactersType[countInCharacterArray, 1])) {
+                                keyCombinationPress += charactersType[countInCharacterArray, 1];
+                                foundYet = true;
+                            }
+                        }
+                        if (foundYet == false) {
+                            MainProgram.DoDebug("KeyShortcut Action - Warning: A command " + command.ToUpper() + " was not identified, please be weary as this may not work");
+                            MainProgram.DoDebug("KeyShortcut Action - Warning: Adding Anyway");
+                            keyCombinationPress += command;
+                        }
+                    }
+                } else {
+                    MainProgram.DoDebug("KeyShortcut Action - Warning: A character inside the paramater was blank");
+                }
+            }
+
+            // Is it testing?
+            if (MainProgram.testingAction) {
+                successMessage = ("Simulated sending the combination: " + keyCombinationPress);
+            }
+            else {
+                // Try pressing keys
+                bool keysPressedSuccess = true;
+                try {
+                    SendKeys.SendWait(keyCombinationPress);
+                } catch (ArgumentException) {
+                    Error("Key combination is not valid");
+                    keysPressedSuccess = false;
+                }
+                if (keysPressedSuccess) {
+                    successMessage = ("Sending the combination: " + keyCombinationPress);
+                }
+            }
+        }
+
         public void CreateFile(string parameter) {
             string fileLocation = parameter;
             if (!File.Exists(fileLocation)) {
