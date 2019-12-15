@@ -116,12 +116,10 @@ namespace AssistantComputerControl {
             if (parameter != null) {
                 if (parameter == "abort") {
                     shutdownParameters = "abort";
+                } else if (parameter.Contains("/t") || parameter.Contains("-t")) {
+                    shutdownParameters = (!parameter.Contains("/s") && !parameter.Contains("-s") ? "/s " : "") + parameter;
                 } else {
-                    if (parameter.Contains("/t") || parameter.Contains("-t")) {
-                        shutdownParameters = !parameter.Contains("/s") && !parameter.Contains("-s") ? "/s " : "" + parameter;
-                    } else {
-                        shutdownParameters = !parameter.Contains("/s") && !parameter.Contains("-s") ? "/s " : "" + parameter + " /t 0";
-                    }
+                    shutdownParameters = (!parameter.Contains("/s") && !parameter.Contains("-s") ? "/s " : "") + parameter + " /t 0";
                 }
             }
 
@@ -148,12 +146,10 @@ namespace AssistantComputerControl {
             if (parameter != null) {
                 if (parameter == "abort") {
                     restartParameters = "abort";
+                } else if (parameter.Contains("/t") || parameter.Contains("-t")) {
+                    restartParameters = (!parameter.Contains("/r") && !parameter.Contains("-r") ? "/r " : "") + parameter;
                 } else {
-                    if (parameter.Contains("/t") || parameter.Contains("-t")) {
-                        restartParameters = !parameter.Contains("/r") && !parameter.Contains("-r") ? "/r " : "" + parameter;
-                    } else {
-                        restartParameters = !parameter.Contains("/r") && !parameter.Contains("-r") ? "/r " : "" + parameter + " /t 0";
-                    }
+                    restartParameters = (!parameter.Contains("/r") && !parameter.Contains("-r") ? "/r " : "") + parameter + " /t 0";
                 }
             }
             if (MainProgram.testingAction) {
