@@ -20,6 +20,7 @@ using System.Linq;
 using System.Threading;
 using Sentry;
 using System.Configuration;
+using System.Xml;
 
 namespace AssistantComputerControl {
     class MainProgram {
@@ -27,7 +28,8 @@ namespace AssistantComputerControl {
             releaseDate = "2019-10-27 18:41:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "super_secret";
+            //sentryToken = "super_secret";
+            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
 
 
         static public bool debug = true,
@@ -36,7 +38,8 @@ namespace AssistantComputerControl {
 
             testingAction = false,
             aboutVersionAwaiting = false,
-            hasAskedForSetupAgain = false;
+            hasAskedForSetupAgain = false,
+            reopenSettingsOnClose = false;
 
         public TestStatus currentTestStatus = TestStatus.ongoing;
         public enum TestStatus {
@@ -48,7 +51,6 @@ namespace AssistantComputerControl {
         private static FileSystemWatcher watcher;
 
         static public string currentLocationFull = Assembly.GetEntryAssembly().Location,
-
             currentLocation = Path.GetDirectoryName(currentLocationFull),
             dataFolderLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AssistantComputerControl"),
             shortcutLocation = Path.Combine(dataFolderLocation, "shortcuts"),
@@ -58,7 +60,7 @@ namespace AssistantComputerControl {
             messageBoxTitle = appName;
 
         private static SysTrayIcon sysIcon = new SysTrayIcon();
-        public static TestActionWindow testActionWindow = new TestActionWindow();
+        public static TestActionWindow testActionWindow;
         private static SettingsForm settingsForm = null;
         public static GettingStarted gettingStarted = null;
         public static UpdateProgress updateProgressWindow;
@@ -68,6 +70,7 @@ namespace AssistantComputerControl {
         [STAThread]
         static void Main(string[] args) {
             Console.WriteLine("Log location; " + logFilePath);
+            CheckSettings();
 
             void ActualMain() {
                 //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -88,8 +91,21 @@ namespace AssistantComputerControl {
                                     if (!Directory.Exists(checkPath)) {
                                         string checkFile = Path.Combine(childDir, "user.config");
                                         if (File.Exists(checkFile)) {
-                                            Directory.CreateDirectory(checkPath);
-                                            File.Copy(checkFile, Path.Combine(checkPath, "user.config"), true);
+                                            bool xmlHasError = false;
+                                            try {
+                                                XmlDocument xml = new XmlDocument();
+                                                xml.Load(checkFile);
+
+                                                xml.Validate(null);
+                                            } catch {
+                                                xmlHasError = true;
+                                                DoDebug("XML document validation failed (is invalid): " + checkFile);
+                                            }
+
+                                            if (!xmlHasError) {
+                                                Directory.CreateDirectory(checkPath);
+                                                File.Copy(checkFile, Path.Combine(checkPath, "user.config"), true);
+                                            }
                                         }
                                     }
                                 }
@@ -100,9 +116,13 @@ namespace AssistantComputerControl {
                     }
                     /* End "copy settings" */
 
-                    Properties.Settings.Default.Upgrade();
-                    Properties.Settings.Default.UpdateSettings = false;
-                    Properties.Settings.Default.Save();
+                    try {
+                        Properties.Settings.Default.Upgrade();
+                        Properties.Settings.Default.UpdateSettings = false;
+                        Properties.Settings.Default.Save();
+                    } catch {
+                        DoDebug("Failed to upgrade from old settings file.");
+                    }
 
                     Console.WriteLine("Upgraded settings to match last version");
                 }
@@ -111,10 +131,22 @@ namespace AssistantComputerControl {
                     Properties.Settings.Default.LastUpdated = DateTime.Now;
                 }
 
+                string lang = Properties.Settings.Default.ActiveLanguage;
+                if (Array.Exists(Translator.languagesArray, element => element == lang)) {
+                    DoDebug("ACC running with language \"" + lang + "\"");
+
+                    Translator.SetLanguage(lang);
+                } else {
+                    DoDebug("Invalid language chosen");
+
+                    Properties.Settings.Default.ActiveLanguage = "English";
+                    Translator.SetLanguage("English");
+                }
+
                 Properties.Settings.Default.TimesOpened += 1;
                 Properties.Settings.Default.Save();
 
-                    SetupDataFolder();
+                SetupDataFolder();
                 if (File.Exists(logFilePath)) {
                     try {
                         File.WriteAllText(logFilePath, string.Empty);
@@ -220,7 +252,7 @@ namespace AssistantComputerControl {
 
                 DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
-                sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon;
+                sysIcon.TrayIcon.Icon = Properties.Resources.ACC_icon_light;
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
                 if (Registry.GetValue(key.Name + @"\AssistantComputerControl", "FirstTime", null) == null) {
@@ -242,6 +274,8 @@ namespace AssistantComputerControl {
                 }
                 SetRegKey("ActionFolder", CheckPath());
                 SetRegKey("ActionExtension", Properties.Settings.Default.ActionFileExtension);
+
+                testActionWindow = new TestActionWindow();
 
                 //If newly updated
                 if (Properties.Settings.Default.LastKnownVersion != softwareVersion) {
@@ -265,7 +299,7 @@ namespace AssistantComputerControl {
                     //(also the "getting started" window is not showing)
                     if (HasInternet()) {
                         try {
-                            WebRequest request = WebRequest.Create("https://satisfied.dk/");
+                            WebRequest request = WebRequest.Create("https://evalufied.dk/");
                             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                             if (response == null || response.StatusCode != HttpStatusCode.OK) {
                                 DoDebug("'Satisfied' is down - won't show faulty feedback window");
@@ -386,6 +420,40 @@ namespace AssistantComputerControl {
                 Console.WriteLine(e);
             }
             MessageBox.Show("A critical error occurred. The developer has been notified and will resolve this issue ASAP! Try and start ACC again, and avoid whatever just made it crash (for now) :)", "ACC | Error");
+        }
+
+        public static bool CheckSettings() {
+            //Thanks to https://stackoverflow.com/a/18905791/4880538
+            var isReset = false;
+
+            try {
+                ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            } catch (ConfigurationErrorsException ex) {
+                string filename = string.Empty;
+                if (!string.IsNullOrEmpty(ex.Filename)) {
+                    filename = ex.Filename;
+                } else {
+                    var innerEx = ex.InnerException as ConfigurationErrorsException;
+                    if (innerEx != null && !string.IsNullOrEmpty(innerEx.Filename)) {
+                        filename = innerEx.Filename;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(filename)) {
+                    if (File.Exists(filename)) {
+                        var fileInfo = new System.IO.FileInfo(filename);
+                        var watcher
+                             = new FileSystemWatcher(fileInfo.Directory.FullName, fileInfo.Name);
+                        File.Delete(filename);
+                        isReset = true;
+                        if (File.Exists(filename)) {
+                            watcher.WaitForChanged(System.IO.WatcherChangeTypes.Deleted);
+                        }
+                    }
+                }
+            }
+
+            return isReset;
         }
 
         private static bool CreateLogFile() {
@@ -602,8 +670,8 @@ namespace AssistantComputerControl {
                 if (debug) {
                     Console.WriteLine(str);
                 }
-            } catch {
-                Console.WriteLine("Failed to write to log, exception");
+            } catch (Exception e) {
+                Console.WriteLine("Failed to write to log, exception; " + e.Message);
             }
         }
 
@@ -619,6 +687,7 @@ namespace AssistantComputerControl {
                 settingsForm = new SettingsForm();
                 settingsForm.Show();
 
+                settingsForm.FormClosed += delegate { if (reopenSettingsOnClose) { ShowSettings(); reopenSettingsOnClose = false; } };
                 settingsForm.FormClosing += delegate { settingsForm = null; };
             } else {
                 //Focus
@@ -637,6 +706,25 @@ namespace AssistantComputerControl {
                 //Focus
                 gettingStarted.Focus();
             }
+        }
+
+        public static bool IsValidPath(string path, bool allowRelativePaths = false) {
+            bool isValid = true;
+
+            try {
+                string fullPath = Path.GetFullPath(path);
+
+                if (allowRelativePaths) {
+                    isValid = Path.IsPathRooted(path);
+                } else {
+                    string root = Path.GetPathRoot(path);
+                    isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
+                }
+            } catch (Exception ex) {
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }

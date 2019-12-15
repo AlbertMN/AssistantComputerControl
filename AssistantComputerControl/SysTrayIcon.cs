@@ -27,7 +27,7 @@ namespace AssistantComputerControl {
             //System tray creation
             TrayIcon = new NotifyIcon() {
                 Text = MainProgram.appName + " v" + MainProgram.softwareVersion,
-                Icon = Properties.Resources.ACC_loading_icon
+                Icon = Properties.Resources.ACC_loading_light_icon
             };
             
             //Add tray menu items

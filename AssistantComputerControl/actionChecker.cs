@@ -76,7 +76,15 @@ namespace AssistantComputerControl {
                 return;
             }
 
-            bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
+            bool hidden;
+
+            try {
+                hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
+            } catch {
+                MainProgram.DoDebug("Failed to get file attribute (file probably doesn't exist) - won't move on.");
+                return;
+            }
+            
             if (hidden && !tryingAgain) {
                 MainProgram.DoDebug("File is hidden and has therefore (most likely) already been processed and executed. Ignoring it...");
                 return;
@@ -107,12 +115,6 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
             MainProgram.DoDebug(" - " + file);
             MainProgram.DoDebug(" - File exists, checking the content...");
-
-            try {
-                File.SetAttributes(file, FileAttributes.Hidden);
-            } catch {
-                MainProgram.DoDebug("Failed to set attribute; hidden on action file");
-            }
 
             if (new FileInfo(file).Length != 0) {
                 string fullContent = "";
@@ -176,6 +178,7 @@ namespace AssistantComputerControl {
 
             if (MainProgram.errorMessage.Length != 0) {
                 MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);
+                //Thread.Sleep(5000);
                 MainProgram.errorMessage = "";
             }
         }
@@ -187,15 +190,53 @@ namespace AssistantComputerControl {
 
             action = theLine;
             fullContent = theLine;
-            string assistantParam = null;
 
-            //Whether it's Google Assistant or Amazon Alexa (included in the default IFTTT applets)
+            bool isDefaultComputer = Properties.Settings.Default.DefaultComputer;
+            string theComputerName = null, thisComputerName = Properties.Settings.Default.ComputerName;
+
+            //COMPUTER NAME!
+            //PREVIOUSLY; Whether it's Google Assistant or Amazon Alexa (included in the default IFTTT applets)
             if (theLine.Contains("[") && theLine.Contains("]")) {
                 action = theLine.Split('[')[0];
-                assistantParam = theLine.Split('[')[1];
-                assistantParam = assistantParam.Split(']')[0];
+                theComputerName = theLine.Split('[')[1];
+                theComputerName = theComputerName.Split(']')[0];
 
-                MainProgram.DoDebug(" - Executing using; " + assistantParam);
+                if (theComputerName == "google" || theComputerName == "alexa") {
+                    MainProgram.DoDebug(" - The targetted 'PC name' is set to 'google' or 'alexa' - this is the old format; these names are reserved and cannot be used as 'Computer name'");
+                } else {
+                    MainProgram.DoDebug(" - Targetted computer is; " + theComputerName);
+                    if (thisComputerName == theComputerName) {
+                        MainProgram.DoDebug(" - This computer is the target!");
+                    } else {
+                        //Not this computer!
+                        MainProgram.DoDebug(" - Computer name \"" + theComputerName + "\" does not match \"" + thisComputerName + "\"");
+                        return;
+                    }
+                }
+            } else {
+                if (thisComputerName == String.Empty) {
+                    if (!isDefaultComputer) {
+                        MainProgram.DoDebug(" - Applet has not specified a computer name, this computer has no computer name and is NOT a 'default computer' - ignoring");
+                        return;
+                    } else {
+                        MainProgram.DoDebug(" - Applet has not specified a computer name, this computer has no computer name BUT it's a 'default computer' - executing");
+           
+                    }
+                } else {
+                    if (!isDefaultComputer) {
+                        MainProgram.DoDebug(" - Applet has not specified a computer name, this computer HAS a computer name and is NOT a 'default computer' - ignoring");
+                        return;
+                    } else {
+                        MainProgram.DoDebug(" - Applet has not specified a computer name, this computer HAS a computer name and IS a 'default computer' - executing");
+        
+                    }
+                }
+            }
+
+            try {
+                File.SetAttributes(theFile, FileAttributes.Hidden);
+            } catch {
+                MainProgram.DoDebug("Failed to set attribute; hidden on action file");
             }
 
             if (action.Contains(":")) {
@@ -223,7 +264,7 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug(" - Full line: " + theLine);
 
             lastActionWasFatal = false;
-            ExecuteAction(action, theLine, parameter, assistantParam);
+            ExecuteAction(action, theLine, parameter);
 
             if (!lastActionWasFatal) {
                 MainProgram.DoDebug("Non-fatal action. Starting cleanup service.");
@@ -244,7 +285,7 @@ namespace AssistantComputerControl {
             return new string[1] { param };
         }
 
-        public static void ExecuteAction(string action, string line, string parameter, string assistantParam) {
+        public static void ExecuteAction(string action, string line, string parameter) {
             Actions actionExecution = new Actions();
 
             switch (action.ToLower()) {
@@ -348,6 +389,11 @@ namespace AssistantComputerControl {
                 case "move":
                     if (RequireParameter(parameter)) {
                         actionExecution.MoveSubject(parameter);
+                    }
+                    break;
+                case "kill_process":
+                    if (RequireParameter(parameter)) {
+                        actionExecution.KillProcess(parameter);
                     }
                     break;
                 default:

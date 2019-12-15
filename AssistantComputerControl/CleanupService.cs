@@ -80,9 +80,10 @@ namespace AssistantComputerControl {
                         }
                         
                         //string newFilename = Path.Combine(Path.GetDirectoryName(file), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
-                        string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
+                        //string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
+                        string newFilename = Path.Combine(Path.Combine(MainProgram.CheckPath(), "used_actions"), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
                         File.Move(file, newFilename);
-                        File.Delete(newFilename);
+                        //File.Delete(newFilename);
                         //cleanedFiles.Add(newFilename);
                         numFiles++;
                     }

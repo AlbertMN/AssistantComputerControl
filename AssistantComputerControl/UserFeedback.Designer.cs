@@ -36,7 +36,7 @@
             this.webBrowser1.ScrollBarsEnabled = false;
             this.webBrowser1.Size = new System.Drawing.Size(800, 450);
             this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://satisfied.dk/web_board.php?id=OPcyUwLtkOJFjXDdvVkFizRQAIQZf4aN&lang=en", System.UriKind.Absolute);
+            this.webBrowser1.Url = new System.Uri("https://evalufied.dk/web_board.php?id=OPcyUwLtkOJFjXDdvVkFizRQAIQZf4aN&lang=en", System.UriKind.Absolute);
             this.webBrowser1.WebBrowserShortcutsEnabled = false;
             // 
             // UserFeedback

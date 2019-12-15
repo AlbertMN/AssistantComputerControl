@@ -27,13 +27,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GettingStarted));
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.pickFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.Done = new System.Windows.Forms.TabPage();
-            this.startWithWindowsCheckbox = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.iftttActions = new System.Windows.Forms.LinkLabel();
-            this.closeWindowButton = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.expert = new System.Windows.Forms.TabPage();
             this.backToSetupGuide = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,98 +44,14 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.ieTest = new System.Windows.Forms.TabPage();
             this.ieWebBrowser = new System.Windows.Forms.WebBrowser();
-            this.Done.SuspendLayout();
+            this.Done = new System.Windows.Forms.TabPage();
+            this.doneActionViewBrowser = new System.Windows.Forms.WebBrowser();
             this.expert.SuspendLayout();
             this.setupSelect.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.ieTest.SuspendLayout();
+            this.Done.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Done
-            // 
-            this.Done.BackColor = System.Drawing.Color.White;
-            this.Done.Controls.Add(this.startWithWindowsCheckbox);
-            this.Done.Controls.Add(this.label9);
-            this.Done.Controls.Add(this.iftttActions);
-            this.Done.Controls.Add(this.closeWindowButton);
-            this.Done.Controls.Add(this.label7);
-            this.Done.Controls.Add(this.label5);
-            this.Done.Location = new System.Drawing.Point(4, 22);
-            this.Done.Name = "Done";
-            this.Done.Size = new System.Drawing.Size(783, 445);
-            this.Done.TabIndex = 3;
-            this.Done.Text = "Done!";
-            // 
-            // startWithWindowsCheckbox
-            // 
-            this.startWithWindowsCheckbox.AutoSize = true;
-            this.startWithWindowsCheckbox.Checked = true;
-            this.startWithWindowsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.startWithWindowsCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startWithWindowsCheckbox.Location = new System.Drawing.Point(248, 165);
-            this.startWithWindowsCheckbox.Name = "startWithWindowsCheckbox";
-            this.startWithWindowsCheckbox.Size = new System.Drawing.Size(282, 17);
-            this.startWithWindowsCheckbox.TabIndex = 17;
-            this.startWithWindowsCheckbox.Text = "Start this software with Windows (highly recommended)";
-            this.startWithWindowsCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(337, 208);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(0, 17);
-            this.label9.TabIndex = 16;
-            // 
-            // iftttActions
-            // 
-            this.iftttActions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iftttActions.Location = new System.Drawing.Point(9, 209);
-            this.iftttActions.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.iftttActions.Name = "iftttActions";
-            this.iftttActions.Size = new System.Drawing.Size(771, 23);
-            this.iftttActions.TabIndex = 14;
-            this.iftttActions.TabStop = true;
-            this.iftttActions.Text = "If you haven\'t enabled all the  IFTTT actions, click here to get a list of all th" +
-    "e different applets!";
-            this.iftttActions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.iftttActions.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.iftttActions_LinkClicked);
-            // 
-            // closeWindowButton
-            // 
-            this.closeWindowButton.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.closeWindowButton.FlatAppearance.BorderSize = 0;
-            this.closeWindowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeWindowButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.closeWindowButton.Location = new System.Drawing.Point(114, 235);
-            this.closeWindowButton.Name = "closeWindowButton";
-            this.closeWindowButton.Size = new System.Drawing.Size(551, 68);
-            this.closeWindowButton.TabIndex = 13;
-            this.closeWindowButton.Text = "Close this Window";
-            this.closeWindowButton.UseVisualStyleBackColor = false;
-            this.closeWindowButton.Click += new System.EventHandler(this.closeWindowButton_Click);
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 183);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(777, 24);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "AssistantComputerControl is now fully set up. Happy computer-controlling!";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 128);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(777, 42);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "All done!";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // expert
             // 
@@ -295,6 +204,7 @@
             this.GettingStartedWebBrowser.Location = new System.Drawing.Point(-1, 1);
             this.GettingStartedWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.GettingStartedWebBrowser.Name = "GettingStartedWebBrowser";
+            this.GettingStartedWebBrowser.ScrollBarsEnabled = false;
             this.GettingStartedWebBrowser.Size = new System.Drawing.Size(784, 442);
             this.GettingStartedWebBrowser.TabIndex = 5;
             // 
@@ -312,24 +222,44 @@
             // 
             // ieTest
             // 
+            this.ieTest.BackColor = System.Drawing.Color.White;
             this.ieTest.Controls.Add(this.ieWebBrowser);
             this.ieTest.Location = new System.Drawing.Point(4, 22);
             this.ieTest.Name = "ieTest";
             this.ieTest.Size = new System.Drawing.Size(783, 445);
             this.ieTest.TabIndex = 4;
             this.ieTest.Text = "ieTest";
-            this.ieTest.UseVisualStyleBackColor = true;
             // 
             // ieWebBrowser
             // 
             this.ieWebBrowser.AllowNavigation = false;
             this.ieWebBrowser.AllowWebBrowserDrop = false;
             this.ieWebBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.ieWebBrowser.Location = new System.Drawing.Point(0, 0);
+            this.ieWebBrowser.Location = new System.Drawing.Point(-1, 0);
             this.ieWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.ieWebBrowser.Name = "ieWebBrowser";
             this.ieWebBrowser.Size = new System.Drawing.Size(784, 442);
             this.ieWebBrowser.TabIndex = 7;
+            // 
+            // Done
+            // 
+            this.Done.BackColor = System.Drawing.Color.White;
+            this.Done.Controls.Add(this.doneActionViewBrowser);
+            this.Done.Location = new System.Drawing.Point(4, 22);
+            this.Done.Name = "Done";
+            this.Done.Size = new System.Drawing.Size(783, 445);
+            this.Done.TabIndex = 3;
+            this.Done.Text = "Done!";
+            // 
+            // doneActionViewBrowser
+            // 
+            this.doneActionViewBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.doneActionViewBrowser.Location = new System.Drawing.Point(0, 0);
+            this.doneActionViewBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.doneActionViewBrowser.Name = "doneActionViewBrowser";
+            this.doneActionViewBrowser.Size = new System.Drawing.Size(783, 445);
+            this.doneActionViewBrowser.TabIndex = 0;
+            this.doneActionViewBrowser.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // GettingStarted
             // 
@@ -344,13 +274,12 @@
             this.MaximizeBox = false;
             this.Name = "GettingStarted";
             this.Text = "Getting Started | AssistantComputerControl setup";
-            this.Done.ResumeLayout(false);
-            this.Done.PerformLayout();
             this.expert.ResumeLayout(false);
             this.expert.PerformLayout();
             this.setupSelect.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.ieTest.ResumeLayout(false);
+            this.Done.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -358,13 +287,6 @@
         #endregion
         private System.Windows.Forms.ToolTip tooltip;
         private System.Windows.Forms.FolderBrowserDialog pickFolder;
-        private System.Windows.Forms.TabPage Done;
-        private System.Windows.Forms.CheckBox startWithWindowsCheckbox;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.LinkLabel iftttActions;
-        private System.Windows.Forms.Button closeWindowButton;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage expert;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button expertDoneButton;
@@ -382,5 +304,7 @@
         private System.Windows.Forms.TabPage ieTest;
         private System.Windows.Forms.WebBrowser ieWebBrowser;
         private System.Windows.Forms.Button backToSetupGuide;
+        private System.Windows.Forms.TabPage Done;
+        private System.Windows.Forms.WebBrowser doneActionViewBrowser;
     }
 }

@@ -8,6 +8,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
@@ -20,7 +22,7 @@ namespace AssistantComputerControl {
         public SettingsForm() {
             InitializeComponent();
 
-            versionInfo.Text = "Version " + MainProgram.softwareVersion;
+            versionInfo.Text = "|Version " + MainProgram.softwareVersion;
 
             computerName.KeyDown += new KeyEventHandler(FreakingStopDingSound);
             fileEditedMargin.KeyDown += new KeyEventHandler(FreakingStopDingSound);
@@ -38,6 +40,7 @@ namespace AssistantComputerControl {
             checkUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
             betaProgram.Checked = Properties.Settings.Default.BetaProgram;
             warnDeletion.Checked = Properties.Settings.Default.WarnWhenDeletingManyFiles;
+            defaultComputer.Checked = Properties.Settings.Default.DefaultComputer;
 
             computerName.Text = Properties.Settings.Default.ComputerName;
             fileEditedMargin.Value = (decimal)Properties.Settings.Default.FileEditedMargin;
@@ -56,6 +59,23 @@ namespace AssistantComputerControl {
             fileEditedMargin.ValueChanged += delegate { Properties.Settings.Default.FileEditedMargin = (float)fileEditedMargin.Value; Properties.Settings.Default.Save(); };
             fileReadDelay.ValueChanged += delegate { Properties.Settings.Default.FileReadDelay = (float)fileReadDelay.Value; Properties.Settings.Default.Save(); };
             maxDeleteFiles.ValueChanged += delegate { Properties.Settings.Default.MaxDeleteFiles = (int)maxDeleteFiles.Value; Properties.Settings.Default.Save(); };
+
+            /* Translations */
+            int i = 0;
+            string activeLanguage = Properties.Settings.Default.ActiveLanguage;
+            foreach (string item in Translator.languagesArray) {
+                programLanguage.Items.Add(item);
+
+                if (activeLanguage == item) {
+                    programLanguage.SelectedIndex = i;
+                }
+                ++i;
+            }
+            Text = Translator.__("window_name", "settings");
+
+            foreach (Control x in this.Controls) {
+                Translator.TranslateWinForms("settings", x.Controls);
+            }
         }
 
         private void advancedSettingsButton_Click(object sender, EventArgs e) {
@@ -160,6 +180,40 @@ namespace AssistantComputerControl {
             maxDeleteFiles.Enabled = warnDeletion.Checked;
 
             Properties.Settings.Default.Save();
+        }
+
+        private void multiPcSupportReadMore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://acc.readme.io/docs/controlling-multiple-computers");
+        }
+
+        private void defaultComputer_CheckedChanged(object sender, EventArgs e) {
+            if (Properties.Settings.Default.DefaultComputer != defaultComputer.Checked) {
+                Properties.Settings.Default.DefaultComputer = defaultComputer.Checked;
+
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void infoTooltip_Popup(object sender, PopupEventArgs e) {
+
+        }
+
+        private void saveLanguageButton_Click(object sender, EventArgs e) {
+            string lang = programLanguage.Text;
+            if (Array.Exists(Translator.languagesArray, element => element == lang)) {
+                MainProgram.DoDebug("Language \"" + lang + "\" chosen");
+
+                Translator.SetLanguage(lang);
+                MainProgram.reopenSettingsOnClose = true;
+
+                Properties.Settings.Default.ActiveLanguage = programLanguage.Text;
+                Properties.Settings.Default.Save();
+
+                this.Close();
+            } else {
+                MessageBox.Show("Language is invalid");
+                MainProgram.DoDebug("Invalid language chosen");
+            }
         }
     }
 }

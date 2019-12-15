@@ -12,6 +12,8 @@ namespace AssistantComputerControl {
     public partial class UserFeedback : Form {
         public UserFeedback() {
             InitializeComponent();
+
+            Text = Translator.__("window_name", "user_feedback_window");
         }
     }
 }

@@ -48,6 +48,12 @@ namespace AssistantComputerControl {
 
             mainPanel.Click += delegate { mainPanel.Focus(); };
             actionFolderPath.GotFocus += delegate { if (!hasUnfocused) { mainPanel.Focus(); hasUnfocused = true; } }; //Fixes it being auto-foxused
+
+            Text = Translator.__("window_name", "advanced_settings");
+
+            foreach (Control x in this.Controls) {
+                Translator.TranslateWinForms("advanced_settings", x.Controls);
+            }
         }
 
         private void pickFolderBtn_Click(object sender, EventArgs e) {

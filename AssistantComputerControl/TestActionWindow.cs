@@ -17,8 +17,6 @@ namespace AssistantComputerControl {
             MaximizeBox = false;
 
             sWebBrowser = webBrowser;
-            string listeningInText = "\n\nListening in: " + MainProgram.CheckPath() + "\nfor \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions";
-            actionTesterLabel.Text += listeningInText;
 
             //TODO: Make it local
             //webBrowser.Url = new Uri(String.Format("file:///{0}/test.html", MainProgram.currentLocation));
@@ -31,6 +29,10 @@ namespace AssistantComputerControl {
 
             VisibleChanged += VisibilityChanged;
             FormClosed += delegate { MainProgram.testingAction = false; };
+
+            Text = Translator.__("window_name", "test_action_window");
+            string listeningInText = Translator.__("description", "test_action_window") + "\n\n" + Translator.__("listening_in", "test_action_window") + "\n" + MainProgram.CheckPath() + "\n" + Translator.__("listening_for", "test_action_window") + " \"." + Properties.Settings.Default.ActionFileExtension + "\"";
+            actionTesterLabel.Text = listeningInText;
         }
 
         public void ActionExecuted(string successMessage, string errorMessage, string action, string parameters, string fullContent) {
@@ -50,7 +52,7 @@ namespace AssistantComputerControl {
                 }
             } else {
                 //Is testing in "getting started" (less advanced)
-                Object[] objArray = new Object[2];
+                Object[] objArray = new Object[3];
 
                 if (successMessage != "") {
                     objArray[0] = "success";
@@ -59,6 +61,7 @@ namespace AssistantComputerControl {
                     objArray[0] = "error";
                     objArray[1] = "Error doing \"" + action + "\" action";
                 }
+                objArray[2] = action;
                 MainProgram.gettingStarted.SendActionThrough(objArray);
             }
         }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="15.6" PreviousModules="simple" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="16.5" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;FixupComponent"/>
   </COMPONENT>
@@ -38,7 +38,7 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{C1681279-6544-47D9-91C8-29CA6B4EA6FE} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{D4932720-8948-4E17-B607-6B984D249B72} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
     <ROW Property="ProductVersion" Value="1.3.2" Type="32"/>
@@ -69,6 +69,7 @@
     <ROW Component="AI_ExePath" ComponentId="{6A7517F1-AD5E-4733-B687-97C1799E298C}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
     <ROW Component="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" ComponentId="{96EDF0E9-D6F9-4B38-84EE-46DB345E2EE4}" Directory_="APPDIR" Attributes="0" KeyPath="AssistantComputerControl.exe"/>
     <ROW Component="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" ComponentId="{75B8D396-B011-4F76-943A-6FD24E3726E3}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.WindowsAPICodePack.dll" Type="0"/>
+    <ROW Component="APPDIR" ComponentId="{583DE5B3-916B-4FB0-9F45-FA5EE335BBD3}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="AboutVersion.html" ComponentId="{0A203C51-FFCA-4640-B9DF-80AA6D0BA39A}" Directory_="WebFiles_Dir" Attributes="0" KeyPath="AboutVersion.html" Type="0"/>
     <ROW Component="AssistantComputerControl_PrimaryOutput" ComponentId="{6D6B0D60-588B-4115-BB23-8350BF6AD151}" Directory_="APPDIR" Attributes="0" KeyPath="AssistantComputerControl.exe.config"/>
     <ROW Component="ProductInformation" ComponentId="{72E5C433-D45C-45F4-AF47-0DD66CC8E52E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
@@ -79,39 +80,39 @@
     <ROW Component="shortcuts" ComponentId="{3AD7B8C4-6A66-4FF8-99B1-47940292F2CC}" Directory_="shortcuts_Dir" Attributes="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_ExePath AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll AboutVersion.html AssistantComputerControl_PrimaryOutput ProductInformation SHORTCUTDIR acc_logo.png dropbox.png onedrive_howto.gif shortcuts"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="AboutVersion.html" Component_="AboutVersion.html" FileName="ABOUTV~1.HTM|AboutVersion.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\AboutVersion.html" SelfReg="false" NextFile="GettingStarted.html"/>
-    <ROW File="AssistantComputerControl.exe" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" FileName="ASSIST~1.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Version="65535.65535.65535.65535" Attributes="512" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe&gt;" SelfReg="false" NextFile="AssistantComputerControl.exe.config" DigSign="true"/>
-    <ROW File="AssistantComputerControl.exe.config" Component_="AssistantComputerControl_PrimaryOutput" FileName="ASSIST~1.CON|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.dll"/>
-    <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false" NextFile="NewVersion.cs"/>
+    <ROW File="AssistantComputerControl.exe" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" FileName="ASSIST~1.EXE|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Version="65535.65535.65535.65535" Attributes="512" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe&gt;" SelfReg="false" DigSign="true"/>
+    <ROW File="AssistantComputerControl.exe.config" Component_="AssistantComputerControl_PrimaryOutput" FileName="ASSIST~1.CON|[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config&gt;" SelfReg="false"/>
+    <ROW File="Microsoft.WindowsAPICodePack.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll&gt;" SelfReg="false"/>
+    <ROW File="Microsoft.WindowsAPICodePack.Shell.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll&gt;" SelfReg="false"/>
+    <ROW File="Newtonsoft.Json.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="NEWTON~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Newtonsoft.Json.dll&gt;" SelfReg="false"/>
+    <ROW File="Sentry.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.dll&gt;" SelfReg="false"/>
+    <ROW File="Sentry.PlatformAbstractions.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.PlatformAbstractions.dll&gt;" SelfReg="false"/>
+    <ROW File="Sentry.Protocol.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.Protocol.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Collections.Immutable.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Collections.Immutable.dll&gt;" SelfReg="false"/>
+    <ROW File="AboutVersion.html" Component_="AboutVersion.html" FileName="ABOUTV~1.HTM|AboutVersion.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\AboutVersion.html" SelfReg="false"/>
+    <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false"/>
+    <ROW File="NewVersion.cs" Component_="AboutVersion.html" FileName="NEWVER~1.CS|NewVersion.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.cs" SelfReg="false"/>
+    <ROW File="NewVersion.Designer.cs" Component_="AboutVersion.html" FileName="NEWVER~2.CS|NewVersion.Designer.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.Designer.cs" SelfReg="false"/>
+    <ROW File="NewVersion.resx" Component_="AboutVersion.html" FileName="NEWVER~1.RES|NewVersion.resx" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.resx" SelfReg="false"/>
+    <ROW File="acc_logo.png" Component_="acc_logo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\acc_logo.png" SelfReg="false"/>
+    <ROW File="bootstrap.min.css" Component_="acc_logo.png" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.css" SelfReg="false"/>
+    <ROW File="bootstrap.min.js" Component_="acc_logo.png" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.js" SelfReg="false"/>
+    <ROW File="dropbox.png" Component_="dropbox.png" FileName="dropbox.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\dropbox.png" SelfReg="false"/>
+    <ROW File="expert.png" Component_="dropbox.png" FileName="expert.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\expert.png" SelfReg="false"/>
+    <ROW File="googledrive.png" Component_="dropbox.png" FileName="GOOGLE~1.PNG|googledrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\googledrive.png" SelfReg="false"/>
+    <ROW File="onedrive.png" Component_="dropbox.png" FileName="onedrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\onedrive.png" SelfReg="false"/>
+    <ROW File="onedrive_howto.gif" Component_="onedrive_howto.gif" FileName="ONEDRI~1.GIF|onedrive_howto.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\onedrive_howto.gif" SelfReg="false"/>
+    <ROW File="sync_all_folders.gif" Component_="onedrive_howto.gif" FileName="SYNC_A~1.GIF|sync_all_folders.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_all_folders.gif" SelfReg="false"/>
+    <ROW File="sync_specific_folder.gif" Component_="onedrive_howto.gif" FileName="SYNC_S~1.GIF|sync_specific_folder.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_specific_folder.gif" SelfReg="false"/>
+    <ROW File="jquery.js" Component_="acc_logo.png" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\jquery.js" SelfReg="false"/>
+    <ROW File="popper.min.js" Component_="acc_logo.png" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\popper.min.js" SelfReg="false"/>
+    <ROW File="sweetalert2.min.css" Component_="acc_logo.png" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.css" SelfReg="false"/>
+    <ROW File="sweetalert2.min.js" Component_="acc_logo.png" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.js" SelfReg="false"/>
     <ROW File="IECheck.html" Component_="AboutVersion.html" FileName="IECHEC~1.HTM|IECheck.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\IECheck.html" SelfReg="false"/>
-    <ROW File="Microsoft.WindowsAPICodePack.Shell.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll&gt;" SelfReg="false" NextFile="Newtonsoft.Json.dll"/>
-    <ROW File="Microsoft.WindowsAPICodePack.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll&gt;" SelfReg="false" NextFile="Microsoft.WindowsAPICodePack.Shell.dll"/>
-    <ROW File="NewVersion.Designer.cs" Component_="AboutVersion.html" FileName="NEWVER~2.CS|NewVersion.Designer.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.Designer.cs" SelfReg="false" NextFile="NewVersion.resx"/>
-    <ROW File="NewVersion.cs" Component_="AboutVersion.html" FileName="NEWVER~1.CS|NewVersion.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.cs" SelfReg="false" NextFile="NewVersion.Designer.cs"/>
-    <ROW File="NewVersion.resx" Component_="AboutVersion.html" FileName="NEWVER~1.RES|NewVersion.resx" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.resx" SelfReg="false" NextFile="acc_logo.png"/>
-    <ROW File="Newtonsoft.Json.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="NEWTON~1.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Newtonsoft.Json.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Newtonsoft.Json.dll&gt;" SelfReg="false" NextFile="Sentry.dll"/>
-    <ROW File="Sentry.PlatformAbstractions.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.PlatformAbstractions.dll&gt;" SelfReg="false" NextFile="Sentry.Protocol.dll"/>
-    <ROW File="Sentry.Protocol.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.Protocol.dll&gt;" SelfReg="false" NextFile="System.Collections.Immutable.dll"/>
-    <ROW File="Sentry.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.dll&gt;" SelfReg="false" NextFile="Sentry.PlatformAbstractions.dll"/>
-    <ROW File="System.Collections.Immutable.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Collections.Immutable.dll&gt;" SelfReg="false" NextFile="AboutVersion.html"/>
-    <ROW File="acc_logo.png" Component_="acc_logo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\acc_logo.png" SelfReg="false" NextFile="bootstrap.min.css"/>
-    <ROW File="bootstrap.min.css" Component_="acc_logo.png" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.css" SelfReg="false" NextFile="bootstrap.min.js"/>
-    <ROW File="bootstrap.min.js" Component_="acc_logo.png" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.js" SelfReg="false" NextFile="dropbox.png"/>
-    <ROW File="dropbox.png" Component_="dropbox.png" FileName="dropbox.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\dropbox.png" SelfReg="false" NextFile="expert.png"/>
-    <ROW File="expert.png" Component_="dropbox.png" FileName="expert.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\expert.png" SelfReg="false" NextFile="googledrive.png"/>
-    <ROW File="googledrive.png" Component_="dropbox.png" FileName="GOOGLE~1.PNG|googledrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\googledrive.png" SelfReg="false" NextFile="onedrive.png"/>
-    <ROW File="jquery.js" Component_="acc_logo.png" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\jquery.js" SelfReg="false" NextFile="popper.min.js"/>
-    <ROW File="onedrive.png" Component_="dropbox.png" FileName="onedrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\onedrive.png" SelfReg="false" NextFile="onedrive_howto.gif"/>
-    <ROW File="onedrive_howto.gif" Component_="onedrive_howto.gif" FileName="ONEDRI~1.GIF|onedrive_howto.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\onedrive_howto.gif" SelfReg="false" NextFile="sync_all_folders.gif"/>
-    <ROW File="popper.min.js" Component_="acc_logo.png" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\popper.min.js" SelfReg="false" NextFile="sweetalert2.min.css"/>
-    <ROW File="sweetalert2.min.css" Component_="acc_logo.png" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.css" SelfReg="false" NextFile="sweetalert2.min.js"/>
-    <ROW File="sweetalert2.min.js" Component_="acc_logo.png" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.js" SelfReg="false" NextFile="IECheck.html"/>
-    <ROW File="sync_all_folders.gif" Component_="onedrive_howto.gif" FileName="SYNC_A~1.GIF|sync_all_folders.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_all_folders.gif" SelfReg="false" NextFile="sync_specific_folder.gif"/>
-    <ROW File="sync_specific_folder.gif" Component_="onedrive_howto.gif" FileName="SYNC_S~1.GIF|sync_specific_folder.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_specific_folder.gif" SelfReg="false" NextFile="jquery.js"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
@@ -195,6 +196,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
     <ROW Directory_="shortcuts_Dir" Component_="shortcuts" ManualDelete="false"/>
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
@@ -223,6 +225,20 @@
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
+    <ROW Feature_="MainFeature" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe"/>
+    <ROW Feature_="MainFeature" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll"/>
+    <ROW Feature_="MainFeature" Component_="AboutVersion.html"/>
+    <ROW Feature_="MainFeature" Component_="AssistantComputerControl_PrimaryOutput"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="acc_logo.png"/>
+    <ROW Feature_="MainFeature" Component_="dropbox.png"/>
+    <ROW Feature_="MainFeature" Component_="onedrive_howto.gif"/>
+    <ROW Feature_="MainFeature" Component_="shortcuts"/>
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>
   </COMPONENT>
@@ -231,7 +247,7 @@
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
     <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
-    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="54"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99" Builds="DefaultBuild"/>
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101" Builds="DefaultBuild"/>

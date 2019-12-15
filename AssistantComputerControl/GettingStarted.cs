@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.1.3, 15-11-2018
+ * Updated: v1.3.3, 15-12-2019
  * 
  * Use:
  * - The 'Getting Started' setup guide
@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -29,7 +30,8 @@ namespace AssistantComputerControl {
     [ComVisible(true)]
     public partial class GettingStarted : Form {
 
-        public static WebBrowser theWebBrowser = null;
+        public static Form thisForm;
+        public static WebBrowser theWebBrowser = null, theDoneActionViewBrowser;
         private static TabControl theTabControl;
         public static GettingStarted theInstance;
 
@@ -85,7 +87,7 @@ namespace AssistantComputerControl {
                     theWebBrowser.Document.InvokeScript("DoneError");
                 }
             }
-            
+
             public void AllDone(string chosenService) {
                 MainProgram.DoDebug("'AllDone' pressed");
                 if (CheckSetPath(chosenService)) {
@@ -129,10 +131,69 @@ namespace AssistantComputerControl {
                 }
             }
 
+            /* Translations */
+            public void SetLanguage(string lang) {
+                if (Array.Exists(Translator.languagesArray, element => element == lang)) {
+                    MainProgram.DoDebug("Language \"" + lang + "\" chosen in 'Getting Started'");
+
+                    Translator.SetLanguage(lang);
+
+                    Properties.Settings.Default.ActiveLanguage = lang;
+                    Properties.Settings.Default.Save();
+
+                    SendTranslationToWeb();
+                } else {
+                    MessageBox.Show("Language is invalid - pick another one");
+                    MainProgram.DoDebug("Invalid language chosen (Getting Started) - should not happen unless user tampers with the JSON files");
+                }
+            }
+
+            public void SendTranslationToWeb() {
+                //theWebBrowser.Invoke(new Action(() => {
+                //theWebBrowser.Document.InvokeScript("actionWentThrough", objArray);
+                //}));
+
+                //var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                //var json = serializer.Serialize(Translator.languagesArray);
+
+                //TODO; check why this crashed once. Have not been able to re-create.
+                /*
+                 * Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: 'Cannot perform runtime binding on a null reference'
+                 */
+
+                object obj2 = null;
+                if (Translator.activeLanguage != "English") {
+                    obj2 = Convert.ToString(Translator.fallbackDynamicJsonTranslation["translations"]["getting_started"]);
+                }
+
+                theWebBrowser.Invoke(new Action(() => {
+                    theWebBrowser.Document.InvokeScript(
+                        "SetTranslation",
+                        new Object[2] {
+                            Convert.ToString(Translator.dynamicJsonTranslation["translations"]["getting_started"]),
+                            obj2
+                        }
+                    );
+                }));
+            }
+
+            /* End translations */
+
             public void SkipGuide() {
-                MainProgram.gettingStarted.SetupDone();
+                SetupDone();
                 MainProgram.DoDebug("Skipped setup guide");
                 MainProgram.gettingStarted.Close();
+            }
+
+            public void SetupSuccess(string cloud_serivce) {
+                theDoneActionViewBrowser.Url = new Uri("https://assistantcomputercontrol.com/integrated_action_grid.php?lang=" + Properties.Settings.Default.ActiveLanguage + "&max_version_number=" + MainProgram.softwareVersion + "&cloud_service=" + cloud_serivce);
+
+                thisForm.Size = new Size(thisForm.Size.Width, thisForm.Size.Height + 150);
+                theTabControl.Size = new Size(theTabControl.Size.Width, theTabControl.Size.Height + 150);
+                theWebBrowser.Size = new Size(theWebBrowser.Size.Width, theWebBrowser.Size.Height + 150);
+
+                theTabControl.SelectTab(3);
+                SetupDone();
             }
 
             public void ValidIE() {
@@ -159,17 +220,30 @@ namespace AssistantComputerControl {
                 if (CloudServiceFunctions.GetCloudServicePath(backgroundCheckerServiceName) != "") {
                     //Cloud service found
                     MainProgram.DoDebug("Cloud service " + backgroundCheckerServiceName + " is installed");
+                    bool partial = false;
+
                     if (backgroundCheckerServiceName == "googledrive") {
-                        bool partial = CloudServiceFunctions.GetGoogleDriveFolder() != String.Empty;
-                        if (theWebBrowser != null)
-                            if (theWebBrowser.Handle != null)
+                        partial = CloudServiceFunctions.GetGoogleDriveFolder() != String.Empty;
+                    }
+
+                    if (theWebBrowser != null) {
+                        IntPtr theHandle = IntPtr.Zero;
+                        try {
+                            theHandle = theWebBrowser.Handle;
+                        } catch {
+                            MainProgram.DoDebug("Failed to get web browser handle.");
+                            MessageBox.Show("Failed to set cloud service - try again.");
+                        }
+
+                        if (theHandle != IntPtr.Zero) {
+                            if (theWebBrowser.Handle != null) {
                                 theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[2] { true, partial });
-                        if (partial)
-                            CheckLocalGoogleDrive();
-                    } else {
-                        if (theWebBrowser != null)
-                            if (theWebBrowser.Handle != null)
-                                theWebBrowser.Document.InvokeScript("CloudServiceInstalled", new Object[1] { true });
+                            }
+                        }
+                    }
+
+                    if (partial) {
+                        CheckLocalGoogleDrive();
                     }
                 } else {
                     //Not found
@@ -237,6 +311,10 @@ namespace AssistantComputerControl {
         }
 
         public GettingStarted(int startTab = 0) {
+            //Start function
+
+            thisForm = this;
+
             InitializeComponent();
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
@@ -253,7 +331,7 @@ namespace AssistantComputerControl {
             tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.ItemSize = new Size(0, 1);
             tabControl.SizeMode = TabSizeMode.Fixed;
-            tabControl.BackColor = Color.Transparent;
+            tabControl.BackColor = Color.White;
             tabControl.SelectTab(startTab);
 
             tabControl.Selected += delegate {
@@ -300,8 +378,14 @@ namespace AssistantComputerControl {
 
             GettingStartedWebBrowser.ObjectForScripting = new WebBrowserHandler();
             theWebBrowser = GettingStartedWebBrowser;
+            theDoneActionViewBrowser = doneActionViewBrowser;
+
+            theDoneActionViewBrowser.DocumentCompleted += DoneActionGridLoadCompleted;
+            theDoneActionViewBrowser.Navigating += BrowserNavigating;
+            theDoneActionViewBrowser.NewWindow += NewBrowserWindow;
 
             theWebBrowser.DocumentCompleted += BrowserDocumentCompleted;
+
             theWebBrowser.Navigating += BrowserNavigating;
             theWebBrowser.NewWindow += NewBrowserWindow;
 
@@ -342,9 +426,6 @@ namespace AssistantComputerControl {
             expertDoneButton.FlatStyle = FlatStyle.Flat;
             expertDoneButton.FlatAppearance.BorderSize = 0;
 
-            closeWindowButton.FlatStyle = FlatStyle.Flat;
-            closeWindowButton.FlatAppearance.BorderSize = 0;
-
             VisibleChanged += delegate {
                 MainProgram.testingAction = Visible;
                 MainProgram.gettingStarted = Visible ? this : null;
@@ -364,7 +445,7 @@ namespace AssistantComputerControl {
                     }
                 }));
             };
-        }
+        } // End main function
 
         public void SendActionThrough(Object[] objArray) {
             if ((string)objArray[0] == "success") {
@@ -384,61 +465,72 @@ namespace AssistantComputerControl {
         }
 
         private void BrowserNavigating(object sender, WebBrowserNavigatingEventArgs e) {
-            if (!(e.Url.ToString().Equals("about:blank", StringComparison.InvariantCultureIgnoreCase))) {
-                Process.Start(e.Url.ToString());
-                e.Cancel = true;
+            if (e.Url.ToString() == "#" || e.Url.ToString() == "about:blank") {
+                return;
             }
 
-            e.Cancel = true;
-            Process.Start(e.Url.ToString());
+            if (!(e.Url.ToString().Equals("about:blank", StringComparison.InvariantCultureIgnoreCase))) {
+                //Process.Start(e.Url.ToString());
+                //e.Cancel = true;
+                //return;
+            }
+        }
+
+        private void DoneActionGridLoadCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
+            this.SetupDocumentLinks((sender as WebBrowser).Document.All);
         }
 
         private void BrowserDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
-            string tagUpper = "";
-
             //OneDrive business?
             bool hasWorkDrive = !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("OneDriveCommercial")) && !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("OneDriveConsumer"));
             MainProgram.DoDebug("Has work OneDrive? " + hasWorkDrive);
             theWebBrowser.Document.InvokeScript("HasWorkOneDrive", new Object[1] { hasWorkDrive });
+            theWebBrowser.Document.InvokeScript("SetAccVersionNum", new Object[1] { MainProgram.softwareVersion });
 
-            foreach (HtmlElement tag in (sender as WebBrowser).Document.All) {
+            /*if ((WebBrowser)sender != null) {
+            //Maybe add this to avoid errors - rarely happens though
+            }*/
+
+            this.SetupDocumentLinks((sender as WebBrowser).Document.All);
+
+            /* Translation stuff */
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var json = serializer.Serialize(Translator.languagesArray);
+            
+            theWebBrowser.Document.InvokeScript("SetLanguages", new Object[1] { json });
+        }
+
+        void SetupDocumentLinks(HtmlElementCollection elements) {
+            string tagUpper = "";
+
+            foreach (HtmlElement tag in elements) {
                 tagUpper = tag.TagName.ToUpper();
 
                 if ((tagUpper == "AREA") || (tagUpper == "A")) {
-                    tag.MouseUp += new HtmlElementEventHandler(this.link_MouseUp);
+                    tag.MouseUp += new HtmlElementEventHandler(link_MouseUp);
                 }
             }
-        }
-        void link_MouseUp(object sender, HtmlElementEventArgs e) {
-            Regex pattern = new Regex("href=\\\"(.+?)\\\"");
-            Match match = pattern.Match((sender as HtmlElement).OuterHtml);
-            if (match.Groups.Count >= 1) {
-                string link = match.Groups[1].Value;
 
-                if (link.Length > 0) {
-                    if (link[0] != '#')
-                        Process.Start(link);
-                    /*else if (link == "#recommendedFinished") {
-                        tabControl.SelectTab(2);
-                    }*/
+            void link_MouseUp(object sender, HtmlElementEventArgs e) {
+                Regex pattern = new Regex("href=\\\"(.+?)\\\"");
+                Match match = pattern.Match((sender as HtmlElement).OuterHtml);
+                if (match.Groups.Count >= 1) {
+                    string link = match.Groups[1].Value;
+
+                    if (link.Length > 0) {
+                        if (link[0] != '#') {
+                            Process.Start(link);
+                        }
+                    }
                 }
             }
         }
+        
         private void NewBrowserWindow(object sender, CancelEventArgs e) {
             e.Cancel = true;
         }
 
-        private void SetupDone() {
-            //Start with Windows if user said so
-            if (Properties.Settings.Default.StartWithWindows != startWithWindowsCheckbox.Checked) {
-                Properties.Settings.Default.StartWithWindows = startWithWindowsCheckbox.Checked;
-                MainProgram.SetStartup(startWithWindowsCheckbox.Checked);
-
-                Properties.Settings.Default.Save();
-
-                MainProgram.DoDebug("Starting with Windows now");
-            }
-
+        private static void SetupDone() {
             MainProgram.DoDebug("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
             Properties.Settings.Default.Save();
@@ -459,11 +551,6 @@ namespace AssistantComputerControl {
             tabControl.SelectTab(3);
         }
 
-        private void closeWindowButton_Click(object sender, EventArgs e) {
-            SetupDone();
-            Close();
-        }
-
         private void iftttActions_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             Process.Start("https://assistantcomputercontrol.com/#what-can-it-do");
         }
@@ -472,10 +559,6 @@ namespace AssistantComputerControl {
             SetupDone();
             MainProgram.DoDebug("Skipped setup guide");
             Close();
-        }
-
-        private void gotoGoogleDriveGuide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://acc.readme.io/docs/use-google-drive-ifttt-instead-of-dropbox");
         }
 
         private void backToSetupGuide_Click(object sender, EventArgs e) {

@@ -283,5 +283,29 @@ namespace AssistantComputerControl.Properties {
                 this["HasPromptedFeedback"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DefaultComputer {
+            get {
+                return ((bool)(this["DefaultComputer"]));
+            }
+            set {
+                this["DefaultComputer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ActiveLanguage {
+            get {
+                return ((string)(this["ActiveLanguage"]));
+            }
+            set {
+                this["ActiveLanguage"] = value;
+            }
+        }
     }
 }

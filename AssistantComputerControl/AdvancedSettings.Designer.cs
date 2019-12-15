@@ -45,9 +45,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 17);
+            this.label1.Size = new System.Drawing.Size(35, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Advanced Settings";
+            this.label1.Text = "title";
             // 
             // actionFolderPath
             // 
@@ -65,16 +65,16 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Action folder path";
+            this.label2.Text = "action_path_label";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(0, 184);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 13);
+            this.label3.Size = new System.Drawing.Size(134, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Action file extension";
+            this.label3.Text = "action_file_extension_label";
             // 
             // actionFileExtension
             // 
@@ -90,21 +90,19 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(246, 52);
+            this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Tampering with these settings will change the way \r\n AssistantComputerControl wor" +
-    "ks completely.\r\nIt\'s only for those who do not wish to use Dropbox\r\n(the only bu" +
-    "ilt-in solution at the moment)";
+            this.label4.Text = "description";
             // 
             // shouldIEditLink
             // 
             this.shouldIEditLink.AutoSize = true;
             this.shouldIEditLink.Location = new System.Drawing.Point(3, 76);
             this.shouldIEditLink.Name = "shouldIEditLink";
-            this.shouldIEditLink.Size = new System.Drawing.Size(100, 13);
+            this.shouldIEditLink.Size = new System.Drawing.Size(71, 13);
             this.shouldIEditLink.TabIndex = 6;
             this.shouldIEditLink.TabStop = true;
-            this.shouldIEditLink.Text = "Should I edit this...?";
+            this.shouldIEditLink.Text = "why_edit_link";
             this.shouldIEditLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.shouldIEditLink_LinkClicked);
             // 
             // pickFolderBtn
@@ -114,7 +112,7 @@
             this.pickFolderBtn.Name = "pickFolderBtn";
             this.pickFolderBtn.Size = new System.Drawing.Size(23, 22);
             this.pickFolderBtn.TabIndex = 7;
-            this.pickFolderBtn.Text = "...";
+            this.pickFolderBtn.Text = "|...";
             this.pickFolderBtn.UseVisualStyleBackColor = true;
             this.pickFolderBtn.Click += new System.EventHandler(this.pickFolderBtn_Click);
             // 
@@ -141,7 +139,7 @@
             this.saveActionFolder.Name = "saveActionFolder";
             this.saveActionFolder.Size = new System.Drawing.Size(342, 23);
             this.saveActionFolder.TabIndex = 8;
-            this.saveActionFolder.Text = "Save action folder";
+            this.saveActionFolder.Text = "save_button";
             this.saveActionFolder.UseVisualStyleBackColor = true;
             this.saveActionFolder.Click += new System.EventHandler(this.saveActionFolder_Click);
             // 

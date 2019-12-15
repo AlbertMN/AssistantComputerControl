@@ -1,18 +1,28 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <title>Internet Explorer check</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 <body>
+    <!--[if lt IE 7]> <div id="ie_check_div" class="not_ok"></div> <![endif]-->
+    <!--[if IE 7]>    <div id="ie_check_div" class="not_ok"></div> <![endif]-->
+    <!--[if IE 8]>    <div id="ie_check_div" class="not_ok"></div> <![endif]-->
+    <!--[if gt IE 8]><!--> <div id="ie_check_div" class="is_ok">Redirecting... (if this doesn't work, <button onclick="window.external.ExpertChosen()">click here</button>)</div> <!--<![endif]-->
+
     <div id="old_ie" style="text-align:center;margin-top:50px;display:none;">
         <h3>Hi there!</h3>
         <p>Your computer seems to be using a quite old version of Internet Explorer, and sadly we need Internet Explorer 9+ to get you through the setup guide</p>
-        <p>Please download the latest version of Internet Explorer to continue setting up AssistantComputerControl.<br />
-        <a href="https://support.microsoft.com/en-us/help/17621/internet-explorer-downloads" target="_blank">click here if you're using <b>Windows 10</b></a>, or
-        <a href="https://www.microsoft.com/en-us/download/internet-explorer-11-for-windows-7-details.aspx" target="_blank">click here if you're using <b>Windows 7</b></a></p>
+        <p>
+            Please download the latest version of Internet Explorer to continue setting up AssistantComputerControl.<br />
+            <a href="https://support.microsoft.com/en-us/help/17621/internet-explorer-downloads" target="_blank">click here if you're using <b>Windows 10</b></a>, or
+            <a href="https://www.microsoft.com/en-us/download/internet-explorer-11-for-windows-7-details.aspx" target="_blank">click here if you're using <b>Windows 7</b></a>
+        </p>
 
-        <p><b>Once you have updated Internet Explorer</b>, you will have to reopen this setup guide.<br />This can be done by simply closing this window, right-clicking on the ACC icon 
-        in the tray (where your sound, wifi etc. icons are also located > <i>settings</i> > <i>"Do the setup guide again"</i> button</p>
+        <p>
+            <b>Once you have updated Internet Explorer</b>, you will have to reopen this setup guide.<br />This can be done by simply closing this window, right-clicking on the ACC icon
+            in the tray (where your sound, wifi etc. icons are also located > <i>settings</i> > <i>"Do the setup guide again"</i> button
+        </p>
 
         <hr />
         <h5>If you <i>don't</i> wish to update Internet Explorer...</h5>
@@ -21,11 +31,7 @@
     </div>
 
     <script>
-        function IECheck() {
-	        return window.ActiveXObject === undefined ? null : !window.XMLHttpRequest ? 6 : !document.querySelector ? 7 : !document.addEventListener ? 8 : !window.atob ? 9 : !document.__proto__ ? 10 : 11;
-        }
-
-        if (IECheck < 9) {
+        if (document.getElementById("ie_check_div").className === "not_ok") {
             document.getElementById("old_ie").style.display = "block";
         } else {
             window.external.ValidIE();

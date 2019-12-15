@@ -1,0 +1,60 @@
+﻿{
+  "language": "Danish",
+
+  //Add your name to the bottom of the contributors list if you have contributed
+  "contributors": [
+    "Albert MN"
+  ],
+
+  "translations": {
+    "settings": {
+      /*
+       * [SECTION INFO]
+       * - Use "\n" for line break - no HTML
+       */
+
+      "window_name": "Indstillinger",
+
+      "overall_settings_title": "Overordnede indstillinger",
+      "program_language_label": "Programmets sprog",
+      "save_language_btn": "gem",
+      "start_with_windows": "Åben med Windows?",
+      "check_for_updates": "Søg automatisk efter opdateringer?",
+      "join_beta_program": "Vær en del af beta-programmet (og få opdateringer tidligt)",
+
+      "file_edited_margin": "Filændring margen (sekunder)",
+      "file_read_delay": "Fil-læsnings forsinkelse (sekunder)",
+      "file_read_delay_desc_text": "hvad er dette? (hover)",
+      "file_read_delay_desc_text_hover_content": "Sommetider vil programmet måske læse filen før den er ordenligt downloadet. Denne indstillinge gør, så ACC venter med at læse filen til der er gået x sekunder",
+
+      "advanced_settings_btn": "Advancerede indstillinger",
+      "open_log_btn": "Åben log-filen",
+      "action_simulator_btn": "Action Simulator",
+      "do_setup_again": "Gå igennem setup guiden igen",
+
+      "delete_warning_text": "(\"Delete\" action) Advar mig når over x filer skal til at blive slettet",
+
+      "multi_pc_title": "Multi-computer support",
+      "multi_pc_description": "Denne funktion gør så du kan have programmet kørende på flere\ncomputere samtidig, og vælge hvilken PC der skal modtage hvilken action.",
+      "multi_pc_read_more": "Læs alt om denne funktion her",
+      "computer_name_field": "Computer navn",
+      "default_computer_checkbox": "Standard computer?",
+      "default_computer_description": "^ hvis valgt vil programmet godtage actions\nhvor intet \"computer navn\" er sat",
+
+      "check_for_updates_btn": "Tjek for opdateringer"
+    },
+    "advanced_settings": {
+      "window_name": "Advancerede Indstillinger",
+      "title": "Advancerede Indstillinger",
+      "description": "Når du piller ved disse indstillinger\nændrer du på hvordan programmet virker. Disse indstillinger er lavet til\ndem som ikke vil bruge de cloud services som er bygget ind i programmet.",
+      "why_edit_link": "Burde jeg ændre i dette...?",
+      "action_path_label": "Action mappe lokation",
+      "save_button": "Gem action mappe",
+      "action_file_extension_label": "Action filtype"
+    },
+
+    "getting_started": {
+      "test": "Eyo2"
+    }
+  }
+}

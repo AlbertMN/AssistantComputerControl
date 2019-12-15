@@ -126,7 +126,7 @@ namespace AssistantComputerControl {
             }
 
             if (MainProgram.testingAction) {
-                successMessage = "Simulated shutdown";
+                successMessage = "Simulated shutdown with parameters; " + shutdownParameters;
                 wasFatal = false;
             } else {
                 if (shutdownParameters != "abort") {
@@ -298,7 +298,15 @@ namespace AssistantComputerControl {
             }
         }
         public void SetVolume(string parameter) {
-            if (double.TryParse(parameter, out double volumeLevel)) {
+            bool numberIsGood = double.TryParse(parameter, out double volumeLevel);
+
+            if (!numberIsGood) {
+                double newNum = new WordsToNumbers().EnglishGet(parameter);
+                numberIsGood = (newNum != -1);
+                volumeLevel = newNum;
+            }
+
+            if (numberIsGood) {
                 if (volumeLevel >= 0 && volumeLevel <= 100) {
                     if (!MainProgram.testingAction) {
                         if (Properties.Settings.Default.UnmuteOnVolumeChange) {
@@ -384,26 +392,44 @@ namespace AssistantComputerControl {
         }
         public void Open(string parameter) {
             string location = ActionChecker.GetSecondaryParam(parameter)[0], arguments = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
-            string fileLocation = (!location.Contains(@":\") || !location.Contains(@":/")) ? Path.Combine(MainProgram.shortcutLocation, location) : location;
+            string fileLocation = (!location.Contains(@":\") || !location.Contains(@":/")) ? "" : location;
+            if (fileLocation == "") {
+                string combinedPath = "";
+                try {
+                    combinedPath = Path.Combine(MainProgram.shortcutLocation, location);
+                } catch {
+                    Error("Given path (" +  location+ ") is invalid (could not combine)");
+                }
 
-            if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
-                if (!MainProgram.testingAction) {
-                    try {
-                        Process p = new Process();
-                        p.StartInfo.FileName = fileLocation;
-                        if (arguments != null)
-                            p.StartInfo.Arguments = arguments;
-                        p.Start();
-                        successMessage = "OPEN: opened file/url; " + fileLocation;
-                    } catch (Exception e) {
-                        MainProgram.DoDebug("Failed to open file; " + e.Message);
-                        Error("Failed to open file (" + fileLocation + ")");
+                if (combinedPath != "") {
+                    fileLocation = combinedPath;
+                }
+            }
+
+            if (fileLocation != "") {
+                if (MainProgram.IsValidPath(location)) {
+                    if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
+                        if (!MainProgram.testingAction) {
+                            try {
+                                Process p = new Process();
+                                p.StartInfo.FileName = fileLocation;
+                                if (arguments != null)
+                                    p.StartInfo.Arguments = arguments;
+                                p.Start();
+                                successMessage = "OPEN: opened file/url; " + fileLocation;
+                            } catch (Exception e) {
+                                MainProgram.DoDebug("Failed to open file; " + e.Message);
+                                Error("Failed to open file (" + fileLocation + ")");
+                            }
+                        } else {
+                            successMessage = "OPEN: simulated opening file; " + fileLocation;
+                        }
+                    } else {
+                        Error("File or directory doesn't exist (" + fileLocation + ")");
                     }
                 } else {
-                    successMessage = "OPEN: simulated opening file; " + fileLocation;
+                    Error("Given path is invalid");
                 }
-            } else {
-                Error("File or directory doesn't exist (" + fileLocation + ")");
             }
         }
         public void OpenAll(string parameter) {
@@ -480,7 +506,7 @@ namespace AssistantComputerControl {
             /*
              * Added by : Joshua Miller
              * How to use it :
-             *  - To seperate keys please us '+' (to use '+' do {ADD})
+             *  - To seperate keys please use '+' (to use '+' do {ADD})
              *  - Things like ctrl will be converted to control key
              */
 
@@ -499,8 +525,7 @@ namespace AssistantComputerControl {
                     if (command.Length == 1) {
                         // Add to the out
                         keyCombinationPress = keyCombinationPress + command.ToLower();
-                    }
-                    else {
+                    } else {
                         // If it is a command (probably)
                         // Check if it is a possible command and needs to be changed
                         bool foundYet = false;
@@ -528,8 +553,7 @@ namespace AssistantComputerControl {
             // Is it testing?
             if (MainProgram.testingAction) {
                 successMessage = ("Simulated sending the combination: " + keyCombinationPress);
-            }
-            else {
+            } else {
                 // Try pressing keys
                 bool keysPressedSuccess = true;
                 try {
@@ -728,7 +752,54 @@ namespace AssistantComputerControl {
             }
         }
 
+        public void KillProcess(string parameter) {
+            bool paramIsNum = int.TryParse(parameter, out int pid);
+
+            if (paramIsNum) {
+                try {
+                    //Results in an exception if process doesn't exist
+                    Process theP = Process.GetProcessById(pid);
+
+                    if (!MainProgram.testingAction) {
+                        try {
+                            //theP.Close();
+                            theP.Kill();
+                            successMessage = "Killed process with ID " + pid.ToString();
+                        } catch (Exception e) {
+                            Error("Failed to kill process with ID " + pid.ToString() + "; " + e.Message);
+                        }
+                    } else {
+                        successMessage = "Successfully simulated killing process";
+                    }
+                } catch {
+                    Error("A process with the ID " + pid.ToString() + " doesn't exist");
+                }
+            } else {
+                try {
+                    //Results in an exception if process doesn't exist
+                    Process[] thePs = Process.GetProcessesByName(parameter);
+
+                    if (!MainProgram.testingAction) {
+                        try {
+                            foreach (Process p in thePs) {
+                                p.Kill();
+                            }
+                            successMessage = "Killed all processes with name " + parameter;
+                        } catch (Exception e) {
+                            Error("Failed to kill processes with name " + parameter + "; " + e.Message);
+                        }
+                    } else {
+                        successMessage = "Successfully simulated killing processes";
+                    }
+                } catch {
+                    Error("A process with the name " + parameter + " doesn't exist");
+                }
+            }
+        }
+
         public void MoveSubject(string parameter) {
+            /* Doesn't seem to be halfway finished ._. [TODO] */
+
             string theSubject = ActionChecker.GetSecondaryParam(parameter)[0]
                             , moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
 

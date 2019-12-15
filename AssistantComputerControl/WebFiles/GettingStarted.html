@@ -5,21 +5,79 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <style>
-        .btn-default {
-            color: white;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-    </style>
     <link rel="stylesheet" href="assets/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/sweetalert2.min.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
 
-    <title>About new version</title>
+    <title>ACC Setup Guide</title>
 
     <!-- Thanks to dcs9988 from Bootsnipp for the step-wizard(https://bootsnipp.com/snippets/e3MBM) -->
     <style>
+        .cloud_service_card {
+            cursor: pointer;
+        }
+
+        .ribbon {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            position: absolute;
+        }
+
+            .ribbon::before,
+            .ribbon::after {
+                position: absolute;
+                z-index: -1;
+                content: '';
+                display: block;
+                border: 5px solid dodgerblue;
+            }
+
+            .ribbon span {
+                position: absolute;
+                display: block;
+                width: 225px;
+                padding: 15px 0;
+                background-color: dodgerblue;
+                box-shadow: 0 5px 10px rgba(0,0,0,.1);
+                color: #fff;
+                font: 700 18px/1 'Lato', sans-serif;
+                text-shadow: 0 1px 1px rgba(0,0,0,.2);
+                text-transform: uppercase;
+                text-align: center;
+            }
+
+        /* bottom right*/
+        .ribbon-bottom-right {
+            bottom: -10px;
+            right: -10px;
+        }
+
+            .ribbon-bottom-right::before,
+            .ribbon-bottom-right::after {
+                border-bottom-color: transparent;
+                border-right-color: transparent;
+            }
+
+            .ribbon-bottom-right::before {
+                bottom: 0;
+                left: 0;
+            }
+
+            .ribbon-bottom-right::after {
+                top: 0;
+                right: 0;
+            }
+
+            .ribbon-bottom-right span {
+                left: -25px;
+                bottom: 30px;
+                font-size: 16px;
+                /*transform: rotate(-225deg);*/
+                transform: rotate(-45deg);
+            }
+
         #nextButton {
             position: fixed;
             right: 20px;
@@ -201,22 +259,22 @@
             counter-reset: item;
         }
 
-            ol > li {
-                margin: 0;
-                padding: 0 0 0 2em;
-                text-indent: -2em;
-                list-style-type: none;
-                counter-increment: item;
-            }
+        ol > li {
+            margin: 0;
+            padding: 0 0 0 2em;
+            text-indent: -2em;
+            list-style-type: none;
+            counter-increment: item;
+        }
 
-                ol > li:before {
-                    display: inline-block;
-                    width: 1em;
-                    padding-right: 0.5em;
-                    font-weight: bold;
-                    text-align: right;
-                    content: counter(item) ".";
-                }
+        ol > li:before {
+            display: inline-block;
+            width: 1em;
+            padding-right: 0.5em;
+            font-weight: bold;
+            text-align: right;
+            content: counter(item) ".";
+        }
 
         .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left] {
             left: -1.5em;
@@ -235,20 +293,28 @@
             padding-left: 60px;
         }
     </style>
-
     <style>
+        /*.btn-default {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.2);
+        }*/
+
+        ol li {
+            margin-bottom: 10px;
+        }
+
         .scroller {
             height: 200px;
             overflow-y: auto;
         }
 
-        .card-body img {
+        .cloud_service_card .card-body img {
             /*width:100%;*/
             max-width: 100%;
             max-height: 100px;
         }
 
-        .card-body {
+        .cloud_service_card .card-body {
             height: 250px;
         }
 
@@ -272,8 +338,9 @@
 <body class="container-fluid noselect" style="margin-bottom:10px;">
     <div id="choose_cloud_service" class="row text-center">
         <div class="col-md-12">
-            <h2>Welcome to AssistantComputerControl!</h2>
-            <p>
+            <h2 data-translation-key="welcome_title">Welcome to AssistantComputerControl!</h2>
+
+            <p data-translation-key="welcome_description">
                 This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.
             </p>
         </div>
@@ -281,39 +348,41 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="card" data-name="Dropbox" data-num="1" data-image="assets/cloud_services/dropbox.png">
+                    <div class="card cloud_service_card" data-name="Dropbox" data-num="1" data-image="assets/cloud_services/dropbox.png">
                         <div class="card-body">
+                            <div class="ribbon ribbon-bottom-right"><span data-translation-key="recommended">RECOMMENDED</span></div>
+
                             <h5 class="card-title">Dropbox</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+                            <h6 data-translation-key="click_me" class="card-subtitle mb-2 text-muted">Click me!</h6>
                             <img alt="Dropbox logo" draggable="false" src="assets/cloud_services/dropbox.png">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card" data-name="OneDrive" data-num="2" data-image="assets/cloud_services/onedrive.png">
+                    <div class="card cloud_service_card" data-name="OneDrive" data-num="2" data-image="assets/cloud_services/onedrive.png">
                         <div class="card-body">
                             <h5 class="card-title">OneDrive</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+                            <h6 data-translation-key="click_me" class="card-subtitle mb-2 text-muted">Click me!</h6>
                             <img alt="OneDrive logo" draggable="false" src="assets/cloud_services/onedrive.png">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card" data-name="Google Drive" data-num="3"
+                    <div class="card cloud_service_card" data-name="Google Drive" data-num="3"
                          data-image="assets/cloud_services/googledrive.png">
                         <div class="card-body">
                             <h5 class="card-title">Google Drive</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Click me!</h6>
+                            <h6 data-translation-key="click_me" class="card-subtitle mb-2 text-muted">Click me!</h6>
                             <img alt="Google Drive logo" draggable="false" src="assets/cloud_services/googledrive.png">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card" data-name="the expert setup" data-num="4">
+                    <div class="card cloud_service_card" data-name="the expert setup" data-num="4">
                         <div class="card-body">
                             <h5 class="card-title">Expert setup</h5>
                             <h6 class="card-subtitle mb-2 text-muted">
-                                <small>Choose me if you want more freedom (custom setup, no help)</small>
+                                <small data-translation-key="expert_setup_short_desc">Choose me if you want more freedom (custom setup, no help)</small>
                             </h6>
                             <img alt="Expert solution icon" draggable="false" src="assets/cloud_services/expert.png">
                         </div>
@@ -326,7 +395,7 @@
         </div>
 
         <div class="col-md-12">
-            <a id="skip_guide_text" href="#">Click here to skip the setup guide <i>(not recommended)</i></a>
+            <a id="skip_guide_text" data-translation-key="skip_guide_text" href="#">Click here to skip the setup guide <i>(not recommended)</i></a>
         </div>
     </div>
 
@@ -337,17 +406,17 @@
                 <div class="stepwizard-step">
                     <a id="step-1-btn" data-step-num="1" href="#step-1" type="button"
                        class="btn btn-primary btn-circle">1</a>
-                    <p>Install <span id="install_step_name"></span></p>
+                    <p data-translation-key="step_1_title">Install <span id="install_step_name"></span></p>
                 </div>
                 <div class="stepwizard-step">
                     <a id="step-2-btn" data-step-num="2" href="#step-2" type="button" class="btn btn-default btn-circle"
                        disabled="disabled">2</a>
-                    <p>Set up IFTTT</p>
+                    <p data-translation-key="step_2_title">Set up IFTTT</p>
                 </div>
                 <div class="stepwizard-step">
                     <a id="step-3-btn" data-step-num="3" href="#step-3" type="button" class="btn btn-default btn-circle"
                        disabled="disabled">3</a>
-                    <p>Done! Test actions</p>
+                    <p data-translation-key="step_3_title">Done! Test actions</p>
                 </div>
             </div>
         </div>
@@ -356,24 +425,24 @@
             <div class="row setup-content" id="step-1">
                 <div class="col-md-12">
                     <h3>
-                        <span id="step-1-title">Install <span class="service-name"></span></span>
-                        <small id="looking_text">looking...</small>
+                        <span id="step-1-title" data-translation-key="install_text">Install <span class="service-name"></span></span>
+                        <small id="looking_text" data-translation-key="looking_for_service">looking...</small>
                         <span id="service_found" style="display:none;"> - <b>installed!</b></span>
                     </h3>
                     <p id="couldNotFindService">
                         We could not locate <span class="service-name"></span> on your computer.
                     </p>
-					
-					<div id="multipleOneDrive" style="display:none;">
-						<p>We can see you have a personal and work OneDrive - which one do you want to use?</p>
-						
-						<button data-onedrive-type="OneDriveConsumer" class="onedrive_type chosen_onedrive_type btn btn-primary btn-sm" style="margin-right:10px;">Personal OneDrive</button>
-						<button data-onedrive-type="OneDriveCommercial" class="onedrive_type btn btn-default btn-sm">Work OneDrive</button>
-					</div>
-					
-                    <small><i>(click <a data-toggle="modal" data-target="#doesntWorkModal" href="#">here</a> if <span class="service-name"></span> <u>is</u> installed, and you <u>have</u> followed the instructions step-by-step, but ACC won't let you proceed)</i></small>.<br>
 
-                    <img id="chosenCloudServiceImage" alt="Cloud service logo" style="max-width:150px;" src="">
+                    <div id="multipleOneDrive" style="display:none;">
+                        <p>We can see you have a personal and work OneDrive - which one do you want to use?</p>
+
+                        <button data-translation-key="personal_onedrive" data-onedrive-type="OneDriveConsumer" class="onedrive_type chosen_onedrive_type btn btn-primary btn-sm" style="margin-right:10px;">Personal OneDrive</button>
+                        <button data-translation-key="work_onedrive" data-onedrive-type="OneDriveCommercial" class="onedrive_type btn btn-default btn-sm">Work OneDrive</button>
+                    </div>
+
+                    <small><i>(<span data-translation-key="not_working_modal_opener">click <a data-toggle="modal" data-target="#doesntWorkModal" href="#">here</a> if <span class="service-name"></span> <u>is</u> installed, and you <u>have</u> followed the instructions step-by-step, but ACC won't let you proceed</span></i>)</small>.<br>
+
+                    <img draggable="false" id="chosenCloudServiceImage" alt="Cloud service logo" style="max-width:150px;" src="">
                     <div id="loading_container1" class="loading_container row">
                         <div id="loading_elements1" class="elements">
                             <div class="el"></div>
@@ -387,53 +456,53 @@
                     <div id="dropbox-install-guide" style="display:none;">
                         <ol>
                             <li class="strike-out-if-installed">
-                                <a href="https://www.dropbox.com/register">Sign up</a> for Dropbox
-                                <small>(if you haven't already)</small>
+                                <a data-translation-key="dropbox_sign_up" href="https://www.dropbox.com/register">Sign up for Dropbox</a>
+                                <small data-translation-key="if_you_havent_already">(if you haven't already)</small>
                             </li>
-                            <li class="strike-out-if-installed"><a href="https://www.dropbox.com/downloading">Download the Dropbox installer</a></li>
-                            <li class="strike-out-if-installed">Open the installer, and install Dropbox on your computer</li>
+                            <li class="strike-out-if-installed"><a data-translation-key="download_dropbox" href="https://www.dropbox.com/downloading">Download the Dropbox installer</a></li>
+                            <li class="strike-out-if-installed" data-translation-key="open_installer_dropbox">Open the installer, and install Dropbox on your computer</li>
                         </ol>
                     </div>
                     <!-- OneDrive -->
                     <div id="onedrive-install-guide" style="display:none;">
                         <ol>
                             <li class="strike-out-if-installed">
-                                <a href="https://onedrive.live.com/">Sign up</a> for OneDrive (the same as an Microsoft account)
-                                <small>(if you haven't already)</small>
+                                <a data-translation-key="onedrive_sign_up" href="https://onedrive.live.com/">Sign up for OneDrive (the same as an Microsoft account)</a>
+                                <small data-translation-key="if_you_havent_already">(if you haven't already)</small>
                             </li>
-                            <li class="strike-out-if-installed">If you're using Windows 8 or up, you will most likely have OneDrive<br>on your computer already. If not, <a href="https://onedrive.live.com/about/en-sg/download/">download and run the OneDrive installer</a></li>
-                            <li class="strike-out-if-installed">Go to the OneDrive folder in the file explorer</li>
-                            <li class="strike-out-if-installed-partial">Create a folder called "AssistantComputerControl"</li>
-                            <li>Right-click the created folder and press "Always keep on this device" <b><i>(quite important)</i></b></li>
+                            <li class="strike-out-if-installed" data-translation-key="download_onedrive">If you're using Windows 8 or up, you will most likely have OneDrive<br>on your computer already. If not, <a href="https://onedrive.live.com/about/en-sg/download/">download and run the OneDrive installer</a></li>
+                            <li class="strike-out-if-installed" data-translation-key="onedrive_go_to_folder">Go to the OneDrive folder in the file explorer</li>
+                            <li class="strike-out-if-installed-partial" data-translation-key="onedrive_create_folder">Create a folder called "AssistantComputerControl"</li>
+                            <li data-translation-key="onedrive_always_keep">Right-click the created folder and press "Always keep on this device" <b><i>(quite important)</i></b></li>
                         </ol>
-                        <img style="max-width:100%;max-height:300px;" type="gif" alt="" src="assets/gifs/onedrive_howto.gif">
+                        <img draggable="false" style="max-width:100%;max-height:300px;" type="gif" alt="" src="assets/gifs/onedrive_howto.gif">
                     </div>
                     <!-- Google Drive -->
                     <div id="google-drive-install-guide" style="display:none;">
                         <ol>
-                            <li class="strike-out-if-installed">You most likely already have a Google account - if not, <a href="https://accounts.google.com/signup/v2">make one</a></li>
-                            <li class="strike-out-if-installed">Download Google Drive for your computer <a href="https://www.google.com/drive/download/">choose "Private; Backup and Sync"</a> <small>(if you haven't already)</small></li>
-                            <li class="strike-out-if-installed">Run the installer and finish the install</li>
-                            <li class="strike-out-if-installed-partial">Click on the "Backup and sync" logo in your taskbar</li>
-                            <li class="strike-out-if-installed-partial">Press the three dots in the right corner, and go to <b>"Preferences"</b></li>
-                            <li class="strike-out-if-installed-partial">Go to the <b>"Google Drive"</b> tab and make sure <b>"Sync My Drive to this computer"</b> is ticked</li>
+                            <li class="strike-out-if-installed" data-translation-key="make_google_account">You most likely already have a Google account - if not, <a href="https://accounts.google.com/signup/v2">make one</a></li>
+                            <li class="strike-out-if-installed" data-translation-key="google_drive_download">Download Google Drive for your computer <a href="https://www.google.com/drive/download/">choose "Private; Backup and Sync"</a> <small>(if you haven't already)</small></li>
+                            <li class="strike-out-if-installed" data-translation-key="google_drive_install">Run the installer and finish the install</li>
+                            <li class="strike-out-if-installed-partial" data-translation-key="google_drive_click_logo">Click on the "Backup and sync" logo in your taskbar</li>
+                            <li class="strike-out-if-installed-partial" data-translation-key="google_drive_preferences">Press the three dots in the right corner, and go to <b>"Preferences"</b></li>
+                            <li class="strike-out-if-installed-partial" data-translation-key="google_drive_sync">Go to the <b>"Google Drive"</b> tab and make sure <b>"Sync My Drive to this computer"</b> is ticked</li>
                         </ol>
                         <hr>
                         <div class="row">
                             <div class="col-md-6">
-                                <h5>Want all your Google Drive files on your computer?</h5>
+                                <h5 data-translation-key="google_drive_sync_all">Want all your Google Drive files on your computer?</h5>
                                 <ol>
-                                    <li>Choose "Sync everything in My Drive (x GB)"</li>
+                                    <li data-translation-key="google_drive_sync_all_desc">Choose "Sync everything in My Drive (x GB)"</li>
                                 </ol>
-                                <img style="width:100%;" type="gif" alt="" src="assets/gifs/sync_all_folders.gif">
+                                <img draggable="false" style="width:100%;" type="gif" alt="" src="assets/gifs/sync_all_folders.gif">
                             </div>
                             <div class="col-md-6">
-                                <h5>... or <i>just</i> for the sake of AssistantComputerControl?</h5>
+                                <h5 data-translation-key="google_drive_acc_only_sync">... or <i>just</i> for the sake of AssistantComputerControl?</h5>
                                 <ol>
-                                    <li><a href="https://drive.google.com/drive/">Go to your Google Drive (in your browser)</a></li>
-                                    <li>In the "My drive" tab, right-click the section files-section or press the "My drive" dropdown, and choose <b>"New folder"</b></li>
-                                    <li>Name the folder "AssistantComputerControl" <i>(it's important that there are no typos here)</i></li>
-                                    <li>Choose "Sync these folders only...", and un-tick everything but the folder called "AssistantComputerControl"</li>
+                                    <li><a href="https://drive.google.com/drive/" data-translation-key="google_drive_website_goto">Go to your Google Drive (in your browser)</a></li>
+                                    <li data-translation-key="google_drive_create_folder">In the "My drive" tab, right-click the section files-section or press the "My drive" dropdown, and choose <b>"New folder"</b></li>
+                                    <li data-translation-key="google_drive_name_folder">Name the folder "AssistantComputerControl" <i>(it's important that there are no typos here)</i></li>
+                                    <li data-translation-key="google_drive_sync_specific_folders">Choose "Sync these folders only...", and un-tick everything but the folder called "AssistantComputerControl"</li>
                                 </ol>
                                 <img style="width:100%;" type="gif" alt="" src="assets/gifs/sync_specific_folder.gif">
                             </div>
@@ -441,80 +510,85 @@
                     </div>
                 </div>
             </div>
+            <!-- IFTTT part -->
             <div class="row setup-content" id="step-2" style="display:none;">
                 <div class="col-md-12">
-                    <h3>
-                        Set up your IFTTT account<br>
-                        <small><i>With the AssistantComputerControl applets</i></small>
+                    <div style="text-align:center;">
+                        <img draggable="false" src="assets/images/ifttt_logo.png" style="width:200px;" />
+                    </div>
+                    <h3 style="margin-top:8px;">
+                        <span data-translation-key="set_up_ifttt_acc">Set up your IFTTT account</span>
+                        <br>
+                        <small><i><span data-translation-key="set_up_ifttt_extra">With the AssistantComputerControl applets</span></i></small>
                     </h3>
 
-                    <ol style="text-align:left;">
+                    <ol style="text-align:left;margin-left:20px;margin-right:20px;">
                         <li>
-                            <a href="https://ifttt.com/join">Sign up for IFTTT</a> <i>
-                                <small>(it's smart to sign up with your Google account if you're using Google Assistant)</small>
+                            <a data-translation-key="ifttt_join" href="https://ifttt.com/join">Sign up for IFTTT</a>
+                            <i>
+                                <small data-translation-key="ifttt_join_extra">(it's smart to sign up with your Google account if you're using Google Assistant)</small>
                             </i>
                         </li>
                         <li>
-                            Enable the applets you want. Let's start with the <code>shutdown</code> action
-                            <small>(shuts down your computer)</small>
-                            . Click <a class="shutdown_test_link_gh" href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">
-                                here if you're using
-                                Google Assistant
-                            </a>, and <a class="shutdown_test_link_alexa" href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">
-                                here
-                                if you use Amazon Alexa
-                            </a>
+                            <span data-translation-key="ifttt_enable_shutdown_applet">
+                                Enable the applets you want. Let's start with the <code>shutdown</code> action <small>(shuts down your computer)</small>.
+                            </span>
+                            <!-- Links are set automatically depending on the chosen cloud service -->
+                            <a data-translation-key="ifttt_shutdown_link_gh" class="shutdown_test_link_gh" href="#">Click here if you're using Google Assistant</a>, <a data-translation-key="ifttt_shutdown_link_alexa" class="shutdown_test_link_alexa" href="#">or here if you use Amazon Alexa</a>
                         </li>
-                        <li>Click "Turn on" on the IFTTT applet</li>
-                        <li>
-                            If you haven't linked your <span class="service-name"></span> or Google/Amazon account yet, you will be asked to link your
-                            accounts
-                            <small>(press "OK" and go through the link process)</small>
-                        </li>
-                        <li>
-                            You're now all set! <b><a id="acc_action_list" href="https://assistantcomputercontrol.com/#what-can-it-do">Click here</a></b> for a list of
-                            all the supported applets/actions, and enable as many as you like!
+                        <li data-translation-key="ifttt_connect_applet">Click "Connect" on the IFTTT applet</li>
+                        <li data-translation-key="ifttt_link_info">
+                            If you haven't linked your <span class="service-name"></span> or Google/Amazon account yet, you will be asked to link your accounts
                         </li>
                     </ol>
                 </div>
             </div>
+            <!-- "Done" - test actions -->
             <div class="row setup-content" id="step-3" style="display:none;">
                 <div class="col-md-12">
                     <div id="timeToTryText">
-                        <h3>Time to try!</h3>
+                        <h3 data-translation-key="time_to_try_heading">Time to try!</h3>
                         <p>
-                            Now all that's left to do is try the software. With <span class="service-name"></span> fully set up, an IFTTT account
-                            and ACC applets enabled, we can now test in a safe environment.<br><br>
+                            <!--<span data-translation-key="done_description"></span><br>-->
+                            <!--<i>
+                            <small><span data-translation-key="applet_enable_reminder"></span> (<a class="shutdown_test_link_gh" href="#">[Google Assistant]</a>, <a class="shutdown_test_link_alexa" href="#">[Amazon Alexa]</a>)</small>
+                        </i><br />-->
 
-                            Pick one of the applets you have enabled, and say the trigger.
-                            Let's try with the shutdown applet <i>
-                                (<a class="shutdown_test_link_gh" href="https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer">[GH]</a><a class="shutdown_test_link_alexa" href="https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer">[Alexa]</a>)
-                            </i>.
+
+                            <small><i><span data-translation-key="custom_trigger_reminder"></span></i></small>
+                            <div style="text-align:left;margin-top:2px;">
+                                <div style="display:inline-block;margin-right:15px;">
+                                    <div>
+                                        <img draggable="false" src="assets/images/voice-icon.png" style="width:50px;" />
+                                    </div>
+                                </div>
+                                <div style="display:inline-block;">
+                                    <span data-translation-key="google_assistant_trigger_example">The <b>Google Assistant</b> trigger would be;</span> <i>"Hey Google, turn off my computer"</i><br>
+                                    <span data-translation-key="alexa_trigger_example">For <b>Alexa</b>, you'd need to say</span> <i>"Alexa, trigger turn off my computer"</i>
+                                </div>
+                            </div>
+
                             <br>
-                            The <b>Google Assistant</b> trigger would be; <i>"Hey Google, turn off my computer"</i><br>
-                            For <b>Alexa</b>, you'd need to say <i>"Alexa, trigger turn off my computer"</i>
-
-                            <br><br>
                             <b>
-                                The actions you say
-                                will <i>not</i> be executed, but simulated.
-                            </b> Try!
-                            <br>
-                            <small>
-                                <i>
-                                    If the actions don't work, try to go through <a href="#" style="cursor:pointer;" onclick="setStep(2);">step 2</a> again,
-                                    or go through the <a href="https://acc.readme.io/docs/troubleshooting">troubleshooting guide</a>
-                                </i>
-                            </small>
+                                <span data-translation-key="wont_execute_reminder"></span>
+                            </b>
                         </p>
 
-                        <div class="loading_container row">
+                        <div style="text-align:center;">
                             <p style="z-index:9999;color:gray;"><b><i>Listening for actions...</i></b></p>
-                            <div class="elements loading_elements2">
-                                <div class="el"></div>
-                                <div class="el"></div>
-                                <div class="el"></div>
-                                <div class="el"></div>
+                            <div style="margin-top:-10px;">
+                                <div class="loading_container row">
+                                    <div class="elements loading_elements2">
+                                        <div class="el"></div>
+                                        <div class="el"></div>
+                                        <div class="el"></div>
+                                        <div class="el"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align:left;margin-top:60px;">
+                                <button data-toggle="modal" data-target="#finalDoesntWorkModal" class="btn btn-sm btn-danger">Is it not working?</button>
                             </div>
                         </div>
                     </div>
@@ -534,12 +608,12 @@
                         </span>
                     </div>
 
-                    <h3 id="status_message"></h3>
+                    <h3 id="success_setup_action_went_through" style="display:none;">Software all set up! Received "<code><span></span></code>" action</h3>
+                    <h3 style="display:none;" id="status_message"></h3>
                     <h4 id="fast_message" style="display:none;">You're a fast learner!</h4>
                     <h4 id="too_fast_message" style="display:none;">You were fast, but, were you <i>too</i> fast...?</h4>
 
-                    <button id="continue_button" style="border-radius:0;display:none;" class="btn btn-primary btn-block btn-lg">Continue, and finish the setup!</button>
-                    <p id="you_can_also_stay" class="text-muted">You can also stay here and try more actions if you'd like.</p>
+                    <button id="continue_button" style="border-radius:0;display:none;" class="btn btn-primary btn-block btn-lg">Continue & explore the software!</button>
                 </div>
             </div>
         </form>
@@ -547,12 +621,17 @@
         <button id="previousButton" class="btn btn-primary btn-lg leftRightBtn" type="button">
             <i class="fas fa-2x fa-chevron-left"></i>
         </button>
-        <div id="nextButtonWrapper" data-toggle="tooltip" title="test">
+        <div id="nextButtonWrapper">
             <button id="nextButton" disabled class="btn btn-primary nextBtn btn-lg leftRightBtn" type="button"
                     data-toggle="popover" title="<b>Ahem...</b>" data-html="true" data-placement="left"
                     data-content="We <i>have</i> found the cloud service, you may proceed!">
                 <i class="fas fa-2x fa-chevron-right"></i>
             </button>
+        </div>
+
+        <!-- "Change language anytime" button in bottom right corner -->
+        <div style="position:fixed;bottom:0;right:0;margin:20px;" data-toggle="tooltip" data-placement="top" title="Change language">
+            <button data-target="#languageModal" data-toggle="modal" class="btn btn-sm btn-default"><img draggable="false" src="assets/images/language-icon.png" style="width:40px;" /></button>
         </div>
     </div>
 
@@ -606,6 +685,110 @@
         </div>
     </div>
 
+    <!-- Troubleshooting modal if the user doesn't think it's working in the last step -->
+    <div class="modal fade" id="finalDoesntWorkModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 data-translation-key="not_working_modal_title" class="modal-title">The software is not working</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <h6><b data-translation-key="not_working_title">Fear not. Most issues are easily fixed!</b></h6>
+                        <p data-translation-key="not_working_description">Let's go through some of the most common issues, and get the software up and running in a matter of minutes!</p>
+                    </div>
+
+                    <p data-translation-key="repeat_step_two_suggestion" style="font-weight:bold;">
+                       First, it's recommended that you try and go through <a href="#" style="cursor:pointer;" data-dismiss="modal" onclick="setStep(2);">step 2</a> again. If you're certain it's set up correctly, proceed to the solutions below.
+                    </p>
+
+                    <hr />
+
+                    <h5 data-translation-key="problem_introduction_title">What's problem are you experiencing?</h5>
+                    <p data-translation-key="problem_introduction_description" class="text-muted">Click the panel that best describes your problem</p>
+                    <!-- Simple static troubleshooting -->
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link" data-toggle="collapse" href="#assistantResponseIssues">
+                                    <span data-translation-key="assistant_response_issues_title">My assistant doesn't understand the trigger</span>
+                                </a>
+                            </div>
+                            <div id="assistantResponseIssues" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="text-muted" data-translation-key="assistant_response_issues_desc"><b>Problem:</b> <i>(example)</i> My Google Assistant/Alexa doesn't understand any of the triggers (what I am saying). <i>(No matter if the ACC software works or not, IFTTT should still respond)</i></p>
+                                    <ol>
+                                        <li data-translation-key="tbs_assistant_solution_one">
+                                            Make sure that the assistant <i>(Google Assitant or Alexa)</i> account that you linked to your IFTTT account is the same one as the assistant you're talking to is linked to.
+                                        </li>
+                                        <li data-translation-key="tbs_assistant_solution_two">
+                                            Make sure that you have <a href="https://assistantcomputercontrol.com/#what-can-it-do" target="_blank">applets enabled</a> on the account that is linked to your assistant. ACC doesn't actually have anything to do with your assistant, so this issue is on IFTTT or your assistant service
+                                        </li>
+                                        <li data-translation-key="tbs_assistant_solution_three">
+                                            <b>If you're using Alexa;</b> IFTTT requires you to say <i>Alexa, <b>trigger</b> x</i> before the actual trigger, and would always respond <i>"OK. Sending that to IFTTT.</i>
+                                        </li>
+                                        <li data-translation-key="tbs_assistant_solution_four">
+                                            <b>If you're using Google Assistant;</b>
+                                            if your Google Assistant device <i>(whether it's your phone or a physical product)</i> might be set to a different language than the one your IFTTT applet is set to. If your applet language is set to "English" but the only language you have enabled on your Google Assistant account is "Italian", your Google Assistant wouldn't understand the english phrase. You can tell that this is the problem if the command you say is in a different language than the response you get <i>(fx. if I say an English phrase to my assistant, and it responds that it doesn't understand, but in Italian)</i>
+                                        </li>
+                                        <li data-translation-key="tbs_assistant_solution_five">
+                                            Check the <a target="_blank" href="https://status.ifttt.com/#about-this-site">status of IFTTT</a> - if they're currently experiencing issues, try and wait
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="collapsed card-link" data-toggle="collapse" href="#pcIssuesProblem">
+                                    <span data-translation-key="pc_issues_title">Assistant responds, but nothing happens on the computer</span>
+                                </a>
+                            </div>
+                            <div id="pcIssuesProblem" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p class="text-muted" data-translation-key="pc_issues_desc"><b>Problem:</b> The assistant responds, but nothing happens on my computer.</p>
+                                    <ol>
+                                        <li data-translation-key="tbs_pc_solution_one">Your cloud service <i>(Dropbox, OneDrive, Google Drive)</i> has to be installed and running on your PC at all times - if it's closed, make sure to open it.</li>
+                                        <li data-translation-key="tbs_pc_solution_two">Cloud service should be <b>fully synced!</b> If (for example) Dropbox is syncing x-hundred amounts of files, give your cloud service some time to fully sync all the files to your computer</li>
+                                        <li data-translation-key="tbs_pc_solution_three">Check your <a href="https://ifttt.com/activity" target="_blank">IFTTT activity page</a>. If it says "Applet failed", something is wrong on IFTTT's end. This can sometimes be resolved by disconnecting your assistant and cloud service account, and reconnecting it. Check the <a href="https://acc.readme.io/docs/fixing-ifttt-errors" target="_blank">"Fixing IFTTT errors"</a> guide</li>
+                                        <li data-translation-key="tbs_pc_solution_four">Try and clear your <b>action folder</b> (which is located at <code>Cloudservice/AssistantComputerControl</code>, fx. <code>C:/Dropbox/AssistantComputerControl</code>). The folder should be completely empty.</li>
+                                        <li data-translation-key="tbs_pc_solution_five">Make sure the account your cloud service is logged into on your PC is the same account as the one linked to your IFTTT account <i>(refer to the "<a href="https://acc.readme.io/docs/fixing-ifttt-errors#section-check-cloud-service-connection" target="_blank">Check cloud service connection</a>" section of the "Fixing IFTTT errors" guide)</i></li>
+                                        <li data-translation-key="tbs_pc_solution_six">Make sure the IFTTT applet you're using is an applet for the cloud service you have chosen during the ACC installation on your computer</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="collapsed card-link" data-toggle="collapse" href="#otherIssues">
+                                    <i><span data-translation-key="tbs_still_not_resolved_title">Still not resolved (more advanced fixes)</span></i>
+                                </a>
+                            </div>
+                            <div id="otherIssues" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p data-translation-key="tbs_still_not_resolved_desc">If all solutions above have failed, please refer to the <a target="_blank" href="https://acc.readme.io/docs/troubleshooting#section-still-not-solved-">troubleshooting guide</a> <i>(specifically the "Still not solved?" section)</i></p>
+                                    <hr />
+                                    <p data-translation-key="tbs_still_not_resolved_community_help">
+                                        If it's <b>still</b> not working, come join our <a href="https://discord.gg/B9YGPNF" target="_blank"><i>Discord server</i></a>. With over 550 members, you're sure to get help quickly <i>(and the developer often answers within a few hours)</i>
+                                        <br />
+                                        In case you believe you have found a bug, you can open an <a target="_blank" href="https://github.com/AlbertMN/AssistantComputerControl/issues">issue on GitHub</a> and describe the issue.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Error on finish -->
     <div class="modal fade" id="finishError" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -627,12 +810,90 @@
         </div>
     </div>
 
+    <!-- Choose language modal -->
+    <div class="modal" data-backdrop="static" id="languageModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div style="text-align:center;margin-bottom:10px;">
+                        <img draggable="false" src="assets/images/language-icon.png" style="width:120px;" />
+                    </div>
+                    <h4 data-translation-key="test"><b>Choose your language</b></h4>
+                    <small>You can help us translate the software! <a href="#LINK TODO">Click here for more info</a></small>
+                    <div style="margin-top:10px;" class="form-group">
+                        <select id="chosen_language" class="form-control"></select>
+                    </div>
+                    <div>
+                        <button id="continueLangBtn" class="btn btn-primary btn-block btn-lg btn-btn">Continue with "English"</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/jquery.js"></script>
     <script src="assets/sweetalert2.min.js"></script>
     <script src="assets/popper.min.js"></script>
     <script src="assets/bootstrap.min.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        /* TRANSLATION STUFF */
+        var chosenLanguageSelect = $("#chosen_language"), langBtn = $("#continueLangBtn"), languageModal = $("#languageModal"), theTranslation, theFallbackTranslation;
+
+        function SetLanguages(augment) {
+            var data = JSON.parse(augment);
+
+            chosenLanguageSelect.empty();
+            $.each(data, function (i, thing) {
+                chosenLanguageSelect.append("<option name='" + thing + "'>" + thing + "</option>");
+            });
+            chosenLanguageSelect.find("option:contains('English')").prop("selected", true);
+        }
+
+        chosenLanguageSelect.on("change", function () {
+            langBtn.text("Continue with \"" + $(this).val() + "\"");
+        });
+
+        langBtn.on("click", function () {
+            window.external.SetLanguage($(chosenLanguageSelect).val());
+            languageModal.modal("hide");
+        });
+
+        //languageModal.modal("show");
+
+        function SetTranslation(translation_json, fallback_json) {
+            if (typeof translation_json !== 'undefined') {
+                theTranslation = JSON.parse(translation_json);
+            }
+            if (typeof translation_json !== 'undefined') {
+                theFallbackTranslation = fallback_translation = (fallback_json == null ? null : JSON.parse(fallback_json));
+            }
+
+            Object.keys(theTranslation).forEach(function (key) {
+                var theText = theTranslation[key];
+                theText = theText.replace("{cloud_service}", "<span class='service-name'></span>");
+
+                if (key == "not_working_modal_opener") {
+                    theText = theText.replace("{link_start}", "<a data-toggle=\"modal\" data-target=\"#doesntWorkModal\" href=\"#\">");
+                } else if (key == "repeat_step_two_suggestion") {
+                    theText = theText.replace("{link_start}", "<a href=\"#\" style=\"cursor: pointer;\" data-dismiss=\"modal\" onclick=\"setStep(2);\">");
+                }
+
+                theText = theText.replace("{link_end}", "</a>");
+
+                $("[data-translation-key='" + key + "']").html(theText);
+                //alert('Key : ' + key + ', Value : ' + translation[key]);
+            })
+        }
+
+
+        /* END TRANSLATIONS */
+
+
         var activeStep = 1
             , cloudServiceInstalled = false
             , canProceed = false
@@ -653,8 +914,13 @@
             , stepDivs = [$("#dropbox-install-guide"), $("#onedrive-install-guide"), $("#google-drive-install-guide")]
             , activeTimeout = null
             , hasSetCustomPath = false
-			, hasWorkOnedrive = false;
-			
+            , hasWorkOnedrive = false
+            , acc_version;
+
+        function SetAccVersionNum(num) {
+            acc_version = num;
+        }
+
         $("#skip_guide_text").on("click", function () {
             window.external.SkipGuide();
         });
@@ -712,7 +978,7 @@
         }
 
         $("#continue_button").on("click", function () {
-            window.external.AllDone(chosenCloudService.replace(" ", "").toLocaleLowerCase());
+            window.external.SetupSuccess(chosenCloudService.replace(" ", "").toLocaleLowerCase());
         });
 
         function DoneError() {
@@ -742,7 +1008,7 @@
             }, 10000);
         }
 
-        $(".card").on("click", function () {
+        $(".card.cloud_service_card").on("click", function () {
             let theThis = $(this), theName = $(this).attr("data-name");
             $(".card").removeClass("card-selected");
             $(this).addClass("card-selected");
@@ -752,13 +1018,13 @@
             chosenCloudServiceNum = $(this).attr("data-num");
             chosenCloudServiceImage = $(this).attr("data-image");
             cloudServiceInstalled = false;
-			
-			if (theName == "OneDrive" && hasWorkOnedrive) {
-				$("#multipleOneDrive").show();
-				window.external.SetODtype("OneDriveConsumer");
-			} else {
-				$("#multipleOneDrive").hide();
-			}
+
+            if (theName == "OneDrive" && hasWorkOnedrive) {
+                $("#multipleOneDrive").show();
+                window.external.SetODtype("OneDriveConsumer");
+            } else {
+                $("#multipleOneDrive").hide();
+            }
         });
 
         $("#pick_btn").on("click", function () {
@@ -830,7 +1096,7 @@
             }
         });
 
-        function actionWentThrough(status, title) {
+        function actionWentThrough(status, title, action) {
             if (activeStep != 3) {
                 //Done action before step 3, way to go!
                 if (!hasBeenAtStep3) {
@@ -844,6 +1110,9 @@
             }
 
             if (status == "success") {
+                $("#success_setup_action_went_through").show().find("span").text(action);
+                $("#status_message").hide();
+
                 $("#timeToTryText").stop().fadeOut("fast", function () {
                     $("#continue_button").attr("disabled", false);
                     $("#error_icon").stop().fadeOut("fast", function () {
@@ -853,6 +1122,9 @@
                     });
                 });
             } else if (status == "error") {
+                $("#success_setup_action_went_through").hide();
+                $("#status_message").show();
+
                 $("#timeToTryText").stop().fadeOut("fast", function () {
                     $("#continue_button").attr("disabled", true);
                     $("#success_icon").stop().fadeOut("fast", function () {
@@ -886,6 +1158,7 @@
                 $("#you_can_also_stay").stop().fadeOut("fast");
                 $("#error_icon").stop().fadeOut("fast", function () {
                     $("#status_message").text("");
+                    $("#success_setup_action_went_through").text("");
                     $("#timeToTryText").stop().fadeIn();
                 });
                 $("#success_icon").stop().fadeOut();
@@ -895,6 +1168,7 @@
                 $("#you_can_also_stay").hide();
                 $("#error_icon").hide();
                 $("#status_message").text("");
+                $("#success_setup_action_went_through").text("");
                 $("#timeToTryText").show();
             }
 
@@ -1101,17 +1375,17 @@
         });
 
         $('div.setup-panel div a.btn-primary').trigger('click');
-		
-		function HasWorkOneDrive(doesHas) {
-			hasWorkOnedrive = doesHas;
-		}
-		
-		$(".onedrive_type").on("click", function() {
-			$(".onedrive_type").addClass("btn-default").removeClass("btn-primary chosen_onedrive_type");
-			$(this).removeClass("btn-default").addClass("btn-primary chosen_onedrive_type");
-			
-			window.external.SetODtype($(this).attr("data-onedrive-type"));
-		});
+
+        function HasWorkOneDrive(doesHas) {
+            hasWorkOnedrive = doesHas;
+        }
+
+        $(".onedrive_type").on("click", function () {
+            $(".onedrive_type").addClass("btn-default").removeClass("btn-primary chosen_onedrive_type");
+            $(this).removeClass("btn-default").addClass("btn-primary chosen_onedrive_type");
+
+            window.external.SetODtype($(this).attr("data-onedrive-type"));
+        });
     </script>
 
 </body>

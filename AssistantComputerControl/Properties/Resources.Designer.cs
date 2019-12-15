@@ -73,9 +73,39 @@ namespace AssistantComputerControl.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon ACC_icon_light {
+            get {
+                object obj = ResourceManager.GetObject("ACC_icon_light", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ACC_icon_white {
+            get {
+                object obj = ResourceManager.GetObject("ACC_icon_white", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon ACC_loading_icon {
             get {
                 object obj = ResourceManager.GetObject("ACC_loading_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ACC_loading_light_icon {
+            get {
+                object obj = ResourceManager.GetObject("ACC_loading_light_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
