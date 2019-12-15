@@ -1,0 +1,317 @@
+﻿.cloud_service_card {
+    cursor: pointer;
+}
+
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.ribbon::before,
+.ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid dodgerblue;
+}
+
+.ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: dodgerblue;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* bottom right*/
+.ribbon-bottom-right {
+    bottom: -10px;
+    right: -10px;
+}
+
+.ribbon-bottom-right::before,
+.ribbon-bottom-right::after {
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+}
+
+.ribbon-bottom-right::before {
+    bottom: 0;
+    left: 0;
+}
+
+.ribbon-bottom-right::after {
+    top: 0;
+    right: 0;
+}
+
+.ribbon-bottom-right span {
+    left: -25px;
+    bottom: 30px;
+    font-size: 16px;
+    /*transform: rotate(-225deg);*/
+    transform: rotate(-45deg);
+}
+
+#nextButton {
+    position: fixed;
+    right: 20px;
+    height: 70%;
+    top: 70px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #212121;
+    transition: 0.1s;
+    border-radius: 0px;
+    z-index: 9999;
+}
+
+#previousButton {
+    position: fixed;
+    left: 20px;
+    height: 70%;
+    top: 70px;
+    background-color: transparent;
+    border-color: transparent;
+    color: #212121;
+    transition: 0.1s;
+    border-radius: 0px;
+    z-index: 9999;
+}
+
+#nextButton:hover, #previousButton:hover {
+    color: #fff !important;
+    background-color: #428bca;
+    border-color: #357ebd;
+}
+
+body {
+    margin-top: 10px;
+    font-size: 15px;
+    overflow: hidden;
+}
+
+.stepwizard-step p {
+    margin-top: 10px;
+}
+
+.stepwizard-row {
+    display: table-row;
+}
+
+.stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+}
+
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    -webkit-appearance: button-bevel !important;
+}
+
+/* Loading */
+#dropboxImage {
+    transition: 1s;
+    opacity: 0.6;
+}
+
+.loading_container {
+    justify-content: center;
+    align-items: center;
+}
+
+#loading_elements1 {
+    text-align: center;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: row;
+    margin-top: -100px;
+    margin-right: -100px;
+    text-align: right;
+    float: right;
+}
+
+.loading_elements2 {
+    text-align: center;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: row;
+    /*margin-top: -100px;
+            margin-right: 260px;*/
+    position: fixed;
+    left: 43%;
+}
+
+.elements .el {
+    width: 10px;
+    height: 40px;
+    background: #212121;
+    margin: 5px;
+    animation-name: hover;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+    animation-timing-function: ease-out;
+    transform: translate3d(0, 20%, 0);
+}
+
+.elements .el:nth-of-type(2) {
+    animation-delay: 0.2s;
+}
+
+.elements .el:nth-of-type(3) {
+    animation-delay: 0.4s;
+}
+
+.elements .el:nth-of-type(4) {
+    animation-delay: 0.6s;
+}
+
+@keyframes hover {
+    0% {
+        transform: translate3d(0, 20%, 0);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translate3d(0, -20%, 0);
+        opacity: 0.9;
+    }
+}
+
+.blink_me {
+    transition: 0.1s;
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    0% {
+        color: black;
+    }
+
+    50% {
+        color: green;
+    }
+}
+
+.btn.disabled {
+    pointer-events: auto;
+}
+
+ol {
+    margin: 0 0 1.5em;
+    padding: 0;
+    counter-reset: item;
+}
+
+ol > li {
+    margin: 0;
+    padding: 0 0 0 2em;
+    text-indent: -2em;
+    list-style-type: none;
+    counter-increment: item;
+}
+
+ol > li:before {
+    display: inline-block;
+    width: 1em;
+    padding-right: 0.5em;
+    font-weight: bold;
+    text-align: right;
+    content: counter(item) ".";
+}
+
+.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left] {
+    left: -1.5em;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right] {
+    right: -1.5em;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.container {
+    padding-right: 60px;
+    padding-left: 60px;
+}
+
+/*.btn-default {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+}*/
+
+ol li {
+    margin-bottom: 10px;
+}
+
+.scroller {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.cloud_service_card .card-body img {
+    /*width:100%;*/
+    max-width: 100%;
+    max-height: 100px;
+}
+
+.cloud_service_card .card-body {
+    height: 250px;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                                     supported by Chrome and Opera */
+}
+
+.card-selected {
+    border: 2px solid blue;
+}
