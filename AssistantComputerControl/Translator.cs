@@ -13,48 +13,53 @@ namespace AssistantComputerControl {
     class Translator {
         static public string activeLanguage = "English",
             activeLanguageJson = null,
-            translationFolder = Path.Combine(MainProgram.currentLocation, "Translations"),
+            translationFolder = null,
             fallbackLanguageJson = null;
         static public dynamic dynamicJsonTranslation = null, fallbackDynamicJsonTranslation = null;
-        static public string[] languagesArray = GetLanguages();
+        static public string[] languagesArray = null;
 
         public static string[] GetLanguages() {
-            List<string> stringList = new List<string>();
-            DirectoryInfo d = new DirectoryInfo(translationFolder);
-            foreach (var file in d.GetFiles("*.json")) {
-                string fileContent = ReadLanguage(file.FullName);
-                if (fileContent != null) {
-                    try {
-                        dynamic jsonTest = JsonConvert.DeserializeObject<dynamic>(fileContent);
-                        if (jsonTest["translations"] != null) {
-                            stringList.Add(Path.GetFileNameWithoutExtension(file.FullName));
-                        } else {
-                            MainProgram.DoDebug("Invalid translation; " + (jsonTest));
+            if (!String.IsNullOrEmpty(translationFolder)) {
+                List<string> stringList = new List<string>();
+                DirectoryInfo d = new DirectoryInfo(translationFolder);
+                foreach (var file in d.GetFiles("*.json")) {
+                    string fileContent = ReadLanguage(file.FullName);
+                    if (fileContent != null) {
+                        try {
+                            dynamic jsonTest = JsonConvert.DeserializeObject<dynamic>(fileContent);
+                            if (jsonTest["translations"] != null) {
+                                stringList.Add(Path.GetFileNameWithoutExtension(file.FullName));
+                            } else {
+                                MainProgram.DoDebug("Invalid translation; " + (jsonTest));
+                            }
+                        } catch {
+                            MainProgram.DoDebug("Could not validate language from file " + file.Name);
                         }
-                    } catch {
-                        MainProgram.DoDebug("Could not validate language from file " + file.Name);
                     }
                 }
-            }
 
-            string[] theArr = stringList.ToArray<string>();
-            return theArr;
+                string[] theArr = stringList.ToArray<string>();
+                return theArr;
+            }
+            return new string[0];
         }
 
         public static void SetLanguage(string lang) {
-            string theFile = Path.Combine(translationFolder, lang + ".json");
-            if (File.Exists(theFile)) {
-                activeLanguage = lang;
-                activeLanguageJson = ReadLanguage(theFile);
+            if (!String.IsNullOrEmpty(translationFolder)) {
+                string theFile = Path.Combine(translationFolder, lang + ".json");
+                if (File.Exists(theFile)) {
+                    activeLanguage = lang;
+                    activeLanguageJson = ReadLanguage(theFile);
 
-                if (lang != "English") {
-                    fallbackLanguageJson = ReadLanguage(Path.Combine(translationFolder, "English.json"));
-                    fallbackDynamicJsonTranslation = JsonConvert.DeserializeObject<dynamic>(fallbackLanguageJson);
-                } else {
-                    fallbackLanguageJson = null;
+                    if (lang != "English") {
+                        fallbackLanguageJson = ReadLanguage(Path.Combine(translationFolder, "English.json"));
+                        fallbackDynamicJsonTranslation = JsonConvert.DeserializeObject<dynamic>(fallbackLanguageJson);
+                    } else {
+                        fallbackLanguageJson = null;
+                    }
+
+                    dynamicJsonTranslation = JsonConvert.DeserializeObject<dynamic>(activeLanguageJson);
                 }
-
-                dynamicJsonTranslation = JsonConvert.DeserializeObject<dynamic>(activeLanguageJson);
             }
         }
 

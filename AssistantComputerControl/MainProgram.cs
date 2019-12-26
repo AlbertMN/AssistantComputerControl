@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.2.3, 10-02-2019
+ * Updated: v1.3.3, 16-12-2019
  * 
  * Use:
  * - Main class. Starts everything.
@@ -21,15 +21,15 @@ using System.Threading;
 using Sentry;
 using System.Configuration;
 using System.Xml;
+using NLog;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.3.2",
-            releaseDate = "2019-10-27 18:41:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.3.3",
+            releaseDate = "2019-12-16 18:41:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            //sentryToken = "super_secret";
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
+            sentryToken = "super_secret";
 
 
         static public bool debug = true,
@@ -55,7 +55,6 @@ namespace AssistantComputerControl {
             dataFolderLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AssistantComputerControl"),
             shortcutLocation = Path.Combine(dataFolderLocation, "shortcuts"),
             logFilePath = Path.Combine(dataFolderLocation, "log.txt"),
-            errorMessage = "",
             startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup),
             messageBoxTitle = appName;
 
@@ -72,8 +71,15 @@ namespace AssistantComputerControl {
             Console.WriteLine("Log location; " + logFilePath);
             CheckSettings();
 
+            var config = new NLog.Config.LoggingConfiguration();
+            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = logFilePath };
+            var logconsole = new NLog.Targets.ConsoleTarget("logconsole");         
+            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, logfile);         
+            NLog.LogManager.Configuration = config;
+
             void ActualMain() {
-                //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
                 //Upgrade settings
                 if (Properties.Settings.Default.UpdateSettings) {
@@ -131,13 +137,22 @@ namespace AssistantComputerControl {
                     Properties.Settings.Default.LastUpdated = DateTime.Now;
                 }
 
+                //Translator
+                string tempDir = Path.Combine(currentLocation, "Translations");
+                if (Directory.Exists(tempDir)) {
+                    Translator.translationFolder = Path.Combine(currentLocation, "Translations");
+                    Translator.languagesArray = Translator.GetLanguages();
+                } else {
+                    MessageBox.Show("Missing the translations folder. Reinstall the software to fix this issue.", messageBoxTitle);
+                }
+
                 string lang = Properties.Settings.Default.ActiveLanguage;
                 if (Array.Exists(Translator.languagesArray, element => element == lang)) {
                     DoDebug("ACC running with language \"" + lang + "\"");
 
                     Translator.SetLanguage(lang);
                 } else {
-                    DoDebug("Invalid language chosen");
+                    DoDebug("Invalid language chosen (" + lang + ")");
 
                     Properties.Settings.Default.ActiveLanguage = "English";
                     Translator.SetLanguage("English");
@@ -247,8 +262,8 @@ namespace AssistantComputerControl {
                     Filter = "*." + Properties.Settings.Default.ActionFileExtension,
                     EnableRaisingEvents = true
                 };
-                watcher.Changed += new FileSystemEventHandler(ActionChecker.FileFound);
-                watcher.Created += new FileSystemEventHandler(ActionChecker.FileFound);
+                watcher.Changed += new FileSystemEventHandler(new ActionChecker().FileFound);
+                watcher.Created += new FileSystemEventHandler(new ActionChecker().FileFound);
 
                 DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
@@ -317,6 +332,8 @@ namespace AssistantComputerControl {
                     }
                 }
 
+                //ShowGettingStarted();
+
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();
             }
@@ -343,8 +360,12 @@ namespace AssistantComputerControl {
                 }
 
                 if (sentryOK) {
-                    using (SentrySdk.Init(sentryToken)) {
-                        DoDebug("Sentry initiated");
+                    try {
+                        using (SentrySdk.Init(sentryToken)) {
+                            DoDebug("Sentry initiated");
+                            ActualMain();
+                        }
+                    } catch {
                         ActualMain();
                     }
                 }
@@ -433,8 +454,7 @@ namespace AssistantComputerControl {
                 if (!string.IsNullOrEmpty(ex.Filename)) {
                     filename = ex.Filename;
                 } else {
-                    var innerEx = ex.InnerException as ConfigurationErrorsException;
-                    if (innerEx != null && !string.IsNullOrEmpty(innerEx.Filename)) {
+                    if (ex.InnerException is ConfigurationErrorsException innerEx && !string.IsNullOrEmpty(innerEx.Filename)) {
                         filename = innerEx.Filename;
                     }
                 }
@@ -659,19 +679,11 @@ namespace AssistantComputerControl {
             return Path.HasExtension(path) ? Path.GetDirectoryName(path) : path;
         }
 
+        private static readonly NLog.Logger _log_ = NLog.LogManager.GetCurrentClassLogger();
         public static void DoDebug(string str) {
-            try {
-                if (!File.Exists(logFilePath)) {
-                    Console.WriteLine("Log file does not exist, trying to create it");
-                    if (!CreateLogFile())
-                        return;
-                }
-                File.AppendAllText(logFilePath, DateTime.Now.ToString() + ": " + str + Environment.NewLine);
-                if (debug) {
-                    Console.WriteLine(str);
-                }
-            } catch (Exception e) {
-                Console.WriteLine("Failed to write to log, exception; " + e.Message);
+            _log_.Debug(str);
+            if (debug) {
+                Console.WriteLine(str);
             }
         }
 
@@ -720,7 +732,7 @@ namespace AssistantComputerControl {
                     string root = Path.GetPathRoot(path);
                     isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
                 }
-            } catch (Exception ex) {
+            } catch {
                 isValid = false;
             }
 

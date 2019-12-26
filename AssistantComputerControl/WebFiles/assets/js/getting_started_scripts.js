@@ -25,7 +25,7 @@ langBtn.on("click", function () {
     languageModal.modal("hide");
 });
 
-//languageModal.modal("show");
+languageModal.modal("show");
 
 function SetTranslation(translation_json, fallback_json) {
     if (typeof translation_json !== 'undefined') {
@@ -259,6 +259,8 @@ $("#pick_btn").on("click", function () {
     }
 });
 
+var actionAmounts = 0, actionResultTimeout = null;
+
 function actionWentThrough(status, title, action) {
     if (activeStep != 3) {
         //Done action before step 3, way to go!
@@ -269,19 +271,47 @@ function actionWentThrough(status, title, action) {
                 $("#too_fast_message").show();
             }
         }
+
         setStep(3);
     }
 
     if (status == "success") {
-        $("#success_setup_action_went_through").show().find("span").text(action);
-        $("#status_message").hide();
+        actionAmounts++;
 
-        $("#timeToTryText").stop().fadeOut("fast", function () {
-            $("#continue_button").attr("disabled", false);
-            $("#error_icon").stop().fadeOut("fast", function () {
-                $("#success_icon").stop().fadeIn();
-                $("#continue_button").stop().fadeIn();
-                $("#you_can_also_stay").stop().fadeIn();
+        if (actionAmounts <= 3) {
+            $("#actionProgressBar").attr("data-value", (100 / 3 * actionAmounts)).find(".h2").text(actionAmounts + "/3");
+            UpdateActionProgress();
+        }
+
+        $("#error_icon, #tryingActions").stop().fadeOut("fast", function () {
+            $("#actionDone").stop().fadeIn("medium", function () {
+
+                if (actionResultTimeout != null) {
+                    clearTimeout(actionResultTimeout);
+                    $("#success_icon").hide();
+                }
+
+                $("#success_icon").stop().fadeIn("fast", function () {
+                    $("#status_message").stop().fadeIn().html("<b>\"" + action + "\"</b> action went through!");
+                });
+
+                if (actionAmounts == 3) {
+                    $("#continue_button").stop().fadeIn();
+                } else {
+                    actionResultTimeout = setTimeout(function () {
+                        actionResultTimeout = null;
+
+                        $("#actionDone, #success_icon, #error_icon").stop().fadeOut("fast", function () {
+
+                            $("#fast_message").hide();
+                            $("#too_fast_message").hide();
+                            $("#status_message").hide();
+
+                            $("#status_message").html("");
+                            $("#tryingActions").stop().fadeIn();
+                        });
+                    }, 4000);
+                }
             });
         });
     } else if (status == "error") {
@@ -295,46 +325,8 @@ function actionWentThrough(status, title, action) {
                 $("#continue_button").stop().fadeIn();
             });
         });
-
-        //Fadeout after 20 seconds <---------------- NEEDS TESTING
-        actionErrorTimer = setTimeout(function () {
-            resetActionTester();
-        }, 20000);
     }
-    $("#status_message").text(title);
-}
-
-function resetActionTester(force) {
-    if (force == null)
-        force = false;
-
-    if (actionErrorTimer != null)
-        clearTimeout(actionErrorTimer);
-
-    $("#fast_message").hide();
-    $("#too_fast_message").hide();
-
-    if (!force) {
-        $("#continue_button").stop().fadeOut("fast", function () {
-            $(this).attr("disabled", false);
-        });
-        $("#you_can_also_stay").stop().fadeOut("fast");
-        $("#error_icon").stop().fadeOut("fast", function () {
-            $("#status_message").text("");
-            $("#success_setup_action_went_through").text("");
-            $("#timeToTryText").stop().fadeIn();
-        });
-        $("#success_icon").stop().fadeOut();
-    } else {
-        $("#success_icon").hide();
-        $("#continue_button").hide().attr("disabled", false);
-        $("#you_can_also_stay").hide();
-        $("#error_icon").hide();
-        $("#status_message").text("");
-        $("#success_setup_action_went_through").text("");
-        $("#timeToTryText").show();
-    }
-
+    //$("#status_message").text(title);
 }
 
 $('[data-toggle="popover"]').popover();
@@ -415,8 +407,6 @@ function setStep(step) {
         previousButton.stop().fadeIn();
         nextButton.stop().fadeIn();
         setNext(true);
-
-        resetActionTester(true);
     } else if (step == 3) {
         hasBeenAtStep3 = true;
 
@@ -458,6 +448,10 @@ previousButton.on("click", function () {
         activeStep = 2;
     } else if (activeStep == 1) {
         //Back to selection
+        actionAmounts = 0;
+        $("#actionProgressBar").attr("data-value", 0).find(".h2").text("0/3");
+        UpdateActionProgress(true);
+
         $("body").css("overflow", "hidden");
         $("#cloud_setup").stop().fadeOut("medium", function () {
             stepDivs[0].hide();
@@ -548,4 +542,49 @@ $(".onedrive_type").on("click", function () {
     $(this).removeClass("btn-default").addClass("btn-primary chosen_onedrive_type");
 
     window.external.SetODtype($(this).attr("data-onedrive-type"));
+});
+
+UpdateActionProgress();
+function UpdateActionProgress(reset) {
+    $(".progress").each(function () {
+        var value = $(this).attr('data-value');
+        var left = $(this).find('.progress-left .progress-bar');
+        var right = $(this).find('.progress-right .progress-bar');
+
+        if (reset === true) {
+            right.css('transform', 'rotate(0deg)')
+            left.css('transform', 'rotate(0deg)')
+        }
+
+        if (value > 0) {
+            if (value <= 50) {
+                right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+            } else {
+                right.css('transform', 'rotate(180deg)')
+                left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+            }
+        }
+
+    });
+}
+
+function percentageToDegrees(percentage) {
+    return percentage / 100 * 360
+}
+
+// NO SCALING
+$(document).keydown(function (event) {
+    if (event.ctrlKey == true && (event.which == '61' || event.which == '107' || event.which == '173' || event.which == '109' || event.which == '187' || event.which == '189')) {
+        event.preventDefault();
+    }
+    // 107 Num Key  +
+    // 109 Num Key  -
+    // 173 Min Key  hyphen/underscor Hey
+    // 61 Plus key  +/= key
+});
+
+$(window).bind('mousewheel DOMMouseScroll', function (event) {
+    if (event.ctrlKey == true) {
+        event.preventDefault();
+    }
 });

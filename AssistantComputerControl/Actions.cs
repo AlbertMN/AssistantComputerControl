@@ -21,7 +21,7 @@ using System.Linq;
 namespace AssistantComputerControl {
     class Actions {
         public bool wasFatal = false;
-        public string successMessage;
+        public string successMessage, errorMessage;
 
         //Logout
         [DllImport("user32.dll", SetLastError = true)]
@@ -105,7 +105,8 @@ namespace AssistantComputerControl {
         //Baisc things
         private void Error(string errorMsg, string debugMsg = null) {
             MainProgram.DoDebug("ERROR: " + (String.IsNullOrEmpty(debugMsg) ? errorMsg : debugMsg));
-            MainProgram.errorMessage = errorMsg;
+            //MainProgram.errorMessage = errorMsg;
+            errorMessage = errorMsg;
         }
 
         /*
@@ -642,7 +643,7 @@ namespace AssistantComputerControl {
                                 MainProgram.DoDebug("Deleted directory at " + fileLocation);
                             }
                         } else {
-                            MainProgram.errorMessage = "";
+                            Error("");
                         }
                     } else {
                         //Is file
@@ -794,33 +795,68 @@ namespace AssistantComputerControl {
         }
 
         public void MoveSubject(string parameter) {
-            /* Doesn't seem to be halfway finished ._. [TODO] */
-
             string theSubject = ActionChecker.GetSecondaryParam(parameter)[0]
                             , moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
 
             FileAttributes attr = File.GetAttributes(theSubject);
             if (attr.HasFlag(FileAttributes.Directory)) {
                 //Is directory
-                if (Directory.Exists(theSubject)) {
-                    if (Directory.Exists(moveTo)) {
-                        //Move subject to folder
-                    } else {
-                        if (Directory.Exists(Path.GetDirectoryName(moveTo))) {
-                            //Move subject folder and rename it to x
+
+                bool isPath = true;
+                try {
+                    Path.GetFullPath(moveTo);
+                } catch {
+                    isPath = false;
+                }
+                if (isPath) {
+                    if (Directory.Exists(theSubject)) {
+                        if (Directory.Exists(moveTo)) {
+                            //Dest is a folder
+                            string newMoveTo = Path.Combine(theSubject, Path.GetFileName(Path.GetDirectoryName(moveTo)));
+                            try {
+                                Directory.Move(theSubject, newMoveTo);
+                            } catch (Exception e) {
+                                Error("[Move action] Couldn't move folder (" + theSubject + ") to path; '" + newMoveTo + "'. Got error; " + e.Message);
+                            }
                         } else {
-                            //error
+                            //Dest is a new folder name!
+                            try {
+                                Directory.Move(theSubject, moveTo);
+                            } catch (Exception e) {
+                                Error("[Move action] Couldn't move folder (" + theSubject + "); " + e.Message);
+                            }
                         }
+                    } else {
+                        Error("[Move action] Subject folder doesn't exist");
                     }
                 } else {
-                    Error("Directory doesn't exist");
+                    Error("[Move action] To move a folder, the destination (secondary parameter) must be the path to a folder");
                 }
             } else {
                 //Is file
                 if (File.Exists(theSubject)) {
-
+                    attr = File.GetAttributes(moveTo);
+                    if (attr.HasFlag(FileAttributes.Directory)) {
+                        //Desination is a folder
+                        if (Directory.Exists(moveTo)) {
+                            try {
+                                File.Move(theSubject, moveTo);
+                            } catch (Exception e) {
+                                Error("[Move action] Couldn't move file to folder; " + e.Message);
+                            }
+                        } else {
+                            Error("[Move action] Desination folder doesn't exist");
+                        }
+                    } else {
+                        //Desination is a file - either overwrite existing file, or "rename" file to dest
+                        try {
+                            File.Move(theSubject, moveTo);
+                        } catch (Exception e) {
+                            Error("[Move action] Couldn't move file; " + e.Message);
+                        }
+                    }
                 } else {
-                    Error("File doesn't exist");
+                    Error("[Move action] Subject file doesn't exist");
                 }
             }
 

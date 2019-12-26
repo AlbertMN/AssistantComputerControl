@@ -19,20 +19,21 @@ using System.Linq;
 
 namespace AssistantComputerControl {
     class ActionChecker {
-        private static string successMessage = "";
-        private static bool lastActionWasFatal;
+        //Static variables
+        public static ulong lastFileUid;
+        public static List<ulong> executedFiles = new List<ulong>();
+
+        //Local
+        private int unsuccessfulReads = 0;
+        public bool isConfiguringOffset = false;
+        public List<double> lastModifiedOffsets = null;
+        
 
         private static bool RequireParameter(string param) {
             if(param != null) {
                 if(param != "") {
                     return true;
-                } else {
-                    MainProgram.DoDebug("ERROR: Parameter is empty");
-                    MainProgram.errorMessage = "Parameter is empty";
                 }
-            } else {
-                MainProgram.DoDebug("ERROR: Parameter not set");
-                MainProgram.errorMessage = "Parameter not set";
             }
             return false;
         }
@@ -52,19 +53,80 @@ namespace AssistantComputerControl {
             return false;
         }
 
+
+        /* Start credit */
+        //Thanks to Stackoverflow user "Ash" for this brilliant solution https://stackoverflow.com/a/1866788/4880538
+        class WinAPI {
+            [DllImport("ntdll.dll", SetLastError = true)]
+            public static extern IntPtr NtQueryInformationFile(IntPtr fileHandle, ref IO_STATUS_BLOCK IoStatusBlock, IntPtr pInfoBlock, uint length, FILE_INFORMATION_CLASS fileInformation);
+
+            public struct IO_STATUS_BLOCK {
+                uint status;
+                ulong information;
+            }
+            public struct _FILE_INTERNAL_INFORMATION {
+                public ulong IndexNumber;
+            }
+
+            // Abbreviated, there are more values than shown
+            public enum FILE_INFORMATION_CLASS {
+                FileDirectoryInformation = 1,     // 1
+                FileFullDirectoryInformation,     // 2
+                FileBothDirectoryInformation,     // 3
+                FileBasicInformation,         // 4
+                FileStandardInformation,      // 5
+                FileInternalInformation      // 6
+            }
+
+            [DllImport("kernel32.dll", SetLastError = true)]
+            public static extern bool GetFileInformationByHandle(IntPtr hFile, out BY_HANDLE_FILE_INFORMATION lpFileInformation);
+
+            public struct BY_HANDLE_FILE_INFORMATION {
+                public uint FileAttributes;
+                public FILETIME CreationTime;
+                public FILETIME LastAccessTime;
+                public FILETIME LastWriteTime;
+                public uint VolumeSerialNumber;
+                public uint FileSizeHigh;
+                public uint FileSizeLow;
+                public uint NumberOfLinks;
+                public uint FileIndexHigh;
+                public uint FileIndexLow;
+            }
+        }
+        public static ulong getFileUID(string theFile) {
+            WinAPI.BY_HANDLE_FILE_INFORMATION objectFileInfo = new WinAPI.BY_HANDLE_FILE_INFORMATION();
+
+            if (File.Exists(theFile)) {
+                FileInfo fi = new FileInfo(theFile);
+                FileStream fs = fi.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+                WinAPI.GetFileInformationByHandle(fs.Handle, out objectFileInfo);
+
+                fs.Close();
+
+                ulong fileIndex = ((ulong)objectFileInfo.FileIndexHigh << 32) + (ulong)objectFileInfo.FileIndexLow;
+
+                return fileIndex;
+            }
+            return 0;
+        }
+        /* End credit */
+
+        public static void ErrorMessageBox(string msg, string title = "") {
+            new Thread(() => {
+                MessageBox.Show(msg, (!String.IsNullOrEmpty(title) ? title : "Error | " + MainProgram.messageBoxTitle));
+            }).Start();
+        }
+
         [STAThread]
-        static public void FileFound(object source, FileSystemEventArgs e) {
+        public void FileFound(object source, FileSystemEventArgs e) {
             ProcessFile(e.FullPath);
         }
 
-        private static DateTime lastActionModified;
-        private static int unsuccessfulReads = 0;
-
         [STAThread]
-        static public void ProcessFile(string file, bool tryingAgain = false) {
-            MainProgram.DoDebug("Processing file...");
-            string originalFileName = file;
-
+        public void ProcessFile(string file, bool tryingAgain = false) {
+            //Custom 'file read delay'
             float fileReadDelay = Properties.Settings.Default.FileReadDelay;
             if (fileReadDelay > 0) {
                 MainProgram.DoDebug("User has set file delay to " + fileReadDelay.ToString() + "s, waiting before processing...");
@@ -76,60 +138,61 @@ namespace AssistantComputerControl {
                 return;
             }
 
-            bool hidden;
-
-            try {
-                hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
-            } catch {
-                MainProgram.DoDebug("Failed to get file attribute (file probably doesn't exist) - won't move on.");
-                return;
+            //Make sure the file isn't in use before trying to access it
+            int tries = 0;
+            while (FileInUse(file) || tries >= 20) {
+                tries++;
             }
-            
-            if (hidden && !tryingAgain) {
-                MainProgram.DoDebug("File is hidden and has therefore (most likely) already been processed and executed. Ignoring it...");
+            if (tries >= 20 && FileInUse(file)) {
+                MainProgram.DoDebug("File in use in use and can't be read. Try again.");
                 return;
             }
 
-            //DateTime lastModified = File.GetCreationTime(file);
-            DateTime lastModified = File.GetLastWriteTime(file);
-            if (lastModified == lastActionModified && !tryingAgain) {
-                MainProgram.DoDebug("File has the exact same 'last modified' timestamp as the previous action - most likely a dublicate; ignoring");
-                return;
-                
+            //Check unique file ID (dublicate check)
+            ulong theFileUid = 0;
+            bool gotFileUid = false;
+            tries = 0;
+            while (!gotFileUid || tries >= 30) {
+                try {
+                    theFileUid = getFileUID(file);
+                    gotFileUid = true;
+                } catch {
+                    Thread.Sleep(50);
+                }
             }
-            lastActionModified = lastModified;
-
-            if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
-                //if (File.GetLastWriteTime(file).AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
-                    //Extra security - sometimes the "creation" time is a bit behind, but the "modify" timestamp is usually right.
-
-                MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
-                MainProgram.DoDebug("File creation time: " + lastModified.ToString());
-                MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
-
-                new CleanupService().Start();
+            if (tries >= 30 && !gotFileUid) {
+                MainProgram.DoDebug("File in use in use and can't be read. Try again.");
                 return;
-                //}
             }
 
-            MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
-            MainProgram.DoDebug(" - " + file);
-            MainProgram.DoDebug(" - File exists, checking the content...");
 
+            //Validate UID
+            if (lastFileUid == 0) {
+                lastFileUid = Properties.Settings.Default.LastActionFileUid;
+            }
+            if (lastFileUid == theFileUid && !tryingAgain) {
+                //Often times this function is called three times per file - check if it has already been (or is being) processed
+                return;
+            }
+            if (executedFiles.Contains(theFileUid) && !tryingAgain) {
+                MainProgram.DoDebug("Tried to execute an already-executed file (UID " + theFileUid.ToString() + ")");
+                return;
+            }
+            lastFileUid = theFileUid;
+            executedFiles.Add(theFileUid);
+            Properties.Settings.Default.LastActionFileUid = lastFileUid;
+            Properties.Settings.Default.Save();
+
+            MainProgram.DoDebug("Processing file...");
+            string originalFileName = file, fullContent = "";
+
+            if (!File.Exists(file)) {
+                MainProgram.DoDebug("File no longer exists when trying to read file.");
+                return;
+            }
+
+            //READ FILE
             if (new FileInfo(file).Length != 0) {
-                string fullContent = "";
-                //Sentry issue @804439508
-
-                int tries = 0;
-                while (FileInUse(file) || tries >= 20) {
-                    tries++;
-                }
-
-                if (tries >= 20 && FileInUse(file)) {
-                    MainProgram.DoDebug("File still in use and can't be read. Try again.");
-                    return;
-                }
-
                 try {
                     string fileContent;
                     fileContent = File.ReadAllText(file);
@@ -150,37 +213,63 @@ namespace AssistantComputerControl {
                 }
                 MainProgram.DoDebug(" - Read complete, content: " + fullContent);
 
-                using (StringReader reader = new StringReader(fullContent)) {
-                    string theLine = string.Empty;
-                    do {
-                        theLine = reader.ReadLine();
-                        if (theLine != null) {
-                            MainProgram.DoDebug("\n[EXECUTING ACTION]");
-                            CheckAction(theLine, file);
-                        }
 
-                    } while (theLine != null);
-                }
             } else {
                 MainProgram.DoDebug(" - File is empty");
-                MainProgram.errorMessage = "No action set (file is empty)";
+                ErrorMessageBox("No action was set in the action file.");
+            }
+            //END READ
 
-                if ((File.GetAttributes(file) & FileAttributes.Hidden) != FileAttributes.Hidden) {
-                    try {
-                        File.SetAttributes(file, FileAttributes.Hidden);
-                    } catch {
-                        //
+            //DateTime lastModified = File.GetCreationTime(file);
+            DateTime lastModified = File.GetLastWriteTime(file);
+ 
+            if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
+                //if (File.GetLastWriteTime(file).AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
+                    //Extra security - sometimes the "creation" time is a bit behind, but the "modify" timestamp is usually right.
+
+                MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
+                MainProgram.DoDebug("File creation time: " + lastModified.ToString());
+                MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
+
+                if (GettingStarted.isConfiguringActions) {
+                    //Possibly configure an offset - if this always happens
+
+                    Console.WriteLine(" -------------- IS CONFIGURING");
+
+                    isConfiguringOffset = true;
+                    if (lastModifiedOffsets == null) {
+                        lastModifiedOffsets = new List<double>();
                     }
+
+                    lastModifiedOffsets.Add((DateTime.Now - lastModified).TotalSeconds);
+                    if (lastModifiedOffsets.Count >= 3) {
+                        Console.WriteLine("Average is; " + (int)(lastModifiedOffsets.Average() + 30));
+                    }
+                } else {
+                    new CleanupService().Start();
+                    return;
                 }
+                //}
+            }
+            
+            MainProgram.DoDebug("\n[ -- DOING ACTION(S) -- ]");
+            MainProgram.DoDebug(" - " + file + " UID; " + theFileUid);
+            MainProgram.DoDebug(" - File exists, checking the content...");
+
+            //Process the file
+            using (StringReader reader = new StringReader(fullContent)) {
+                string theLine = string.Empty;
+                do {
+                    theLine = reader.ReadLine();
+                    if (theLine != null) {
+                        MainProgram.DoDebug("\n[EXECUTING ACTION]");
+                        CheckAction(theLine, file);
+                    }
+
+                } while (theLine != null);
             }
 
             MainProgram.DoDebug("[ -- DONE -- ]");
-
-            if (MainProgram.errorMessage.Length != 0) {
-                MessageBox.Show(MainProgram.errorMessage, "Error | " + MainProgram.messageBoxTitle);
-                //Thread.Sleep(5000);
-                MainProgram.errorMessage = "";
-            }
         }
 
         private static void CheckAction(string theLine, string theFile) {
@@ -233,12 +322,6 @@ namespace AssistantComputerControl {
                 }
             }
 
-            try {
-                File.SetAttributes(theFile, FileAttributes.Hidden);
-            } catch {
-                MainProgram.DoDebug("Failed to set attribute; hidden on action file");
-            }
-
             if (action.Contains(":")) {
                 //Contains a parameter
                 string[] splitAction = action.Split(':');
@@ -263,12 +346,19 @@ namespace AssistantComputerControl {
             MainProgram.DoDebug(" - Parameter: " + parameter);
             MainProgram.DoDebug(" - Full line: " + theLine);
 
-            lastActionWasFatal = false;
-            ExecuteAction(action, theLine, parameter);
-
-            if (!lastActionWasFatal) {
+            Actions theActionExecution = ExecuteAction(action, theLine, parameter);
+            if (!theActionExecution.wasFatal) {
                 MainProgram.DoDebug("Non-fatal action. Starting cleanup service.");
                 new CleanupService().Start();
+            }
+
+            if (!String.IsNullOrEmpty(theActionExecution.successMessage)) {
+                MainProgram.DoDebug("\nSUCCESS: " + theActionExecution.successMessage + "\n");
+            }
+            
+            if (!String.IsNullOrEmpty(theActionExecution.errorMessage)) {
+                MainProgram.DoDebug("[ERROR]: " + theActionExecution.errorMessage);
+                ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
             }
         }
 
@@ -285,7 +375,7 @@ namespace AssistantComputerControl {
             return new string[1] { param };
         }
 
-        public static void ExecuteAction(string action, string line, string parameter) {
+        public static Actions ExecuteAction(string action, string line, string parameter) {
             Actions actionExecution = new Actions();
 
             switch (action.ToLower()) {
@@ -398,24 +488,15 @@ namespace AssistantComputerControl {
                     break;
                 default:
                     //Unknown action
-                    MainProgram.DoDebug("ERROR: Unknown action \"" + action + "\"");
-                    MainProgram.errorMessage = "Unknown action \"" + action + "\"";
+                    actionExecution.errorMessage = "Unknown action \"" + action + "\"";
                     break;
             }
 
-            successMessage = actionExecution.successMessage;
-
-            lastActionWasFatal = actionExecution.wasFatal;
-            actionExecution.wasFatal = false;
-
-            if (successMessage != "") {
-                MainProgram.DoDebug("\nSUCCESS: " + successMessage + "\n");
-            }
-
             if (MainProgram.testingAction) {
-                MainProgram.testActionWindow.ActionExecuted(successMessage, MainProgram.errorMessage, action, parameter, line);
+                MainProgram.testActionWindow.ActionExecuted(actionExecution.successMessage, actionExecution.errorMessage, action, parameter, line);
             }
-            successMessage = "";
+
+            return actionExecution;
         }
     }
 }

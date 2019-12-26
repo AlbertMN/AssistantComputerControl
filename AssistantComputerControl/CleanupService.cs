@@ -15,6 +15,7 @@ namespace AssistantComputerControl {
             new Thread(() => {
                 Thread.CurrentThread.IsBackground = true;
                 MainProgram.DoDebug("[CLEANUP] Service started");
+                Thread.Sleep(150);
 
                 if (isCleaning) {
                     MainProgram.DoDebug("[CLEANUP] Another cleanup service in progress. Waiting...");
@@ -25,20 +26,25 @@ namespace AssistantComputerControl {
                 }
                 isCleaning = true;
 
-                int tries = 0;
-                while (!Check() && tries <= 10) {
-                    tries++;
-                    Thread.Sleep(1000);
-                }
-
-                if (tries >= 10) {
-                    MainProgram.DoDebug("[CLEANUP] Timeout. Failed to remove files in action folder.");
-                } else {
-                    if (!AllHiddenCheck()) {
-                        MainProgram.DoDebug("[CLEANUP] Did not timeout, but action folder is still not empty - not supposed to happen");
-                    } else {
-                        MainProgram.DoDebug("[CLEANUP] Successful");
+                if (AllHiddenCheck() != 0 && EmptyCheck()) {
+                    int tries = 0;
+                    while (!Check() && tries <= 10) {
+                        tries++;
+                        Thread.Sleep(1000);
                     }
+
+                    if (tries >= 10) {
+                        MainProgram.DoDebug("[CLEANUP] Timeout. Failed to remove files in action folder.");
+                    } else {
+                        int filesAmount = AllHiddenCheck();
+                        if (filesAmount != 0) {
+                            MainProgram.DoDebug("[CLEANUP] Did not timeout, but action folder is still not empty (" + filesAmount.ToString() + " non-hidden files in folder) - not supposed to happen Emtpy check returns " + (EmptyCheck() ? "true" : "false"));
+                        } else {
+                            MainProgram.DoDebug("[CLEANUP] Successful");
+                        }
+                    }
+                } else {
+                    MainProgram.DoDebug("[CLEANUP] Action folder is completely empty");
                 }
                 isCleaning = false;
             }).Start();
@@ -48,15 +54,16 @@ namespace AssistantComputerControl {
             return Directory.GetFiles(MainProgram.CheckPath()).Length > 0;
         }
 
-        private bool AllHiddenCheck() {
+        private int AllHiddenCheck() {
             int count = 0;
             foreach (string file in Directory.GetFiles(MainProgram.CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
                 bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
                 if (!hidden || file.Contains("computerAction")) {
+                    //MainProgram.DoDebug("[CLEANUP] Found file; " + file);
                     count++;
                 }
             }
-            return count == 0;
+            return count;
         }
         
         private bool Check() {
@@ -80,10 +87,11 @@ namespace AssistantComputerControl {
                         }
                         
                         //string newFilename = Path.Combine(Path.GetDirectoryName(file), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
-                        //string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
-                        string newFilename = Path.Combine(Path.Combine(MainProgram.CheckPath(), "used_actions"), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
+                        string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
+                        //string newFilename = Path.Combine(Path.Combine(MainProgram.CheckPath(), "used_actions"), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
                         File.Move(file, newFilename);
                         //File.Delete(newFilename);
+                        //File.Delete(file);
                         //cleanedFiles.Add(newFilename);
                         numFiles++;
                     }

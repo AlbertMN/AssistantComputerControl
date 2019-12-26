@@ -228,73 +228,106 @@
             <div class="row setup-content" id="step-3" style="display:none;">
                 <div class="col-md-12">
                     <div id="timeToTryText">
-                        <h3 data-translation-key="time_to_try_heading">Time to try!</h3>
-                        <p>
-                            <!--<span data-translation-key="done_description"></span><br>-->
-                            <!--<i>
-                            <small><span data-translation-key="applet_enable_reminder"></span> (<a class="shutdown_test_link_gh" href="#">[Google Assistant]</a>, <a class="shutdown_test_link_alexa" href="#">[Amazon Alexa]</a>)</small>
-                        </i><br />-->
+                        <h3 data-translation-key="time_to_try_heading"></h3>
 
+                        <!--<span data-translation-key="done_description"></span><br>-->
+                        <!--<i>
+        <small><span data-translation-key="applet_enable_reminder"></span> (<a class="shutdown_test_link_gh" href="#">[Google Assistant]</a>, <a class="shutdown_test_link_alexa" href="#">[Amazon Alexa]</a>)</small>
+    </i><br />-->
 
-                            <small><i><span data-translation-key="custom_trigger_reminder"></span></i></small>
-                            <div style="text-align:left;margin-top:2px;">
-                                <div style="display:inline-block;margin-right:15px;">
-                                    <div>
-                                        <img draggable="false" src="assets/images/voice-icon.png" style="width:50px;" />
-                                    </div>
-                                </div>
-                                <div style="display:inline-block;">
-                                    <span data-translation-key="google_assistant_trigger_example">The <b>Google Assistant</b> trigger would be;</span> <i>"Hey Google, turn off my computer"</i><br>
-                                    <span data-translation-key="alexa_trigger_example">For <b>Alexa</b>, you'd need to say</span> <i>"Alexa, trigger turn off my computer"</i>
+                        <small><i><span data-translation-key="custom_trigger_reminder"></span></i></small>
+                        <div style="text-align:left;margin-top:0px;">
+                            <div style="display:inline-block;margin-right:15px;">
+                                <div>
+                                    <img draggable="false" src="assets/images/voice-icon.png" style="width:50px;" />
                                 </div>
                             </div>
-
-                            <br>
-                            <b>
-                                <span data-translation-key="wont_execute_reminder"></span>
-                            </b>
-                        </p>
-
-                        <div style="text-align:center;">
-                            <p style="z-index:9999;color:gray;"><b><i>Listening for actions...</i></b></p>
-                            <div style="margin-top:-10px;">
-                                <div class="loading_container row">
-                                    <div class="elements loading_elements2">
-                                        <div class="el"></div>
-                                        <div class="el"></div>
-                                        <div class="el"></div>
-                                        <div class="el"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div style="text-align:left;margin-top:60px;">
-                                <button data-toggle="modal" data-target="#finalDoesntWorkModal" class="btn btn-sm btn-danger">Is it not working?</button>
+                            <div style="display:inline-block;">
+                                <span data-translation-key="google_assistant_trigger_example">The <b>Google Assistant</b> trigger would be;</span> <i>"Hey Google, turn off my computer"</i><br>
+                                <span data-translation-key="alexa_trigger_example">For <b>Alexa</b>, you'd need to say</span> <i>"Alexa, trigger turn off my computer"</i>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Success & error icon -->
-                    <div id="success_icon" class="swal2-icon swal2-success swal2-animate-success-icon"
-                         style="display: none;">
-                        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
-                        <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
-                        <div class="swal2-success-ring"></div>
-                        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-                        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-                    </div>
-                    <div id="error_icon" class="swal2-icon swal2-error swal2-animate-error-icon" style="display:none;">
-                        <span class="swal2-x-mark">
-                            <span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span>
-                        </span>
-                    </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col-4">
 
-                    <h3 id="success_setup_action_went_through" style="display:none;">Software all set up! Received "<code><span></span></code>" action</h3>
-                    <h3 style="display:none;" id="status_message"></h3>
-                    <h4 id="fast_message" style="display:none;">You're a fast learner!</h4>
-                    <h4 id="too_fast_message" style="display:none;">You were fast, but, were you <i>too</i> fast...?</h4>
+                                <!-- X/3 action progress -->
+                                <div>
+                                    <div style="width:50%;margin:auto;">
+                                        <div id="actionProgressBar" class="progress mx-auto" style="margin-top:0;" data-value='0'>
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                                <div class="h2 font-weight-bold">0/3</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END -->
 
-                    <button id="continue_button" style="border-radius:0;display:none;" class="btn btn-primary btn-block btn-lg">Continue & explore the software!</button>
+
+                            </div>
+                            <div class="col-8">
+                                <!-- "Waiting for an action..." -->
+                                <div id="tryingActions" class="text-center">
+                                    <p style="z-index:9999;color:gray;"><b><i>Listening for actions...</i></b></p>
+                                    <div style="margin-top:-10px;">
+                                        <div class="loading_container row">
+                                            <div class="elements loading_elements2">
+                                                <div class="el"></div>
+                                                <div class="el"></div>
+                                                <div class="el"></div>
+                                                <div class="el"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <p data-translation-key="configure_software_info" style="font-style:italic;"></p>
+                                    <b>
+                                        <span data-translation-key="wont_execute_reminder"></span>
+                                    </b>
+                                </div>
+
+                                <!-- Action stuff -->
+                                <div id="actionDone" class="row">
+                                    <!-- Success & error icon -->
+                                    
+                                    <div class="col-12">
+                                        <div id="success_icon" class="swal2-icon swal2-success swal2-animate-success-icon" style="display: none;">
+                                            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                                            <span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span>
+                                            <div class="swal2-success-ring"></div>
+                                            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                                            <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                                        </div>
+                                        <div id="error_icon" class="swal2-icon swal2-error swal2-animate-error-icon" style="display:none;">
+                                            <span class="swal2-x-mark">
+                                                <span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <h3 id="success_setup_action_went_through" style="display:none;">Software all set up! Received "<code><span></span></code>" action</h3>
+                                        <h4 id="status_message"></h4>
+                                        <h4 id="fast_message" data-translation-key="fast_learner" style="display:none;"></h4>
+                                        <h4 id="too_fast_message" data-translation-key="too_fast" style="display:none;"></h4>
+
+                                        <button id="continue_button" style="border-radius:0;display:none;" class="btn btn-primary btn-block btn-lg">Continue & explore the software!</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div style="margin-left:15px;margin-bottom:5px;position:fixed;left:0;bottom:0;">
+                            <button data-toggle="modal" data-target="#finalDoesntWorkModal" class="btn btn-sm btn-danger">Is it not working?</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -383,7 +416,7 @@
                     </div>
 
                     <p data-translation-key="repeat_step_two_suggestion" style="font-weight:bold;">
-                       First, it's recommended that you try and go through <a href="#" style="cursor:pointer;" data-dismiss="modal" onclick="setStep(2);">step 2</a> again. If you're certain it's set up correctly, proceed to the solutions below.
+                        First, it's recommended that you try and go through <a href="#" style="cursor:pointer;" data-dismiss="modal" onclick="setStep(2);">step 2</a> again. If you're certain it's set up correctly, proceed to the solutions below.
                     </p>
 
                     <hr />

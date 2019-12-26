@@ -136,3 +136,11 @@ C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComput
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\images\acc-logo.png
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\css\getting_started_main.css
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\js\getting_started_scripts.js
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\css\getting_started_main.css
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\images\acc-logo.png
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\images\ifttt_logo.png
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\images\language-icon.png
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\images\voice-icon.png
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\WebFiles\assets\js\getting_started_scripts.js
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Danish.json
+C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\English.json

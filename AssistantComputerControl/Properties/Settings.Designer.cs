@@ -307,5 +307,17 @@ namespace AssistantComputerControl.Properties {
                 this["ActiveLanguage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ulong LastActionFileUid {
+            get {
+                return ((ulong)(this["LastActionFileUid"]));
+            }
+            set {
+                this["LastActionFileUid"] = value;
+            }
+        }
     }
 }

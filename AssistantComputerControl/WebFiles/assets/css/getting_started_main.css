@@ -98,6 +98,7 @@ body {
     margin-top: 10px;
     font-size: 15px;
     overflow: hidden;
+    overflow-y: hidden!important;
 }
 
 .stepwizard-step p {
@@ -170,14 +171,11 @@ body {
 }
 
 .loading_elements2 {
-    text-align: center;
+    float:left;
+    text-align: left;
     opacity: 0.8;
     display: flex;
     flex-direction: row;
-    /*margin-top: -100px;
-            margin-right: 260px;*/
-    position: fixed;
-    left: 43%;
 }
 
 .elements .el {
@@ -315,3 +313,87 @@ ol li {
 .card-selected {
     border: 2px solid blue;
 }
+
+
+
+
+
+
+
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+.progress {
+    width: 150px;
+    height: 150px;
+    background: none;
+    position: relative;
+}
+
+    .progress::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 6px solid #eee;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .progress > span {
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+    }
+
+    .progress .progress-left {
+        left: 0;
+    }
+
+    .progress .progress-bar {
+        width: 100%;
+        height: 100%;
+        background: none;
+        border-width: 6px;
+        border-style: solid;
+        position: absolute;
+        top: 0;
+    }
+
+    .progress .progress-left .progress-bar {
+        left: 100%;
+        border-top-right-radius: 80px;
+        border-bottom-right-radius: 80px;
+        border-left: 0;
+        -webkit-transform-origin: center left;
+        transform-origin: center left;
+    }
+
+    .progress .progress-right {
+        right: 0;
+    }
+
+        .progress .progress-right .progress-bar {
+            left: -100%;
+            border-top-left-radius: 80px;
+            border-bottom-left-radius: 80px;
+            border-right: 0;
+            -webkit-transform-origin: center right;
+            transform-origin: center right;
+        }
+
+    .progress .progress-value {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }

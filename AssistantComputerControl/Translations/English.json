@@ -79,11 +79,9 @@
       "expert_setup_short_desc": "Choose me if you want more freedom (custom setup, no help)",
       "expert_setup_name": "Expert setup",
 
-      /* TODO VVV */
       "pick_button_default_text": "Pick a cloud service", /* text on the button while it's disabled, until the user has clicked a cloud service */
       "pick_button_text": "Proceed with {cloud_service}", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
       "expert_setup_chosen_text": "the expert setup", /* what apperas after "Proceed with ..." on the pick-button */
-      /* */
 
       "skip_guide_text": "Click here to skip the setup guide <i>(not recommended)</i>",
 
@@ -140,13 +138,17 @@
       "ifttt_link_info": "If you haven't linked your {cloud_service} or Google/Amazon account yet, you will be asked to link your accounts",
 
       /* "Done" tab */
-      "time_to_try_heading": "Time to try!",
+      "time_to_try_heading": "Try the shutdown action 3 times!",
       "done_description": "Now all that's left to do is try the software. With {cloud_service} fully set up, an IFTTT account and an enabled ACC-applet, we can now test in a safe environment.",
       "applet_enable_reminder": "Haven't yet enabled the \"shutdown\" applet? Click the link for the assistant you use and enable it.",
       "custom_trigger_reminder": "... depending on the language you set on the applet, and if you changed the triggers in step 2...",
       "google_assistant_trigger_example": "The <b>Google Assistant</b> trigger would be;",
       "alexa_trigger_example": "For <b>Alexa</b>, you'd need to say",
-      "wont_execute_reminder": "The actions you say will <i>not</i> be executed, just simulated!",
+      "configure_software_info": "To configure the software to match your computer in the best way possible, let's try the <code>shutdown</code> action 3 times!",
+      "wont_execute_reminder": "The actions you try will <i>not</i> be executed, just simulated!",
+
+      "fast_learner": "You're a fast learner!", // Shown when the user executes the first action before even going to tab 3
+      "too_fast": "You were fast, but, were you <i>too</i> fast...?", // Shown when the user is fast, but the action fails
 
       /* "Not working" modal (troubleshooting) */
       "not_working_button": "Is it not working?",

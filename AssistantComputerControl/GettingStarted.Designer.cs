@@ -260,6 +260,7 @@
             this.doneActionViewBrowser.Size = new System.Drawing.Size(783, 445);
             this.doneActionViewBrowser.TabIndex = 0;
             this.doneActionViewBrowser.Url = new System.Uri("", System.UriKind.Relative);
+            this.doneActionViewBrowser.WebBrowserShortcutsEnabled = false;
             // 
             // GettingStarted
             // 

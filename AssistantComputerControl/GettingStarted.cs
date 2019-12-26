@@ -34,6 +34,7 @@ namespace AssistantComputerControl {
         public static WebBrowser theWebBrowser = null, theDoneActionViewBrowser;
         private static TabControl theTabControl;
         public static GettingStarted theInstance;
+        public static bool isConfiguringActions = false;
 
         [ComVisible(true)]
         public class WebBrowserHandler {
@@ -178,12 +179,6 @@ namespace AssistantComputerControl {
             }
 
             /* End translations */
-
-            public void SkipGuide() {
-                SetupDone();
-                MainProgram.DoDebug("Skipped setup guide");
-                MainProgram.gettingStarted.Close();
-            }
 
             public void SetupSuccess(string cloud_serivce) {
                 theDoneActionViewBrowser.Url = new Uri("https://assistantcomputercontrol.com/integrated_action_grid.php?lang=" + Properties.Settings.Default.ActiveLanguage + "&max_version_number=" + MainProgram.softwareVersion + "&cloud_service=" + cloud_serivce);
@@ -429,8 +424,11 @@ namespace AssistantComputerControl {
             VisibleChanged += delegate {
                 MainProgram.testingAction = Visible;
                 MainProgram.gettingStarted = Visible ? this : null;
+                isConfiguringActions = Visible;
             };
             FormClosed += delegate {
+                //Is needed
+                isConfiguringActions = false;
                 MainProgram.testingAction = false;
                 MainProgram.gettingStarted = null;
             };
@@ -448,9 +446,9 @@ namespace AssistantComputerControl {
         } // End main function
 
         public void SendActionThrough(Object[] objArray) {
-            if ((string)objArray[0] == "success") {
+            /*if ((string)objArray[0] == "success") { //We don't wanna do this...
                 SetupDone();
-            }
+            }*/
             this.Invoke(new Action(() => {
                 FlashWindow.Flash(this);
                 if (Application.OpenForms[this.Name] != null) {
@@ -531,6 +529,9 @@ namespace AssistantComputerControl {
         }
 
         private static void SetupDone() {
+            MainProgram.testingAction = false;
+            isConfiguringActions = false;
+
             MainProgram.DoDebug("Completed setup guide");
             Properties.Settings.Default.HasCompletedTutorial = true;
             Properties.Settings.Default.Save();
