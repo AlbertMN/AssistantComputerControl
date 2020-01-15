@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{404B42F4-E135-4D2F-8FD0-20A590814930}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AssistantComputerControl</RootNamespace>
     <AssemblyName>AssistantComputerControl</AssemblyName>
@@ -151,7 +151,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ACC_Updater.cs" />
+    <Compile Include="SoftwareUpdater.cs" />
     <Compile Include="ActionChecker.cs" />
     <Compile Include="Actions.cs" />
     <Compile Include="AdvancedSettings.cs">
@@ -226,6 +226,9 @@
     <None Include="Translations\English.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Translations\Francais.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\logo_white.ico" />
@@ -234,13 +237,16 @@
     <Content Include="WebFiles\AboutVersion.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\acc_logo.png">
+    <Content Include="WebFiles\ActionTester.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\bootstrap.min.css">
+    <Content Include="WebFiles\assets\images\acc_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\bootstrap.min.js">
+    <Content Include="WebFiles\assets\css\bootstrap.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebFiles\assets\js\bootstrap.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebFiles\assets\cloud_services\dropbox.png">
@@ -267,9 +273,6 @@
     <Content Include="WebFiles\assets\gifs\sync_specific_folder.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\images\acc-logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="WebFiles\assets\images\ifttt_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -279,19 +282,19 @@
     <Content Include="WebFiles\assets\images\voice-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\jquery.js">
+    <Content Include="WebFiles\assets\js\jquery.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebFiles\assets\js\getting_started_scripts.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\popper.min.js">
+    <Content Include="WebFiles\assets\js\popper.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\sweetalert2.min.css">
+    <Content Include="WebFiles\assets\css\sweetalert2.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\sweetalert2.min.js">
+    <Content Include="WebFiles\assets\js\sweetalert2.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebFiles\GettingStarted.html">

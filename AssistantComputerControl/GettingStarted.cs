@@ -227,7 +227,7 @@ namespace AssistantComputerControl {
                             theHandle = theWebBrowser.Handle;
                         } catch {
                             MainProgram.DoDebug("Failed to get web browser handle.");
-                            MessageBox.Show("Failed to set cloud service - try again.");
+                            MessageBox.Show(Translator.__("cloud_setup_failed", "general"), MainProgram.messageBoxTitle);
                         }
 
                         if (theHandle != IntPtr.Zero) {
@@ -443,6 +443,15 @@ namespace AssistantComputerControl {
                     }
                 }));
             };
+
+            //"Expert setup" translations
+            customSetupTitle.Text = Translator.__("title", "expert_setup");
+            customSetupInfo.Text = Translator.__("description", "expert_setup");
+            actionFolderPathLabel.Text = Translator.__("action_folder_path", "expert_setup");
+            actionFileExtensionLabel.Text = Translator.__("action_file_extension", "expert_setup");
+            disclaimerLabel.Text = Translator.__("disclaimer", "expert_setup");
+            backToSetupGuide.Text = Translator.__("back_to_setup", "expert_setup");
+            expertDoneButton.Text = Translator.__("done_button", "expert_setup");
         } // End main function
 
         public void SendActionThrough(Object[] objArray) {
@@ -549,7 +558,14 @@ namespace AssistantComputerControl {
         }
 
         private void expertDoneButton_Click(object sender, EventArgs e) {
-            tabControl.SelectTab(3);
+            theDoneActionViewBrowser.Url = new Uri("https://assistantcomputercontrol.com/integrated_action_grid.php?lang=" + Properties.Settings.Default.ActiveLanguage + "&max_version_number=" + MainProgram.softwareVersion + "&cloud_service=none");
+
+            thisForm.Size = new Size(thisForm.Size.Width, thisForm.Size.Height + 150);
+            theTabControl.Size = new Size(theTabControl.Size.Width, theTabControl.Size.Height + 150);
+            theWebBrowser.Size = new Size(theWebBrowser.Size.Width, theWebBrowser.Size.Height + 150);
+
+            theTabControl.SelectTab(3);
+            SetupDone();
         }
 
         private void iftttActions_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

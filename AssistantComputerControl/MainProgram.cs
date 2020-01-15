@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.3.3, 16-12-2019
+ * Updated: v1.4.0, 26-12-2019
  * 
  * Use:
  * - Main class. Starts everything.
@@ -25,11 +25,12 @@ using NLog;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.3.3",
-            releaseDate = "2019-12-16 18:41:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.0",
+            releaseDate = "2020-01-3 21:49:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "super_secret";
+            //sentryToken = "super_secret";
+            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
 
 
         static public bool debug = true,
@@ -58,7 +59,7 @@ namespace AssistantComputerControl {
             startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup),
             messageBoxTitle = appName;
 
-        private static SysTrayIcon sysIcon = new SysTrayIcon();
+        private static SysTrayIcon sysIcon;
         public static TestActionWindow testActionWindow;
         private static SettingsForm settingsForm = null;
         public static GettingStarted gettingStarted = null;
@@ -157,6 +158,8 @@ namespace AssistantComputerControl {
                     Properties.Settings.Default.ActiveLanguage = "English";
                     Translator.SetLanguage("English");
                 }
+                //End translator
+                sysIcon = new SysTrayIcon();
 
                 Properties.Settings.Default.TimesOpened += 1;
                 Properties.Settings.Default.Save();
@@ -197,7 +200,7 @@ namespace AssistantComputerControl {
                 if (Properties.Settings.Default.CheckForUpdates) {
                     if (HasInternet()) {
                         new Thread(() => {
-                            new ACC_Updater().Check();
+                            new SoftwareUpdater().Check();
                         }).Start();
                     } else {
                         DoDebug("Couldn't check for new update as PC does not have access to the internet");
@@ -264,6 +267,9 @@ namespace AssistantComputerControl {
                 };
                 watcher.Changed += new FileSystemEventHandler(new ActionChecker().FileFound);
                 watcher.Created += new FileSystemEventHandler(new ActionChecker().FileFound);
+                watcher.Renamed += new RenamedEventHandler(new ActionChecker().FileFound);
+                watcher.Deleted += new FileSystemEventHandler(new ActionChecker().FileFound);
+                watcher.Error += delegate { DoDebug("Something wen't wrong TEST"); };
 
                 DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
@@ -306,7 +312,7 @@ namespace AssistantComputerControl {
                     Properties.Settings.Default.Save();
                 }
 
-                /* 'Satisfied' user feedback implementation */
+                /* 'Evalufied' user feedback implementation */
                 if ((DateTime.Now - Properties.Settings.Default.LastUpdated).TotalDays >= 7 && Properties.Settings.Default.TimesOpened >= 7
                     && gettingStarted == null
                     && !Properties.Settings.Default.HasPromptedFeedback) {
@@ -317,7 +323,7 @@ namespace AssistantComputerControl {
                             WebRequest request = WebRequest.Create("https://evalufied.dk/");
                             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                             if (response == null || response.StatusCode != HttpStatusCode.OK) {
-                                DoDebug("'Satisfied' is down - won't show faulty feedback window");
+                                DoDebug("'Evalufied' is down - won't show faulty feedback window");
                             } else {
                                 DoDebug("Showing 'User Feedback' window");
                                 Properties.Settings.Default.HasPromptedFeedback = true;
@@ -325,7 +331,7 @@ namespace AssistantComputerControl {
                                 new UserFeedback().Show();
                             }
                         } catch {
-                            DoDebug("Failed to check for 'Satisfied'-availability");
+                            DoDebug("Failed to check for 'Evalufied'-availability");
                         }
                     } else {
                         DoDebug("No internet connection, not showing user feedback window");
@@ -342,6 +348,11 @@ namespace AssistantComputerControl {
                 //Tracking issues with Sentry.IO - not forked from GitHub (official version)
                 bool sentryOK = false;
                 try {
+                    if (Properties.Settings.Default.UID != "") {
+                        Properties.Settings.Default.UID = Guid.NewGuid().ToString();
+                        Properties.Settings.Default.Save();
+                    }
+
                     if (Properties.Settings.Default.UID != "") {
                         SentrySdk.ConfigureScope(scope => {
                             scope.User = new Sentry.Protocol.User {
@@ -511,11 +522,11 @@ namespace AssistantComputerControl {
                         try {
                             Directory.CreateDirectory(setTo);
                         } catch {
-                            MessageBox.Show("Path not valid", "ACC");
+                            MessageBox.Show(Translator.__("invalid_path", "general"), MainProgram.messageBoxTitle);
                             return;
                         }
                     } else {
-                        MessageBox.Show("Path not valid", "ACC");
+                        MessageBox.Show(Translator.__("invalid_path", "general"), MainProgram.messageBoxTitle);
                         return;
                     }
                 }
@@ -532,7 +543,7 @@ namespace AssistantComputerControl {
                 SetupListener();
                 DoDebug("Check folder updated (" + CheckPath() + ")");
             } else {
-                MessageBox.Show("Path not valid", "ACC");
+                MessageBox.Show(Translator.__("invalid_path", "general"), MainProgram.messageBoxTitle);
             }
         }
 
@@ -669,7 +680,7 @@ namespace AssistantComputerControl {
                 if ((Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain)) {
                     //Dropbox not found & no custom filepath, go through setup again?
                     hasAskedForSetupAgain = true;
-                    var msgBox = MessageBox.Show("You do not seem to have chosen a cloud-service. Do you want to go through the setup guide again?", "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
+                    var msgBox = MessageBox.Show(Translator.__("no_cloudservice_chosen", "general"), "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
                     if (msgBox == DialogResult.Yes) {
                         ShowGettingStarted();
                     }

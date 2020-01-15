@@ -19,9 +19,9 @@ namespace AssistantComputerControl {
         }
 
         public void AddOpenOnStartupMenu() {
-            trayMenu.MenuItems.Add("Open on startup", new EventHandler(TrayCreateStartupLink));
+            trayMenu.MenuItems.Add(Translator.__("open_on_startup", "tray_menu"), new EventHandler(TrayCreateStartupLink));
         }
-        private void InitializeComponent() {
+        public void InitializeComponent() {
             TrayIcon = new NotifyIcon();
 
             //System tray creation
@@ -31,9 +31,9 @@ namespace AssistantComputerControl {
             };
             
             //Add tray menu items
-            trayMenu.MenuItems.Add("Settings", delegate { MainProgram.ShowSettings(); });
-            trayMenu.MenuItems.Add("Help", new EventHandler(TrayOpenHelp));
-            trayMenu.MenuItems.Add("Exit", new EventHandler(TrayExit));
+            trayMenu.MenuItems.Add(Translator.__("settings_title", "tray_menu"), delegate { MainProgram.ShowSettings(); });
+            trayMenu.MenuItems.Add(Translator.__("help_title", "tray_menu"), new EventHandler(TrayOpenHelp));
+            trayMenu.MenuItems.Add(Translator.__("exit_title", "tray_menu"), new EventHandler(TrayExit));
             TrayIcon.ContextMenu = trayMenu;
         }
         public void HideIcon() {
@@ -48,12 +48,12 @@ namespace AssistantComputerControl {
         }
 
         private static void TrayCreateStartupLink(object sender, EventArgs e) {
-            DialogResult dialogResult = MessageBox.Show("Do you want this software to automatically open when Windows starts (recommended)? Click \"Yes\"", "Open on startup? | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show(Translator.__("start_with_pc_desc", "general"), MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes) {
                 MainProgram.SetStartup(true);
-                MessageBox.Show("Good choice! ACC will now start with Windows!", "Wuu! | " + MainProgram.messageBoxTitle + "");
+                MessageBox.Show(Translator.__("start_with_pc_yes", "general"), MainProgram.messageBoxTitle + "");
             } else if (dialogResult == DialogResult.No) {
-                MessageBox.Show("Alrighty. If you regret and want ACC to open automatically you always right-click on " + MainProgram.messageBoxTitle + " in the tray and click \"Open on startup\"!", "Aww | " + MainProgram.messageBoxTitle);
+                MessageBox.Show(Translator.__("start_with_pc_no", "general"), MainProgram.messageBoxTitle);
             }
         }
     }

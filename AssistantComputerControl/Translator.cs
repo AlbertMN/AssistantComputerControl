@@ -108,18 +108,22 @@ namespace AssistantComputerControl {
             if (translation["translations"] != null) {
                 if (translation["translations"][domain] != null) {
                     if (translation["translations"][domain][text] != null) {
+                        if (doFallback) {
+                            MainProgram.DoDebug("Fallback translation success");
+                        }
                         return translation["translations"][domain][text];
                     } else {
-                        Console.WriteLine("Translation text \"" + text + "\" doesn't exist in domain \"" + domain + "\"");
+                        MainProgram.DoDebug("Translation text \"" + text + "\" doesn't exist in domain \"" + domain + "\"");
                     }
                 } else {
-                    Console.WriteLine("Translation domain \"" + domain + "\" doesn't exist");
+                    MainProgram.DoDebug("Translation domain \"" + domain + "\" doesn't exist");
                 }
             } else {
-                Console.WriteLine("Invalid translate json file");
+                MainProgram.DoDebug("Invalid translate json file");
             }
             
             if (fallbackLanguageJson != null && !doFallback) {
+                MainProgram.DoDebug("Going to fallback translation");
                 return __(text, domain, true);
             } else {
                 return "Translation error";

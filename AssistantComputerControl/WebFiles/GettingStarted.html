@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="assets/sweetalert2.min.css" />
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
 
     <title>ACC Setup Guide</title>
@@ -17,6 +17,7 @@
 </head>
 
 <body class="container-fluid noselect" style="margin-bottom:10px;">
+    <span id="proceed_with_cloudservice_text" style="display:none;" data-translation-key="pick_button_text"></span>
     <div id="choose_cloud_service" class="row text-center">
         <div class="col-md-12">
             <h2 data-translation-key="welcome_title">Welcome to AssistantComputerControl!</h2>
@@ -59,7 +60,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="card cloud_service_card" data-name="the expert setup" data-num="4">
+                    <div class="card cloud_service_card" data-name="expert setup" data-num="4">
                         <div class="card-body">
                             <h5 class="card-title">Expert setup</h5>
                             <h6 class="card-subtitle mb-2 text-muted">
@@ -72,7 +73,7 @@
             </div>
         </div>
         <div class="col-md-12" style="margin-top:20px;">
-            <button id="pick_btn" class="btn btn-primary btn-block btn-lg" disabled>Pick a cloud service</button>
+            <button id="pick_btn" data-translation-key="pick_button_default_text" class="btn btn-primary btn-block btn-lg" disabled>Pick a cloud service</button>
         </div>
 
         <div class="col-md-12">
@@ -215,7 +216,7 @@
                                 Enable the applets you want. Let's start with the <code>shutdown</code> action <small>(shuts down your computer)</small>.
                             </span>
                             <!-- Links are set automatically depending on the chosen cloud service -->
-                            <a data-translation-key="ifttt_shutdown_link_gh" class="shutdown_test_link_gh" href="#">Click here if you're using Google Assistant</a>, <a data-translation-key="ifttt_shutdown_link_alexa" class="shutdown_test_link_alexa" href="#">or here if you use Amazon Alexa</a>
+                            <a data-translation-key="shutdown_test_link_gh" class="shutdown_test_link_gh" href="#">Click here if you're using Google Assistant</a>, <a data-translation-key="ifttt_shutdown_link_alexa" class="shutdown_test_link_alexa" href="#">or here if you use Amazon Alexa</a>
                         </li>
                         <li data-translation-key="ifttt_connect_applet">Click "Connect" on the IFTTT applet</li>
                         <li data-translation-key="ifttt_link_info">
@@ -514,11 +515,11 @@
                     </button>
                 </div>
                 <div class="modal-body text-center">
-                    <h4>Something went wrong - the desired path could not be found</h4>
+                    <h4 data-translation-key="desired_path_not_found"></h4>
                     <p class="text-muted"></p>
                     <h1><i style="color:red;" class="fas fa-times"></i></h1>
-                    <p class="help-text">This message will disappear in 10 seconds</p>
-                    <button data-dismiss="modal" class="btn-sm btn btn-secondary"><i>Try again</i></button>
+                    <p class="help-text" data-translation-key="error_disappear"></p>
+                    <button data-dismiss="modal" class="btn-sm btn btn-secondary" data-translation-key="try_again" style="font-style:italic;"></button>
                 </div>
             </div>
         </div>
@@ -545,10 +546,10 @@
         </div>
     </div>
 
-    <script src="assets/jquery.js"></script>
-    <script src="assets/sweetalert2.min.js"></script>
-    <script src="assets/popper.min.js"></script>
-    <script src="assets/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/getting_started_scripts.js"></script>
 </body>
 </html>

@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.4.0, 26-12-2019
+ * 
+ * Use:
+ * - Cleans action files up after they've been processed
+ */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -80,18 +89,18 @@ namespace AssistantComputerControl {
                         if (!hidden) {
                             File.SetAttributes(file, FileAttributes.Hidden);
                         }
-
+                        
                         string tmpFolder = Path.Combine(Path.GetTempPath(), "AssistantComputerControl");
                         if (!Directory.Exists(tmpFolder)) {
                             Directory.CreateDirectory(tmpFolder);
                         }
                         
                         //string newFilename = Path.Combine(Path.GetDirectoryName(file), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
-                        string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
+                        //string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
                         //string newFilename = Path.Combine(Path.Combine(MainProgram.CheckPath(), "used_actions"), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
-                        File.Move(file, newFilename);
+                        //File.Move(file, newFilename);
                         //File.Delete(newFilename);
-                        //File.Delete(file);
+                        File.Delete(file);
                         //cleanedFiles.Add(newFilename);
                         numFiles++;
                     }

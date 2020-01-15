@@ -106,7 +106,7 @@ namespace AssistantComputerControl {
                 Properties.Settings.Default.Save();
 
                 if (checkUpdates.Checked) {
-                    new ACC_Updater().Check();
+                    new SoftwareUpdater().Check();
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace AssistantComputerControl {
 
                 new Thread(() => {
                     if (betaProgram.Checked) {
-                        new ACC_Updater().Check();
+                        new SoftwareUpdater().Check();
                     }
                 }).Start();
             }
@@ -136,11 +136,11 @@ namespace AssistantComputerControl {
         private void checkForUpdate_Click(object sender, EventArgs e) {
             //Doesn't return true for some reason... To fix
             if (MainProgram.HasInternet()) {
-                if (!new ACC_Updater().Check(true)) {
-                    MessageBox.Show("No new update found. Your ACC software is fully up to date!", MainProgram.messageBoxTitle);
+                if (!new SoftwareUpdater().Check(true)) {
+                    MessageBox.Show(Translator.__("no_new_update", "check_for_update"), MainProgram.messageBoxTitle);
                 }
             } else {
-                MessageBox.Show("Could not check for update as your computer is not connected to the internet", "Error | " + MainProgram.messageBoxTitle);
+                MessageBox.Show(Translator.__("update_check_failed", "check_for_update"), Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);
             }
         }
 

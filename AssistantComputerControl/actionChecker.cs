@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.3.3, 16-12-2019
+ * Updated: Updated: v1.4.0, 26-12-2019
  * 
  * Use:
  * - Checks and execute action files
@@ -115,7 +115,7 @@ namespace AssistantComputerControl {
 
         public static void ErrorMessageBox(string msg, string title = "") {
             new Thread(() => {
-                MessageBox.Show(msg, (!String.IsNullOrEmpty(title) ? title : "Error | " + MainProgram.messageBoxTitle));
+                MessageBox.Show(msg, (!String.IsNullOrEmpty(title) ? title : Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle));
             }).Start();
         }
 
@@ -212,8 +212,6 @@ namespace AssistantComputerControl {
                     }
                 }
                 MainProgram.DoDebug(" - Read complete, content: " + fullContent);
-
-
             } else {
                 MainProgram.DoDebug(" - File is empty");
                 ErrorMessageBox("No action was set in the action file.");
@@ -352,13 +350,17 @@ namespace AssistantComputerControl {
                 new CleanupService().Start();
             }
 
-            if (!String.IsNullOrEmpty(theActionExecution.successMessage)) {
-                MainProgram.DoDebug("\nSUCCESS: " + theActionExecution.successMessage + "\n");
-            }
+            
             
             if (!String.IsNullOrEmpty(theActionExecution.errorMessage)) {
                 MainProgram.DoDebug("[ERROR]: " + theActionExecution.errorMessage);
                 ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
+            } else {
+                if (!String.IsNullOrEmpty(theActionExecution.successMessage)) {
+                    MainProgram.DoDebug("\nSUCCESS: " + theActionExecution.successMessage + "\n");
+                } else {
+                    MainProgram.DoDebug("\nSUCCESS (got no success message)\n");
+                }
             }
         }
 
@@ -485,6 +487,12 @@ namespace AssistantComputerControl {
                     if (RequireParameter(parameter)) {
                         actionExecution.KillProcess(parameter);
                     }
+                    break;
+                case "minimize_all":
+                    actionExecution.MinimizeAll();
+                    break;
+                case "maximize_all":
+                    actionExecution.MaximizeAll();
                     break;
                 default:
                     //Unknown action

@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.3.3, 16-12-2019
+ * Updated: Updated: v1.4.0, 26-12-2019
  * 
  * Use:
  * - Functions for all the actions
@@ -642,8 +642,6 @@ namespace AssistantComputerControl {
                                 Directory.Delete(fileLocation);
                                 MainProgram.DoDebug("Deleted directory at " + fileLocation);
                             }
-                        } else {
-                            Error("");
                         }
                     } else {
                         //Is file
@@ -677,8 +675,8 @@ namespace AssistantComputerControl {
             }
         }
         public void AppendText(string parameter) {
-            string fileLocation = ActionChecker.GetSecondaryParam(parameter)[0]
-                            , toAppend = ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null;
+            string fileLocation = ActionChecker.GetSecondaryParam(parameter)[0],
+                toAppend = ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null;
 
             MainProgram.DoDebug("Appending \"" + toAppend + "\" to " + fileLocation);
 
@@ -739,12 +737,14 @@ namespace AssistantComputerControl {
             string theMessage = ActionChecker.GetSecondaryParam(parameter)[0]
                             , theTitle = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
 
+            MainProgram.DoDebug("TESTTTTT ::::: " + (theTitle == null).ToString());
+
             if (MainProgram.testingAction) {
-                successMessage = "Simulated making a message box with the content \"" + theMessage + "\" and " + (theTitle == null ? "no title" : "title \"" + theTitle + "\"");
+                successMessage = "Simulated making a message box with the content \"" + theMessage + "\" and " + (String.IsNullOrEmpty(theTitle) ? "no title" : "custom title \"" + theTitle + "\"");
             } else {
                 new Thread(() => {
                     Thread.CurrentThread.Priority = ThreadPriority.Highest;
-                    MessageBox.Show(theMessage, theTitle ?? "ACC Generated Message Box");
+                    MessageBox.Show(theMessage, String.IsNullOrEmpty(theTitle) ? "ACC Generated Message Box" : theTitle);
                 }).Start();
             }
         }
@@ -795,74 +795,111 @@ namespace AssistantComputerControl {
         }
 
         public void MoveSubject(string parameter) {
-            string theSubject = ActionChecker.GetSecondaryParam(parameter)[0]
-                            , moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
+            string theSubject = ActionChecker.GetSecondaryParam(parameter)[0],
+                moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
 
-            FileAttributes attr = File.GetAttributes(theSubject);
-            if (attr.HasFlag(FileAttributes.Directory)) {
-                //Is directory
-
-                bool isPath = true;
-                try {
-                    Path.GetFullPath(moveTo);
-                } catch {
-                    isPath = false;
-                }
-                if (isPath) {
-                    if (Directory.Exists(theSubject)) {
-                        if (Directory.Exists(moveTo)) {
-                            //Dest is a folder
-                            string newMoveTo = Path.Combine(theSubject, Path.GetFileName(Path.GetDirectoryName(moveTo)));
-                            try {
-                                Directory.Move(theSubject, newMoveTo);
-                            } catch (Exception e) {
-                                Error("[Move action] Couldn't move folder (" + theSubject + ") to path; '" + newMoveTo + "'. Got error; " + e.Message);
+            FileAttributes attr = FileAttributes.Normal; //Has to have a default value
+            bool subjectExists = true;
+            try {
+                attr = File.GetAttributes(theSubject);
+            } catch {
+                subjectExists = false;
+            }
+            
+            if (subjectExists) {
+                if (attr.HasFlag(FileAttributes.Directory)) {
+                    //Is directory
+                    bool isPath = true;
+                    try {
+                        Path.GetFullPath(moveTo);
+                    } catch {
+                        isPath = false;
+                    }
+                    if (isPath) {
+                        if (Directory.Exists(theSubject)) {
+                            if (Directory.Exists(moveTo)) {
+                                //Dest is a folder
+                                string newMoveTo = Path.Combine(moveTo, Path.GetFileName(new DirectoryInfo(theSubject).Name));
+                                try {
+                                    Directory.Move(theSubject, newMoveTo);
+                                } catch (Exception e) {
+                                    Error("[Move action] Couldn't move folder (" + theSubject + ") to path; '" + newMoveTo + "'. Got error; " + e.Message);
+                                }
+                            } else {
+                                //Dest is a new folder name!
+                                try {
+                                    Directory.Move(theSubject, moveTo);
+                                } catch (Exception e) {
+                                    Error("[Move action] Couldn't move folder (" + theSubject + "); " + e.Message);
+                                }
                             }
                         } else {
-                            //Dest is a new folder name!
-                            try {
-                                Directory.Move(theSubject, moveTo);
-                            } catch (Exception e) {
-                                Error("[Move action] Couldn't move folder (" + theSubject + "); " + e.Message);
-                            }
+                            Error("[Move action] Subject folder doesn't exist");
                         }
                     } else {
-                        Error("[Move action] Subject folder doesn't exist");
+                        Error("[Move action] To move a folder, the destination (secondary parameter) must be the path to a folder");
                     }
                 } else {
-                    Error("[Move action] To move a folder, the destination (secondary parameter) must be the path to a folder");
-                }
-            } else {
-                //Is file
-                if (File.Exists(theSubject)) {
-                    attr = File.GetAttributes(moveTo);
-                    if (attr.HasFlag(FileAttributes.Directory)) {
-                        //Desination is a folder
-                        if (Directory.Exists(moveTo)) {
+                    //Is file
+                    if (File.Exists(theSubject)) {
+                        if (File.Exists(moveTo) || Directory.Exists(moveTo)) {
+                            attr = File.GetAttributes(moveTo);
+                            if (attr.HasFlag(FileAttributes.Directory)) {
+                                //Desination is a folder
+                                if (Directory.Exists(moveTo)) {
+                                    try {
+                                        File.Move(theSubject, Path.Combine(moveTo, Path.GetFileName(theSubject)));
+                                    } catch (Exception e) {
+                                        Error("[Move action] Couldn't move file to folder; " + e.Message);
+                                    }
+                                } else {
+                                    Error("[Move action] Desination folder doesn't exist");
+                                }
+                            } else {
+                                //Desination is a file - either overwrite existing file, or "rename" file to dest
+                                try {
+                                    File.Move(theSubject, moveTo);
+                                } catch (Exception e) {
+                                    Error("[Move action] Couldn't move file; " + e.Message);
+                                }
+                            }
+                        } else {
                             try {
                                 File.Move(theSubject, moveTo);
                             } catch (Exception e) {
-                                Error("[Move action] Couldn't move file to folder; " + e.Message);
+                                Error("[Move action] Couldn't move file; " + e.Message);
                             }
-                        } else {
-                            Error("[Move action] Desination folder doesn't exist");
                         }
                     } else {
-                        //Desination is a file - either overwrite existing file, or "rename" file to dest
-                        try {
-                            File.Move(theSubject, moveTo);
-                        } catch (Exception e) {
-                            Error("[Move action] Couldn't move file; " + e.Message);
-                        }
+                        Error("[Move action] Subject file doesn't exist");
                     }
-                } else {
-                    Error("[Move action] Subject file doesn't exist");
                 }
+            } else {
+                Error("[Move action] Subject (folder or file) doesn't exist");
             }
 
             if (MainProgram.testingAction) {
                 
             }
+        }
+
+        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
+        static extern IntPtr SendMessageNew(IntPtr hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
+
+        const int WM_COMMAND = 0x111;
+        const int MIN_ALL = 419;
+        const int MIN_ALL_UNDO = 416;
+
+        public void MinimizeAll() {
+            IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
+            SendMessageNew(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);
+        }
+
+        public void MaximizeAll() {
+            IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
+            SendMessageNew(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL_UNDO, IntPtr.Zero);
         }
 
         public void WindowsToast() {

@@ -1,0 +1,190 @@
+﻿{
+  "language": "Français",
+
+  //Add your name to the bottom of the contributors list if you have contributed
+  "contributors": [
+    "Hadrien Miche"
+  ],
+
+  "translations": {
+    "settings": {
+      /*
+       * [SECTION INFO]
+       * - Use "\n" for line break - no HTML
+       */
+
+      "window_name": "Configuration",
+
+      "overall_settings_title": "Configuration générale",
+      "program_language_label": "Langue du programme",
+      "save_language_btn": "enreg",
+      "start_with_windows": "Démarrer avec Windows",
+      "check_for_updates": "Autoriser la recherche de mises à jour ?",
+      "join_beta_program": "Rejoindre le programme Beta",
+
+      "file_edited_margin": "Délai pour un fichier édité (secondes)",
+      "file_read_delay": "Délai de lecture du fichier (secondes)",
+      "file_read_delay_desc_text": "Qu'est-ce que c'est ? (survol)",
+      "file_read_delay_desc_text_hover_content": "Parfois, le logiciel peut lire un fichier avant qu'il ne soit correctement synchronisé. Ce paramètre retardera la lecture du fichier de x secondes",
+
+      "advanced_settings_btn": "Paramètres avancés",
+      "open_log_btn": "Ouvrir les journaux",
+      "action_simulator_btn": "Simuler des actions",
+      "do_setup_again": "Relancer le guide de configuration",
+
+      "delete_warning_text": "(Action de suppression) Prévenir lorsque x fichiers vont être supprimés",
+
+      "multi_pc_title": "Support de multiples ordinateurs",
+      "multi_pc_description": "Cela vous permet de modifier le logiciel pour qu'il s'exécute sur plusieurs \nordinateurs, pour qu'ils n'exécutent pas tous les mêmes actions.",
+      "multi_pc_read_more": "A propos de la fonctionnalité",
+      "computer_name_field": "Nom de l'ordinateur",
+      "default_computer_checkbox": "Ordinateur par défaut ?",
+      "default_computer_description": "^ si activé, ACC acceptera les actions où le\n \"nom de l'ordinateur\" n'est pas défini",
+
+      "check_for_updates_btn": "Rechercher les mises à jour"
+    },
+    "advanced_settings": {
+      "window_name": "Paramètres avancés",
+      "title": "Paramètres avancés",
+      "description": "La modification de ces paramètres changera complètement le \nfonctionnement de AssistantComputerControl. Cela est destiné à ceux \nqui veulent utiliser d'autres services Cloud qu'ACC ne prend pas en charge.",
+      "why_edit_link": "Dois-je modifier cela ?",
+      "action_path_label": "Chemin du dossier d'actions",
+      "save_button": "Enregistrer le dossier d'actions",
+      "action_file_extension_label": "Extension du fichier d'actions"
+    },
+    "update_downloading": { /* Needs testing */
+      "title": "Téléchargement de la mise à jour...",
+      "description": "Vous pouvez fermer cette fenêtre - l'installeur s'ouvrira à la fin du téléchargement",
+      "downloaded_bytes": "Téléchargement {x} sur {y}"
+    },
+    "user_feedback_window": { /* Needs testing */
+      "window_name": "Retour d'usage d'AssistantComputerControl"
+    },
+    "test_action_window": {
+      "window_name": "Simulateur d'actions",
+      "description": "Vérifier que les actions fonctionnent - elles ne seront pas exécutées.",
+      "listening_in": "Ecoute :",
+      "listening_for": "pour l'extension;"
+    },
+    "getting_started": {
+      /*
+       * [SECTION INFO]
+       * - HTML allowed - for the setup guide
+       */
+
+      "welcome_title": "Bienvenue sur AssistantComputerControl!",
+      "welcome_description": "Ce logiciel a besoin d'un service cloud pour fonctionner. Nous prenons en charge nativement Dropbox, Google Drive et OneDrive.",
+      "click_me": "Cliquer ici !",
+      "recommended": "Recommandé",
+      "expert_setup_short_desc": "Choisissez-moi si vous voulez plus de liberté (configuration personnalisée, aucune aide)",
+      "expert_setup_name": "Configuration experte",
+
+      "pick_button_default_text": "Choisir un service Cloud", /* text on the button while it's disabled, until the user has clicked a cloud service */
+      "pick_button_text": "Continuer avec {cloud_service}", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
+      "expert_setup_chosen_text": "la configuration experte", /* what apperas after "Proceed with ..." on the pick-button */
+
+      "skip_guide_text": "Cliquer ici pour passer le guide de démarrage <i>(non recommandé)</i>",
+
+      "step_1_title": "Installation {cloud_service}",
+      "step_2_title": "Configurer IFTTT",
+      "step_3_title": "Terminé ! Tester des actions",
+
+      "install_text": "Installation {cloud_service}",
+      "cloud_service_installed": "installé !",
+      "looking_for_service": "vérification...",
+      "not_working_modal_opener": "cliquer {link_start}ici{link_end} si {cloud_service} <u>est</u> installé, et que vous avez <u>suivi</u> les instructions pas-à-pas, mais que ACC ne vous laisse pas continuer",
+
+      
+
+      "if_you_havent_already": "(si vous n'avez pas déjà)", /* Used for "install {cloud service name}, "if you haven't already" */
+      /* Dropbox specific */
+      "dropbox_sign_up": "S'enregistrer sur Dropbox",
+      "download_dropbox": "Télécharger l'installeur Dropbox",
+      "open_installer_dropbox": "Lancer le programme et terminer l'installation",
+      /* OneDrive specific */
+      "personal_onedrive": "OneDrive personnel",
+      "work_onedrive": "OneDrive entreprise",
+      "onedrive_sign_up": "S'enregistrer sur OneDrive (pareil que le compte Microsoft)",
+      "download_onedrive": "Si vous utilisez Windows 8 ou plus, vous devriez déjà avoir OneDrive<br>sur votre ordinateur. Sinon, <a href=\"https://onedrive.live.com/about/en-sg/download/\">télécharger et lancer l'installeur OneDrive</a>",
+      "onedrive_go_to_folder": "Aller dans le dossier OneDrive dans l'explorateur de fichiers",
+      "onedrive_create_folder": "Créer un dossier appelé \"AssistantComputerControl\"",
+      "onedrive_always_keep": "Faire un clic droit sur le dossier créé et cliquer sur \"Toujours conserver sur cet appareil\" <b><i>(très important)</i></b>",
+
+      /* Google Drive specific */
+      "make_google_account": "Vous devriez avoir un compte Google - sinon, <a href=\"https://accounts.google.com/signup/v2\">en créer un</a>",
+      "google_drive_download": "Télécharger Google Drive pour votre ordinateur <a href=\"https://www.google.com/drive/download/\">choisir \"Personnel; Sauvegarde et Synchronisation\"</a> <small>(si vous ne l'avez pas déjà fait)</small>",
+      "google_drive_install": "Lancer le programme et terminer l'installation",
+      "google_drive_click_logo": "Cliquer sur le logo \"Sauvegarde et Synchronisation\" dans la barre des tâches",
+      "google_drive_preferences": "Appuyer sur les 3 points dans le coin droit, puis dans <b>\"Préférences\"</b>",
+      "google_drive_sync": "Aller dans l'onglet <b>\"Google Drive\"</b> et vérifier que <b>\"Synchroniser mon Drive sur cet ordinateur\"</b> est coché",
+
+      "google_drive_sync_all": "Voulez-vous tout votre Google Drive sur votre ordinateur ?",
+      "google_drive_sync_all_desc": "Choisir \"Synchroniser tout dans mon Drive (x Go)\"",
+      "google_drive_acc_only_sync": "... ou <i>juste</i> pour les besoins de AssistantComputerControl?",
+      "google_drive_website_goto": "Aller dans votre Google Drive (via votre navigateur)",
+      "google_drive_create_folder": "Dans l'onglet \"Mon drive\" , faire un clic droit dans la zone des fichiers, et choisir <b>\"Nouveau dossier\"</b>",
+      "google_drive_name_folder": "Nommer le dossier \"AssistantComputerControl\" <i>(c'est très important de respecter la typo)</i>",
+      "google_drive_sync_specific_folders": "Choisir \"Synchroniser ces dossiers uniquement...\", et décocher tout sauf le dossier \"AssistantComputerControl\"",
+
+      /* IFTTT specific */
+      "set_up_ifttt_acc": "Configurer votre compte IFTTT",
+      "set_up_ifttt_extra": "avec les applets AssistantComputerControl",
+      "ifttt_join": "S'enregistrer sur IFTTT",
+      "ifttt_join_extra": "(c'est mieux d'utiliser son compte Google, si vous utilisez Google Assistant)",
+      "ifttt_enable_shutdown_applet": "<b>Activer les applets voulus.</b> Commençons avec l'action <code>extinction</code> <small>(qui va éteindre votre ordinateur)</small>.",
+      "shutdown_test_link_gh": "Cliquer ici si vous utilisez Google Assistant",
+      "ifttt_shutdown_link_alexa": "ou ici si vous utilisez Amazon Alexa",
+      "ifttt_connect_applet": "Cliquer sur \"Connect\" dans l'applet IFTTT", // The "Connect" part should ALWAYS stay the same, no matter the language!
+      "ifttt_link_info": "Si vous n'avez pas lié votre {cloud_service} ou compte Google/Amazon, vous allez recevoir une demande",
+
+      /* "Done" tab */
+      "time_to_try_heading": "Essayez l'action d'extinction 3 fois !",
+      "done_description": "Maintenant, ce qu'il reste à faire c'est d'essayer le logiciel. Avec {cloud_service} complétement configuré, un compte IFTTT et un applet ACC, vous pouvez tester dans un environnement sans danger.",
+      "applet_enable_reminder": "Vous n'avez pas encore activé l'applet \"extinction\" ? Cliquer sur le lien correspondant à l'assistant que vous utilisez pour l'activer.",
+      "custom_trigger_reminder": "... cela dépend de la langue que vous avez configuré sur l'applet, et si vous avez changer le déclencheur dans l'étape 2...",
+      "google_assistant_trigger_example": "Le déclencheur <b>Google Assistant</b> sera;",
+      "alexa_trigger_example": "Pour <b>Alexa</b>, vous devez dire",
+      "configure_software_info": "Pour configurer le logiciel avec votre ordinateur de la meilleure des manières, essayons l'action <code>exctinction</code> 3 fois !",
+      "wont_execute_reminder": "L'action que vous allez essayer ne sera <i>pas</i> exécutée, juste simulée !",
+
+      "fast_learner": "Vous apprenez vite !", // Shown when the user executes the first action before even going to tab 3
+      "too_fast": "Vous êtes rapide, mais, peut-être <i>trop</i> rapide... ?", // Shown when the user is fast, but the action fails
+
+      /* "Not working" modal (troubleshooting) */
+      "not_working_button": "Cela ne fonctionne pas ?",
+      "not_working_modal_title": "Le logiciel ne fonctionne pas",
+      "not_working_title": "N'ayez pas peur. La plupart des problèmes se réparent facilement !",
+      "not_working_description": "Voyons les problèmes connus et faisons fonctionner le logiciel en quelques minutes !",
+      "repeat_step_two_suggestion": "D'abord, il est recommandé d'essayer et de refaire {link_start}l'étape 2{link_end}. Si vous êtes certains que c'est bon, essayez les solutions suivantes.",
+
+      "problem_introduction_title": "Quel problème avez-vous ?",
+      "problem_introduction_description": "Cliquer sur le panneau qui décrit le mieux votre problème",
+
+      // Section 1 in TBS
+      "assistant_response_issues_desc": "<b>Problème :</b> <i>(exemple)</i> Google Assistant/Alexa ne comprend aucun des déclencheurs (que je dis). <i>(Qu'importe si ACC fonctionne ou non, IFTTT doit toujours répondre)</i>",
+      "assistant_response_issues_title": "Mon assistant ne comprend pas la phrase déclencheur",
+
+      "tbs_assistant_solution_one": "Vérifier que le compte pour l'assistant <i>(Google Assistant ou Alexa)</i> est bien lié à votre compte IFTTT.",
+      "tbs_assistant_solution_two": "Vérifier que vous avez des <a href=\"https://assistantcomputercontrol.com/#what-can-it-do\" target=\"_blank\">applets activés</a> sur votre compte qui sont liés à votre assistant. ACC n'a rien à voir avec votre assistant, donc le problème est sur IFTTT ou votre assistant vocal",
+      "tbs_assistant_solution_three": "<b>Si vous utilisez Alexa;</b> IFTTT a besoin que vous dites <i>Alexa, <b>déclenche</b> x</i> avant votre commande, et elle répondra <i>\"OK. Envoi vers IFTTT.\"</i>",
+      "tbs_assistant_solution_four": "<b>Si vous utilisez Google Assistant;</b> Si votre appareil Google Assistant <i>(cela peut être votre téléphone ou un produit physique)</i> peut être défini dans une langue différente de celle de votre applet IFTTT. Si la langue de votre applet est définie sur \"Anglais\" mais que la seule langue que vous avez activée sur votre compte Google Assistant est \"Italien\", votre Assistant Google ne comprendra pas l'expression anglaise. Vous pouvez savoir que c'est ce cas-là, si la commande que vous dites est dans une langue différente de la réponse que vous obtenez <i>(ex : si je dis une phrase en anglais, et que l'assistant répond qu'il ne comprend pas mais en italien)</i>",
+      "tbs_assistant_solution_five": "Vérifier le <a target=\"_blank\" href=\"https://status.ifttt.com/#about-this-site\">status de IFTTT</a> - si ils ont des problèmes, attendre avant de réessayer",
+
+      // Section 2 in TBS
+      "pc_issues_desc": "<b>Problème :</b> L'assistant répond, mais rien ne se passe sur mon ordinateur.",
+      "pc_issues_title": "L'assistant répond, mais rien ne se passe sur mon ordinateur",
+
+      "tbs_pc_solution_one": "Votre service Cloud <i>(Dropbox, OneDrive, Google Drive)</i> doit être installé et fonctionner tout le temps sur votre ordinateur - si il est fermé, penser à le lancer.",
+      "tbs_pc_solution_two": "Votre service Cloud doit être <b>totalemment synchronisé !</b> Si (par exemple) Dropbox est en train de synchroniser x-centaines de fichiers, laisser quelques temps à votre service Cloud pour totalement synchroniser les fichiers sur votre ordinateur",
+      "tbs_pc_solution_three": "Vérifier votre <a href=\"https://ifttt.com/activity\" target=\"_blank\">page d'activité IFTTT</a>. Si elle affiche \"Applet failed\", il s'est passé quelque chose du côté de IFTTT. Cela peut parfois être résolu en déconnectant votre assistant et votre compte Cloud, puis en les reconnectant. Vérifier le guide <a href=\"https://acc.readme.io/docs/fixing-ifttt-errors\" target=\"_blank\">\"Réparer les erreurs IFTTT\"</a>",
+      "tbs_pc_solution_four": "Essayer de vider votre <b>dossier d'actions</b> (qui est situé dans <code>Cloudservice/AssistantComputerControl</code>. <code>C:/Dropbox/AssistantComputerControl</code>). Le dossier doit être complétément vide.",
+      "tbs_pc_solution_five": "Vérifier que le compte sur le service Cloud est le même que celui enregistré sur votre ordinateur et sur IFTTT <i>(se référer à la section \"<a href=\"https://acc.readme.io/docs/fixing-ifttt-errors#section-check-cloud-service-connection\" target=\"_blank\">Vérifier la connexion au service Cloud</a>\" du guide \"Réparer les erreurs IFTTT\")</i>",
+      "tbs_pc_solution_six": "Vérifier que l'applet IFTTT que vous utilisez est bien celle pour le service Cloud que vous avez choisi lors de l'installation du logiciel",
+
+      // Section 3 in TBS
+      "tbs_still_not_resolved_title": "Toujours pas résolu (réparation avancée)",
+      "tbs_still_not_resolved_desc": "Si toutes les solutions au-dessus ont échoué, merci de vous référer au guide de <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">dépannage</a> <i>(en particulier la section \"Tujours pas résolu ?\")</i>",
+      "tbs_still_not_resolved_community_help": "Si cela ne fonctionne <b>toujours pas</b>, venez sur notre <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>serveur Discord</i></a>. Avec plus de 550 membres, vous pouvez être sûr d'avoir de l'aide rapidement <i>(et le développeur répond souvent dans les premières heures)</i><br />Dans le cas où vous pensez avoir trouvé un bug, vous pouvez ouvrir un <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">incident sur GitHub</a> et décrire votre bug."
+    }
+  }
+}

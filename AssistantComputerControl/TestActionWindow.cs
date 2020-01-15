@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AssistantComputerControl {
@@ -18,9 +19,14 @@ namespace AssistantComputerControl {
 
             sWebBrowser = webBrowser;
 
-            //TODO: Make it local
-            //webBrowser.Url = new Uri(String.Format("file:///{0}/test.html", MainProgram.currentLocation));
-            sWebBrowser.Url = new Uri("https://assistantcomputercontrol.com/success_error_listen.html");
+            string fileName = Path.Combine(MainProgram.currentLocation, "WebFiles/ActionTester.html");
+            if (File.Exists(fileName)) {
+                string fileLoc = "file:///" + fileName;
+                Uri theUri = new Uri(fileLoc);
+                sWebBrowser.Url = theUri;
+            } else {
+                sWebBrowser.Visible = false;
+            }
 
             sWebBrowser.DocumentCompleted += delegate {
                 browserLoaded = true;

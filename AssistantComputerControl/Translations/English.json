@@ -7,6 +7,15 @@
   ],
 
   "translations": {
+    "general": {
+      "error": "Error", /* Capital start letter */
+      "invalid_path": "Path not valid",
+      "no_cloudservice_chosen": "You do not seem to have chosen a cloud-service. Do you want to go through the setup guide again?",
+      "cloud_setup_failed": "Failed to set cloud service - try again.",
+      "start_with_pc_yes": "Good choice! ACC will now start with Windows",
+      "start_with_pc_no": "Alrighty. If you regret and want ACC to open automatically you always right-click on AssistantComputerControl in the tray and click \"Open on startup\"!",
+      "start_with_pc_desc": "Do you want this software to automatically open when Windows starts (recommended)? Click \"Yes\""
+    },
     "settings": {
       /*
        * [SECTION INFO]
@@ -52,6 +61,16 @@
       "save_button": "Save action folder",
       "action_file_extension_label": "Action file extension"
     },
+    "check_for_update": {
+      "check_for_update_title": "Check for update",
+      "no_new_update": "No new update found. Your ACC software is fully up to date!",
+      "update_check_failed": "Could not check for update as your computer is not connected to the internet",
+      "download_failed": "Failed to download the new ACC installer. Try again later, or download it manually from AssistantComputerControl.com",
+      "website_offline": "Couldn't find the new version online. Please try again later.",
+      "new_version_found": "A new version of AssistantComputerControl is available ({version_num} [{version_type}]), do you wish to install it?",
+      "new_version_found_title": "New version found",
+      "webservers_offline": "Could not reach the ACC webservers - try again later"
+    },
     "update_downloading": { /* Needs testing */
       "title": "Downloading new update...",
       "description": "You can close this window - the installer will open when it's done downloading",
@@ -93,8 +112,11 @@
       "cloud_service_installed": "installed!",
       "looking_for_service": "looking...",
       "not_working_modal_opener": "click {link_start}here{link_end} if {cloud_service} <u>is</u> installed, and you <u>have</u> followed the instructions step-by-step, but ACC won't let you proceed",
-
       "if_you_havent_already": "(if you haven't already)", /* Used for "install {cloud service name}, "if you haven't already" */
+
+      "desired_path_not_found": "Something went wrong - the desired path could not be found",
+      "error_disappear": "This message will disappear in 10 seconds",
+      "try_again": "Try again",
 
       /* Dropbox specific */
       "dropbox_sign_up": "Sign up for Dropbox",
@@ -185,6 +207,21 @@
       "tbs_still_not_resolved_title": "Still not resolved (more advanced fixes)",
       "tbs_still_not_resolved_desc": "If all solutions above have failed, please refer to the <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">troubleshooting guide</a> <i>(specifically the \"Still not solved?\" section)</i>",
       "tbs_still_not_resolved_community_help": "If it's <b>still</b> not working, come join our <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord server</i></a>. With over 550 members, you're sure to get help quickly <i>(and the developer often answers within a few hours)</i><br />In case you believe you have found a bug, you can open an <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue on GitHub</a> and describe the issue."
+    },
+    "expert_setup": {
+      "title": "Custom setup",
+      "description": "This setup is for those who wish more freedom over AssistantComputerControl.\nAs you may (or may not) know, ACC uses a cloud-software like Dropbox to communicate with IFTTT, which handles the assistant command & response.\n\nThe default/recommended setup uses Dropbox, OneDrive or Google Drive. All ACC does is look for a specific filetype in a specific folder, the advanced settings (which we will go through here) allows you to modify these two settings.\n\nAn \"action\" is the thing we want the computer to do. Say we tell our assistant \"Shut down my computer\", the action is \"shutdown\". The \"Action folder\" is the path that ACC looks in to find the action.",
+      "action_folder_path": "Action folder path",
+      "action_file_extension": "Action file extension",
+      "disclaimer": "You can always edit these settings by right-clicking the ACC icon in the taskbar, click on \"Settings\" and then \"Advanced settings\"",
+      "back_to_setup": "Back to setup guide",
+      "done_button": "Done"
+    },
+    "tray_menu": {
+      "settings_title": "Settings",
+      "help_title": "Help",
+      "exit_title": "Exit",
+      "open_on_startup": "Open on startup"
     }
   }
 }

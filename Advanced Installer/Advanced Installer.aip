@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="16.5" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="16.6.1" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;FixupComponent"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Debug"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Release"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_NLog.dll" Value="..\packages\NLog.4.6.8\lib\net45"/>
@@ -40,10 +40,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{D4932720-8948-4E17-B607-6B984D249B72} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{CF9594BE-3423-4E99-B739-8B54827E3E96} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.3.2" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.4.0" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -52,8 +52,8 @@
     <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
-    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
@@ -65,7 +65,10 @@
     <ROW Directory="WebFiles_Dir" Directory_Parent="APPDIR" DefaultDir="WebFiles"/>
     <ROW Directory="assets_Dir" Directory_Parent="WebFiles_Dir" DefaultDir="assets"/>
     <ROW Directory="cloud_services_Dir" Directory_Parent="assets_Dir" DefaultDir="CLOUD_~1|cloud_services"/>
+    <ROW Directory="css_Dir" Directory_Parent="assets_Dir" DefaultDir="css"/>
     <ROW Directory="gifs_Dir" Directory_Parent="assets_Dir" DefaultDir="gifs"/>
+    <ROW Directory="images_Dir" Directory_Parent="assets_Dir" DefaultDir="images"/>
+    <ROW Directory="js_Dir" Directory_Parent="assets_Dir" DefaultDir="js"/>
     <ROW Directory="shortcuts_Dir" Directory_Parent="AssistantComputerControl_Dir" DefaultDir="SHORTC~1|shortcuts"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
@@ -78,8 +81,10 @@
     <ROW Component="Danish.json" ComponentId="{30B39B19-7135-43EE-8834-50F0A05D5851}" Directory_="Translations_Dir" Attributes="0" KeyPath="Danish.json" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{72E5C433-D45C-45F4-AF47-0DD66CC8E52E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{4405308F-0979-4250-8A8D-0622FA7AF17C}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="acc_logo.png" ComponentId="{8C4579C2-A784-48B9-81E4-D8568978ED90}" Directory_="assets_Dir" Attributes="0" KeyPath="acc_logo.png" Type="0"/>
+    <ROW Component="acclogo.png" ComponentId="{17CD3B7D-63BC-4942-A1DE-45745465159E}" Directory_="images_Dir" Attributes="0" KeyPath="ifttt_logo.png" Type="0"/>
     <ROW Component="dropbox.png" ComponentId="{61A99AF5-F5C9-43FC-9753-1E8B2CE42DB9}" Directory_="cloud_services_Dir" Attributes="0" KeyPath="dropbox.png" Type="0"/>
+    <ROW Component="getting_started_main.css" ComponentId="{78C894CD-0028-4FFB-9196-873F2B6DDADB}" Directory_="css_Dir" Attributes="0" KeyPath="getting_started_main.css" Type="0"/>
+    <ROW Component="getting_started_scripts.js" ComponentId="{F0BCADC8-6DF3-4F83-AF0F-DD2817185372}" Directory_="js_Dir" Attributes="0" KeyPath="getting_started_scripts.js" Type="0"/>
     <ROW Component="onedrive_howto.gif" ComponentId="{4D4DB73B-7B0D-4536-BE81-C2AB031BEABC}" Directory_="gifs_Dir" Attributes="0" KeyPath="onedrive_howto.gif" Type="0"/>
     <ROW Component="shortcuts" ComponentId="{3AD7B8C4-6A66-4FF8-99B1-47940292F2CC}" Directory_="shortcuts_Dir" Attributes="0"/>
   </COMPONENT>
@@ -102,9 +107,6 @@
     <ROW File="NewVersion.cs" Component_="AboutVersion.html" FileName="NEWVER~1.CS|NewVersion.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.cs" SelfReg="false"/>
     <ROW File="NewVersion.Designer.cs" Component_="AboutVersion.html" FileName="NEWVER~2.CS|NewVersion.Designer.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.Designer.cs" SelfReg="false"/>
     <ROW File="NewVersion.resx" Component_="AboutVersion.html" FileName="NEWVER~1.RES|NewVersion.resx" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.resx" SelfReg="false"/>
-    <ROW File="acc_logo.png" Component_="acc_logo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\acc_logo.png" SelfReg="false"/>
-    <ROW File="bootstrap.min.css" Component_="acc_logo.png" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.css" SelfReg="false"/>
-    <ROW File="bootstrap.min.js" Component_="acc_logo.png" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.js" SelfReg="false"/>
     <ROW File="dropbox.png" Component_="dropbox.png" FileName="dropbox.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\dropbox.png" SelfReg="false"/>
     <ROW File="expert.png" Component_="dropbox.png" FileName="expert.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\expert.png" SelfReg="false"/>
     <ROW File="googledrive.png" Component_="dropbox.png" FileName="GOOGLE~1.PNG|googledrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\googledrive.png" SelfReg="false"/>
@@ -112,14 +114,16 @@
     <ROW File="onedrive_howto.gif" Component_="onedrive_howto.gif" FileName="ONEDRI~1.GIF|onedrive_howto.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\onedrive_howto.gif" SelfReg="false"/>
     <ROW File="sync_all_folders.gif" Component_="onedrive_howto.gif" FileName="SYNC_A~1.GIF|sync_all_folders.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_all_folders.gif" SelfReg="false"/>
     <ROW File="sync_specific_folder.gif" Component_="onedrive_howto.gif" FileName="SYNC_S~1.GIF|sync_specific_folder.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_specific_folder.gif" SelfReg="false"/>
-    <ROW File="jquery.js" Component_="acc_logo.png" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\jquery.js" SelfReg="false"/>
-    <ROW File="popper.min.js" Component_="acc_logo.png" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\popper.min.js" SelfReg="false"/>
-    <ROW File="sweetalert2.min.css" Component_="acc_logo.png" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.css" SelfReg="false"/>
-    <ROW File="sweetalert2.min.js" Component_="acc_logo.png" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\sweetalert2.min.js" SelfReg="false"/>
     <ROW File="IECheck.html" Component_="AboutVersion.html" FileName="IECHEC~1.HTM|IECheck.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\IECheck.html" SelfReg="false"/>
     <ROW File="NLog.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_NLog.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NLog.dll&gt;" SelfReg="false"/>
     <ROW File="Danish.json" Component_="Danish.json" FileName="DANISH~1.JSO|Danish.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Danish.json" SelfReg="false"/>
     <ROW File="English.json" Component_="Danish.json" FileName="ENGLIS~1.JSO|English.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\English.json" SelfReg="false"/>
+    <ROW File="getting_started_scripts.js" Component_="getting_started_scripts.js" FileName="GETTIN~1.JS|getting_started_scripts.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\getting_started_scripts.js" SelfReg="false"/>
+    <ROW File="getting_started_main.css" Component_="getting_started_main.css" FileName="GETTIN~1.CSS|getting_started_main.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\getting_started_main.css" SelfReg="false"/>
+    <ROW File="ifttt_logo.png" Component_="acclogo.png" FileName="IFTTT_~1.PNG|ifttt_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\ifttt_logo.png" SelfReg="false"/>
+    <ROW File="languageicon.png" Component_="acclogo.png" FileName="LANGUA~1.PNG|language-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\language-icon.png" SelfReg="false"/>
+    <ROW File="voiceicon.png" Component_="acclogo.png" FileName="VOICE-~1.PNG|voice-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\voice-icon.png" SelfReg="false"/>
+    <ROW File="acc_logo.png" Component_="acclogo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\acc_logo.png" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
@@ -241,12 +245,14 @@
     <ROW Feature_="MainFeature" Component_="AssistantComputerControl_PrimaryOutput"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
-    <ROW Feature_="MainFeature" Component_="acc_logo.png"/>
     <ROW Feature_="MainFeature" Component_="dropbox.png"/>
     <ROW Feature_="MainFeature" Component_="onedrive_howto.gif"/>
     <ROW Feature_="MainFeature" Component_="shortcuts"/>
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="Danish.json"/>
+    <ROW Feature_="MainFeature" Component_="getting_started_scripts.js"/>
+    <ROW Feature_="MainFeature" Component_="getting_started_main.css"/>
+    <ROW Feature_="MainFeature" Component_="acclogo.png"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>
@@ -281,9 +287,9 @@
     <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="SETUPEXEDIR OR (REMOVE=&quot;ALL&quot;)" Description="This package can only be run from a bootstrapper." DescriptionLocId="AI.LaunchCondition.RequireBootstrapper" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>

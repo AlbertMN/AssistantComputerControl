@@ -1,0 +1,182 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <title>ACC action tester</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.22.2/sweetalert2.min.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.22.2/sweetalert2.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- Loading icon CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            cursor: default !important;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+        }
+
+        .preloader-1 {
+            margin: 100px auto 0;
+            width: 66px;
+            height: 12px;
+        }
+
+        .preloader-1 {
+            width: 100%;
+            color: #000;
+            margin: 5px 0;
+            text-transform: uppercase;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+            .preloader-1 .line {
+                width: 4px;
+                height: 50px;
+                background: #000;
+                margin: 0 3px;
+                display: inline-block;
+                animation: opacity-1 1000ms infinite ease-in-out;
+            }
+
+            .preloader-1 .line-1 {
+                animation-delay: 800ms;
+            }
+
+            .preloader-1 .line-2 {
+                animation-delay: 600ms;
+            }
+
+            .preloader-1 .line-3 {
+                animation-delay: 400ms;
+            }
+
+            .preloader-1 .line-4 {
+                animation-delay: 200ms;
+            }
+
+            .preloader-1 .line-6 {
+                animation-delay: 200ms;
+            }
+
+            .preloader-1 .line-7 {
+                animation-delay: 400ms;
+            }
+
+            .preloader-1 .line-8 {
+                animation-delay: 600ms;
+            }
+
+            .preloader-1 .line-9 {
+                animation-delay: 800ms;
+            }
+
+        @keyframes opacity-1 {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes opacity-2 {
+            0% {
+                opacity: 1;
+                height: 15px;
+            }
+
+            50% {
+                opacity: 0;
+                height: 12px;
+            }
+
+            100% {
+                opacity: 1;
+                height: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="error_icon" class="swal2-icon swal2-error swal2-animate-error-icon" style="display: none;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div>
+    <div id="success_icon" class="swal2-icon swal2-success swal2-animate-success-icon" style="display: none;"><div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div><span class="swal2-success-line-tip"></span> <span class="swal2-success-line-long"></span><div class="swal2-success-ring"></div> <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div><div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div></div>
+
+    <div id="loader" class="preloader-1" style="display:none;">
+        <div style="margin-bottom:5px;">listening</div>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+        <span class="line line-4"></span>
+        <span class="line line-5"></span>
+        <span class="line line-6"></span>
+        <span class="line line-7"></span>
+        <span class="line line-8"></span>
+        <span class="line line-9"></span>
+    </div>
+
+    <div id="text_parent" style="display:none;text-align:center;width:100%;margin:0 auto;word-wrap: break-word;">
+        <h3 id="status" style="margin-bottom: -12px;"></h3>
+        <p id="description"></p>
+    </div>
+
+    <script>
+			$("#test_btn").on("click", function() {
+				if ($("#success_icon").is(":visible")) {
+					showError();
+					return;
+				}
+				if ($("#error_icon").is(":visible")) {
+					showLoader();
+					return;
+				}
+				showSuccess();
+			});
+
+			function setText(heading, description) {
+				$("#status").html(heading);
+				$("#description").html(description);
+
+				$("#text_parent").stop().fadeIn();
+			}
+
+			function showSuccess(heading, description) {
+				$("#success_icon").css("display", "flex");
+				$("#error_icon").css("display", "none");
+				$("#loader").hide();
+
+				setText(heading, description);
+			}
+			function showError(heading, description) {
+				$("#success_icon").css("display", "none");
+				$("#error_icon").css("display", "flex");
+				$("#loader").hide();
+
+				setText(heading, description);
+			}
+			function showLoader() {
+				$("#success_icon").css("display", "none");
+				$("#error_icon").css("display", "none");
+				$("#loader").show();
+
+				$("#text_parent").stop().fadeOut();
+			}
+    </script>
+</body>
+</html>

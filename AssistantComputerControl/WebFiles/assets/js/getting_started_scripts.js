@@ -35,7 +35,7 @@ function SetTranslation(translation_json, fallback_json) {
         theFallbackTranslation = fallback_translation = (fallback_json == null ? null : JSON.parse(fallback_json));
     }
 
-    Object.keys(theTranslation).forEach(function (key) {
+    /*Object.keys(theTranslation).forEach(function (key) {
         var theText = theTranslation[key];
         theText = theText.replace("{cloud_service}", "<span class='service-name'></span>");
 
@@ -49,7 +49,39 @@ function SetTranslation(translation_json, fallback_json) {
 
         $("[data-translation-key='" + key + "']").html(theText);
         //alert('Key : ' + key + ', Value : ' + translation[key]);
-    })
+    });*/
+
+    $("[data-translation-key]").each(function () {
+        let translationKey = $(this).attr("data-translation-key"), currentTranslation = null;
+
+        if (theTranslation.hasOwnProperty(translationKey)) {
+            currentTranslation = theTranslation;
+        } else if (theFallbackTranslation != null) {
+            if (theFallbackTranslation.hasOwnProperty(translationKey)) {
+                currentTranslation = theFallbackTranslation;
+            }
+        }
+
+        if (currentTranslation != null) {
+            let theText = currentTranslation[translationKey];
+
+            if (translationKey == "not_working_modal_opener") {
+                theText = theText.replace("{link_start}", "<a data-toggle=\"modal\" data-target=\"#doesntWorkModal\" href=\"#\">");
+            } else if (translationKey == "repeat_step_two_suggestion") {
+                theText = theText.replace("{link_start}", "<a href=\"#\" style=\"cursor: pointer;\" data-dismiss=\"modal\" onclick=\"setStep(2);\">");
+            }
+
+            theText = theText.replace("{link_end}", "</a>");
+            theText = theText.replace("{cloud_service}", "<span class='service-name'></span>");
+
+            $(this).html(theText);
+        } else {
+            if (!$(this).html().length) {
+                $(this).html("No translation found :(");
+            }
+        }
+        //
+    });
 }
 
 
@@ -175,8 +207,9 @@ $(".card.cloud_service_card").on("click", function () {
     $(".card").removeClass("card-selected");
     $(this).addClass("card-selected");
 
-    $("#pick_btn").prop("disabled", false).text("Proceed with " + theName);
     chosenCloudService = theName;
+    $(".service-name").text(chosenCloudService);
+    $("#pick_btn").prop("disabled", false).html($("#proceed_with_cloudservice_text").html());
     chosenCloudServiceNum = $(this).attr("data-num");
     chosenCloudServiceImage = $(this).attr("data-image");
     cloudServiceInstalled = false;
