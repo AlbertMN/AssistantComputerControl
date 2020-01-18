@@ -88,7 +88,7 @@
                 <div class="stepwizard-step">
                     <a id="step-1-btn" data-step-num="1" href="#step-1" type="button"
                        class="btn btn-primary btn-circle">1</a>
-                    <p data-translation-key="step_1_title">Install <span id="install_step_name"></span></p>
+                    <p data-translation-key="step_1_title"></p>
                 </div>
                 <div class="stepwizard-step">
                     <a id="step-2-btn" data-step-num="2" href="#step-2" type="button" class="btn btn-default btn-circle"
@@ -109,14 +109,14 @@
                     <h3>
                         <span id="step-1-title" data-translation-key="install_text">Install <span class="service-name"></span></span>
                         <small id="looking_text" data-translation-key="looking_for_service">looking...</small>
-                        <span id="service_found" style="display:none;"> - <b>installed!</b></span>
+                        <span id="service_found" style="display:none;"> - <b><span data-translation-key="cloud_service_installed">installed!</span></b></span>
                     </h3>
                     <p id="couldNotFindService">
                         We could not locate <span class="service-name"></span> on your computer.
                     </p>
 
                     <div id="multipleOneDrive" style="display:none;">
-                        <p>We can see you have a personal and work OneDrive - which one do you want to use?</p>
+                        <p data-translation-key="has_work_onedrive">We can see you have a personal and work OneDrive - which one do you want to use?</p>
 
                         <button data-translation-key="personal_onedrive" data-onedrive-type="OneDriveConsumer" class="onedrive_type chosen_onedrive_type btn btn-primary btn-sm" style="margin-right:10px;">Personal OneDrive</button>
                         <button data-translation-key="work_onedrive" data-onedrive-type="OneDriveCommercial" class="onedrive_type btn btn-default btn-sm">Work OneDrive</button>
@@ -275,7 +275,7 @@
                             <div class="col-8">
                                 <!-- "Waiting for an action..." -->
                                 <div id="tryingActions" class="text-center">
-                                    <p style="z-index:9999;color:gray;"><b><i>Listening for actions...</i></b></p>
+                                    <p style="z-index:9999;color:gray;"><b><i><span data-translation-key="listening_for_actions">Listening for actions...</span></i></b></p>
                                     <div style="margin-top:-10px;">
                                         <div class="loading_container row">
                                             <div class="elements loading_elements2">
@@ -313,7 +313,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <h3 id="success_setup_action_went_through" style="display:none;">Software all set up! Received "<code><span></span></code>" action</h3>
+                                        <span style="display:none;" id="action_went_through" data-translation-key="action_went_through"></span>
                                         <h4 id="status_message"></h4>
                                         <h4 id="fast_message" data-translation-key="fast_learner" style="display:none;"></h4>
                                         <h4 id="too_fast_message" data-translation-key="too_fast" style="display:none;"></h4>
@@ -326,7 +326,7 @@
                         </div>
 
                         <div style="margin-left:15px;margin-bottom:5px;position:fixed;left:0;bottom:0;">
-                            <button data-toggle="modal" data-target="#finalDoesntWorkModal" class="btn btn-sm btn-danger">Is it not working?</button>
+                            <button data-translation-key="not_working_button" data-toggle="modal" data-target="#finalDoesntWorkModal" class="btn btn-sm btn-danger">Is it not working?</button>
                         </div>
                     </div>
                 </div>
@@ -355,7 +355,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Manual setup</h5>
+                    <h5 data-translation-key="manual_setup_title" class="modal-title">Manual setup</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -363,37 +363,37 @@
                 <div class="modal-body">
                     <div id="fixModalContent" style="display:none;">
                         <form>
-                            <p>
+                            <p data-translation-key="manual_setup_description">
                                 If you're positive that this service <i>is indeed</i> installed and you have followed all the steps, but ACC won't let you go to the next one;
                                 fill out the field below.<br>If you have chosen a custom path during the installation, ACC might not be able to detect it.
                             </p>
 
                             <div class="form-group">
-                                <label>Action folder path</label>
-                                <p class="text-muted">
+                                <label data-translation-key="action_folder_path_label">Action folder path</label>
+                                <p data-translation-key="action_folder_path_description" class="text-muted">
                                     Full path to your <span class="service-name"></span> folder. This will most likely be something like
                                     <code>C:/Users/your_user/<span class="service-name"></span></code>
                                 </p>
                                 <input id="manualCheckPath" class="form-control" placeholder="C:/Users/myuser/service/AssistantComputerControl">
                             </div>
                             <br>
-                            <button type="submit" id="custom_path_submit" class="btn btn-primary btn-block">Submit and check</button>
+                            <button data-translation-key="manual_setup_button" type="submit" id="custom_path_submit" class="btn btn-primary btn-block">Submit and check</button>
                         </form>
                     </div>
                     <div id="loadingModalContent" class="text-center" style="display:none;">
-                        <h4>Checking path...</h4>
+                        <h4 data-translation-key="checking_path">Checking path...</h4>
                         <h2><i class="fas fa-spinner fa-spin"></i></h2>
                     </div>
                     <div id="pathSuccess" class="text-center" style="display:none;">
-                        <h4>Success! Path manually entered. You may now proceed.</h4>
+                        <h4 data-translation-key="manual_path_entered">Success! Path manually entered. You may now proceed.</h4>
                         <h1><i style="color:green;" class="fas fa-check"></i></h1>
-                        <button data-dismiss="modal" class="btn btn-secondary">Close this window</button>
+                        <button data-translation-key="close_manual_button" data-dismiss="modal" class="btn btn-secondary">Close this window</button>
                     </div>
                     <div id="pathError" class="text-center" style="display:none;">
-                        <h4>Error. Path is not valid - please check it again.</h4>
+                        <h4 data-translation-key="manual_path_error">Error. Path is not valid - please check it again.</h4>
                         <h1><i style="color:red;" class="fas fa-times"></i></h1>
-                        <p class="help-text">This message will disappear in 8 seconds</p>
-                        <button onclick="$('#pathError').hide();$('#fixModalContent').show();if(activeTimeout !== null) clearTimeout(activeTimeout);" class="btn-sm btn btn-secondary"><i>Try again</i></button>
+                        <p data-translation-key="manual_path_error_description" class="help-text">This message will disappear in 8 seconds</p>
+                        <button onclick="$('#pathError').hide();$('#fixModalContent').show();if(activeTimeout !== null) clearTimeout(activeTimeout);" class="btn-sm btn btn-secondary"><i><span data-translation-key="try_again">Try again</span></i></button>
                     </div>
                 </div>
             </div>
@@ -534,7 +534,7 @@
                         <img draggable="false" src="assets/images/language-icon.png" style="width:120px;" />
                     </div>
                     <h4 data-translation-key="test"><b>Choose your language</b></h4>
-                    <small>You can help us translate the software! <a href="#LINK TODO">Click here for more info</a></small>
+                    <small>You can help us translate the software! <a href="https://acc.readme.io/docs/translating-the-software">Click here for more info</a></small>
                     <div style="margin-top:10px;" class="form-group">
                         <select id="chosen_language" class="form-control"></select>
                     </div>

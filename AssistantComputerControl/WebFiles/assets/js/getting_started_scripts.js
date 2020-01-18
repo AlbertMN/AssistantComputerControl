@@ -35,22 +35,6 @@ function SetTranslation(translation_json, fallback_json) {
         theFallbackTranslation = fallback_translation = (fallback_json == null ? null : JSON.parse(fallback_json));
     }
 
-    /*Object.keys(theTranslation).forEach(function (key) {
-        var theText = theTranslation[key];
-        theText = theText.replace("{cloud_service}", "<span class='service-name'></span>");
-
-        if (key == "not_working_modal_opener") {
-            theText = theText.replace("{link_start}", "<a data-toggle=\"modal\" data-target=\"#doesntWorkModal\" href=\"#\">");
-        } else if (key == "repeat_step_two_suggestion") {
-            theText = theText.replace("{link_start}", "<a href=\"#\" style=\"cursor: pointer;\" data-dismiss=\"modal\" onclick=\"setStep(2);\">");
-        }
-
-        theText = theText.replace("{link_end}", "</a>");
-
-        $("[data-translation-key='" + key + "']").html(theText);
-        //alert('Key : ' + key + ', Value : ' + translation[key]);
-    });*/
-
     $("[data-translation-key]").each(function () {
         let translationKey = $(this).attr("data-translation-key"), currentTranslation = null;
 
@@ -82,6 +66,8 @@ function SetTranslation(translation_json, fallback_json) {
         }
         //
     });
+
+    $(".service-name").text(chosenCloudService);
 }
 
 
@@ -325,7 +311,8 @@ function actionWentThrough(status, title, action) {
                 }
 
                 $("#success_icon").stop().fadeIn("fast", function () {
-                    $("#status_message").stop().fadeIn().html("<b>\"" + action + "\"</b> action went through!");
+                    //$("#status_message").stop().fadeIn().html("<b>\"" + action + "\"</b> action went through!");
+                    $("#status_message").stop().fadeIn().html($("#action_went_through").html().replace("{action}", "<b>" + action + "</b>"));
                 });
 
                 if (actionAmounts == 3) {
@@ -348,7 +335,6 @@ function actionWentThrough(status, title, action) {
             });
         });
     } else if (status == "error") {
-        $("#success_setup_action_went_through").hide();
         $("#status_message").show();
 
         $("#timeToTryText").stop().fadeOut("fast", function () {

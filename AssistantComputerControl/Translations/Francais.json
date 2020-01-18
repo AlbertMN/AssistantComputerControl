@@ -7,6 +7,15 @@
   ],
 
   "translations": {
+    "general": {
+      "error": "Erreur", /* Capital start letter */
+      "invalid_path": "Chemin non valide",
+      "no_cloudservice_chosen": "Il semble que vous n'ayez pas choisi de service cloud. Voulez-vous relancer le guide de configuration ?",
+      "cloud_setup_failed": "Echec de configuration - recommencer.",
+      "start_with_pc_yes": "Bon choix ! ACC va démarrer avec Windows",
+      "start_with_pc_no": "Bien. Si vous regrettez, vous pouvez toujours faire un clic-droit sur AssistantComputerControl et cliquer sur \"Lancer au démarrage\"!",
+      "start_with_pc_desc": "Voulez-vous que le logiciel démarre automatiquement avec Windows (recommandé) ? Cliquer sur \"Oui\""
+    },
     "settings": {
       /*
        * [SECTION INFO]
@@ -52,6 +61,16 @@
       "save_button": "Enregistrer le dossier d'actions",
       "action_file_extension_label": "Extension du fichier d'actions"
     },
+	"check_for_update": {
+      "check_for_update_title": "Vérifier les mises à jour",
+      "no_new_update": "Aucune mise à jour trouvée. Votre ACC est à jour !",
+      "update_check_failed": "Could not check for update as your computer is not connected to the internet",
+      "download_failed": "Impossible de télécharger la MaJ. Réessayer plus tard, ou télécharger manuellement depuis AssistantComputerControl.com",
+      "website_offline": "Impossible de trouver une nouvelle version en ligne. Réessayer plus tard.",
+      "new_version_found": "Une nouvelle version de AssistantComputerControl est disponible ({version_num} [{version_type}]), voulez-vous l'installer ?",
+      "new_version_found_title": "Nouvelle version trouvée",
+      "webservers_offline": "Impossible de se connecter aux serveurs d'ACC - réessayer plus tard"
+    },
     "update_downloading": { /* Needs testing */
       "title": "Téléchargement de la mise à jour...",
       "description": "Vous pouvez fermer cette fenêtre - l'installeur s'ouvrira à la fin du téléchargement",
@@ -73,10 +92,10 @@
        */
 
       "welcome_title": "Bienvenue sur AssistantComputerControl!",
-      "welcome_description": "Ce logiciel a besoin d'un service cloud pour fonctionner. Nous prenons en charge nativement Dropbox, Google Drive et OneDrive.",
+      "welcome_description": "ACC a besoin d'un service cloud pour fonctionner. Nous prenons en charge Dropbox, Google Drive et OneDrive.",
       "click_me": "Cliquer ici !",
       "recommended": "Recommandé",
-      "expert_setup_short_desc": "Choisissez-moi si vous voulez plus de liberté (configuration personnalisée, aucune aide)",
+      "expert_setup_short_desc": "Si vous voulez plus de liberté (configuration personnalisée, sans aide)",
       "expert_setup_name": "Configuration experte",
 
       "pick_button_default_text": "Choisir un service Cloud", /* text on the button while it's disabled, until the user has clicked a cloud service */
@@ -92,28 +111,31 @@
       "install_text": "Installation {cloud_service}",
       "cloud_service_installed": "installé !",
       "looking_for_service": "vérification...",
-      "not_working_modal_opener": "cliquer {link_start}ici{link_end} si {cloud_service} <u>est</u> installé, et que vous avez <u>suivi</u> les instructions pas-à-pas, mais que ACC ne vous laisse pas continuer",
+      "not_working_modal_opener": "cliquer {link_start}ici{link_end} si vous avez <u>installé</u> {cloud_service} et <u>suivi</u> les instructions pas-à-pas, mais que ACC ne vous laisse pas continuer",
+      "if_you_havent_already": "(si vous n'avez pas un compte)", /* Used for "install {cloud service name}, "if you haven't already" */
 
-      
-
-      "if_you_havent_already": "(si vous n'avez pas déjà)", /* Used for "install {cloud service name}, "if you haven't already" */
+      "desired_path_not_found": "Quelque chose s'est mal passé - le chemin voulu n'a pas été trouvé",
+      "error_disappear": "Ce message va disparaitre dans 10 secondes",
+      "try_again": "Réessayer",
+	  
       /* Dropbox specific */
       "dropbox_sign_up": "S'enregistrer sur Dropbox",
-      "download_dropbox": "Télécharger l'installeur Dropbox",
-      "open_installer_dropbox": "Lancer le programme et terminer l'installation",
+      "download_dropbox": "Télécharger Dropbox",
+      "open_installer_dropbox": "Installer le programme puis revenez ici",
+	  
       /* OneDrive specific */
       "personal_onedrive": "OneDrive personnel",
       "work_onedrive": "OneDrive entreprise",
-      "onedrive_sign_up": "S'enregistrer sur OneDrive (pareil que le compte Microsoft)",
-      "download_onedrive": "Si vous utilisez Windows 8 ou plus, vous devriez déjà avoir OneDrive<br>sur votre ordinateur. Sinon, <a href=\"https://onedrive.live.com/about/en-sg/download/\">télécharger et lancer l'installeur OneDrive</a>",
+      "onedrive_sign_up": "S'enregistrer sur OneDrive (= compte Microsoft)",
+      "download_onedrive": "Si vous utilisez Windows 8 ou plus, vous devriez déjà avoir OneDrive<br>sur votre ordinateur. Sinon, <a href=\"https://onedrive.live.com/about/en-sg/download/\">télécharger et installer OneDrive</a>",
       "onedrive_go_to_folder": "Aller dans le dossier OneDrive dans l'explorateur de fichiers",
-      "onedrive_create_folder": "Créer un dossier appelé \"AssistantComputerControl\"",
-      "onedrive_always_keep": "Faire un clic droit sur le dossier créé et cliquer sur \"Toujours conserver sur cet appareil\" <b><i>(très important)</i></b>",
+      "onedrive_create_folder": "Créer un dossier \"AssistantComputerControl\"",
+      "onedrive_always_keep": "Faire un clic droit dessus et cliquer sur \"Toujours conserver sur cet appareil\" <b><i>(très important)</i></b>",
 
       /* Google Drive specific */
       "make_google_account": "Vous devriez avoir un compte Google - sinon, <a href=\"https://accounts.google.com/signup/v2\">en créer un</a>",
       "google_drive_download": "Télécharger Google Drive pour votre ordinateur <a href=\"https://www.google.com/drive/download/\">choisir \"Personnel; Sauvegarde et Synchronisation\"</a> <small>(si vous ne l'avez pas déjà fait)</small>",
-      "google_drive_install": "Lancer le programme et terminer l'installation",
+      "google_drive_install": "Installer le programme puis revenez ici",
       "google_drive_click_logo": "Cliquer sur le logo \"Sauvegarde et Synchronisation\" dans la barre des tâches",
       "google_drive_preferences": "Appuyer sur les 3 points dans le coin droit, puis dans <b>\"Préférences\"</b>",
       "google_drive_sync": "Aller dans l'onglet <b>\"Google Drive\"</b> et vérifier que <b>\"Synchroniser mon Drive sur cet ordinateur\"</b> est coché",
@@ -130,12 +152,12 @@
       "set_up_ifttt_acc": "Configurer votre compte IFTTT",
       "set_up_ifttt_extra": "avec les applets AssistantComputerControl",
       "ifttt_join": "S'enregistrer sur IFTTT",
-      "ifttt_join_extra": "(c'est mieux d'utiliser son compte Google, si vous utilisez Google Assistant)",
+      "ifttt_join_extra": "(utiliser votre compte Google, si vous utilisez Google Assistant)",
       "ifttt_enable_shutdown_applet": "<b>Activer les applets voulus.</b> Commençons avec l'action <code>extinction</code> <small>(qui va éteindre votre ordinateur)</small>.",
       "shutdown_test_link_gh": "Cliquer ici si vous utilisez Google Assistant",
       "ifttt_shutdown_link_alexa": "ou ici si vous utilisez Amazon Alexa",
       "ifttt_connect_applet": "Cliquer sur \"Connect\" dans l'applet IFTTT", // The "Connect" part should ALWAYS stay the same, no matter the language!
-      "ifttt_link_info": "Si vous n'avez pas lié votre {cloud_service} ou compte Google/Amazon, vous allez recevoir une demande",
+      "ifttt_link_info": "Si vous n'avez pas déjà lié votre {cloud_service} ou compte Google/Amazon, vous allez recevoir une demande",
 
       /* "Done" tab */
       "time_to_try_heading": "Essayez l'action d'extinction 3 fois !",
@@ -145,7 +167,7 @@
       "google_assistant_trigger_example": "Le déclencheur <b>Google Assistant</b> sera;",
       "alexa_trigger_example": "Pour <b>Alexa</b>, vous devez dire",
       "configure_software_info": "Pour configurer le logiciel avec votre ordinateur de la meilleure des manières, essayons l'action <code>exctinction</code> 3 fois !",
-      "wont_execute_reminder": "L'action que vous allez essayer ne sera <i>pas</i> exécutée, juste simulée !",
+      "wont_execute_reminder": "L'action ne sera <i>pas</i> exécutée, juste simulée !",
 
       "fast_learner": "Vous apprenez vite !", // Shown when the user executes the first action before even going to tab 3
       "too_fast": "Vous êtes rapide, mais, peut-être <i>trop</i> rapide... ?", // Shown when the user is fast, but the action fails
@@ -185,6 +207,21 @@
       "tbs_still_not_resolved_title": "Toujours pas résolu (réparation avancée)",
       "tbs_still_not_resolved_desc": "Si toutes les solutions au-dessus ont échoué, merci de vous référer au guide de <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">dépannage</a> <i>(en particulier la section \"Tujours pas résolu ?\")</i>",
       "tbs_still_not_resolved_community_help": "Si cela ne fonctionne <b>toujours pas</b>, venez sur notre <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>serveur Discord</i></a>. Avec plus de 550 membres, vous pouvez être sûr d'avoir de l'aide rapidement <i>(et le développeur répond souvent dans les premières heures)</i><br />Dans le cas où vous pensez avoir trouvé un bug, vous pouvez ouvrir un <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">incident sur GitHub</a> et décrire votre bug."
+    },
+    "expert_setup": {
+      "title": "Configuration personnalisée",
+      "description": "Cette configuration est faite pour ceux qui veulent plus de liberté.\nACC utilise un service cloud pour communiquer avec IFTTT, qui gère les commandes et réponses.\n\nPar défaut, ACC utilise Dropbox, OneDrive ou Google Drive. ACC va regarder un fichier dans un dossier spécifique, les paramètres avancées vous permettent de modifier ces 2 champs.\n\nUne \"action\" est ce que l'ordinateur va faire. Dire à l'assistant \"Eteint l'ordinateur\", l'action est \"extinction\". Le \"dossier Action\" est l'endroit où ACC va chercher l'action à exécuter.",
+      "action_folder_path": "Chemin du dossier Action",
+      "action_file_extension": "Extension du fichier Action",
+      "disclaimer": "Vous pouvez toujours éditer ces réglages en faisant un clic droit sur l'icône ACC dans la barre des tâches, puis sur \"Paramètres\" ensuite \"Paramètres avancés\"",
+      "back_to_setup": "Retour au guide",
+      "done_button": "OK"
+    },
+    "tray_menu": {
+      "settings_title": "Paramètres",
+      "help_title": "Aide",
+      "exit_title": "Quitter",
+      "open_on_startup": "Lancer au démarrage"
     }
   }
 }

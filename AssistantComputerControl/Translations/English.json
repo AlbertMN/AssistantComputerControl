@@ -1,5 +1,7 @@
 ﻿{
   "language": "English",
+  "version": "1.4.0", //the version of the software this translation is made for
+  "translation_version": 2,
 
   //Add your name to the bottom of the contributors list if you have contributed
   "contributors": [
@@ -76,7 +78,7 @@
       "description": "You can close this window - the installer will open when it's done downloading",
       "downloaded_bytes": "Downloaded {x} of {y}"
     },
-    "user_feedback_window": { /* Needs testing */
+    "user_feedback_window": {
       "window_name": "AssistantComputerControl user feedback"
     },
     "test_action_window": {
@@ -92,7 +94,7 @@
        */
 
       "welcome_title": "Welcome to AssistantComputerControl!",
-      "welcome_description": "This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.",
+      "welcome_description": "This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.", //This should only be ONE line - no line breaks
       "click_me": "Click me!",
       "recommended": "Recommended",
       "expert_setup_short_desc": "Choose me if you want more freedom (custom setup, no help)",
@@ -100,7 +102,7 @@
 
       "pick_button_default_text": "Pick a cloud service", /* text on the button while it's disabled, until the user has clicked a cloud service */
       "pick_button_text": "Proceed with {cloud_service}", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
-      "expert_setup_chosen_text": "the expert setup", /* what apperas after "Proceed with ..." on the pick-button */
+      "expert_setup_chosen_text": "the expert setup", /* what appears after "Proceed with ..." on the pick-button */
 
       "skip_guide_text": "Click here to skip the setup guide <i>(not recommended)</i>",
 
@@ -118,6 +120,18 @@
       "error_disappear": "This message will disappear in 10 seconds",
       "try_again": "Try again",
 
+      /* Manual setup */
+      "manual_setup_title": "Manual setup",
+      "manual_setup_description": "If you're positive that this service <i>is indeed</i> installed and you have followed all the steps, but ACC won't let you go to the next one; fill out the field below.<br>If you have chosen a custom path during the installation, ACC might not be able to detect it.",
+      "action_folder_path_label": "Action folder path",
+      "action_folder_path_description": "Full path to your cloud service folder. This will most likely be something like <code>C:/Users/your_user/cloudservice_name</code>",
+      "manual_setup_button": "Submit and check",
+      "manual_path_entered": "Success! Path manually entered. You may now proceed.",
+      "checking_path": "Checking path...",
+      "close_manual_button": "Close this window",
+      "manual_path_error": "Error. Path is not valid - please check it again.",
+      "manual_path_error_description": "This message will disappear in 8 seconds",
+
       /* Dropbox specific */
       "dropbox_sign_up": "Sign up for Dropbox",
       "download_dropbox": "Download the Dropbox installer",
@@ -131,6 +145,7 @@
       "onedrive_go_to_folder": "Go to the OneDrive folder in the file explorer",
       "onedrive_create_folder": "Create a folder called \"AssistantComputerControl\"",
       "onedrive_always_keep": "Right-click the created folder and press \"Always keep on this device\" <b><i>(quite important)</i></b>",
+      "has_work_onedrive": "We can see you have a personal and work OneDrive - which one do you want to use?",
 
       /* Google Drive specific */
       "make_google_account": "You most likely already have a Google account - if not, <a href=\"https://accounts.google.com/signup/v2\">make one</a>",
@@ -161,6 +176,7 @@
 
       /* "Done" tab */
       "time_to_try_heading": "Try the shutdown action 3 times!",
+      "listening_for_actions": "Listening for actions...",
       "done_description": "Now all that's left to do is try the software. With {cloud_service} fully set up, an IFTTT account and an enabled ACC-applet, we can now test in a safe environment.",
       "applet_enable_reminder": "Haven't yet enabled the \"shutdown\" applet? Click the link for the assistant you use and enable it.",
       "custom_trigger_reminder": "... depending on the language you set on the applet, and if you changed the triggers in step 2...",
@@ -168,6 +184,7 @@
       "alexa_trigger_example": "For <b>Alexa</b>, you'd need to say",
       "configure_software_info": "To configure the software to match your computer in the best way possible, let's try the <code>shutdown</code> action 3 times!",
       "wont_execute_reminder": "The actions you try will <i>not</i> be executed, just simulated!",
+      "action_went_through": "{action} went through",
 
       "fast_learner": "You're a fast learner!", // Shown when the user executes the first action before even going to tab 3
       "too_fast": "You were fast, but, were you <i>too</i> fast...?", // Shown when the user is fast, but the action fails

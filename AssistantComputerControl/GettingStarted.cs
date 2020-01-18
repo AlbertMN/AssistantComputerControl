@@ -132,6 +132,12 @@ namespace AssistantComputerControl {
                 }
             }
 
+            public void SkipGuide() {
+                SetupDone();
+                MainProgram.DoDebug("Skipped setup guide");
+                thisForm.Close();
+            }
+
             /* Translations */
             public void SetLanguage(string lang) {
                 if (Array.Exists(Translator.languagesArray, element => element == lang)) {
