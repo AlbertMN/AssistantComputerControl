@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.1.4, 13-12-2018
+ * Updated: v1.4.0, 15-01-2020
  * 
  * Use:
  * - Settings Form

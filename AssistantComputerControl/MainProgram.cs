@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 26-12-2019
+ * Updated: v1.4.0, 15-01-2020
  * 
  * Use:
  * - Main class. Starts everything.
@@ -26,11 +26,10 @@ using NLog;
 namespace AssistantComputerControl {
     class MainProgram {
         public const string softwareVersion = "1.4.0",
-            releaseDate = "2020-01-3 21:49:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+            releaseDate = "2020-01-18 21:49:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            //sentryToken = "super_secret";
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
+            sentryToken = "super_secret";
 
 
         static public bool debug = true,

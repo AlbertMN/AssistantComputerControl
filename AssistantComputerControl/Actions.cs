@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: Updated: v1.4.0, 26-12-2019
+ * Updated: v1.4.0, 15-01-2020
  * 
  * Use:
  * - Functions for all the actions

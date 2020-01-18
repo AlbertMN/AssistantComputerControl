@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.4.0, 15-01-2020
+ * 
+ * Use:
+ * - Controls the translating system
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
