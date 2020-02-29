@@ -98,7 +98,7 @@ body {
     margin-top: 10px;
     font-size: 15px;
     overflow: hidden;
-    overflow-y: hidden!important;
+    overflow-y: hidden;
 }
 
 .stepwizard-step p {

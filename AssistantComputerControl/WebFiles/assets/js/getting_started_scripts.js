@@ -53,6 +53,8 @@ function SetTranslation(translation_json, fallback_json) {
                 theText = theText.replace("{link_start}", "<a data-toggle=\"modal\" data-target=\"#doesntWorkModal\" href=\"#\">");
             } else if (translationKey == "repeat_step_two_suggestion") {
                 theText = theText.replace("{link_start}", "<a href=\"#\" style=\"cursor: pointer;\" data-dismiss=\"modal\" onclick=\"setStep(2);\">");
+            } else if (translationKey == "expert_setup_chosen_text") {
+                $("#expert_setup_card").attr("data-name", theText);
             }
 
             theText = theText.replace("{link_end}", "</a>");
@@ -189,15 +191,15 @@ function DoneError() {
 }
 
 $(".card.cloud_service_card").on("click", function () {
-    let theThis = $(this), theName = $(this).attr("data-name");
+    let theThis = $(this), theName = theThis.attr("data-name");
     $(".card").removeClass("card-selected");
-    $(this).addClass("card-selected");
+    theThis.addClass("card-selected");
 
     chosenCloudService = theName;
     $(".service-name").text(chosenCloudService);
     $("#pick_btn").prop("disabled", false).html($("#proceed_with_cloudservice_text").html());
-    chosenCloudServiceNum = $(this).attr("data-num");
-    chosenCloudServiceImage = $(this).attr("data-image");
+    chosenCloudServiceNum = theThis.attr("data-num");
+    chosenCloudServiceImage = theThis.attr("data-image");
     cloudServiceInstalled = false;
 
     if (theName == "OneDrive" && hasWorkOnedrive) {
@@ -224,7 +226,7 @@ $("#pick_btn").on("click", function () {
         $("#loadingModalContent").hide();
         setStep(1);
 
-        $("body").css("overflow", "auto");
+        $("body").css("overflow-y", "auto");
 
         if (stepDivs[chosenCloudServiceNum - 1] != null)
             stepDivs[chosenCloudServiceNum - 1].show();
@@ -420,7 +422,10 @@ function setStep(step) {
         //previousButton.stop().fadeOut();
         nextButton.stop().fadeIn();
         CloudServiceInstalled(cloudServiceInstalled);
+        $("body").css("overflow-y", "auto");
     } else if (step == 2) {
+        $("body").css("overflow-y", "hidden");
+
         window.external.SetPath(chosenCloudService.replace(" ", "").toLocaleLowerCase());
 
         previousButton.stop().fadeIn();

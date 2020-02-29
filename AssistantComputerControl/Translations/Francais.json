@@ -1,6 +1,8 @@
 ﻿{
   "language": "Français",
-
+  "version": "1.4.0", //the version of the software this translation is made for
+  "translation_version": 2,
+  
   //Add your name to the bottom of the contributors list if you have contributed
   "contributors": [
     "Hadrien Miche"
@@ -92,15 +94,15 @@
        */
 
       "welcome_title": "Bienvenue sur AssistantComputerControl!",
-      "welcome_description": "ACC a besoin d'un service cloud pour fonctionner. Nous prenons en charge Dropbox, Google Drive et OneDrive.",
+      "welcome_description": "ACC a besoin d'un service cloud pour fonctionner tels que Dropbox, Google Drive et OneDrive.",
       "click_me": "Cliquer ici !",
       "recommended": "Recommandé",
-      "expert_setup_short_desc": "Si vous voulez plus de liberté (configuration personnalisée, sans aide)",
-      "expert_setup_name": "Configuration experte",
+      "expert_setup_short_desc": "Si vous voulez plus de liberté (conf personnalisée, sans aide)",
+      "expert_setup_name": "Config experte",
 
       "pick_button_default_text": "Choisir un service Cloud", /* text on the button while it's disabled, until the user has clicked a cloud service */
       "pick_button_text": "Continuer avec {cloud_service}", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
-      "expert_setup_chosen_text": "la configuration experte", /* what apperas after "Proceed with ..." on the pick-button */
+      "expert_setup_chosen_text": "la config experte", /* what apperas after "Proceed with ..." on the pick-button */
 
       "skip_guide_text": "Cliquer ici pour passer le guide de démarrage <i>(non recommandé)</i>",
 
@@ -117,12 +119,24 @@
       "desired_path_not_found": "Quelque chose s'est mal passé - le chemin voulu n'a pas été trouvé",
       "error_disappear": "Ce message va disparaitre dans 10 secondes",
       "try_again": "Réessayer",
-	  
+
+      /* Manual setup */
+      "manual_setup_title": "Configuration manuelle",
+      "manual_setup_description": "Si vous êtes sûrs que le service est <i>installé et suivi les instructions pas-à-pas</i>, mais que ACC ne vous laisse pas continuer; remplissez le champ ci-dessous.<br>Si vous avez choisi un chemin particulier lors de l'installation, ACC peut ne pas le détecter.",
+      "action_folder_path_label": "Chemin du dossier Action",
+      "action_folder_path_description": "Chemin complet vers le dossier du service Cloud. Cela ressemble à <code>C:/Users/votre_compte/nom_servicecloud</code>",
+      "manual_setup_button": "Envoyer et vérifier",
+      "manual_path_entered": "Réussi ! Le chemin a été entré manuellement. Vous pouvez continuer.",
+      "checking_path": "Vérification du chemin...",
+      "close_manual_button": "Fermer cette fenêtre",
+      "manual_path_error": "Erreur. Le chemin n'est pas valide - réessayer.",
+      "manual_path_error_description": "Ce message va disparaitre dans 8 secondse",
+
       /* Dropbox specific */
       "dropbox_sign_up": "S'enregistrer sur Dropbox",
       "download_dropbox": "Télécharger Dropbox",
       "open_installer_dropbox": "Installer le programme puis revenez ici",
-	  
+
       /* OneDrive specific */
       "personal_onedrive": "OneDrive personnel",
       "work_onedrive": "OneDrive entreprise",
@@ -131,6 +145,7 @@
       "onedrive_go_to_folder": "Aller dans le dossier OneDrive dans l'explorateur de fichiers",
       "onedrive_create_folder": "Créer un dossier \"AssistantComputerControl\"",
       "onedrive_always_keep": "Faire un clic droit dessus et cliquer sur \"Toujours conserver sur cet appareil\" <b><i>(très important)</i></b>",
+      "has_work_onedrive": "Vous avez un compte OneDrive personnel et entreprise - lequel voulez-vous utiliser ?",
 
       /* Google Drive specific */
       "make_google_account": "Vous devriez avoir un compte Google - sinon, <a href=\"https://accounts.google.com/signup/v2\">en créer un</a>",
@@ -161,6 +176,7 @@
 
       /* "Done" tab */
       "time_to_try_heading": "Essayez l'action d'extinction 3 fois !",
+      "listening_for_actions": "En écoute...",
       "done_description": "Maintenant, ce qu'il reste à faire c'est d'essayer le logiciel. Avec {cloud_service} complétement configuré, un compte IFTTT et un applet ACC, vous pouvez tester dans un environnement sans danger.",
       "applet_enable_reminder": "Vous n'avez pas encore activé l'applet \"extinction\" ? Cliquer sur le lien correspondant à l'assistant que vous utilisez pour l'activer.",
       "custom_trigger_reminder": "... cela dépend de la langue que vous avez configuré sur l'applet, et si vous avez changer le déclencheur dans l'étape 2...",
@@ -168,6 +184,7 @@
       "alexa_trigger_example": "Pour <b>Alexa</b>, vous devez dire",
       "configure_software_info": "Pour configurer le logiciel avec votre ordinateur de la meilleure des manières, essayons l'action <code>exctinction</code> 3 fois !",
       "wont_execute_reminder": "L'action ne sera <i>pas</i> exécutée, juste simulée !",
+      "action_went_through": "{action} s'est bien passée",
 
       "fast_learner": "Vous apprenez vite !", // Shown when the user executes the first action before even going to tab 3
       "too_fast": "Vous êtes rapide, mais, peut-être <i>trop</i> rapide... ?", // Shown when the user is fast, but the action fails

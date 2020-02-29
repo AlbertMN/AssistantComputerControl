@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,33 @@ namespace AssistantComputerControl {
                 } else {
                     MainProgram.DoDebug("[CLEANUP] Action folder is completely empty");
                 }
+
+                /* Launch a follow-up investigation */
+                new Thread(() => {
+                    Thread.CurrentThread.IsBackground = true;
+
+                    void ExtraCleanup() {
+                        MainProgram.DoDebug("[CLEANUP] Running extra cleanup (followup)");
+
+                        try {
+                            var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
+
+                            Process p = new Process();
+                            p.StartInfo.FileName = "powershell.exe";
+                            p.StartInfo.Arguments = $"-file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"";
+                            p.StartInfo.UseShellExecute = false;
+                            p.Start();
+                        } catch {
+                            MainProgram.DoDebug("[CLEANUP] Extra checkup failed");
+                        }
+                    }
+
+                    Thread.Sleep(5000);
+                    ExtraCleanup();
+                    Thread.Sleep(25000);
+                    ExtraCleanup();
+                }).Start();
+
                 isCleaning = false;
             }).Start();
         }

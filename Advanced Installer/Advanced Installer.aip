@@ -40,10 +40,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{CF9594BE-3423-4E99-B739-8B54827E3E96} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{9178F274-C56D-4B98-B32A-B23F434751B3} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.4.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.3.9" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -82,6 +82,7 @@
     <ROW Component="ProductInformation" ComponentId="{72E5C433-D45C-45F4-AF47-0DD66CC8E52E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{4405308F-0979-4250-8A8D-0622FA7AF17C}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="acclogo.png" ComponentId="{17CD3B7D-63BC-4942-A1DE-45745465159E}" Directory_="images_Dir" Attributes="0" KeyPath="ifttt_logo.png" Type="0"/>
+    <ROW Component="bootstrap.min.old.css" ComponentId="{F90E6855-05C3-439F-9255-E2FF62149BE9}" Directory_="assets_Dir" Attributes="0" KeyPath="bootstrap.min.old.css" Type="0"/>
     <ROW Component="dropbox.png" ComponentId="{61A99AF5-F5C9-43FC-9753-1E8B2CE42DB9}" Directory_="cloud_services_Dir" Attributes="0" KeyPath="dropbox.png" Type="0"/>
     <ROW Component="getting_started_main.css" ComponentId="{78C894CD-0028-4FFB-9196-873F2B6DDADB}" Directory_="css_Dir" Attributes="0" KeyPath="getting_started_main.css" Type="0"/>
     <ROW Component="getting_started_scripts.js" ComponentId="{F0BCADC8-6DF3-4F83-AF0F-DD2817185372}" Directory_="js_Dir" Attributes="0" KeyPath="getting_started_scripts.js" Type="0"/>
@@ -124,6 +125,13 @@
     <ROW File="languageicon.png" Component_="acclogo.png" FileName="LANGUA~1.PNG|language-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\language-icon.png" SelfReg="false"/>
     <ROW File="voiceicon.png" Component_="acclogo.png" FileName="VOICE-~1.PNG|voice-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\voice-icon.png" SelfReg="false"/>
     <ROW File="acc_logo.png" Component_="acclogo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\acc_logo.png" SelfReg="false"/>
+    <ROW File="bootstrap.min.old.css" Component_="bootstrap.min.old.css" FileName="BOOTST~1.CSS|bootstrap.min.old.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.old.css" SelfReg="false"/>
+    <ROW File="bootstrap.min.css" Component_="getting_started_main.css" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\bootstrap.min.css" SelfReg="false"/>
+    <ROW File="sweetalert2.min.css" Component_="getting_started_main.css" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\sweetalert2.min.css" SelfReg="false"/>
+    <ROW File="bootstrap.min.js" Component_="getting_started_scripts.js" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\bootstrap.min.js" SelfReg="false"/>
+    <ROW File="jquery.js" Component_="getting_started_scripts.js" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\jquery.js" SelfReg="false"/>
+    <ROW File="popper.min.js" Component_="getting_started_scripts.js" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\popper.min.js" SelfReg="false"/>
+    <ROW File="sweetalert2.min.js" Component_="getting_started_scripts.js" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\sweetalert2.min.js" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
@@ -253,6 +261,7 @@
     <ROW Feature_="MainFeature" Component_="getting_started_scripts.js"/>
     <ROW Feature_="MainFeature" Component_="getting_started_main.css"/>
     <ROW Feature_="MainFeature" Component_="acclogo.png"/>
+    <ROW Feature_="MainFeature" Component_="bootstrap.min.old.css"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>

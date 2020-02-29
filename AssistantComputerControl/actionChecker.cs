@@ -223,16 +223,15 @@ namespace AssistantComputerControl {
  
             if (lastModified.AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
                 //if (File.GetLastWriteTime(file).AddSeconds(Properties.Settings.Default.FileEditedMargin) < DateTime.Now) {
-                    //Extra security - sometimes the "creation" time is a bit behind, but the "modify" timestamp is usually right.
+                //Extra security - sometimes the "creation" time is a bit behind, but the "modify" timestamp is usually right.
 
-                MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
                 MainProgram.DoDebug("File creation time: " + lastModified.ToString());
                 MainProgram.DoDebug("Local time: " + DateTime.Now.ToString());
 
                 if (GettingStarted.isConfiguringActions) {
                     //Possibly configure an offset - if this always happens
 
-                    Console.WriteLine(" -------------- IS CONFIGURING");
+                    Console.WriteLine("File is actually too old, but configuring the software to maybe set an offset");
 
                     isConfiguringOffset = true;
                     if (lastModifiedOffsets == null) {
@@ -241,11 +240,35 @@ namespace AssistantComputerControl {
 
                     lastModifiedOffsets.Add((DateTime.Now - lastModified).TotalSeconds);
                     if (lastModifiedOffsets.Count >= 3) {
-                        Console.WriteLine("Average is; " + (int)(lastModifiedOffsets.Average() + 30));
+                        int average = (int)(lastModifiedOffsets.Average());
+                        Console.WriteLine("File Margin fixed offset set to; " + average.ToString());
+                        Properties.Settings.Default.AutoFileMarginFixer = average;
+                        Properties.Settings.Default.Save();
                     }
                 } else {
-                    new CleanupService().Start();
-                    return;
+                    bool isGood = false;
+
+                    if (Properties.Settings.Default.AutoFileMarginFixer != 0) {
+                        //if (lastModified.AddSeconds(-Properties.Settings.Default.AutoFileMarginFixer) < DateTime.Now) {
+
+                        var d1 = lastModified.AddSeconds(-Properties.Settings.Default.FileEditedMargin);
+                        var d2 = DateTime.Now.AddSeconds(-Properties.Settings.Default.AutoFileMarginFixer);
+
+                        if (d1 < d2) {
+                            isGood = true;
+                            MainProgram.DoDebug("File timestamp is actually more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, but the software is configured to have an auto-file-margin fix for " + Properties.Settings.Default.AutoFileMarginFixer.ToString() + "s");
+                        } else {
+                            //MainProgram.DoDebug(d1.ToString());
+                            //MainProgram.DoDebug(d2.ToString());
+                            MainProgram.DoDebug("The " + Properties.Settings.Default.AutoFileMarginFixer.ToString() + "s didn't fix it");
+                        }
+                    }
+
+                    if (!isGood) {
+                        MainProgram.DoDebug("The file is more than " + Properties.Settings.Default.FileEditedMargin.ToString() + "s old, meaning it won't be executed.");
+                        new CleanupService().Start();
+                        return;
+                    }
                 }
                 //}
             }

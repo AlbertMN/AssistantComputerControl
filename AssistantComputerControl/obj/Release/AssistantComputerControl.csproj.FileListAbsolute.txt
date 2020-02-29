@@ -168,3 +168,4 @@ C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComput
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\css\sweetalert2.min.css
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\WebFiles\assets\js\sweetalert2.min.js
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\Translations\Francais.json
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\ExtraCleanupper.ps1

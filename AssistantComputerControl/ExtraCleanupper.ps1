@@ -1,0 +1,1 @@
+Remove-Item -path $args[0] -include $args[1]

@@ -220,6 +220,9 @@
   <ItemGroup>
     <None Include="acc_key.snk" />
     <None Include="App.config" />
+    <None Include="ExtraCleanupper.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Translations\Danish.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

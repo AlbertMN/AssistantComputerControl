@@ -501,8 +501,8 @@ namespace AssistantComputerControl {
 
         public void KeyShortcut(string parameter) {
             /*
-             * Added by : Joshua Miller
-             * How to use it :
+             * Added by: Joshua Miller
+             * How to use it:
              *  - To seperate keys please use '+' (to use '+' do {ADD})
              *  - Things like ctrl will be converted to control key
              */

@@ -177,8 +177,6 @@
       /* "Done" tab */
       "time_to_try_heading": "Try the shutdown action 3 times!",
       "listening_for_actions": "Listening for actions...",
-      "done_description": "Now all that's left to do is try the software. With {cloud_service} fully set up, an IFTTT account and an enabled ACC-applet, we can now test in a safe environment.",
-      "applet_enable_reminder": "Haven't yet enabled the \"shutdown\" applet? Click the link for the assistant you use and enable it.",
       "custom_trigger_reminder": "... depending on the language you set on the applet, and if you changed the triggers in step 2...",
       "google_assistant_trigger_example": "The <b>Google Assistant</b> trigger would be;",
       "alexa_trigger_example": "For <b>Alexa</b>, you'd need to say",
