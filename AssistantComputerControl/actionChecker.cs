@@ -517,6 +517,11 @@ namespace AssistantComputerControl {
                 case "maximize_all":
                     actionExecution.MaximizeAll();
                     break;
+                case "move_mouse":
+                    if (RequireParameter(parameter)) {
+                        actionExecution.MoveMouse(parameter);
+                    }
+                    break;
                 default:
                     //Unknown action
                     actionExecution.errorMessage = "Unknown action \"" + action + "\"";

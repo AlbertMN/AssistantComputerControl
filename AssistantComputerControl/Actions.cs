@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 
 
 namespace AssistantComputerControl {
@@ -906,6 +907,31 @@ namespace AssistantComputerControl {
 
         public void WindowsToast() {
             //Todo - quite a bit of work
+        }
+
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        private static extern bool SetCursorPos(int x, int y);
+        public void MoveMouse(String parameter) {
+            parameter = parameter.Trim(new char[] { '(',')',' '});
+            String[] parameterSplit = parameter.Split(',');
+        
+            // Error Checking
+            // If there is the correct amount of arguments
+            if (parameterSplit.Length != 2) {
+                Error("The parameter is either formatted incorrectly or does not have 2 values");
+            // If param 1 is a number
+            } else if ((Int32.TryParse(parameterSplit[0], out int param1))) {
+                if ((Int32.TryParse(parameterSplit[1], out int param2))) {
+                    SetCursorPos(Int32.Parse(parameterSplit[0]), Int32.Parse(parameterSplit[1]));
+                    successMessage = "Moved Mouse to (" + (Int32.Parse(parameterSplit[0]).ToString() + ", " + Int32.Parse(parameterSplit[1])).ToString() + ")";
+                } else {
+                    Error("Parameter 2 is not a number");
+                }
+
+            // It isn't a number
+            } else {
+                Error("Parameter 1 is not a number");
+            }
         }
 
         /* End of actions */
