@@ -16,7 +16,6 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
 
 
 namespace AssistantComputerControl {
@@ -931,6 +930,63 @@ namespace AssistantComputerControl {
             // It isn't a number
             } else {
                 Error("Parameter 1 is not a number");
+            }
+        }
+
+        [DllImport("user32.dll", EntryPoint = "mouse_event")]
+        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        public const int MOUSEEVENTF_LEFTUP = 0x04;
+        public void MouseLeftClick(string parameter) {
+            // Try to get amount of times to click
+            if (Int32.TryParse(parameter, out int repeatAmount)) {
+                for (int count = 0; count < repeatAmount; count++) {
+                    mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                    successMessage = "Simulated pressing the Left mouse button " + repeatAmount + " times";
+                }
+            } else {
+                Error("Repeat amount is not a munber");
+            }
+        }
+
+        public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
+        public const int MOUSEEVENTF_RIGHTUP = 0x10;
+        public void MouseRightClick(string parameter)
+        {
+            // Try to get amount of times to click
+            if (Int32.TryParse(parameter, out int repeatAmount))
+            {
+                for (int count = 0; count < repeatAmount; count++)
+                {
+                    mouse_event(MOUSEEVENTF_RIGHTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                    successMessage = "Simulated pressing the Right mouse button " + repeatAmount + " times";
+                }
+            }
+            else
+            {
+                Error("Repeat amount is not a munber");
+            }
+        }
+
+        public const int MOUSEEVENTF_MIDDLEDOWN = 0x20;
+        public const int MOUSEEVENTF_MIDDLEUP = 0x40;
+        public void MouseMiddleClick(string parameter)
+        {
+            // Try to get amount of times to click
+            if (Int32.TryParse(parameter, out int repeatAmount))
+            {
+                for (int count = 0; count < repeatAmount; count++)
+                {
+                    mouse_event(MOUSEEVENTF_MIDDLEDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                    mouse_event(MOUSEEVENTF_MIDDLEUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                    successMessage = "Simulated pressing the Middle mouse button " + repeatAmount + " times";
+                }
+            }
+            else
+            {
+                Error("Repeat amount is not a munber");
             }
         }
 

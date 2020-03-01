@@ -522,6 +522,30 @@ namespace AssistantComputerControl {
                         actionExecution.MoveMouse(parameter);
                     }
                     break;
+                case "mouse_left_click":
+                    if (String.IsNullOrEmpty(parameter)) {
+                        actionExecution.MouseLeftClick("1");
+                    } else {
+                        actionExecution.MouseLeftClick(parameter);
+                    }
+                    break;
+                case "mouse_right_click":
+                    if (String.IsNullOrEmpty(parameter)) {
+                        actionExecution.MouseRightClick("1");
+                    } else {
+                        actionExecution.MouseRightClick(parameter);
+                    }
+                    break;
+                case "mouse_middle_click":
+                    if (String.IsNullOrEmpty(parameter))
+                    {
+                        actionExecution.MouseMiddleClick("1");
+                    }
+                    else
+                    {
+                        actionExecution.MouseMiddleClick(parameter);
+                    }
+                    break;
                 default:
                     //Unknown action
                     actionExecution.errorMessage = "Unknown action \"" + action + "\"";
