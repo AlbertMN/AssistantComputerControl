@@ -394,6 +394,7 @@ namespace AssistantComputerControl {
                 string combinedPath = "";
                 try {
                     combinedPath = Path.Combine(MainProgram.shortcutLocation, location);
+                    //MainProgram.DoDebug();
                 } catch {
                     Error("Given path (" +  location+ ") is invalid (could not combine)");
                 }
@@ -404,7 +405,8 @@ namespace AssistantComputerControl {
             }
 
             if (fileLocation != "") {
-                if (MainProgram.IsValidPath(location)) {
+                MainProgram.DoDebug(fileLocation);
+                try {
                     if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                         if (!MainProgram.testingAction) {
                             try {
@@ -424,8 +426,8 @@ namespace AssistantComputerControl {
                     } else {
                         Error("File or directory doesn't exist (" + fileLocation + ")");
                     }
-                } else {
-                    Error("Given path is invalid");
+                } catch {
+                    MainProgram.DoDebug("Error when opening file");
                 }
             }
         }

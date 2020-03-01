@@ -564,7 +564,9 @@ namespace AssistantComputerControl {
         }
 
         private void expertDoneButton_Click(object sender, EventArgs e) {
-            theDoneActionViewBrowser.Url = new Uri("https://assistantcomputercontrol.com/integrated_action_grid.php?lang=" + Properties.Settings.Default.ActiveLanguage + "&max_version_number=" + MainProgram.softwareVersion + "&cloud_service=none");
+            var theUrl = "https://assistantcomputercontrol.com/integrated_action_grid.php?lang=" + Properties.Settings.Default.ActiveLanguage + "&max_version_number=" + MainProgram.softwareVersion + "&cloud_service=none";
+            MainProgram.DoDebug(theUrl);
+            theDoneActionViewBrowser.Url = new Uri(theUrl);
 
             thisForm.Size = new Size(thisForm.Size.Width, thisForm.Size.Height + 150);
             theTabControl.Size = new Size(theTabControl.Size.Width, theTabControl.Size.Height + 150);

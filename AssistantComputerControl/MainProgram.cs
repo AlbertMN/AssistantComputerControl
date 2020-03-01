@@ -25,12 +25,12 @@ using NLog;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.0",
-            releaseDate = "2020-03-01 00:00:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.1",
+            releaseDate = "2020-03-01 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "super_secret";
-            
+            //sentryToken = "super_secret";
+            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -336,8 +336,6 @@ namespace AssistantComputerControl {
                         DoDebug("No internet connection, not showing user feedback window");
                     }
                 }
-
-                //ShowGettingStarted();
 
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();

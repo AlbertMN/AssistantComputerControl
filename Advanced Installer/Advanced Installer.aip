@@ -40,10 +40,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{9178F274-C56D-4B98-B32A-B23F434751B3} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{2B851F35-BAC2-4535-8A0D-DA3B6D3FAB7C} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.3.9" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.4.1" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -132,6 +132,8 @@
     <ROW File="jquery.js" Component_="getting_started_scripts.js" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\jquery.js" SelfReg="false"/>
     <ROW File="popper.min.js" Component_="getting_started_scripts.js" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\popper.min.js" SelfReg="false"/>
     <ROW File="sweetalert2.min.js" Component_="getting_started_scripts.js" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\sweetalert2.min.js" SelfReg="false"/>
+    <ROW File="Francais.json" Component_="Danish.json" FileName="FRANCA~1.JSO|Francais.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Francais.json" SelfReg="false"/>
+    <ROW File="Italian.json" Component_="Danish.json" FileName="ITALIA~1.JSO|Italian.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Italian.json" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>

@@ -69,8 +69,9 @@ namespace AssistantComputerControl {
 
                             Process p = new Process();
                             p.StartInfo.FileName = "powershell.exe";
-                            p.StartInfo.Arguments = $"-file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"";
+                            p.StartInfo.Arguments = $"-WindowStyle Hidden -file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"";
                             p.StartInfo.UseShellExecute = false;
+                            p.StartInfo.CreateNoWindow = true;
                             p.Start();
                         } catch {
                             MainProgram.DoDebug("[CLEANUP] Extra checkup failed");
