@@ -537,13 +537,15 @@ namespace AssistantComputerControl {
                     }
                     break;
                 case "mouse_middle_click":
-                    if (String.IsNullOrEmpty(parameter))
-                    {
+                    if (String.IsNullOrEmpty(parameter)) {
                         actionExecution.MouseMiddleClick("1");
-                    }
-                    else
-                    {
+                    } else {
                         actionExecution.MouseMiddleClick(parameter);
+                    }
+                    break;
+                case "wait":
+                    if (RequireParameter(parameter)) {
+                        actionExecution.Wait(parameter);
                     }
                     break;
                 default:

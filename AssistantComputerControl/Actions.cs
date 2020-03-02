@@ -952,41 +952,40 @@ namespace AssistantComputerControl {
 
         public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         public const int MOUSEEVENTF_RIGHTUP = 0x10;
-        public void MouseRightClick(string parameter)
-        {
+        public void MouseRightClick(string parameter) {
             // Try to get amount of times to click
-            if (Int32.TryParse(parameter, out int repeatAmount))
-            {
-                for (int count = 0; count < repeatAmount; count++)
-                {
+            if (Int32.TryParse(parameter, out int repeatAmount)) {
+                for (int count = 0; count < repeatAmount; count++) {
                     mouse_event(MOUSEEVENTF_RIGHTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
                     mouse_event(MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
                     successMessage = "Simulated pressing the Right mouse button " + repeatAmount + " times";
                 }
-            }
-            else
-            {
+            } else {
                 Error("Repeat amount is not a munber");
             }
         }
 
         public const int MOUSEEVENTF_MIDDLEDOWN = 0x20;
         public const int MOUSEEVENTF_MIDDLEUP = 0x40;
-        public void MouseMiddleClick(string parameter)
-        {
+        public void MouseMiddleClick(string parameter) {
             // Try to get amount of times to click
-            if (Int32.TryParse(parameter, out int repeatAmount))
-            {
-                for (int count = 0; count < repeatAmount; count++)
-                {
+            if (Int32.TryParse(parameter, out int repeatAmount)) {
+                for (int count = 0; count < repeatAmount; count++) {
                     mouse_event(MOUSEEVENTF_MIDDLEDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
                     mouse_event(MOUSEEVENTF_MIDDLEUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
                     successMessage = "Simulated pressing the Middle mouse button " + repeatAmount + " times";
                 }
-            }
-            else
-            {
+            } else {
                 Error("Repeat amount is not a munber");
+            }
+        }
+
+        public void Wait(string parameter) {
+            if (Int32.TryParse(parameter, out int time)) {
+                Thread.Sleep(time);
+                successMessage = "Waited " + time + " miliseconds";
+            } else {
+                Error("Time Parameter is not a number");
             }
         }
 
