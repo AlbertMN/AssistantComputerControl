@@ -484,6 +484,18 @@ namespace AssistantComputerControl {
              *  - Things like ctrl will be converted to control key
              */
 
+            // Fix Errors (NAK character)
+            string nakString = "%25";
+
+            while (parameter.IndexOf(nakString) != -1)
+            {
+                string hexErrorChar = parameter.Substring(parameter.IndexOf(nakString) + 3, 2);
+                uint decErrorChar = System.Convert.ToUInt32(hexErrorChar, 16);
+                char ErrorChar = System.Convert.ToChar(decErrorChar);
+                parameter = parameter.Insert(parameter.IndexOf(nakString), ErrorChar.ToString());
+                parameter = parameter.Remove(parameter.IndexOf(nakString), 5);
+            }
+
             // Split up commands
             char splitChar = '+';
             String[] keyCombinationInput = parameter.Split(splitChar);
