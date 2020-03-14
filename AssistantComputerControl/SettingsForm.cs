@@ -36,7 +36,7 @@ namespace AssistantComputerControl {
             }
 
             //Set values
-            startWithWindows.Checked = Properties.Settings.Default.StartWithWindows;
+            startWithWindows.Checked = MainProgram.ACCStartsWithWindows();
             checkUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
             betaProgram.Checked = Properties.Settings.Default.BetaProgram;
             warnDeletion.Checked = Properties.Settings.Default.WarnWhenDeletingManyFiles;
@@ -91,12 +91,7 @@ namespace AssistantComputerControl {
         }
 
         private void startWithWindows_CheckedChanged(object sender, EventArgs e) {
-            if (Properties.Settings.Default.StartWithWindows != startWithWindows.Checked) {
-                Properties.Settings.Default.StartWithWindows = startWithWindows.Checked;
-                MainProgram.SetStartup(startWithWindows.Checked);
-
-                Properties.Settings.Default.Save();
-            }
+            MainProgram.SetStartup(startWithWindows.Checked);
         }
 
         private void checkUpdates_CheckedChanged(object sender, EventArgs e) {

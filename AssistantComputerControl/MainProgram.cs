@@ -25,12 +25,11 @@ using NLog;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.1",
-            releaseDate = "2020-03-01 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.2",
+            releaseDate = "2020-03-08 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            //sentryToken = "super_secret";
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
+            sentryToken = "super_secret";
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -212,7 +211,7 @@ namespace AssistantComputerControl {
                 SetConsoleCtrlHandler(handler, true);
 
                 //Check if software starts with Windows
-                if (!Properties.Settings.Default.StartWithWindows)
+                if (!ACCStartsWithWindows())
                     sysIcon.AddOpenOnStartupMenu();
 
                 //Create shortcut folder if doesn't exist
@@ -426,7 +425,7 @@ namespace AssistantComputerControl {
                         tw.WriteLine("- Version; " + softwareVersion + ", " + releaseDate);
                         tw.WriteLine("- UID; " + Properties.Settings.Default.UID);
                         tw.WriteLine("- Running from; " + currentLocationFull);
-                        tw.WriteLine("- Start with Windows; " + (Properties.Settings.Default.StartWithWindows ? "[Yes]" : "[No]"));
+                        tw.WriteLine("- Start with Windows; " + (ACCStartsWithWindows() ? "[Yes]" : "[No]"));
                         tw.WriteLine("- Check for updates; " + (Properties.Settings.Default.CheckForUpdates ? "[Yes]" : "[No]"));
                         tw.WriteLine("- In beta program; " + (Properties.Settings.Default.BetaProgram ? "[Yes]" : "[No]"));
                         tw.WriteLine("- Has completed setup guide; " + (Properties.Settings.Default.HasCompletedTutorial ? "[Yes]" : "[No]"));
@@ -603,6 +602,20 @@ namespace AssistantComputerControl {
                 rk.DeleteValue(appName, false);
                 DoDebug("ACC no longer starts with Windows");
             }
+        }
+
+        public static bool ACCStartsWithWindows() {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            var RkValue = rk.GetValue(appName);
+            if (RkValue == null) {
+                return false;
+            } else {
+                return (bool)RkValue;
+            }
+
+            //return Properties.Settings.Default.StartWithWindows;
         }
 
         public static bool HasInternet() {
