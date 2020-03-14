@@ -517,6 +517,37 @@ namespace AssistantComputerControl {
                 case "maximize_all":
                     actionExecution.MaximizeAll();
                     break;
+                case "move_mouse":
+                    if (RequireParameter(parameter)) {
+                        actionExecution.MoveMouse(parameter);
+                    }
+                    break;
+                case "mouse_left_click":
+                    if (String.IsNullOrEmpty(parameter)) {
+                        actionExecution.MouseLeftClick("1");
+                    } else {
+                        actionExecution.MouseLeftClick(parameter);
+                    }
+                    break;
+                case "mouse_right_click":
+                    if (String.IsNullOrEmpty(parameter)) {
+                        actionExecution.MouseRightClick("1");
+                    } else {
+                        actionExecution.MouseRightClick(parameter);
+                    }
+                    break;
+                case "mouse_middle_click":
+                    if (String.IsNullOrEmpty(parameter)) {
+                        actionExecution.MouseMiddleClick("1");
+                    } else {
+                        actionExecution.MouseMiddleClick(parameter);
+                    }
+                    break;
+                case "wait":
+                    if (RequireParameter(parameter)) {
+                        actionExecution.Wait(parameter);
+                    }
+                    break;
                 default:
                     //Unknown action
                     actionExecution.errorMessage = "Unknown action \"" + action + "\"";
