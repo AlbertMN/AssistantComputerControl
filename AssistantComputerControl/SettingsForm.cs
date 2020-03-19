@@ -210,5 +210,9 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("Invalid language chosen");
             }
         }
+
+        private void changelogOpen_Click(object sender, EventArgs e) {
+            new NewVersion().Show();
+        }
     }
 }

@@ -212,6 +212,11 @@ $(".card.cloud_service_card").on("click", function () {
 
 $("#pick_btn").on("click", function () {
     if (chosenCloudServiceNum != 4) {
+        if (typeof window.external === "undefined") {
+            alert("Setup guide can't communicate with ACC right now. Try again, or maybe close and re-open the software");
+            return;
+        }
+
         $(".service-name").text(chosenCloudService);
         previousButton.stop().fadeIn();
         canProceed = false;

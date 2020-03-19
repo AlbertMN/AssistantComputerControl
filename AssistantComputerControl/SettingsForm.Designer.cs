@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.logButton = new System.Windows.Forms.Button();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.changelogOpen = new System.Windows.Forms.Button();
             this.saveLanguageButton = new System.Windows.Forms.Button();
             this.languageLabel = new System.Windows.Forms.Label();
             this.programLanguage = new System.Windows.Forms.ComboBox();
@@ -158,6 +159,7 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.mainPanel.Controls.Add(this.changelogOpen);
             this.mainPanel.Controls.Add(this.saveLanguageButton);
             this.mainPanel.Controls.Add(this.languageLabel);
             this.mainPanel.Controls.Add(this.programLanguage);
@@ -190,6 +192,17 @@
             this.mainPanel.Size = new System.Drawing.Size(776, 426);
             this.mainPanel.TabIndex = 11;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
+            // 
+            // changelogOpen
+            // 
+            this.changelogOpen.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.changelogOpen.Location = new System.Drawing.Point(649, 400);
+            this.changelogOpen.Name = "changelogOpen";
+            this.changelogOpen.Size = new System.Drawing.Size(124, 23);
+            this.changelogOpen.TabIndex = 34;
+            this.changelogOpen.Text = "changelog";
+            this.changelogOpen.UseVisualStyleBackColor = true;
+            this.changelogOpen.Click += new System.EventHandler(this.changelogOpen_Click);
             // 
             // saveLanguageButton
             // 
@@ -361,7 +374,7 @@
             // 
             this.versionInfo.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.versionInfo.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.versionInfo.Location = new System.Drawing.Point(542, 400);
+            this.versionInfo.Location = new System.Drawing.Point(412, 400);
             this.versionInfo.Name = "versionInfo";
             this.versionInfo.Size = new System.Drawing.Size(231, 23);
             this.versionInfo.TabIndex = 25;
@@ -461,5 +474,6 @@
         private System.Windows.Forms.ComboBox programLanguage;
         private System.Windows.Forms.Label languageLabel;
         private System.Windows.Forms.Button saveLanguageButton;
+        private System.Windows.Forms.Button changelogOpen;
     }
 }

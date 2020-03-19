@@ -26,6 +26,8 @@
 
       "window_name": "Settings",
 
+      "changelog": "Changelog",
+
       "overall_settings_title": "Overall settings",
       "program_language_label": "Program language",
       "save_language_btn": "save",

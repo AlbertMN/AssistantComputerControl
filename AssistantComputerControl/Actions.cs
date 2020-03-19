@@ -822,17 +822,28 @@ namespace AssistantComputerControl {
                             if (Directory.Exists(moveTo)) {
                                 //Dest is a folder
                                 string newMoveTo = Path.Combine(moveTo, Path.GetFileName(new DirectoryInfo(theSubject).Name));
-                                try {
-                                    Directory.Move(theSubject, newMoveTo);
-                                } catch (Exception e) {
-                                    Error("[Move action] Couldn't move folder (" + theSubject + ") to path; '" + newMoveTo + "'. Got error; " + e.Message);
+
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated moving folder from \"" + theSubject + "\" to \"" + newMoveTo + "\"";
+                                } else {
+                                    try {
+                                        Directory.Move(theSubject, newMoveTo);
+                                        successMessage = "Moved folder from \"" + theSubject + "\" to \"" + newMoveTo + "\"";
+                                    } catch (Exception e) {
+                                        Error("[Move action] Couldn't move folder (" + theSubject + ") to path; '" + newMoveTo + "'. Got error; " + e.Message);
+                                    }
                                 }
                             } else {
                                 //Dest is a new folder name!
-                                try {
-                                    Directory.Move(theSubject, moveTo);
-                                } catch (Exception e) {
-                                    Error("[Move action] Couldn't move folder (" + theSubject + "); " + e.Message);
+                                if (MainProgram.testingAction) {
+                                    successMessage = "Simulated moving (renaming) folder from \"" + theSubject + "\" to \"" + moveTo + "\"";
+                                } else {
+                                    try {
+                                        Directory.Move(theSubject, moveTo);
+                                        successMessage = "Moved (renamed) folder from \"" + theSubject + "\" to \"" + moveTo + "\"";
+                                    } catch (Exception e) {
+                                        Error("[Move action] Couldn't move folder (" + theSubject + "); " + e.Message);
+                                    }
                                 }
                             }
                         } else {
@@ -849,10 +860,17 @@ namespace AssistantComputerControl {
                             if (attr.HasFlag(FileAttributes.Directory)) {
                                 //Desination is a folder
                                 if (Directory.Exists(moveTo)) {
-                                    try {
-                                        File.Move(theSubject, Path.Combine(moveTo, Path.GetFileName(theSubject)));
-                                    } catch (Exception e) {
-                                        Error("[Move action] Couldn't move file to folder; " + e.Message);
+                                    var theDestination = Path.Combine(moveTo, Path.GetFileName(theSubject));
+
+                                    if (MainProgram.testingAction) {
+                                        successMessage = "Simulated moving file from \"" + moveTo + "\" to \"" + theDestination + "\"";
+                                    } else {
+                                        try {
+                                            File.Move(theSubject, theDestination);
+                                            successMessage = "Moved file from \"" + moveTo + "\" to \"" + theDestination + "\"";
+                                        } catch (Exception e) {
+                                            Error("[Move action] Couldn't move file to folder; " + e.Message);
+                                        }
                                     }
                                 } else {
                                     Error("[Move action] Desination folder doesn't exist");
@@ -895,17 +913,91 @@ namespace AssistantComputerControl {
         const int MIN_ALL_UNDO = 416;
 
         public void MinimizeAll() {
-            IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
-            SendMessageNew(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);
+            if (MainProgram.testingAction) {
+                successMessage = "Simulated minimize of all windows";
+            } else {
+                IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
+                SendMessageNew(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);
+                successMessage = "Minimized all windows";
+            }
         }
 
         public void MaximizeAll() {
-            IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
-            SendMessageNew(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL_UNDO, IntPtr.Zero);
+            if (MainProgram.testingAction) {
+                successMessage = "Simulated minimize of all windows";
+            } else {
+                IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
+                SendMessageNew(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL_UNDO, IntPtr.Zero);
+                successMessage = "Minimized all windows";
+            }
+        }
+
+        //Maximize & minimize specific windows
+        private const int SW_MAXIMIZE = 3;
+        private const int SW_MINIMIZE = 6;
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
+        public static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        public void MinimizeMaximizeWindow(string parameter, int type) {
+            bool paramIsNum = int.TryParse(parameter, out int pid);
+
+            if (paramIsNum) {
+                try {
+                    //Results in an exception if process doesn't exist
+                    Process theP = Process.GetProcessById(pid);
+
+                    if (!MainProgram.testingAction) {
+                        try {
+                            ShowWindow(theP.MainWindowHandle, type);
+                            successMessage = (type == SW_MAXIMIZE ? "Maximized" : "Minimized") + " process with ID " + pid.ToString();
+                        } catch (Exception e) {
+                            Error("Failed to " + (type == SW_MAXIMIZE ? "maximize" : "minimize") + " process with ID " + pid.ToString() + "; " + e.Message);
+                        }
+                    } else {
+                        successMessage = "Successfully simulated " + (type == SW_MAXIMIZE ? "maximize" : "minimize") + " window(s)";
+                    }
+                } catch {
+                    Error("A process with the ID " + pid.ToString() + " doesn't exist");
+                }
+            } else {
+                try {
+                    //Results in an exception if process doesn't exist
+                    Process[] thePs = Process.GetProcessesByName(parameter);
+
+                    if (!MainProgram.testingAction) {
+                        try {
+                            IntPtr hwnd = FindWindowByCaption(IntPtr.Zero, parameter);
+                            ShowWindow(hwnd, type);
+
+                            foreach (Process p in thePs) {
+                                ShowWindow(p.MainWindowHandle, type);
+                            }
+                            successMessage = (type == SW_MAXIMIZE ? "Maximized" : "Minimized") + " all processes with name " + parameter;
+                        } catch (Exception e) {
+                            Error("Failed to " + (type == SW_MAXIMIZE ? "maximize" : "minimize") + " processes with name " + parameter + "; " + e.Message);
+                        }
+                    } else {
+                        successMessage = "Successfully simulated " + (type == SW_MAXIMIZE ? "maximize" : "minimize") + " window(s)";
+                    }
+                } catch {
+                    Error("A process with the name " + parameter + " doesn't exist");
+                }
+            }
+        }
+
+        public void MinimizeWindow(string parameter) {
+            MinimizeMaximizeWindow(parameter, SW_MINIMIZE);
+        }
+
+        public void MaximizeWindow(string parameter) {
+            MinimizeMaximizeWindow(parameter, SW_MAXIMIZE);
         }
 
         public void WindowsToast() {
-            //Todo - quite a bit of work
+            //Todo - quite a bit of work - later (pushed for way too many updates now, whoopppss)
         }
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
@@ -921,8 +1013,12 @@ namespace AssistantComputerControl {
             // If param 1 is a number
             } else if ((Int32.TryParse(parameterSplit[0], out int param1))) {
                 if ((Int32.TryParse(parameterSplit[1], out int param2))) {
-                    SetCursorPos(Int32.Parse(parameterSplit[0]), Int32.Parse(parameterSplit[1]));
-                    successMessage = "Moved Mouse to (" + (Int32.Parse(parameterSplit[0]).ToString() + ", " + Int32.Parse(parameterSplit[1])).ToString() + ")";
+                    if (MainProgram.testingAction) {
+                        successMessage = "Simulated moving mouse to (" + (Int32.Parse(parameterSplit[0]).ToString() + ", " + Int32.Parse(parameterSplit[1])).ToString() + ")";
+                    } else {
+                        SetCursorPos(Int32.Parse(parameterSplit[0]), Int32.Parse(parameterSplit[1]));
+                        successMessage = "Moved mouse to (" + (Int32.Parse(parameterSplit[0]).ToString() + ", " + Int32.Parse(parameterSplit[1])).ToString() + ")";
+                    }
                 } else {
                     Error("Parameter 2 is not a number");
                 }
@@ -937,53 +1033,85 @@ namespace AssistantComputerControl {
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
-        public void MouseLeftClick(string parameter) {
-            // Try to get amount of times to click
-            if (Int32.TryParse(parameter, out int repeatAmount)) {
-                for (int count = 0; count < repeatAmount; count++) {
-                    mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                    successMessage = "Simulated pressing the Left mouse button " + repeatAmount + " times";
-                }
-            } else {
-                Error("Repeat amount is not a munber");
-            }
-        }
-
         public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         public const int MOUSEEVENTF_RIGHTUP = 0x10;
-        public void MouseRightClick(string parameter) {
-            // Try to get amount of times to click
-            if (Int32.TryParse(parameter, out int repeatAmount)) {
-                for (int count = 0; count < repeatAmount; count++) {
-                    mouse_event(MOUSEEVENTF_RIGHTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                    successMessage = "Simulated pressing the Right mouse button " + repeatAmount + " times";
-                }
-            } else {
-                Error("Repeat amount is not a munber");
-            }
-        }
-
         public const int MOUSEEVENTF_MIDDLEDOWN = 0x20;
         public const int MOUSEEVENTF_MIDDLEUP = 0x40;
-        public void MouseMiddleClick(string parameter) {
-            // Try to get amount of times to click
-            if (Int32.TryParse(parameter, out int repeatAmount)) {
-                for (int count = 0; count < repeatAmount; count++) {
-                    mouse_event(MOUSEEVENTF_MIDDLEDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                    mouse_event(MOUSEEVENTF_MIDDLEUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-                    successMessage = "Simulated pressing the Middle mouse button " + repeatAmount + " times";
+
+        public void MouseClick(string parameter = "", string secondaryParameter = "") {
+            /*
+             * Action made by community member Joshua Miller (modified by Albert)
+             */
+
+            int timesToClick = 1;
+            string type = "left";
+
+            if (parameter == String.Empty) {
+                type = "left";
+            }
+
+            if (secondaryParameter != String.Empty) {
+                if (Int32.TryParse(secondaryParameter, out int repeatAmount)) {
+                    timesToClick = repeatAmount;
+                } else {
+                    Error("Secondary parameter (how many times to click) is not a valid number");
+                    return;
                 }
-            } else {
-                Error("Repeat amount is not a munber");
+            }
+
+            switch (type) {
+                case "left":
+                    //Default
+                    if (MainProgram.testingAction) {
+                        successMessage = "Simulated pressing the left mouse button " + timesToClick + " time(s)";
+                    } else {
+                        for (int count = 0; count < timesToClick; count++) {
+                            mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                            mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                        }
+                        successMessage = "Pressed the the left mouse button " + timesToClick + " time(s)";
+                    }
+                    break;
+                case "right":
+                    if (MainProgram.testingAction) {
+                        successMessage = "Simulated pressing the right mouse button " + timesToClick + " time(s)";
+                    } else {
+                        for (int count = 0; count < timesToClick; count++) {
+                            mouse_event(MOUSEEVENTF_RIGHTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                            mouse_event(MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                        }
+                        successMessage = "Pressed the the right mouse button " + timesToClick + " time(s)";
+                    }
+                    break;
+                case "middle":
+                    if (MainProgram.testingAction) {
+                        successMessage = "Simulated pressing the middle mouse button " + timesToClick + " time(s)";
+                    } else {
+                        for (int count = 0; count < timesToClick; count++) {
+                            mouse_event(MOUSEEVENTF_MIDDLEDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                            mouse_event(MOUSEEVENTF_MIDDLEUP, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                        }
+                        successMessage = "Pressed the the middle mouse button " + timesToClick + " time(s)";
+                    }
+                    break;
+                default:
+                    Error("Invalid mouse-click type (" + type + ")");
+                    break;
             }
         }
 
         public void Wait(string parameter) {
+            /*
+             * Action made by community member Joshua Miller
+             */
+
             if (Int32.TryParse(parameter, out int time)) {
-                Thread.Sleep(time);
-                successMessage = "Waited " + time + " miliseconds";
+                if (!MainProgram.testingAction) {
+                    Thread.Sleep(time);
+                    successMessage = "Waited " + time + " miliseconds";
+                } else {
+                    successMessage = "Simulated the 'wait' action - sleep for " + time.ToString() + " miliseconds";
+                }
             } else {
                 Error("Time Parameter is not a number");
             }

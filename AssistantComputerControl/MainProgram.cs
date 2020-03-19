@@ -26,10 +26,11 @@ using NLog;
 namespace AssistantComputerControl {
     class MainProgram {
         public const string softwareVersion = "1.4.2",
-            releaseDate = "2020-03-08 20:30:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+            releaseDate = "2020-03-14 21:25:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "super_secret";
+            //sentryToken = "super_secret";
+            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -54,6 +55,7 @@ namespace AssistantComputerControl {
             dataFolderLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AssistantComputerControl"),
             shortcutLocation = Path.Combine(dataFolderLocation, "shortcuts"),
             logFilePath = Path.Combine(dataFolderLocation, "log.txt"),
+            actionModsPath = Path.Combine(dataFolderLocation, "mods"),
             startupFolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup),
             messageBoxTitle = appName;
 
@@ -79,6 +81,8 @@ namespace AssistantComputerControl {
 
             void ActualMain() {
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+                ActionMods.CheckMods();
 
                 //Upgrade settings
                 if (Properties.Settings.Default.UpdateSettings) {
@@ -591,31 +595,39 @@ namespace AssistantComputerControl {
             Environment.Exit(1);
         }
 
-        public static void SetStartup(bool status) {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey
-                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        public static void SetStartup(bool status, bool setThroughSoftware = false) {
+            try {
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-            if (status) {
-                rk.SetValue(appName, Application.ExecutablePath);
-                DoDebug("ACC now starts with Windows");
-            } else {
-                rk.DeleteValue(appName, false);
-                DoDebug("ACC no longer starts with Windows");
+                if (status) {
+                    rk.SetValue(appName, Application.ExecutablePath);
+                    DoDebug("ACC now starts with Windows");
+                } else {
+                    rk.DeleteValue(appName, false);
+                    DoDebug("ACC no longer starts with Windows");
+                }
+            } catch {
+                DoDebug("Failed to start ACC with Windows");
+                if (!setThroughSoftware) {
+                    MessageBox.Show("Failed to make ACC start with Windows", messageBoxTitle);
+                }
             }
         }
 
         public static bool ACCStartsWithWindows() {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey
-                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            try {
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
-            var RkValue = rk.GetValue(appName);
-            if (RkValue == null) {
+                var theVal = rk.GetValue(appName);
+                if (theVal != null) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch {
+                DoDebug("Failed to get ACC start with windows state");
                 return false;
-            } else {
-                return (bool)RkValue;
             }
-
-            //return Properties.Settings.Default.StartWithWindows;
         }
 
         public static bool HasInternet() {
