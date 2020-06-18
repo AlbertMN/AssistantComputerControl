@@ -3,7 +3,8 @@
 
   //Add your name to the bottom of the contributors list if you have contributed
   "contributors": [
-      "Indil77"
+      "Indil77",
+      "DevLBD"
   ],
 
   "translations": {
@@ -11,7 +12,7 @@
       "error": "Errore", /* Capital start letter */
       "invalid_path": "Percorso non valido",
       "no_cloudservice_chosen": "Sembra che tu non abbia scelto un servizio cloud. Vuoi rifare la configurazione guidata?",
-      "cloud_setup_failed": "L'impostazione del servizio cloud non è andata a buon termine - riprova.",
+      "cloud_setup_failed": "La configurazione del servizio cloud non è andata a buon termine - riprova.",
       "start_with_pc_desc": "Vuoi che questo software si apra automaticamente all'avvio di Windows (consigliato)? Fai clic su \"Sì\"",
       "start_with_pc_no": "Bene. Se ci ripensi e vuoi che ACC si apra automaticamente, puoi sempre fare clic col tasto destro del mouse su AssistantComputerControl nella barra delle applicazioni e selezionare \"Esegui all'avvio\"!",
       "start_with_pc_yes": "Ottima scelta! Adesso ACC sarà eseguito all'avvio di Windows"
@@ -36,27 +37,27 @@
       "file_read_delay_desc_text": "Che cos'è? (passa sopra il cursore)",
       "file_read_delay_desc_text_hover_content": "A volte il software potrebbe leggere un file prima che sia stato correttamente sincronizzato. Questa impostazione ritarderà la lettura del file per la quantità di secondi indicata",
 
-      "advanced_settings_btn": "Impostazioni avanzate",
+      "advanced_settings_btn": "Impostazioni Avanzate",
       "open_log_btn": "Apri il log",
-      "action_simulator_btn": "Simulatore Azione",
+      "action_simulator_btn": "Prova le Azioni",
       "do_setup_again": "Ripeti la configurazione guidata",
 
-      "delete_warning_text": "(Elimina azione) Avvisa se stanno per essere eliminati più di x file",
+      "delete_warning_text": "(Azione di Eliminazione File) Avvisa se stanno per essere eliminati più di una determinata quantità di file.",
 
       "multi_pc_title": "Supporto multi-computer",
       "multi_pc_description": "Consente di modificare il software per l'esecuzione su più computer,\nsenza che i computer eseguano le stesse azioni.",
-      "multi_pc_read_more": "Leggi qua",
+      "multi_pc_read_more": "Ulteriori Informazioni",
       "computer_name_field": "Nome del computer",
       "default_computer_checkbox": "Computer predefinito?",
-      "default_computer_description": "^ se abilitato, ACC accetterà le azioni quando \nnon è impostato il \"nome del computer\"",
+      "default_computer_description": "Se attivato, ACC accetterà le azioni quando \nnon è impostato il \"nome del computer\"",
 
-      "check_for_updates_btn": "Controllo aggiornamenti"
+      "check_for_updates_btn": "Controlla gli Aggiornamenti"
     },
     "advanced_settings": {
       "action_file_extension_label": "Estensione del file per le azioni",
       "action_path_label": "Percorso della cartella",
-      "description": "La manomissione di queste impostazioni cambierà completamente il \nfunzionamento di AssistantComputerControl. È consigliato solo per coloro \nche non vogliono utilizzare i servizi cloud nativi attualmente supportati.",
-      "save_button": "Salva cartella",
+      "description": "La modifica di queste impostazioni cambierà completamente il \nfunzionamento di AssistantComputerControl. È consigliato solo per coloro \nche non vogliono utilizzare i servizi cloud nativi attualmente supportati.",
+      "save_button": "Salva Cartella",
       "title": "Impostazioni Avanzate",
       "why_edit_link": "Perché dovrei modificarlo...?",
       "window_name": "Impostazioni Avanzate"
@@ -106,7 +107,7 @@
 
       "step_1_title": "Installa {cloud_service}",
       "step_2_title": "Configura IFTTT",
-      "step_3_title": "Finito! Testa le azioni",
+      "step_3_title": "Finito! Prova le azioni",
 
       "install_text": "Installa {cloud_service}",
       "cloud_service_installed": "installato!",
@@ -120,7 +121,7 @@
 
       /* Manual setup */
       "manual_setup_title": "Configurazione manuale",
-      "manual_setup_description": "Se sei sicuro che quesot servizio <i>è già</i> installato è hai seguito tutti i passi, ma ACC non ti consente di proseguire al successivo; riempi il campo qui sotto.<br>Se hai scelto un percorso diverso durante l'installazione, ACC potrebbe non essere rilevato.",
+      "manual_setup_description": "Se sei sicuro che questo servizio <i>è già</i> installato è hai seguito tutti i passi, ma ACC non ti consente di proseguire al successivo; riempi il campo qui sotto.<br>Se hai scelto un percorso diverso durante l'installazione, ACC potrebbe non essere rilevato.",
       "action_folder_path_label": "Percorso cartella",
       "action_folder_path_description": "Percorso completo alla cartella del tuo servizio cloud. È molto probabile che sia <code>C:/Users/tuo_nomeutente/nome_serviziocloud</code>",
       "manual_setup_button": "Invia e controlla",
@@ -147,7 +148,7 @@
       "google_drive_preferences": "Premi i tre pallini sulla destra, e seleziona <b>\"Preferenze\"</b>",
       "google_drive_sync": "Vai sulla sezione <b>\"Google Drive\"</b> e accertati che <b>\"Sincronizza il mio Drive su questo computer\"</b> sia selezionato",
 
-      "google_drive_sync_all": "Vuoi che tutti i tuoi file di Google Drive sul tuo computer?",
+      "google_drive_sync_all": "Vuoi tutti i tuoi file di Google Drive sul tuo computer?",
       "google_drive_sync_all_desc": "Seleziona \"Sincronizza tutto il mio Drive (x GB)\"",
       "google_drive_acc_only_sync": "... oppure vuoi sincronizzare <i>solo</i> AssistantComputerControl?",
       "google_drive_website_goto": "Vai sul tuo Google Drive (dal tuo browser)",
@@ -157,10 +158,10 @@
 
       /* IFTTT specific */
       "set_up_ifttt_acc": "Configura il tuo account IFTTT",
-      "set_up_ifttt_extra": "Con le applet di AssistantComputerControl",
+      "set_up_ifttt_extra": "Con gli applet di AssistantComputerControl",
       "ifttt_join": "Registrati su IFTTT",
-      "ifttt_join_extra": "(è importante registrarsi con il tuo account Google se si utilizza Google Assistant)",
-      "ifttt_enable_shutdown_applet": "<b>Abilita le applet che vuoi.</b> Iniziamo con l'azione <code>shutdown</code> <small>(che spegne il computer)</small>.",
+      "ifttt_join_extra": "(è necessario registrarsi con il tuo account Google se si utilizza Google Assistant)",
+      "ifttt_enable_shutdown_applet": "<b>Abilita gli applet che vuoi.</b> Iniziamo con l'azione <code>shutdown</code> <small>(che spegne il computer)</small>.",
       "shutdown_test_link_gh": "Clicca qui se utilizzi Google Assistant",
       "ifttt_shutdown_link_alexa": "o qui se utilizzi Amazon Alexa",
       "ifttt_connect_applet": "Clicca \"Connect\" sull'applet IFTTT", // The "Connect" part should ALWAYS stay the same, no matter the language!
@@ -169,8 +170,8 @@
       /* "Done" tab */
       "time_to_try_heading": "Prova l'azione di shutdown 3 volte!",
       "listening_for_actions": "In ascolto per le azioni...",
-      "done_description": "Ora non resta che provare il software. Con {cloud_service} completamente configurato, un account IFTTT e un'applet di ACC abilitata, ora è possibile effettuare un test con sicurezza.",
-      "applet_enable_reminder": "Non hai aconra abilitato l'applet di \"shutdown\"? Clicca il collegamento dell'assistente che utilizzi e abilitala.",
+      "done_description": "Ora non resta che provare il software. Con {cloud_service} completamente configurato, un account IFTTT e un applet di ACC abilitato, ora è possibile effettuare un test con sicurezza.",
+      "applet_enable_reminder": "Non hai ancora abilitato l'applet di \"shutdown\"? Clicca il collegamento dell'assistente che utilizzi e abilitala.",
       "custom_trigger_reminder": "... a seconda della lingua impostata nell'applet e se hai modificato i trigger nel passaggio 2...",
       "google_assistant_trigger_example": "Il trigger di <b>Google Assistant</b> potrebbe essere;",
       "alexa_trigger_example": "Per <b>Alexa</b>, devi pronunciare",
