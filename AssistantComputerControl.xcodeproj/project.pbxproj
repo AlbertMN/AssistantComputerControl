@@ -272,8 +272,10 @@
 		CE7D7D5A24C2D443007F05F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = GZ4Z388P2G;
 				INFOPLIST_FILE = AssistantComputerControl/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/PreferencePanes";
 				PRODUCT_BUNDLE_IDENTIFIER = cat.marvell.AssistantComputerControl;
