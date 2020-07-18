@@ -15,26 +15,26 @@
         <window title="AssistantComputerControl" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5" userLabel="PrefPane">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="176" y="715" width="668" height="368"/>
+            <rect key="contentRect" x="176" y="715" width="667" height="428"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="668" height="368"/>
+                <rect key="frame" x="0.0" y="0.0" width="667" height="428"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="02D-0R-Gdh">
-                        <rect key="frame" x="13" y="2" width="642" height="352"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <tabView id="02D-0R-Gdh">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Defaults" identifier="" id="gIq-pE-Hhl">
                                 <view key="view" id="M9F-42-ccz">
-                                    <rect key="frame" x="10" y="33" width="622" height="306"/>
+                                    <rect key="frame" x="10" y="33" width="647" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Paths" identifier="" id="RwE-up-5bA">
                                 <view key="view" id="I2p-gg-cXF">
-                                    <rect key="frame" x="10" y="33" width="622" height="306"/>
+                                    <rect key="frame" x="10" y="33" width="648" height="308"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                             </tabViewItem>
@@ -42,7 +42,7 @@
                     </tabView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="139" y="147"/>
+            <point key="canvasLocation" x="140.5" y="177"/>
         </window>
     </objects>
 </document>
