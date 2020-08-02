@@ -82,8 +82,6 @@ namespace AssistantComputerControl {
             void ActualMain() {
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-                ActionMods.CheckMods();
-
                 //Upgrade settings
                 if (Properties.Settings.Default.UpdateSettings) {
                     /* Copy old setting-files in case the Evidence type and Evidence Hash has changed (which it does sometimes) - easier than creating a whole new settings system */
@@ -339,6 +337,9 @@ namespace AssistantComputerControl {
                         DoDebug("No internet connection, not showing user feedback window");
                     }
                 }
+
+                //Action mods implementation
+                ActionMods.CheckMods();
 
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();

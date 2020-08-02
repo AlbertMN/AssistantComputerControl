@@ -112,6 +112,18 @@ namespace AssistantComputerControl {
         /*
          * Actions
          */
+        public void ModExecution(string actionName, string parameter = "") {
+            Tuple<bool, string, bool> theReturn = ActionMods.ExecuteModAction(actionName, parameter);
+            wasFatal = theReturn.Item3;
+
+            if (theReturn.Item1) {
+                successMessage = theReturn.Item2;
+            } else {
+                Error(theReturn.Item2);
+            }
+        }
+
+
         public void Shutdown(string parameter) {
             string shutdownParameters = "/s /t 0";
             if (parameter != null) {
@@ -387,6 +399,7 @@ namespace AssistantComputerControl {
                     break;
             }
         }
+
         public void Open(string parameter) {
             string location = ActionChecker.GetSecondaryParam(parameter)[0], arguments = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
             string fileLocation = (!location.Contains(@":\") || !location.Contains(@":/")) ? "" : location;

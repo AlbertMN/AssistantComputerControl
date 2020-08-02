@@ -51,8 +51,6 @@ namespace AssistantComputerControl {
                             MainProgram.DoDebug("[Mod loaded] " + jsonTest["title"] + " v" + jsonTest["version"] + " (" + actionName + ")");
 
                             modActions.Add(actionName, new DirectoryInfo(dir).Name);
-
-                            ExecuteModAction(actionName); //Test
                         } else {
                             MainProgram.DoDebug("[Mod init error] A mod with this name (" + actionName + ") is already loaded (no dublicates allowed)");
                         }
@@ -153,19 +151,19 @@ namespace AssistantComputerControl {
                     }
                 }
 
-                //Console.WriteLine(highestVersion);
-                //Console.WriteLine(highestVersionPath);
                 return highestVersionPath;
             }
 
             return "";
         }
 
-        //Execute mod
-        public static void ExecuteModAction(string name, string parameter = "", string secondaryParameter = "") {
-            MainProgram.DoDebug("\nRunning MOD ACTION!\n");
+        //Execute mod (action status, action return message, was fatal)
+        public static Tuple<bool, string, bool> ExecuteModAction(string name, string parameter = "") {
+            MainProgram.DoDebug("[MOD ACTION] Running mod action \"" + name + "\"");
+            string actionErrMsg = "No error message set",
+                modLocation = Path.Combine(MainProgram.actionModsPath, modActions[name]),
+                infoJsonFile = Path.Combine(modLocation, "info.json");
 
-            string modLocation = Path.Combine(MainProgram.actionModsPath, modActions[name]), infoJsonFile = Path.Combine(modLocation, "info.json");
             if (File.Exists(infoJsonFile)) {
                 string modFileContent = ReadInfoFile(infoJsonFile);
                 if (modFileContent != null) {
@@ -175,87 +173,140 @@ namespace AssistantComputerControl {
                             if (ValidateInfoJson(jsonTest)) {
                                 //JSON is valid - get script file
                                 string scriptFile = jsonTest["options"]["file_name"], scriptFileLocation = Path.Combine(modLocation, scriptFile);
-                                if (File.Exists(scriptFileLocation)) {
-                                    try {
-                                        ProcessStartInfo p = new ProcessStartInfo {
-                                            UseShellExecute = false,
-                                            CreateNoWindow = true,
-                                            RedirectStandardOutput = true,
-                                            RedirectStandardError = true
-                                        };
+                                bool actionIsFatal = jsonTest["options"]["is_fatal"] ?? false,
+                                    requiresParameter = jsonTest["options"]["requires_param"] ?? false,
+                                    requiresSecondaryParameter = jsonTest["options"]["require_second_param"] ?? false;
 
-                                        string theExtension = Path.GetExtension(scriptFile);
+                                if (requiresParameter ? !String.IsNullOrEmpty(parameter) : true) {
+                                    Console.WriteLine("Requires parameter? " + requiresParameter);
+                                    Console.WriteLine("Has parameter? " + !String.IsNullOrEmpty(parameter));
 
-                                        if (theExtension == ".ps1") {
-                                            //Is powershell - open it correctly
-                                            p.FileName = "powershell.exe";
-                                            p.Arguments = $"-WindowStyle Hidden -file \"{scriptFileLocation}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"";
-                                        } else if (theExtension == ".py") {
-                                            //Python - open it correctly
-                                            MainProgram.DoDebug("Is python!");
+                                    string[] secondaryParameters = ActionChecker.GetSecondaryParam(parameter);
+                                    if (requiresSecondaryParameter ? secondaryParameters.Length > 1 : true) { //Also returns the first parameter
+                                        if (File.Exists(scriptFileLocation)) {
+                                            string accArg = requiresParameter && requiresSecondaryParameter ? JsonConvert.SerializeObject(ActionChecker.GetSecondaryParam(parameter)) : (requiresParameter ? parameter : "");
 
-                                            string minPythonVersion = (jsonTest["options"]["min_python_version"] != null ? jsonTest["options"]["min_python_version"] : ""),
-                                                maxPythonVersion = (jsonTest["options"]["max_python_version"] != null ? jsonTest["options"]["max_python_version"] : ""),
-                                                pythonPath = GetPythonPath(minPythonVersion, maxPythonVersion);
+                                            try {
+                                                ProcessStartInfo p = new ProcessStartInfo {
+                                                    UseShellExecute = false,
+                                                    CreateNoWindow = true,
+                                                    RedirectStandardOutput = true,
+                                                    RedirectStandardError = true
+                                                };
 
-                                            if (pythonPath != "") {
-                                                MainProgram.DoDebug("Python path; " + pythonPath);
-                                                p.FileName = GetPythonPath();
-                                                p.Arguments = scriptFileLocation;
-                                            } else {
-                                                //No python version (or one with the min-max requirements) not found.
-                                                if (minPythonVersion == "" && maxPythonVersion == "") {
-                                                    //Python just not found
-                                                    MessageBox.Show("We could not locate Python on your computer. Please either download Python or specify its path in the ACC settings if it's already installed.", MainProgram.messageBoxTitle);
-                                                } else {
-                                                    if (minPythonVersion != "" && maxPythonVersion != "") {
-                                                        //Both min & max set
-                                                        MessageBox.Show("We could not locate a version of Python between v" + minPythonVersion + " and v" + maxPythonVersion + ". Please either download a version of Python in between the specified versions, or specify its path in the ACC settings if it's already installed.", MainProgram.messageBoxTitle);
+                                                string theExtension = Path.GetExtension(scriptFile);
+
+                                                if (theExtension == ".ps1") {
+                                                    //Is powershell - open it correctly
+                                                    p.FileName = "powershell.exe";
+                                                    p.Arguments = String.Format("-WindowStyle Hidden -file \"{0}\" \"{1}\"", scriptFileLocation, accArg);
+                                                } else if (theExtension == ".py") {
+                                                    //Python - open it correctly
+                                                    string minPythonVersion = (jsonTest["options"]["min_python_version"] ?? ""),
+                                                        maxPythonVersion = (jsonTest["options"]["max_python_version"] ?? ""),
+                                                        pythonPath = GetPythonPath(minPythonVersion, maxPythonVersion);
+
+                                                    if (pythonPath != "") {
+                                                        p.FileName = GetPythonPath();
+                                                        p.Arguments = String.Format("{0} \"{1}\"", scriptFileLocation, accArg);
                                                     } else {
-                                                        if (minPythonVersion != "") {
-                                                            //Min only
-                                                            MessageBox.Show("We could not locate a version of Python greater than v" + minPythonVersion + ". Please either download Python (min version " + minPythonVersion + ") or specify its path in the ACC settings if it's already installed.", MainProgram.messageBoxTitle);
+                                                        //No python version (or one with the min-max requirements) not found.
+                                                        string pythonErr;
+
+                                                        if (minPythonVersion == "" && maxPythonVersion == "") {
+                                                            //Python just not found
+                                                            pythonErr = "We could not locate Python on your computer. Please either download Python or specify its path in the ACC settings if it's already installed.";
                                                         } else {
-                                                            //Max only
-                                                            MessageBox.Show("We could not locate a version of Python lower than v" + maxPythonVersion + ". Please either download Python (max version " + maxPythonVersion + ") or specify its path in the ACC settings if it's already installed.", MainProgram.messageBoxTitle);
+                                                            if (minPythonVersion != "" && maxPythonVersion != "") {
+                                                                //Both min & max set
+                                                                pythonErr = "We could not locate a version of Python between v" + minPythonVersion + " and v" + maxPythonVersion + ". Please either download a version of Python in between the specified versions, or specify its path in the ACC settings if it's already installed.";
+                                                            } else {
+                                                                if (minPythonVersion != "") {
+                                                                    //Min only
+                                                                    pythonErr = "We could not locate a version of Python greater than v" + minPythonVersion + ". Please either download Python (min version " + minPythonVersion + ") or specify its path in the ACC settings if it's already installed.";
+                                                                } else {
+                                                                    //Max only
+                                                                    pythonErr = "We could not locate a version of Python lower than v" + maxPythonVersion + ". Please either download Python (max version " + maxPythonVersion + ") or specify its path in the ACC settings if it's already installed.";
+                                                                }
+                                                            }
+                                                        }
+
+                                                        return Tuple.Create(false, pythonErr, false);
+                                                    }
+                                                } else if (theExtension == ".bat" || theExtension == ".cmd" || theExtension == ".btm") {
+                                                    //Is batch - open it correctly (https://en.wikipedia.org/wiki/Batch_file#Filename_extensions)
+                                                    p.FileName = "cmd.exe";
+                                                    p.Arguments = String.Format("/c {0} \"{1}\"", scriptFileLocation, accArg);
+                                                } else {
+                                                    //"Other" filetype. Simply open file.
+                                                    p.FileName = scriptFileLocation;
+                                                    p.Arguments = accArg;
+                                                }
+
+                                                Process theP = Process.Start(p);
+
+                                                if (!theP.WaitForExit(5000)) {
+                                                    MainProgram.DoDebug("Action mod timed out");
+                                                    theP.Kill();
+                                                }
+                                                string output = theP.StandardOutput.ReadToEnd();
+
+                                                using (StringReader reader = new StringReader(output)) {
+                                                    string line;
+                                                    while ((line = reader.ReadLine()) != null) {
+                                                        if (line.Length >= 17) {
+                                                            if (line.Substring(0, 12) == "[ACC RETURN]") {
+                                                                //Return for ACC
+                                                                string returnContent = line.Substring(13),
+                                                                    comment = returnContent.Contains(',') ? returnContent.Split(',')[1] : "";
+                                                                bool actionSuccess = returnContent.Substring(0, 4) == "true";
+
+                                                                if (comment.Length > 0 && char.IsWhiteSpace(comment, 0)) {
+                                                                    comment = comment.Substring(1);
+                                                                }
+
+                                                                if (actionSuccess) {
+                                                                    //Action was successfull
+                                                                    Console.WriteLine("Action successful!");
+                                                                } else {
+                                                                    //Action was not successfull
+                                                                    Console.WriteLine("Action failed :(");
+                                                                }
+
+                                                                Console.WriteLine("Comment; " + comment);
+                                                                return Tuple.Create(actionSuccess, (comment.Length > 0 ? comment : "Action mod returned no reason for failing"), actionIsFatal);
+                                                            }
                                                         }
                                                     }
                                                 }
 
-                                                return;
+                                                return Tuple.Create(false, "Action mod didn't return anything to ACC", false);
+                                            } catch (Exception e) {
+                                                //Process init failed - it shouldn't, but better safe than sorry
+                                                actionErrMsg = "Process initiation failed";
+                                                Console.WriteLine(e);
                                             }
                                         } else {
-                                            //"Other" filetype. Simply open file.
-                                            p.FileName = scriptFileLocation;
-                                            p.Arguments = "how to do dis?";
+                                            //Script file doesn't exist
+                                            actionErrMsg = "Action mod script doesn't exist";
                                         }
-
-                                        Process theP = Process.Start(p);
-
-                                        string output = theP.StandardOutput.ReadToEnd();
-                                        theP.WaitForExit();
-
-                                        Console.WriteLine(output);
-                                    } catch (Exception e) {
-                                        //Process init failed - it shouldn't, but better safe than sorry
-                                        MainProgram.DoDebug("6");
-                                        Console.WriteLine(e);
+                                    } else {
+                                        actionErrMsg = "Action \"" + name + "\" requires a secondary parameter to be set";
                                     }
                                 } else {
-                                    //Script file doesn't exist
-                                    MainProgram.DoDebug("5");
+                                    actionErrMsg = "Action \"" + name + "\" requires a parameter to be set";
                                 }
                             } else {
                                 //JSON is not valid; validateErrMsg
-                                MainProgram.DoDebug("4");
+                                actionErrMsg = validateErrMsg;
                             }
                         } else {
                             //JSON is invalid or failed
-                            MainProgram.DoDebug("3");
+                            actionErrMsg = "Action mod JSON is invalid";
                         }
                     } catch (Exception e) {
                         //Failed to parse
-                        MainProgram.DoDebug("2");
+                        actionErrMsg = "Failed to parse action mod JSON";
                         Console.WriteLine(e.Message);
                     }
                 } else {
@@ -266,7 +317,7 @@ namespace AssistantComputerControl {
                 MainProgram.DoDebug("0; " + modLocation);
             }
 
-            MainProgram.DoDebug("\n\n");
+            return Tuple.Create(false, actionErrMsg, false);
         }
 
         private static string ReadInfoFile(string file) {

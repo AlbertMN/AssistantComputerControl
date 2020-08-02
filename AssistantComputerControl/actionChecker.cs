@@ -30,13 +30,9 @@ namespace AssistantComputerControl {
         
 
         private static bool RequireParameter(string param) {
-            if(param != null) {
-                if(param != "") {
-                    return true;
-                }
-            }
-            return false;
+            return !String.IsNullOrEmpty(param);
         }
+
         public static bool FileInUse(string file) {
             if(File.Exists(file)) {
                 try {
@@ -402,138 +398,143 @@ namespace AssistantComputerControl {
 
         public static Actions ExecuteAction(string action, string line, string parameter) {
             Actions actionExecution = new Actions();
+            string theAction = action.ToLower();
 
-            switch (action.ToLower()) {
-                case "shutdown":
-                    //Shuts down the computer
-                    actionExecution.Shutdown(parameter);
-                    break;
-                case "restart":
-                    //Restart the computer
-                    actionExecution.Restart(parameter);
-                    break;
-                case "sleep":
-                    //Puts computer to sleep
-                    actionExecution.Sleep(parameter);
-                    break;
-                case "hibernate":
-                    //Hibernates computer
-                    actionExecution.Hibernate(parameter);
-                    break;
-                case "logout":
-                    //Logs out of the current user
-                    actionExecution.Logout(parameter);
-                    break;
-                case "lock":
-                    //Lock computer
-                    actionExecution.Lock(parameter);
-                    break;
-                case "mute":
-                    //Mutes windows
-                    //Parameter optional (true/false)
-                    actionExecution.Mute(parameter);
-                    break;
-                case "set_volume":
-                    //Sets volume to a specific percent
-                    //Requires parameter (percent, int)
-                    if (RequireParameter(parameter)) {
-                        actionExecution.SetVolume(parameter);
-                    }
-                    break;
-                case "music":
-                    if (RequireParameter(parameter)) {
-                        switch (parameter) {
-                            case "previous":
-                            case "previousx2":
-                                break;
-                            case "next":
-                                break;
-                            case "play_pause":
-                                break;
+            if (ActionMods.ModActionExists(theAction)) {
+                actionExecution.ModExecution(theAction, parameter);
+            } else {
+                switch (theAction) {
+                    case "shutdown":
+                        //Shuts down the computer
+                        actionExecution.Shutdown(parameter);
+                        break;
+                    case "restart":
+                        //Restart the computer
+                        actionExecution.Restart(parameter);
+                        break;
+                    case "sleep":
+                        //Puts computer to sleep
+                        actionExecution.Sleep(parameter);
+                        break;
+                    case "hibernate":
+                        //Hibernates computer
+                        actionExecution.Hibernate(parameter);
+                        break;
+                    case "logout":
+                        //Logs out of the current user
+                        actionExecution.Logout(parameter);
+                        break;
+                    case "lock":
+                        //Lock computer
+                        actionExecution.Lock(parameter);
+                        break;
+                    case "mute":
+                        //Mutes windows
+                        //Parameter optional (true/false)
+                        actionExecution.Mute(parameter);
+                        break;
+                    case "set_volume":
+                        //Sets volume to a specific percent
+                        //Requires parameter (percent, int)
+                        if (RequireParameter(parameter)) {
+                            actionExecution.SetVolume(parameter);
                         }
-                        actionExecution.Music(parameter);
-                    }
-                    break;
-                case "open":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.Open(parameter);
-                    }
-                    break;
-                case "open_all":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.OpenAll(parameter);
-                    }
-                    break;
-                case "die":
-                    //Exit ACC
-                    actionExecution.Die(parameter);
-                    break;
-                case "monitors_off":
-                    actionExecution.MonitorsOff(parameter);
-                    break;
-                case "key_shortcut":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.KeyShortcut(parameter);
-                    }
-                    break;
-                case "write_out":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.WriteOut(parameter, line);
-                    }
-                    break;
-                case "create_file":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.CreateFile(parameter);
-                    }
-                    break;
-                case "delete_file":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.DeleteFile(parameter);
-                    }
-                    break;
-                case "append_text":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.AppendText(parameter);
-                    }
-                    break;
-                case "message_box":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.DoMessageBox(parameter);
-                    }
-                    break;
-                case "move":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.MoveSubject(parameter);
-                    }
-                    break;
-                case "kill_process":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.KillProcess(parameter);
-                    }
-                    break;
-                case "minimize_all":
-                    actionExecution.MinimizeAll();
-                    break;
-                case "maximize_all":
-                    actionExecution.MaximizeAll();
-                    break;
-                case "move_mouse":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.MoveMouse(parameter);
-                    }
-                    break;
-                case "mouse_click":
-                    actionExecution.MouseClick(parameter);
-                    break;
-                case "wait":
-                    if (RequireParameter(parameter)) {
-                        actionExecution.Wait(parameter);
-                    }
-                    break;
-                default:
-                    //Unknown action
-                    actionExecution.errorMessage = "Unknown action \"" + action + "\"";
-                    break;
+                        break;
+                    case "music":
+                        if (RequireParameter(parameter)) {
+                            switch (parameter) {
+                                case "previous":
+                                case "previousx2":
+                                    break;
+                                case "next":
+                                    break;
+                                case "play_pause":
+                                    break;
+                            }
+                            actionExecution.Music(parameter);
+                        }
+                        break;
+                    case "open":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.Open(parameter);
+                        }
+                        break;
+                    case "open_all":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.OpenAll(parameter);
+                        }
+                        break;
+                    case "die":
+                        //Exit ACC
+                        actionExecution.Die(parameter);
+                        break;
+                    case "monitors_off":
+                        actionExecution.MonitorsOff(parameter);
+                        break;
+                    case "key_shortcut":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.KeyShortcut(parameter);
+                        }
+                        break;
+                    case "write_out":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.WriteOut(parameter, line);
+                        }
+                        break;
+                    case "create_file":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.CreateFile(parameter);
+                        }
+                        break;
+                    case "delete_file":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.DeleteFile(parameter);
+                        }
+                        break;
+                    case "append_text":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.AppendText(parameter);
+                        }
+                        break;
+                    case "message_box":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.DoMessageBox(parameter);
+                        }
+                        break;
+                    case "move":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.MoveSubject(parameter);
+                        }
+                        break;
+                    case "kill_process":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.KillProcess(parameter);
+                        }
+                        break;
+                    case "minimize_all":
+                        actionExecution.MinimizeAll();
+                        break;
+                    case "maximize_all":
+                        actionExecution.MaximizeAll();
+                        break;
+                    case "move_mouse":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.MoveMouse(parameter);
+                        }
+                        break;
+                    case "mouse_click":
+                        actionExecution.MouseClick(parameter);
+                        break;
+                    case "wait":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.Wait(parameter);
+                        }
+                        break;
+                    default:
+                        //Unknown action
+                        actionExecution.errorMessage = "Unknown action \"" + action + "\"";
+                        break;
+                }
             }
 
             if (MainProgram.testingAction) {
