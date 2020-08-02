@@ -310,13 +310,26 @@ namespace AssistantComputerControl {
                 if (theComputerName == "google" || theComputerName == "alexa") {
                     MainProgram.DoDebug(" - The targetted 'PC name' is set to 'google' or 'alexa' - this is the old format; these names are reserved and cannot be used as 'Computer name'");
                 } else {
+                    bool computerNameAccepted = false;
                     MainProgram.DoDebug(" - Targetted computer is; " + theComputerName);
-                    if (thisComputerName == theComputerName) {
-                        MainProgram.DoDebug(" - This computer is the target!");
+
+                    if (theComputerName == "all") {
+                        computerNameAccepted = true;
+                        MainProgram.DoDebug(" - Computer name is \"" + theComputerName + "\", meaning it targets all computers");
                     } else {
-                        //Not this computer!
-                        MainProgram.DoDebug(" - Computer name \"" + theComputerName + "\" does not match \"" + thisComputerName + "\"");
-                        return;
+                        foreach (string computerName in theComputerName.Split(',')) {
+                            if (thisComputerName == computerName) {
+                                MainProgram.DoDebug(" - This computer is the target!");
+                                computerNameAccepted = true;
+                                break;
+                            }
+                        }
+
+                        if (!computerNameAccepted) {
+                            //Not this computer!
+                            MainProgram.DoDebug(" - Computer name \"" + theComputerName + "\" does not match \"" + thisComputerName + "\" - not executing action");
+                            return;
+                        }
                     }
                 }
             } else {
