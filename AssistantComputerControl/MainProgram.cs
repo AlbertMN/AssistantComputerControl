@@ -22,15 +22,15 @@ using Sentry;
 using System.Configuration;
 using System.Xml;
 using NLog;
+using Microsoft.Win32.TaskScheduler;
 
 namespace AssistantComputerControl {
     class MainProgram {
         public const string softwareVersion = "1.4.2",
-            releaseDate = "2020-03-14 21:25:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+            releaseDate = "2020-08-02 21:25:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            //sentryToken = "super_secret";
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
+            sentryToken = "super_secret";
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -340,6 +340,7 @@ namespace AssistantComputerControl {
 
                 //Action mods implementation
                 ActionMods.CheckMods();
+                TaskSchedulerSetup();
 
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();
@@ -394,6 +395,31 @@ namespace AssistantComputerControl {
                 //Unlock. Clear folder.
                 DoDebug("Woken from sleep / lock, clearing action folder");
                 new CleanupService().Start();
+            }
+        }
+
+        public static void TaskSchedulerSetup () {
+            //Create "Task Scheduler" service; cleanup ACC on startup, log on, workstation unlock
+            try {
+                using (TaskService ts = new TaskService()) {
+                    var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
+
+                    TaskDefinition td = ts.NewTask();
+                    td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
+                    td.RegistrationInfo.Description = "AssistantComputerControl cleanup - clears the action folder to prevent the same action being executed twice";
+                    td.Triggers.Add(new BootTrigger());
+                    td.Triggers.Add(new LogonTrigger());
+                    td.Triggers.Add(new SessionStateChangeTrigger { StateChange = TaskSessionStateChangeType.SessionUnlock });
+                    td.Actions.Add(new ExecAction("powershell.exe", $"-WindowStyle Hidden -file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"", null));
+
+                    // Register the task in the root folder
+                    ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl cleanup", td);
+
+                    // Remove the task we just created
+                    //ts.RootFolder.DeleteTask("Test");
+                }
+            } catch {
+                DoDebug("Failed to create / update Task Scheduler service");
             }
         }
 
@@ -505,6 +531,7 @@ namespace AssistantComputerControl {
         public static void SetupListener() {
             watcher.Path = CheckPath();
             watcher.Filter = "*." + Properties.Settings.Default.ActionFileExtension;
+            TaskSchedulerSetup();
             DoDebug("Listener modified");
         }
 
