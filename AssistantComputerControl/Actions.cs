@@ -497,7 +497,7 @@ namespace AssistantComputerControl {
             int i = 0;
             string writtenString = "";
             foreach (char c in parameter) {
-                char toWrite = (i == 0 && Properties.Settings.Default.WriteOutUCFirst ? Char.ToUpper(c) : c);
+                char toWrite = c;
                 if (!MainProgram.testingAction) PressKey(toWrite);
                 writtenString += toWrite;
 
