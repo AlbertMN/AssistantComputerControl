@@ -97,6 +97,7 @@ namespace AssistantComputerControl {
             { "Keypad_subtract",    "{SUBTRACT}"},
             { "Keypad_multiply",    "{MULTIPLY}"},
             { "Keypad_divide",      "{DIVIDE}"},
+            { "SPACE",              " "},
             { "SHIFT",              "+"},
             { "CTRL",               "^"},
             { "ALT",                "%"}
