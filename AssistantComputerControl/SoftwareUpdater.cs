@@ -41,105 +41,110 @@ namespace AssistantComputerControl {
                 Properties.Settings.Default.Save();
             }
 
-            if (RemoteFileExists(releaseJsonUrl)) {
-                using (WebClient client = new WebClient()) {
-                    latestReleaseJson = client.DownloadString(releaseJsonUrl);
-                }
-                if (latestReleaseJson == string.Empty) {
-                    latestReleaseJson = null;
-                }
-            }
-
-            //Check and get beta
-            if (Properties.Settings.Default.BetaProgram && RemoteFileExists(betaJsonUrl)) {
-                using (WebClient client = new WebClient()) {
-                    latestBetaJson = client.DownloadString(betaJsonUrl);
-                }
-                if (latestBetaJson == string.Empty)
-                    latestBetaJson = null;
-            }
-
-            if (latestReleaseJson != null || latestBetaJson != null) {
-                Version newVersion = null
-                    , latestRelease
-                    , latestBeta;
-
-                if (latestReleaseJson != null && latestBetaJson != null) {
-                    //Beta program enabled; check both release and beta for newest update
-                    latestRelease = JsonConvert.DeserializeObject<Version>(latestReleaseJson);
-                    latestBeta = JsonConvert.DeserializeObject<Version>(latestBetaJson);
-
-                    if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) ||
-                        DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
-                        //Both latest release and beta is ahead of this current build
-                        if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(latestBeta.datetime)) {
-                            //Release is newest
-                            newVersion = latestRelease;
-                        } else {
-                            //Beta is newest
-                            newVersion = latestBeta;
-                        }
-                    } else {
-                        //None of them are newer. Nothing new
-                        MainProgram.DoDebug("Software up to date (beta program enabled)");
-
-                        MainProgram.isCheckingForUpdate = false;
-                        return false;
+            try {
+                if (RemoteFileExists(releaseJsonUrl)) {
+                    using (WebClient client = new WebClient()) {
+                        latestReleaseJson = client.DownloadString(releaseJsonUrl);
                     }
-                } else if (latestReleaseJson != null && latestBetaJson == null) {
-                    //Only check latest
-                    latestRelease = JsonConvert.DeserializeObject<Version>(latestReleaseJson);
-
-                    if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) && latestRelease.version != MainProgram.softwareVersion) {
-                        //Newer build
-                        newVersion = latestRelease;
-                    } else {
-                        //Not new, move on
-                        MainProgram.DoDebug("Software up to date");
-                        MainProgram.isCheckingForUpdate = false;
-                        return false;
+                    if (latestReleaseJson == string.Empty) {
+                        latestReleaseJson = null;
                     }
-                } else if (latestReleaseJson == null && latestBetaJson != null) {
-                    //Couldn't reach "latest" update, but beta-updates are enabled
-                    latestBeta = JsonConvert.DeserializeObject<Version>(latestBetaJson);
+                }
 
-                    if(latestBeta != null) {
-                        if (DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
-                            //Newer build
-                            newVersion = latestBeta;
+                //Check and get beta
+                if (Properties.Settings.Default.BetaProgram && RemoteFileExists(betaJsonUrl)) {
+                    using (WebClient client = new WebClient()) {
+                        latestBetaJson = client.DownloadString(betaJsonUrl);
+                    }
+                    if (latestBetaJson == string.Empty)
+                        latestBetaJson = null;
+                }
+
+                if (latestReleaseJson != null || latestBetaJson != null) {
+                    Version newVersion = null
+                        , latestRelease
+                        , latestBeta;
+
+                    if (latestReleaseJson != null && latestBetaJson != null) {
+                        //Beta program enabled; check both release and beta for newest update
+                        latestRelease = JsonConvert.DeserializeObject<Version>(latestReleaseJson);
+                        latestBeta = JsonConvert.DeserializeObject<Version>(latestBetaJson);
+
+                        if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) ||
+                            DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
+                            //Both latest release and beta is ahead of this current build
+                            if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(latestBeta.datetime)) {
+                                //Release is newest
+                                newVersion = latestRelease;
+                            } else {
+                                //Beta is newest
+                                newVersion = latestBeta;
+                            }
                         } else {
-                            //Not new, move on
+                            //None of them are newer. Nothing new
                             MainProgram.DoDebug("Software up to date (beta program enabled)");
+
                             MainProgram.isCheckingForUpdate = false;
                             return false;
                         }
-                    }
-                } else {
-                    MainProgram.DoDebug("Both release and beta is NULL, no new updates, or no contact to the server.");
-                }
+                    } else if (latestReleaseJson != null && latestBetaJson == null) {
+                        //Only check latest
+                        latestRelease = JsonConvert.DeserializeObject<Version>(latestReleaseJson);
 
-                if (newVersion != null && newVersion.version != MainProgram.softwareVersion) {
-                    //New version available
-                    MainProgram.DoDebug("New software version found (" + newVersion.version + ") [" + newVersion.type + "], current; " + MainProgram.softwareVersion);
-                    DialogResult dialogResult = MessageBox.Show(Translator.__("new_version_found", "check_for_update").Replace("{version_num}", newVersion.version).Replace("{version_type}", newVersion.type), Translator.__("new_version_found_title", "check_for_update") + " | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes) {
-                        MainProgram.DoDebug("User chose \"yes\" to install update");
-                        DownloadFile(newVersion.installpath + "&upgrade=true");
-                    } else if (dialogResult == DialogResult.No) {
-                        MainProgram.DoDebug("User did not want to install update");
+                        if (DateTime.Parse(latestRelease.datetime) > DateTime.Parse(MainProgram.releaseDate) && latestRelease.version != MainProgram.softwareVersion) {
+                            //Newer build
+                            newVersion = latestRelease;
+                        } else {
+                            //Not new, move on
+                            MainProgram.DoDebug("Software up to date");
+                            MainProgram.isCheckingForUpdate = false;
+                            return false;
+                        }
+                    } else if (latestReleaseJson == null && latestBetaJson != null) {
+                        //Couldn't reach "latest" update, but beta-updates are enabled
+                        latestBeta = JsonConvert.DeserializeObject<Version>(latestBetaJson);
+
+                        if (latestBeta != null) {
+                            if (DateTime.Parse(latestBeta.datetime) > DateTime.Parse(MainProgram.releaseDate)) {
+                                //Newer build
+                                newVersion = latestBeta;
+                            } else {
+                                //Not new, move on
+                                MainProgram.DoDebug("Software up to date (beta program enabled)");
+                                MainProgram.isCheckingForUpdate = false;
+                                return false;
+                            }
+                        }
+                    } else {
+                        MainProgram.DoDebug("Both release and beta is NULL, no new updates, or no contact to the server.");
                     }
-                    MainProgram.isCheckingForUpdate = false;
-                    return true;
+
+                    if (newVersion != null && newVersion.version != MainProgram.softwareVersion) {
+                        //New version available
+                        MainProgram.DoDebug("New software version found (" + newVersion.version + ") [" + newVersion.type + "], current; " + MainProgram.softwareVersion);
+                        DialogResult dialogResult = MessageBox.Show(Translator.__("new_version_found", "check_for_update").Replace("{version_num}", newVersion.version).Replace("{version_type}", newVersion.type), Translator.__("new_version_found_title", "check_for_update") + " | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes) {
+                            MainProgram.DoDebug("User chose \"yes\" to install update");
+                            DownloadFile(newVersion.installpath + "&upgrade=true");
+                        } else if (dialogResult == DialogResult.No) {
+                            MainProgram.DoDebug("User did not want to install update");
+                        }
+                        MainProgram.isCheckingForUpdate = false;
+                        return true;
+                    } else {
+                        MainProgram.DoDebug("Software up to date");
+                        if (debug)
+                            MessageBox.Show(Translator.__("no_new_update", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle);
+                    }
                 } else {
-                    MainProgram.DoDebug("Software up to date");
+                    MainProgram.DoDebug("Could not reach the webserver (both 'release' and 'beta' json files couldn't be reached)");
                     if (debug)
-                        MessageBox.Show(Translator.__("no_new_update", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle);
+                        MessageBox.Show(Translator.__("webservers_offline", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle);
                 }
-            } else {
-                MainProgram.DoDebug("Could not reach the webserver (both 'release' and 'beta' json files couldn't be reached)");
-                if (debug)
-                    MessageBox.Show(Translator.__("webservers_offline", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle);
+            } catch (Exception e) {
+                MainProgram.DoDebug("Failed to check for update (exception); " + e.Message);
             }
+
             MainProgram.isCheckingForUpdate = false;
             return false;
         }

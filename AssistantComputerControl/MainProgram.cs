@@ -30,8 +30,8 @@ namespace AssistantComputerControl {
             releaseDate = "2020-08-02 21:25:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            //sentryToken = "super_secret";
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
+            sentryToken = "super_secret";
+            
 
         static public bool debug = true,
             unmuteVolumeChange = true,
