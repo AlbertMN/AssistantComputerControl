@@ -1,0 +1,242 @@
+﻿{
+  "language": "Türkçe",
+  "version": "1.4.0", //the version of the software this translation is made for
+  "translation_version": 2,
+
+  //Add your name to the bottom of the contributors list if you have contributed
+  "contributors": [
+    "İsmet Emircan Tunç"
+  ],
+
+  "translations": {
+    "general": {
+      "error": "Hata", /* Capital start letter */
+      "invalid_path": "Path tanımlı değil",
+      "no_cloudservice_chosen": "Bulut hizmeti seçmiş gibi görünmüyorsun. Kurulum kılavuzunu tekrar gözden geçirmek ister misiniz?",
+      "cloud_setup_failed": "Bulut hizmeti ayarlanamadı - tekrar deneyin.",
+      "start_with_pc_yes": "İyi seçim! ACC şimdi Windows ile başlayacak",
+      "start_with_pc_no": "Pekala. Eğer pişmanlık duyuyorsanız ve ACC'nin otomatik olarak açılmasını istiyorsanız, her zaman tepsideki AssistantComputerControl'e sağ tıklayın ve \"Başlangıçta aç \" seçeneğine tıklayın!",
+      "start_with_pc_desc": "Windows başladığında bu yazılımın otomatik olarak açılmasını istiyor musunuz (önerilir)? \"Evet \" e tıklayın"
+    },
+    "settings": {
+      /*
+       * [SECTION INFO]
+       * - Use "\n" for line break - no HTML
+       */
+
+      "window_name": "Ayarlar",
+
+      "overall_settings_title": "Genel Ayarlar",
+      "program_language_label": "Program dili",
+      "save_language_btn": "Kaydet",
+      "start_with_windows": "Windows ile beraber başlasın mı?",
+      "check_for_updates": "Güncellemeler denetlensin mi?",
+      "join_beta_program": "Beta programına katılmak ister misiniz?",
+
+      "file_edited_margin": "Dosya düzenlenmiş kenar boşluğu (saniye)",
+      "file_read_delay": "Dosya okuma gecikmesi (saniye)",
+      "file_read_delay_desc_text": "what is this? (hover)",
+      "file_read_delay_desc_text_hover_content": "Bazen yazılım, düzgün bir şekilde senkronize edilmeden önce bir dosyayı okuyabilir. Bu ayar, dosyanın okunmasını x kadar saniye geciktirir",
+
+      "advanced_settings_btn": "Gelişmiş Ayarlar",
+      "open_log_btn": "Açık günlük",
+      "action_simulator_btn": "Eylem Simülatörü",
+      "do_setup_again": "Kurulum kılavuzunu tekrar yapın",
+
+      "delete_warning_text": "(Eylemi sil) X'ten fazla dosya silinmek üzere olduğunda uyar.",
+
+      "multi_pc_title": "Çoklu-bilgisayar desteği",
+      "multi_pc_description": "Bu, yazılımı, bilgisayarlar aynı eylemleri yürütmeden birden çok bilgisayarda\nçalışacak şekilde değiştirmenize olanak tanır.",
+      "multi_pc_read_more": "Her şeyi burada okuyun.",
+      "computer_name_field": "Bilgisayar adı",
+      "default_computer_checkbox": "Varsayılan biglisayar mı?",
+      "default_computer_description": "^ etkinleştirilirse, ACC n \"Bilgisayar adı\" nın ayarlanmadığı\neylemleri kabul eder",
+
+      "check_for_updates_btn": "Güncellemeleri denetle"
+    },
+    "advanced_settings": {
+      "window_name": "Gelişmiş Ayarlar",
+      "title": "Gelişmiş Ayarlar",
+      "description": "Bu ayarlarla oynamak,\nAssistantComputerControl'ün tamamen çalışma şeklini değiştirecektir.\nYalnızca, ACC'nin şu anda desteklediği yerleşik bulut hizmetlerini\nkullanmak istemeyenler içindir.",
+      "why_edit_link": "Neden bunu düzenlemeliyim...?",
+      "action_path_label": "Eylem klasörü yolu",
+      "save_button": "Eylem klasörünü kaydet",
+      "action_file_extension_label": "Eylem klasörü uzantısı"
+    },
+    "check_for_update": {
+      "check_for_update_title": "Güncellemeleri denetle",
+      "no_new_update": "Yeni güncelleme bulunamadı. ACC yazılımınız tamamen güncel!",
+      "update_check_failed": "Bilgisayarınız internete bağlı olmadığından güncellemeler kontrol edilemedi.",
+      "download_failed": "Yeni ACC yükleyici indirilemedi. Daha sonra deneyin, ya da AssistantComputerControl.com adresinden manuel olarak indirin.",
+      "website_offline": "Yeni sürümü çevrimiçi olarak bulamadık. Lütfen daha sonra tekrar deneyiniz.",
+      "new_version_found": "AssistantComputerControl'ün yeni bir sürümü mevcut ({version_num} [{version_type}]), şimdi yüklemek istiyor musunuz?",
+      "new_version_found_title": "Yeni versiyon bulundu",
+      "webservers_offline": "ACC web sunucularına ulaşılamadı - daha sonra tekrar deneyin"
+    },
+    "update_downloading": { /* Needs testing */
+      "title": "Yeni güncelleme indiriliyor...",
+      "description": "Bu pencereyi kapatabilirsiniz - indirme işlemi tamamlandığında yükleyici açılacaktır",
+      "downloaded_bytes": "{X} / {y} indirildi"
+    },
+    "user_feedback_window": {
+      "window_name": "AssistantComputerControl kullanıcı geribildirimi"
+    },
+    "test_action_window": {
+      "window_name": "Eylem Simülatörü",
+      "description": "Eylemlerin işe yarayıp yaramadığını kontrol edin - eylemler yürütülmeyecektir.",
+      "listening_in": "Dinleme:",
+      "listening_for": "uzantı için;"
+    },
+    "getting_started": {
+      /*
+       * [SECTION INFO]
+       * - HTML allowed - for the setup guide
+       */
+
+      "welcome_title": "AssistantComputerControl 'e hoş geldiniz!",
+      "welcome_description": "Bu yazılımın çalışması için bir bulut hizmetine ihtiyacı vardır. Dropbox, Google Drive ve OneDrive'ı yerel olarak destekliyoruz.", //This should only be ONE line - no line breaks
+      "click_me": "Bana tıkla!",
+      "recommended": "Önerilen",
+      "expert_setup_short_desc": "Daha fazla özgürlük istiyorsan bana tıkla (özel kurulum ve yardım yok)",
+      "expert_setup_name": "Uzman kurulumu",
+
+      "pick_button_default_text": "Bulut servisi seç", /* text on the button while it's disabled, until the user has clicked a cloud service */
+      "pick_button_text": "{cloud_service} ile devam et", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
+      "expert_setup_chosen_text": "Uzman kurulumu", /* what appears after "Proceed with ..." on the pick-button */
+
+      "skip_guide_text": "Kurulum kılavuzunu atlamak için burayı tıklayın <i> (önerilmez) </i>",
+
+      "step_1_title": "{cloud_service} 'ı kur.",
+      "step_2_title": "IFTTT 'yi ayarla.",
+      "step_3_title": "Tamam! Test eylemleri",
+
+      "install_text": "{cloud_service} 'ı indir.",
+      "cloud_service_installed": "İndirildi",
+      "looking_for_service": "Bakılıyor...",
+      "not_working_modal_opener": "{cloud_service} <u> yüklüyse </u> ve talimatları adım adım <u> izlediyseniz </u>, {link_start} buraya {link_end} tıklayın, ancak ACC devam etmenize izin vermiyor",
+      "if_you_havent_already": "(Henüz yapmadıysanız)", /* Used for "install {cloud service name}, "if you haven't already" */
+
+      "desired_path_not_found": "Birşeyler ters gitti - istenen yol bulunamadı.",
+      "error_disappear": "Bu mesaj 10 saniye içinde kaybolacak.",
+      "try_again": "Tekrar deneyin",
+
+      /* Manual setup */
+      "manual_setup_title": "Manuel kurulum",
+      "manual_setup_description": "Bu hizmetin <i> gerçekten kurulu olduğundan </i> eminseniz ve tüm adımları izlediyseniz, ancak ACC bir sonrakine geçmenize izin vermez; aşağıdaki alanı doldurun. <br> Kurulum sırasında özel bir yol seçtiyseniz, ACC onu algılayamayabilir.",
+      "action_folder_path_label": "Eylem klasörü yolu",
+      "action_folder_path_description": "Bulut hizmeti klasörünüzün tam yolu. Bu büyük olasılıkla <code> C:/Users/your_user/cloudservice_name</code>",
+      "manual_setup_button": "Gönder ve kontrol et",
+      "manual_path_entered": "Başarılı! Yol manuel olarak girildi. Şimdi devam edebilirsiniz.",
+      "checking_path": "Yol denetleniyor...",
+      "close_manual_button": "Bu pencereyi kapatın.",
+      "manual_path_error": "Hata. Yol geçerli değil - lütfen tekrar kontrol edin.",
+      "manual_path_error_description": "Bu mesaj 8 saniye içinde kaybolacak.",
+
+      /* Dropbox specific */
+      "dropbox_sign_up": "Dropbox 'a kaydolun",
+      "download_dropbox": "Dropbox yükleyicisini indirin",
+      "open_installer_dropbox": "Yükleyiciyi açın, ve Dropbox 'ı bilgisayarınıza kurun.",
+
+      /* OneDrive specific */
+      "personal_onedrive": "Kişisel OneDrive",
+      "work_onedrive": "İş OneDrive",
+      "onedrive_sign_up": "OneDrive'a kaydolun (Microsoft hesabıyla aynı)",
+      "download_onedrive": "Eğer Windows 8 veya daha üst sürüm kullanıyorsanız, Biglsiayarınızda büyük olasılıkla OneDrive <br> bulunacaktır. Eğer bulunmuyorsa, <a href=\"https://onedrive.live.com/about/en-sg/download/\">OneDrive yükleyiciyi indirin ve çalıştırın </a>",
+      "onedrive_go_to_folder": "Dosya gezgininde OneDrive klasörüne gidin",
+      "onedrive_create_folder": "\"AssistantComputerControl \" adlı bir klasör oluşturun",
+      "onedrive_always_keep": "Oluşturduğunuz dosyaya sağ tıklayın ve \"Her zaman bu cihazda tut \" seçeneğine basın <b> <i> (oldukça önemli) </i> </b>",
+      "has_work_onedrive": "Kişisel ve iş için OneDrive'ınız olduğunu görüyoruz - hangisini kullanmak istiyorsunuz?",
+
+      /* Google Drive specific */
+      "make_google_account": "Halihazırda Google hesabın vardır - eğer yoksa, <a href=\"https://accounts.google.com/signup/v2\">make one</a>",
+      "google_drive_download": "Google Drive 'ı bilgisayarınıza indirin <a href=\"https://www.google.com/drive/download/\">choose \"Private; Backup and Sync\"</a> <small>(if you haven't already)</small>",
+      "google_drive_install": "Yükleyiciyi çalıştır ve kurulumu tamamla",
+      "google_drive_click_logo": "Görev çubuğundaki \"Geri yükleme ve senkronizasyon\" a tıkla",
+      "google_drive_preferences": "Sağ köşedeki üç noktaya tıkla, ve <b>\"Tercihler\"</b> e tıkla",
+      "google_drive_sync": "<b> \"Google Drive \" </b> sekmesine gidin ve <b> \"Sürücümü bu bilgisayara senkronize et \" </b> seçeneğinin işaretli olduğundan emin olun",
+
+      "google_drive_sync_all": "Bilgisayarınızdaki tüm Google Drive dosyalarınızı istiyor musunuz?",
+      "google_drive_sync_all_desc": "\"Sürücümdeki her şeyi senkronize et (x GB) \" öğesini seçin",
+      "google_drive_acc_only_sync": "... yoksa <i> sadece </i> AssistantComputerControl için mi?",
+      "google_drive_website_goto": "Google Drive a gidin (tarayıcınızda)",
+      "google_drive_create_folder": "\"Drive 'ım \" sekmesinde, bölüm dosyaları bölümünü sağ tıklayın veya \"Drive' ım \" açılır menüsüne basın ve <b> \"Yeni klasör \" </b> seçeneğini seçin",
+      "google_drive_name_folder": "Klasörü \"AssistantComputerControl \" olarak adlandırın <i> (burada yazım hatalarının olmaması önemlidir) </i>",
+      "google_drive_sync_specific_folders": "\"Yalnızca bu klasörleri eşitle ... \" öğesini seçin ve \"AssistantComputerControl \" adlı klasör dışındaki her şeyin işaretini kaldırın.",
+
+      /* IFTTT specific */
+      "set_up_ifttt_acc": "IFTTT hesabınızı ayarlayın",
+      "set_up_ifttt_extra": "AssistantComputerControl apletleri ile",
+      "ifttt_join": "IFTTT 'ye kaydolun",
+      "ifttt_join_extra": "(Google Asistan kullanıyorsanız Google hesabınızla kaydolmak daha mantıklı olur)",
+      "ifttt_enable_shutdown_applet": "<b> İstediğiniz uygulamaları etkinleştirin. </b> <code> kapatma </code> eylemi <small> (bilgisayarınızı kapatma) </small> ile başlayalım.",
+      "shutdown_test_link_gh": "Google Assistan kullanıyorsanız buraya tıklayın",
+      "ifttt_shutdown_link_alexa": "ya da Amazon Alexa kullanıyorsanız buraya tıklayın",
+      "ifttt_connect_applet": "IFTTT aplet inde \"Connect\" e tıklayın.", // The "Connect" part should ALWAYS stay the same, no matter the language!
+      "ifttt_link_info": "Henüz {cloud_service} veya Google / Amazon hesabınızı bağlamadıysanız, hesaplarınızı bağlamanız istenecektir",
+
+      /* "Done" tab */
+      "time_to_try_heading": "Kapatma eyleminin 3 kez deneyin!",
+      "listening_for_actions": "Eylemler dinleniyor...",
+      "custom_trigger_reminder": "... uygulamada ayarladığınız dile bağlı olarak ve 2. adımda tetikleyicileri değiştirdiyseniz ...",
+      "google_assistant_trigger_example": "<b> Google Assistant </b> tetikleyicisi;",
+      "alexa_trigger_example": "<b>Alexa</b> için şunu söylemeniz gerekir;",
+      "configure_software_info": "Yazılımı, bilgisayarınıza en iyi şekilde uyacak şekilde yapılandırmak için <code> kapat </code> işlemini 3 kez deneyelim!",
+      "wont_execute_reminder": "Denediğiniz eylemler <i> gerçekleştirilmeyecek </i>, sadece simülasyonu yapılacaktır!",
+      "action_went_through": "{aksiyon} geçti",
+
+      "fast_learner": "Hızlı öğreniyorsun!", // Shown when the user executes the first action before even going to tab 3
+      "too_fast": "Hızlıydın ama, bu <i>çok mu</i> hızlıydı...?", // Shown when the user is fast, but the action fails
+
+      /* "Not working" modal (troubleshooting) */
+      "not_working_button": "Çalışmıyor mu?",
+      "not_working_modal_title": "Yazılım çalışmıyor.",
+      "not_working_title": "Korkma. Çoğu sorun kolaylıkla çözülür!",
+      "not_working_description": "En yaygın sorunlardan bazılarını gözden geçirelim ve yazılımı dakikalar içinde kurup çalıştıralım!",
+      "repeat_step_two_suggestion": "İlk olarak, {link_start} 2. adımı {link_end} tekrar denemeniz ve geçmeniz önerilir. Eğer doğru olarak yaptığından eminsen, aşağıdaki çözümlere ilerleyin.",
+
+      "problem_introduction_title": "Ne tür sorun yaşıyorsun?",
+      "problem_introduction_description": "Sorununuzu en iyi tanımlayan panele tıklayın",
+
+      // Section 1 in TBS
+      "assistant_response_issues_desc": "<b> Sorun: </b> <i> (örnek) </i> Google Asistanım / Alexa'm tetikleyicilerin hiçbirini/(söylediklerimi) anlamıyor. <i> (ACC yazılımının çalışıp çalışmadığı önemli değil, IFTTT yine de yanıt vermelidir) </i>",
+      "assistant_response_issues_title": "Asistanım eylemi/tetikleyiciyi anlamıyor.",
+
+      "tbs_assistant_solution_one": "IFTTT hesabınıza bağladığınız asistan <i> (Google Asistan veya Alexa) </i> hesabının, konuştuğunuz asistanla aynı hesap olduğundan emin olun.",
+      "tbs_assistant_solution_two": "Bağlı hesapta <a href=\"https://assistantcomputercontrol.com/#what-can-it-do\" target=\"_blank\"> aplet'lerin asistanınız ile etkinleştirildiğinden </a> emin olun. ACC'nin asistanınızla hiçbir ilgisi yok, yani bu sorun IFTTT'de veya asistan hizmetinizde",
+      "tbs_assistant_solution_three": "<b> Alexa kullanıyorsanız; </b> IFTTT gerçek tetikleyiciden önce <i> Alexa, <b> tetikle </b> x </i> demenizi gerektirir ve her zaman <i> yanıt verir. \"Tamam. Bunu IFTTT'ye gönderiyorum. \" </i>",
+      "tbs_assistant_solution_four": "<b> Google Asistan kullanıyorsanız; </b> Google Asistan cihazınız <i> (ister telefonunuz ister fiziksel bir ürün olsun) </i> IFTTT uygulamanızdan farklı bir dile ayarlanmış olabilir. Uygulama diliniz \"İngilizce \" olarak ayarlanmışsa ancak Google Asistan hesabınızda etkinleştirdiğiniz tek dil (örneğin) \"İtalyanca \" ise, Google Asistanınız İngilizce ifadeyi anlamaz. Söylediğiniz komut, aldığınız yanıttan farklı bir dildeyse sorunun bu olduğunu anlayabilirsiniz <i> (örneğin asistanıma İngilizce bir cümle söylersem ve bunun anlamadığı yanıtını İtalyanca verirse gibi) </i>",
+      "tbs_assistant_solution_five": "<a target=\"_blank\" href=\"https://status.ifttt.com/#about-this-site\"> IFTTT'nin durumunu </a> kontrol edin - şu anda sorun yaşıyorsanız, deneyin ve bekleyin",
+
+      // Section 2 in TBS
+      "pc_issues_desc": "<b>Problem:</b> The assistan cevap veriyor, ama bilgisayarımda hiçbir şey olmuyor.",
+      "pc_issues_title": "Assistan cevap veriyor,ama bilgisayarda hiçbir şey olmuyor",
+
+      "tbs_pc_solution_one": "Bulut hizmetiniz <i> (Dropbox, OneDrive, Google Drive) </i> her zaman bilgisayarınızda kurulu ve çalışıyor olmalıdır - kapalıysa, açtığınızdan emin olun.",
+      "tbs_pc_solution_two": "Bulut hizmeti <b> tam olarak eşitlenmelidir! </b> Eğer (örneğin) Dropbox x yüz miktarda dosyayı eşitliyorsa, bulut hizmetinize tüm dosyaları bilgisayarınızla tam olarak eşitlemesi için biraz zaman tanıyın",
+      "tbs_pc_solution_three": "<a href=\"https://ifttt.com/activity\" target=\"_blank\"> IFTTT etkinlik sayfanızı </a> kontrol edin. \"Uygulama başarısız oldu \" diyorsa, IFTTT tarafında bir sorun var demektir. Bu bazen asistanınızın ve bulut hizmeti hesabınızın bağlantısının kesilip yeniden bağlanmasıyla çözülebilir. <a href=\"https://acc.readme.io/docs/fixing-ifttt-errors\" target=\"_blank\"> \"IFTTT hatalarını düzeltme \" </a> kılavuzuna bakın",
+      "tbs_pc_solution_four": "<b> eylem klasörünüzü </b> deneyin ve temizleyin (<code> Cloudservice / AssistantComputerControl </code>, fx. <code> C: / Dropbox / AssistantComputerControl </code> adresinde bulunur). Klasör tamamen boş olmalıdır!",
+      "tbs_pc_solution_five": "Bulut hizmetinizin bilgisayarınızda oturum açtığı hesabın, IFTTT hesabınıza <i> bağlı olan hesapla aynı olduğundan emin olun (\"<a href = \" https://acc.readme.io/ docs / fixing-ifttt-errors # section-check-cloud-service-connection\" target = \" _ blank\"> \" IFTTT hatalarını düzeltme \"kılavuzunun bulut hizmeti bağlantısını kontrol edin </a> \" bölümü) < / i>",
+      "tbs_pc_solution_six": "Kullandığınız IFTTT uygulamasının, bilgisayarınızdaki ACC kurulumu sırasında seçtiğiniz bulut hizmeti için bir uygulama olduğundan emin olun.",
+
+      // Section 3 in TBS
+      "tbs_still_not_resolved_title": "Hala çözülmedi (daha gelişmiş düzeltmeler)",
+      "tbs_still_not_resolved_desc": "Yukarıdaki tüm çözümler başarısız olduysa, lütfen <a target=\"_blank\" href=\"https://acc.readme.io/docs/trfunction#section-still-not-solved-\"> sorun giderme bölümüne bakın </a> <i> (özellikle \"Hala çözülmedi mi? \" bölümü) </i>",
+      "tbs_still_not_resolved_community_help": "<b> Eğer hala </b> çalışmıyorsa, gelin <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"> <i> Discord sunucumuza </i> katılın </a>. 550'den fazla üyeyle, hızlı bir şekilde yardım alacağınızdan emin olabilirsiniz <i> (ve geliştirici genellikle birkaç saat içinde yanıt verir) </i> <br /> Bir hata bulduğunuza inanıyorsanız, <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\"> GitHub'da bir sorun </a> açabilirsiniz ve sorunu açıklayın."
+    },
+    "expert_setup": {
+      "title": "Özel kurulum",
+      "description": "Bu kurulum, AssistantComputerControl'e göre daha fazla özgürlük isteyenler içindir.\n Bildiğiniz (veya bilmeyeceğiniz) gibi ACC, IFTTT ile iletişim kurmak için Dropbox gibi bir bulut yazılımı kullanır ve bu yazılım yardımcı komut ve yanıtını yönetir.\n\nVarsayılan/önerilen kurulum Dropbox, OneDrive veya Google Drive kullanır. ACC'nin tek yaptığı, belirli bir klasörde belirli bir dosya türü aramaktır, gelişmiş ayarlar (buradan geçeceğiz) bu iki ayarı değiştirmenize izin verir.\n\n Bir \"eylem \", bilgisayarın yapmasını istediğimiz şeydir. Asistanımıza \"Bilgisayarımı kapat \" diyoruz, eylem \"kapat \". \"Eylem klasörü \", ACC'nin eylemi bulmak için aradığı yoldur.",
+      "action_folder_path": "Eylem klasörü yolu",
+      "action_file_extension": "Eylem dosya uzantısı",
+      "disclaimer": "Görev çubuğundaki ACC simgesine sağ tıklayarak, \"Ayarlar \" ve ardından \"Gelişmiş ayarlar \" ı tıklayarak bu ayarları her zaman düzenleyebilirsiniz.",
+      "back_to_setup": "Kurulum kılavuzuna dön",
+      "done_button": "Tamam"
+    },
+    "tray_menu": {
+      "settings_title": "Ayarlar",
+      "help_title": "Yardım",
+      "exit_title": "Çıkış",
+      "open_on_startup": "Başlangıçta aç"
+    }
+  }
+}

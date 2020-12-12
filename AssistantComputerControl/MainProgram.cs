@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 29-02-2020
+ * Updated: v1.4.2, 02-08-2020
  * 
  * Use:
  * - Main class. Starts everything.
@@ -30,7 +30,8 @@ namespace AssistantComputerControl {
             releaseDate = "2020-08-02 21:25:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "super_secret";
+            //sentryToken = "super_secret";
+            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -405,6 +406,7 @@ namespace AssistantComputerControl {
                     var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
 
                     TaskDefinition td = ts.NewTask();
+                    td.Principal.LogonType = TaskLogonType.S4U;
                     td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
                     td.RegistrationInfo.Description = "AssistantComputerControl cleanup - clears the action folder to prevent the same action being executed twice";
                     td.Triggers.Add(new BootTrigger());
