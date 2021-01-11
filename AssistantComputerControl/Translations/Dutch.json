@@ -1,0 +1,241 @@
+{
+    "language": "Dutch",
+    "version": "1.4.2", //the version of the software this translation is made for
+    "translation_version": 2,
+  
+    //Add your name to the bottom of the contributors list if you have contributed
+    "contributors": [
+      "Albert MN",
+      "Nicolas Vanhuynegem"
+    ],
+  
+    "translations": {
+      "general": {
+        "error": "FOUT", /* Capital start letter */
+        "invalid_path": "Pad is niet geldig",
+        "no_cloudservice_chosen": "Het lijkt erop dat je geen cloud service gekozen hebt. Wil je terug door de setup gaan?",
+        "cloud_setup_failed": "Fout bij het opzetten van cloud service - probeer opnieuw.",
+        "start_with_pc_yes": "Goede keuze! ACC gaat nu Windows starten",
+        "start_with_pc_no": "Ok. Als u dit wil aanpassen zodat ACC automatisch wordt geopend, klikt u altijd met de rechtermuisknop op AssistantComputerControl en klikt u op \"Open bij opstarten\"!",
+        "start_with_pc_desc": "Wil je deze software automatisch opnenen wanneer windows start (aanbevolen)? Klik \"Ja\""
+      },
+      "settings": {
+        /*
+         * [SECTION INFO]
+         * - Use "\n" for line break - no HTML
+         */
+  
+        "window_name": "Instellingen",
+  
+        "changelog": "changelog",
+  
+        "overall_settings_title": "Algemene instellingen",
+        "program_language_label": "Programeertaal",
+        "save_language_btn": "bewaren",
+        "start_with_windows": "Start met Windows?",
+        "check_for_updates": "Controleren op updates?",
+        "join_beta_program": "Sluit je aan bij het beta programma?",
+  
+        "file_edited_margin": "Bestand bewerkt marge (seconden)",
+        "file_read_delay": "Bestand lezen vertraging (seconden)",
+        "file_read_delay_desc_text": "Wat is dit? (hover)",
+        "file_read_delay_desc_text_hover_content": "Het kan zijn dat de software een file leest voordat deze volledig gesynced is. Deze instelling zal het lezen van de file vertragen met x aantal seconden",
+  
+        "advanced_settings_btn": "Geavanceerde instellingen",
+        "open_log_btn": "Open log",
+        "action_simulator_btn": "Actie simulator",
+        "do_setup_again": "Doe de setup opnieuw",
+  
+        "delete_warning_text": "(Verwijder actie) Verwittig wanneer er meer dan x files gaan verwijdert worden",
+  
+        "multi_pc_title": "Multi-computer ondersteuning",
+        "multi_pc_description": "Dit laat u toe om de software aan te passen op meerdere computers,\n zonder dat alle computers dezelfde acties uitvoeren.",
+        "multi_pc_read_more": "Lees er hier alles over",
+        "computer_name_field": "Computer naam",
+        "default_computer_checkbox": "Standaard computer?",
+        "default_computer_description": "^ indien ingeschakeld, ACC zal acties accepteren waar\ngeen \"computer naam\" is ingevuld",
+  
+        "check_for_updates_btn": "Controleren op update"
+      },
+      "advanced_settings": {
+        "window_name": "Geavanceerde instellingen",
+        "title": "Geavanceerde instellingen",
+        "description": "Verandering aanbrengen aan deze instellingen zorgt ervoor dat \nAssistantComputerControl compleet anders werken. Dit is enkel voor zij die niet \nwensen om een cloud service build te gebruiken die die ACC ondersteund.",
+        "why_edit_link": "Zou ik dit bewerken...?",
+        "action_path_label": "Actie map pad",
+        "save_button": "Bewaar actie map",
+        "action_file_extension_label": "Actie file extentie"
+      },
+      "check_for_update": {
+        "check_for_update_title": "Controleren op update",
+        "no_new_update": "Geen nieuwe update gevonden. U ACC software is volledig up to date!",
+        "update_check_failed": "Kon niet naar nieuwe updates zoeken omdat de computer niet vebonden is met internet",
+        "download_failed": "Probleem bij het instaleren van de nieuwe ACC installer. Probeer later opnieuw, of download manueel van AssistantComputerControl.com",
+        "website_offline": "Kon geen nieuwe versie online vinden. Probeer later opnieuw.",
+        "new_version_found": "Een nieuwe versie van AssistantComputerControl is beschikbaar ({version_num} [{version_type}]), wil je deze instaleren?",
+        "new_version_found_title": "Nieuwe versie gevonden",
+        "webservers_offline": "Kon de ACC webservers niet bereiken - Probeer later opnieuw"
+      },
+      "update_downloading": { /* Needs testing */
+        "title": "Nieuwe update downloaden...",
+        "description": "Je kan dit venster sluiten - de installer zal openen  waneer de download gedaan is",
+        "downloaded_bytes": "gedownload {x} van {y}"
+      },
+      "user_feedback_window": {
+        "window_name": "AssistantComputerControl gebruikers feedback"
+      },
+      "test_action_window": {
+        "window_name": "Actie simulator",
+        "description": "Controleren of acties werken - de acties worden niet uitgevoerd.",
+        "listening_in": "Luisteren:",
+        "listening_for": "naar de extensie;"
+      },
+      "getting_started": {
+        /*
+         * [SECTION INFO]
+         * - HTML allowed - for the setup guide
+         */
+  
+        "welcome_title": "Welkom bij AssistantComputerControl!",
+        "welcome_description": "Deze software heeft een cloud software nodig om te werken. Wij ondersteunen Dropbox, Google Drive and OneDrive.", //This should only be ONE line - no line breaks
+        "click_me": "Klik mij!",
+        "recommended": "Aanbevolen",
+        "expert_setup_short_desc": "Kies mij als je meer vrijheid wilt (custom setup, geen hulp)",
+        "expert_setup_name": "Expert setup",
+  
+        "pick_button_default_text": "Kies een cloud service", /* text on the button while it's disabled, until the user has clicked a cloud service */
+        "pick_button_text": "Ga verder met {cloud_service}", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
+        "expert_setup_chosen_text": "De expert setup", /* what appears after "Proceed with ..." on the pick-button */
+  
+        "skip_guide_text": "Klik hier om de setup hulp te skippen <i>(not aanbevolen)</i>",
+  
+        "step_1_title": "Instaleer {cloud_service}",
+        "step_2_title": "Stel IFTTT in",
+        "step_3_title": "Klaar! Test acties",
+  
+        "install_text": "Instaleer {cloud_service}",
+        "cloud_service_installed": "geïnstaleerd!",
+        "looking_for_service": "zoeken...",
+        "not_working_modal_opener": "Klik {link_start}hier{link_end} als {cloud_service} <u>is</u> geïnstaleerd, en je <u>hebt</u> de instructies gevolgd stap-voor-stap, maar ACC laat je niet verder gaan",
+        "if_you_havent_already": "(Als je het nog niet gedaan hebt)", /* Used for "install {cloud service name}, "if you haven't already" */
+        "desired_path_not_found": "Er is iets mis gegaan - Kon het gekozen pad niet vinden",
+        "error_disappear": "Dit bericht verdwijnt in 10 seconden",
+        "try_again": "Probeer opnieuw",
+        /* Manual setup */
+        "manual_setup_title": "handmatige setup",
+        "manual_setup_description": "Als je er zeker van bent dat deze cloud server <i>is</i> geïnstaleerd, en je hebt alle stappen gevolgd, maar ACC laat je niet naar de volgende stap gaan; vul dan het veld in hieronder.<br>Als je gekozen hebt voor een custom pad tijdens de instalatie,kan het zijn dat ACC deze niet detecteerd.",
+        "action_folder_path_label": "Actie map pad",
+        "action_folder_path_description": "Volledig pad naar je cloud service map. Dit zal lijken op <code>C:/Users/your_user/cloudservice_name</code>",
+        "manual_setup_button": "Verzend en controleren",
+        "manual_path_entered": "Success! pad handmatig ingediend. U kunt nu verdergaan.",
+        "checking_path": "Pad Controleren...",
+        "close_manual_button": "Sluit dit venster",
+        "manual_path_error": "Fout. Pad is niet correct - Controleer of dit wel het juiste pad is.",
+        "manual_path_error_description": "Dit bericht verdwijnt in 8 seconden",
+        /* Dropbox specific */
+        "dropbox_sign_up": "Registreer voor Dropbox",
+        "download_dropbox": "Download de Dropbox installer",
+        "open_installer_dropbox": "Open de installer, en insteleer Dropbox op uw computer",
+        /* OneDrive specific */
+        "personal_onedrive": "Persoonlijke OneDrive",
+        "work_onedrive": "Werk OneDrive",
+        "onedrive_sign_up": "Registreer voor OneDrive (Hetzelfde als je Microsoft account)",
+        "download_onedrive": "Als je Windows 8 of hoger gebruikt, Heb je waarschijnlijk al OneDrive<br>Op je computer staan. Als dit niet het geval is, <a href=\"https://onedrive.live.com/about/en-sg/download/\">download en instaleer OneDrive</a>",
+        "onedrive_go_to_folder": "Ga naar de OneDrive map in je verkenner",
+        "onedrive_create_folder": "creeër een map genaamd \"AssistantComputerControl\"",
+        "onedrive_always_keep": "Rechts-klik de map en klik \"Altijd behouden op dit apparaat \" <b><i>(belangrijk)</i></b>",
+        "has_work_onedrive": "We zien dat je een persoonlijke en werk OneDrive hebt - Welke wilt u gebruiken?",
+  
+        /* Google Drive specific */
+        "make_google_account": "Waarschijnlijk heeft u een Google account - Als dit niet het geval is, <a href=\"https://accounts.google.com/signup/v2\">Maak er één aan</a>",
+        "google_drive_download": "Download Google Drive voor u computer <a href=\"https://www.google.com/drive/download/\">kies \"Private; Backup and Sync\"</a> <small>(Als je dit nog niet gedaan hebt)</small>",
+        "google_drive_install": "voer de instalie uit en beëindig de instalatie",
+        "google_drive_click_logo": "Klik op het \"Backup and sync\" logo in u taakbalk",
+        "google_drive_preferences": "Druk op de 3 bolletjes in de rechter hoek, en ga naar <b>\"Voorkeuren of Preferences\"</b>",
+        "google_drive_sync": "Ga naar de <b>\"Google Drive\"</b> tab en zorg ervoor dat <b>\"Synchroniseer My Drive met deze computer\"</b> is aangeduid",
+  
+        "google_drive_sync_all": "Wil je al je Google Drive bestanden op je computer?",
+        "google_drive_sync_all_desc": "Kies voor \"Alles in My Drive (x GB) synchroniseren\"",
+        "google_drive_acc_only_sync": "... of <i>enkel</i> in het belang van AssistantComputerControl?",
+        "google_drive_website_goto": "Ga naar u Google Drive (in je browser)",
+        "google_drive_create_folder": "In de \"My drive\" tab, rechts-klik je bestanden sectie of druk op de \"My drive\" dropdown menu, en kies <b>\"Nieuwe map\"</b>",
+        "google_drive_name_folder": "Benoem de map \"AssistantComputerControl\" <i>(het is belangrijk om geen schrijffouten te maken hierbij)</i>",
+        "google_drive_sync_specific_folders": "Kies \"Synchroniseer enkel deze mappen...\", en duid enkel \"AssistantComputerControl\" aan",
+  
+        /* IFTTT specific */
+        "set_up_ifttt_acc": "Registeer een IFTTT account",
+        "set_up_ifttt_extra": "Met de AssistantComputerControl applets",
+        "ifttt_join": "Registeer voor IFTTT",
+        "ifttt_join_extra": "(Het is makkelijker om met je Google account te registreren als je gebruik maakt van een Google Assistant)",
+        "ifttt_enable_shutdown_applet": "<b>Connecteer de applets dat je wil gebruiken.</b> Laten we starten met de <code>shutdown</code> actie <small>(Deze zet je computer uit)</small>.",
+        "shutdown_test_link_gh": "Klik hier als je gebruik maakt van Google Assistant",
+        "ifttt_shutdown_link_alexa": "Of hier als je Amazon Alexa gebruikt",
+        "ifttt_connect_applet": "Klik \"Connect\" op het IFTTT applet", // The "Connect" part should ALWAYS stay the same, no matter the language!
+        "ifttt_link_info": "Als je je {cloud_service} of Google/Amazon account nog niet gekoppeld hebt, dan wordt deze gevraagd eerst te koppelen",
+  
+        /* "Done" tab */
+        "time_to_try_heading": "Probeer de shutdown actie 3 keer!",
+        "listening_for_actions": "Luisteren naar acties...",
+        "custom_trigger_reminder": "... afhankelijk van de taal die u instelt op de applet, en als je de triggers in stap 2 hebt aangepast...",
+        "google_assistant_trigger_example": "De <b>Google Assistant</b> trigger zou moeten zijn;",
+        "alexa_trigger_example": "Voor <b>Alexa</b>, zeg dan",
+        "configure_software_info": "Om de software zo goed mogelijk af te stemmen op uw computer, Probeer de <code>shutdown</code> actie 3 keer!",
+        "wont_execute_reminder": "De acties die je probeerd worden <i>niet</i> uitgevoerd, alleen gesimuleerd!",
+        "action_went_through": "{action} is doorgekomen",
+  
+        "fast_learner": "Je leert snel!", // Shown when the user executes the first action before even going to tab 3
+        "too_fast": "Je was snel, maar, Was je <i>te</i> snel...?", // Shown when the user is fast, but the action fails
+  
+        /* "Not working" modal (troubleshooting) */
+        "not_working_button": "Werkt het niet?",
+        "not_working_modal_title": "De software werkt niet",
+        "not_working_title": "Vrees niet. De meeste fouten zijn snel gemaakt!",
+        "not_working_description": "Laten we door de meest voorkomende fouten gaan, en de software werkende te krijgen in maar een paar minuten!",
+        "repeat_step_two_suggestion": "Als eerste, Het is aanbevolen om opnieuw naar {link_start}stap 2{link_end} te gaan en deze te proberen. als je er zeker van bent dat deze correct is, ga dan naar de volgende oplossingen.",
+  
+        "problem_introduction_title": "Welk probleem ervaar je??",
+        "problem_introduction_description": "Klik op het paneel dat je probleem het best omschrijft",
+  
+        // Section 1 in TBS
+        "assistant_response_issues_desc": "<b>Probleem:</b> <i>(bijvoorbeeld)</i> Mijn Google Assistant/Alexa verstaat de triggers niet (wat ik zeg). <i>(Maakt niet uit of de ACC software werkt of niet, IFTTT zou nog altijd moeten reageren)</i>",
+        "assistant_response_issues_title": "Mijn assistant verstaat de trigger niet",
+  
+        "tbs_assistant_solution_one": "Wees zeker dat je assistant <i>(Google Assitant or Alexa)</i> account Dat gelinked is aan je IFTTT account hetzelfde is als op je assistant waartegen je aan het praten bent.",
+        "tbs_assistant_solution_two": "Wees zeker dat je <a href=\"https://assistantcomputercontrol.com/#what-can-it-do\" target=\"_blank\">applets ingeschakeld hebt</a> op het account dat gelinked is aan jouw assistant. ACC heeft iets te maken met jouw assistant, dus het probleem ligt bij u IFTTT of u assistant",
+        "tbs_assistant_solution_three": "<b>Als je Alexa gebruikt;</b> IFTTT vereist dat je zegt <i>Alexa, <b>trigger</b> x</i> voor de trigger, en zal altijd antwoorden met <i>\"OK. ik verstuur het naar IFTTT.\"</i>",
+        "tbs_assistant_solution_four": "<b>Als je Google Assistant gebruikt;</b> Het kan zijn dat uw Google Assistant apparaat <i>(Eender u smartphone of google home/nest)</i> in een andere taal is gezet dan uw IFTTT applet. Als u applet taal gezet is op \"English\" maar de enigste taal dat u hebt gezet op u Google Assistant account is \"Nederlands\", zal uw Google Assistant de zin niet begrijpen. U kunt zien dat het probleem ligt als u de trigger zegt en u apparraat antwoord in een anderetaal <i>(bv. Als ik een engelse zin zeg tegen mijn assistant, en antwoord dat hij het niet verstaat, maar in het Nederlands)</i>",
+        "tbs_assistant_solution_five": "Controleer de <a target=\"_blank\" href=\"https://status.ifttt.com/#about-this-site\">status van IFTTT</a> - of ze momenteel problemen ondervinden, probeer en wacht",
+  
+        // Section 2 in TBS
+        "pc_issues_desc": "<b>Probleem:</b> De assistant antwoord, maar niets gebeurd op mijn computer.",
+        "pc_issues_title": "Assistant antwoord, maar niets gebeurd op mijn computer",
+  
+        "tbs_pc_solution_one": "Uw cloud service <i>(Dropbox, OneDrive, Google Drive)</i> Moet geinstalleerd staan en altijd open staan - Als de applicatie gesloten is, heropen deze dan.",
+        "tbs_pc_solution_two": "Cloud service moet <b>volledig gesynchroniseerd</b> zijn! Als (bijvoorbeeld) Dropbox x-hondereden bestanden aan het synchroniseren is, geef dan uw cloud service een beetje tijd totdat deze volledig gesynchroniseerd is.",
+        "tbs_pc_solution_three": "Controleer uw <a href=\"https://ifttt.com/activity\" target=\"_blank\">IFTTT activiteiten pagina</a>. Als deze zegt \"Applet failed\", dan is er iets mis bij IFTTT. Het probleem kan soms opgelost worden door het disconnecteren en herconnecteren van u assistant en cloud service account. Controleer de <a href=\"https://acc.readme.io/docs/fixing-ifttt-errors\" target=\"_blank\">\"Fixing IFTTT errors\"</a> handleiding",
+        "tbs_pc_solution_four": "Probeer en leef uw <b>actie map</b> (deze is gelocaliseerd hier: <code>Cloudservice/AssistantComputerControl</code>, bv. <code>C:/Dropbox/AssistantComputerControl</code>). De map moet volledig leef zijn.",
+        "tbs_pc_solution_five": "Wees zeker dat het account van u cloud service waarmee u op u pc bent ingelogd hetzelfde is als op u IFTTT account <i>(verwijs naar de \"<a href=\"https://acc.readme.io/docs/fixing-ifttt-errors#section-check-cloud-service-connection\" target=\"_blank\">Controleer uw cloud service connectie</a>\" secite van de \"Fixing IFTTT errors\" handleiding)</i>",
+        "tbs_pc_solution_six": "Wees zeker dat de IFTTT applet dat je gebruikt de applet is voor de cloud service is dat je hebt gekozen bij de ACC installatie",
+  
+        // Section 3 in TBS
+        "tbs_still_not_resolved_title": "Nog steeds niet opgelost? (geavanceerde oplossingen)",
+        "tbs_still_not_resolved_desc": "Als alle oplossingen hieboven hebben gefaald, verwijs dan alstublieft naar de <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">probleemoplossing handleiding</a> <i>(specifiek de \"Still not solved?\" sectie)</i>",
+        "tbs_still_not_resolved_community_help": "Als het nog <b>altijd</b> niet werkt, kom dan in onze <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord server</i></a>. met meer dan 550 gebruikers, Je zult snel hulp krijgen<i>(En de developer antwword meestal in een paar uur)</i><br />In het geval dat je een bug hebt gevonden, Kan je een <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">probleem op GitHub</a> zetten en het probleem beschrijven (liefst in het engels)."
+      },
+      "expert_setup": {
+        "title": "Aangepaste setup",
+        "description": "Deze setup is voor zij die meer controler willen over AssistantComputerControl.\nZoals u wellicht (of misschien niet) weet, ACC gebruikt een cloud-software zoals Dropbox om te communiceren met IFTTT, die het assistent trigger afhandelt en beantwoord.\n\nDe standaard/aanbevolen setup gebruikt Dropbox, OneDrive of Google Drive. Het enigste dat ACC doet is kijken naar een specifieke bestandstype in een specifieke folder, de geavanceerde instellingen (waar we hier doorgaan gaan) laat toe om deze twee instellingen te bewerken.\n\nEen \"actie\" is het ding dat we willen dat de computer doet. Stel dat we zeggen tegen onze assistant \"Shut down my computer\", de actie is \"shutdown\". De \"Actie map\" is het pad dat ACC gaat kijken voor deze actie.",
+        "action_folder_path": "Actie map pad",
+        "action_file_extension": "Actie bestand extensie",
+        "disclaimer": "Je kan altijd deze instellingen bewerken door te rechtsklikken op het ACC icoontje in de taakbalk, Klik op \"Instellingen\" en dan op \"geavanceerde Instellingen\"",
+        "back_to_setup": "Terug naar setup handleiding",
+        "done_button": "Klaar"
+      },
+      "tray_menu": {
+        "settings_title": "Instellingen",
+        "help_title": "Hulp",
+        "exit_title": "Exit",
+        "open_on_startup": "Open bij opstarten"
+      }
+    }
+  }
