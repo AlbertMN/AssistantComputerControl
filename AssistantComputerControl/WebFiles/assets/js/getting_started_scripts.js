@@ -258,7 +258,7 @@ $("#pick_btn").on("click", function () {
                 break;
             case "dropbox":
                 actionListLink.attr("href", "https://assistantcomputercontrol.com/?cloud=db#what-can-it-do");
-                stlgh.attr("href", "https://ifttt.com/applets/W3b7fykE-acc-shut-down-computer-dropbox");
+                stlgh.attr("href", "https://ifttt.com/applets/tYKyi2t3-acc-shut-down-computer-dropbox");
                 stla.attr("href", "https://ifttt.com/applets/pCPWA7je-acc-shut-down-computer-dropbox");
                 break;
             case "onedrive":

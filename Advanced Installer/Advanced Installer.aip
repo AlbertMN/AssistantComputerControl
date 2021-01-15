@@ -8,6 +8,7 @@
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Value="..\packages\TaskScheduler.2.8.20\lib\net452"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_NLog.dll" Value="..\packages\NLog.4.6.8\lib\net45"/>
@@ -18,6 +19,7 @@
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll" Value="..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" Value="AssistantComputerControl.exe"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config" Value="AssistantComputerControl.exe.config"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Value="Microsoft.Win32.TaskScheduler.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="Microsoft.WindowsAPICodePack.Shell.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="Microsoft.WindowsAPICodePack.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_NLog.dll" Value="NLog.dll"/>
@@ -134,10 +136,12 @@
     <ROW File="sweetalert2.min.js" Component_="getting_started_scripts.js" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\sweetalert2.min.js" SelfReg="false"/>
     <ROW File="Francais.json" Component_="Danish.json" FileName="FRANCA~1.JSO|Francais.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Francais.json" SelfReg="false"/>
     <ROW File="Italian.json" Component_="Danish.json" FileName="ITALIA~1.JSO|Italian.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Italian.json" SelfReg="false"/>
+    <ROW File="Microsoft.Win32.TaskScheduler.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~4.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.Win32.TaskScheduler.dll&gt;" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.Win32.TaskScheduler.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_NLog.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_NLog.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_NLog.dll]" Type="2" Content="0"/>
@@ -334,5 +338,6 @@
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Sentry.Protocol.dll"/>
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Collections.Immutable.dll"/>
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="NLog.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Microsoft.Win32.TaskScheduler.dll"/>
   </COMPONENT>
 </DOCUMENT>
