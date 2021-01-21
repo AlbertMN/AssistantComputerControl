@@ -35,6 +35,8 @@ namespace AssistantComputerControl {
             trayMenu.MenuItems.Add(Translator.__("help_title", "tray_menu"), new EventHandler(TrayOpenHelp));
             trayMenu.MenuItems.Add(Translator.__("exit_title", "tray_menu"), new EventHandler(TrayExit));
             TrayIcon.ContextMenu = trayMenu;
+
+            TrayIcon.DoubleClick += new System.EventHandler(this.TrayShowSettings);
         }
         public void HideIcon() {
             TrayIcon.Visible = false;
@@ -45,6 +47,10 @@ namespace AssistantComputerControl {
         }
         private void TrayOpenHelp(object sender, EventArgs e) {
             Process.Start("https://assistantcomputercontrol.com/#get-in-touch");
+        }
+        private void TrayShowSettings(object sender, EventArgs e)
+        {
+            MainProgram.ShowSettings();
         }
 
         private static void TrayCreateStartupLink(object sender, EventArgs e) {
