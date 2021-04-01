@@ -48,8 +48,7 @@ namespace AssistantComputerControl {
         private void TrayOpenHelp(object sender, EventArgs e) {
             Process.Start("https://assistantcomputercontrol.com/#get-in-touch");
         }
-        private void TrayShowSettings(object sender, EventArgs e)
-        {
+        private void TrayShowSettings(object sender, EventArgs e) {
             MainProgram.ShowSettings();
         }
 
