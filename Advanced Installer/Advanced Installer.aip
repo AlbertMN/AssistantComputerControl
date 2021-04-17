@@ -162,7 +162,7 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Thumbprint="afa6b9566c7c7423bdb32b766390d51fb71090ba Subject: AssistantComputerControl&#10;Issuer: AssistantComputerControl&#10;Valid from 10/27/2019 to 10/27/2020"/>
+    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Thumbprint="6aaf0049bf6be6120f8364401408f547f13f82e8 Subject: AssistantComputerControl&#10;Issuer: AssistantComputerControl&#10;Valid from 12/12/2020 to 12/12/2021&#10;User\MY"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>

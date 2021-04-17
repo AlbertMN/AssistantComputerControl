@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * AssistantComputerControl
+ * Made by Albert MN.
+ * Updated: v1.4.2, 12-12-2020
+ * 
+ * Use:
+ * - Handles action mods; https://acc.readme.io/v1.4.2/docs/action-mod-documentation
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

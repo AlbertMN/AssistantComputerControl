@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 15-01-2020
+ * Updated: v1.4.2, 12-12-2020
  * 
  * Use:
  * - Functions for all the actions
@@ -431,7 +431,7 @@ namespace AssistantComputerControl {
                                 p.Start();
                                 successMessage = "OPEN: opened file/url; " + fileLocation;
                             } catch (Exception e) {
-                                MainProgram.DoDebug("Failed to open file; " + e.Message);
+                                MainProgram.DoDebug("Failed to open file at ; " + fileLocation + ". Got the following error; " + e.Message);
                                 Error("Failed to open file (" + fileLocation + ")");
                             }
                         } else {
@@ -1036,7 +1036,6 @@ namespace AssistantComputerControl {
                 } else {
                     Error("Parameter 2 is not a number");
                 }
-
             // It isn't a number
             } else {
                 Error("Parameter 1 is not a number");
@@ -1118,7 +1117,6 @@ namespace AssistantComputerControl {
             /*
              * Action made by community member Joshua Miller
              */
-
             if (Int32.TryParse(parameter, out int time)) {
                 if (!MainProgram.testingAction) {
                     Thread.Sleep(time);
