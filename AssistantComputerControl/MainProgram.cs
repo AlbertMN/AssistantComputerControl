@@ -2,6 +2,7 @@
  * AssistantComputerControl
  * Made by Albert MN.
  * Updated: v1.4.2, 12-12-2020
+ * Updated: v1.4.2, 18-04-2020
  * 
  * Use:
  * - Main class. Starts everything.

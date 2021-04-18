@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 15-01-2020
+ * Updated: v1.4.0, 18-04-2020
  * 
  * Use:
  * - The 'Getting Started' setup guide
