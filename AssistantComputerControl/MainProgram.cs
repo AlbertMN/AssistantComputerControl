@@ -30,8 +30,7 @@ namespace AssistantComputerControl {
             releaseDate = "2020-12-12 14:55:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            //sentryToken = "super_secret";
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@sentry.io/1287269"; //Remove on git push
+            sentryToken = "super_secret";
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -720,6 +719,24 @@ namespace AssistantComputerControl {
             return string.IsNullOrWhiteSpace(Path.GetExtension(path));
         }
 
+        public static void DefaultPathIssue() {
+            //Path is program root - most likely an error, alert user
+            //new Thread(() => {
+            DialogResult dialogResult = MessageBox.Show("It seems the path to the cloud service wasn't set correctly. Choose \"Yes\" to go through the setup again. If this doesn't work, try restarting the ACC software.", "Whoops, problem!", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) {
+                Properties.Settings.Default.HasCompletedTutorial = false;
+                Properties.Settings.Default.ActionFilePath = "";
+                Properties.Settings.Default.Save();
+
+                if (gettingStarted != null) {
+                    gettingStarted.Close();
+                }
+
+                ShowGettingStarted();
+            }
+            //}).Start();
+        }
+
         public static string CheckPath() {
             string path = currentLocation;
 
@@ -730,13 +747,18 @@ namespace AssistantComputerControl {
                 }
             } else {
                 if ((Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain)) {
-                    //Dropbox not found & no custom filepath, go through setup again?
+                    //Cloud service path not found & no custom filepath, go through setup again?
                     hasAskedForSetupAgain = true;
                     var msgBox = MessageBox.Show(Translator.__("no_cloudservice_chosen", "general"), "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
                     if (msgBox == DialogResult.Yes) {
                         ShowGettingStarted();
                     }
                 }
+            }
+
+            if (gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
+                hasAskedForSetupAgain = true;
+                DefaultPathIssue();
             }
 
             return Path.HasExtension(path) ? Path.GetDirectoryName(path) : path;

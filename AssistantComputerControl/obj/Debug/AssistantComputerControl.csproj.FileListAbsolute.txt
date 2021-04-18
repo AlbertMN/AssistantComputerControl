@@ -158,3 +158,7 @@ C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantCompute
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Francais.json
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\ExtraCleanupper.ps1
 C:\Users\almn\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\ExtraCleanupper.ps1
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Spanish.json
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Italian.json
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Turkce.json
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Portuguese - Brasil.json

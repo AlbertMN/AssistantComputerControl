@@ -25,6 +25,14 @@
             <p data-translation-key="welcome_description">
                 This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.
             </p>
+            
+            <label id="gdrive_warning" style="display:none;">
+                <input id="knows_gdrive_sucks" type="checkbox" />
+                <span data-translation-key="gdrive_warning">
+                    <b class="text-danger">Google Drive doesn't work very well</b> and will often result in ACC not working. If possible; <b>use Dropbox</b> or OneDrive.
+                    Click the checkbox if you wish to proceed anyways and try to get it working.
+                </span>
+            </label>
         </div>
 
         <div class="col-md-12">
@@ -203,6 +211,7 @@
                         <span data-translation-key="set_up_ifttt_acc">Set up your IFTTT account</span>
                         <br>
                         <small><i><span data-translation-key="set_up_ifttt_extra">With the AssistantComputerControl applets</span></i></small>
+                        <br /><small><span data-translation-key="ifttt_pro_disclaimer"><code>IFTTT Pro</code> <b>is <u>not</u> required!</b></span></small>
                     </h3>
 
                     <ol style="text-align:left;margin-left:20px;margin-right:20px;">
@@ -270,7 +279,6 @@
                                     </div>
                                 </div>
                                 <!-- END -->
-
 
                             </div>
                             <div class="col-8">
@@ -445,6 +453,8 @@
                                         </li>
                                         <li data-translation-key="tbs_assistant_solution_three">
                                             <b>If you're using Alexa;</b> IFTTT requires you to say <i>Alexa, <b>trigger</b> x</i> before the actual trigger, and would always respond <i>"OK. Sending that to IFTTT.</i>
+                                            <br />
+                                            Furthermore, it often <b>only works with english commands</b>. This is a limitation Alexa has on IFTTT for some countries, sadly.
                                         </li>
                                         <li data-translation-key="tbs_assistant_solution_four">
                                             <b>If you're using Google Assistant;</b>
@@ -489,7 +499,9 @@
                                     <p data-translation-key="tbs_still_not_resolved_desc">If all solutions above have failed, please refer to the <a target="_blank" href="https://acc.readme.io/docs/troubleshooting#section-still-not-solved-">troubleshooting guide</a> <i>(specifically the "Still not solved?" section)</i></p>
                                     <hr />
                                     <p data-translation-key="tbs_still_not_resolved_community_help">
-                                        If it's <b>still</b> not working, come join our <a href="https://discord.gg/B9YGPNF" target="_blank"><i>Discord server</i></a>. With over 550 members, you're sure to get help quickly <i>(and the developer often answers within a few hours)</i>
+                                        If it's <b>still</b> not working, come join our <a href="https://discord.gg/B9YGPNF" target="_blank"><i>Discord server</i></a>. With over 1000 members, you're sure to get help quickly <i>(and the developer often answers within a few hours)</i>.<br />
+                                        When joining, <b>make sure to read the rules and guidelines on how to help us help you</b> once you have gone through the troubleshooting guide. Ask for help in the <code>#help</code> channel.
+
                                         <br />
                                         In case you believe you have found a bug, you can open an <a target="_blank" href="https://github.com/AlbertMN/AssistantComputerControl/issues">issue on GitHub</a> and describe the issue.
                                     </p>

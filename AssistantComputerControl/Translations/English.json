@@ -97,6 +97,7 @@
 
       "welcome_title": "Welcome to AssistantComputerControl!",
       "welcome_description": "This software needs a cloud service to function. We natively support Dropbox, Google Drive and OneDrive.", //This should only be ONE line - no line breaks
+      "gdrive_warning": "<b class='text-danger'>Google Drive doesn't work very well</b> and will often result in ACC not working. If possible; <b>use Dropbox</b> or OneDrive. Click the checkbox if you wish to proceed anyways and try to get it working.",
       "click_me": "Click me!",
       "recommended": "Recommended",
       "expert_setup_short_desc": "Choose me if you want more freedom (custom setup, no help)",
@@ -168,6 +169,7 @@
       /* IFTTT specific */
       "set_up_ifttt_acc": "Set up your IFTTT account",
       "set_up_ifttt_extra": "With the AssistantComputerControl applets",
+      "ifttt_pro_disclaimer": "<code>IFTTT Pro</code> <b>is <u>not</u> required!</b></span>",
       "ifttt_join": "Sign up for IFTTT",
       "ifttt_join_extra": "(it's smart to sign up with your Google account if you're using Google Assistant)",
       "ifttt_enable_shutdown_applet": "<b>Enable the applets you want.</b> Let's start with the <code>shutdown</code> action <small>(which shuts down your computer)</small>.",

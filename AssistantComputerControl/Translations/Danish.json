@@ -95,6 +95,7 @@
 
       "welcome_title": "Velkommen til AssistantComputerControl!",
       "welcome_description": "Dette software har brug for en cloud-service. Vi understøtter Dropbox, Google Drive og OneDrive.", //This should only be ONE line - no line breaks
+      "gdrive_warning": "<b class='text-danger'>Google Drive virker ikke særlig godt</b> og vil tit resultere i at ACC ikke virker. Hvis muligt; <b>brug Dropbox</b> eller OneDrive. Klik på checkbox'en hvis du vil fortsætte med Google Drive.",
       "click_me": "Klik på mig!",
       "recommended": "Anbefalet",
       "expert_setup_short_desc": "Vælg mig hvis du vil have frihed (brugerdefineret setup, ingen hjælp)",
@@ -166,6 +167,7 @@
       /* IFTTT specific */
       "set_up_ifttt_acc": "Set din IFTTT konto op",
       "set_up_ifttt_extra": "Med AssistantComputerControl's applets",
+      "ifttt_pro_disclaimer": "<code>IFTTT Pro</code> <b>er <u>ikke</u> påkrævet!</b></span>",
       "ifttt_join": "Lav en IFTTT konto",
       "ifttt_join_extra": "(det er smart at oprette dig med din Google konto hvis du bruger Google Assistant)",
       "ifttt_enable_shutdown_applet": "<b>Aktivér de applets du vil have.</b> Lad os starte med <code>shutdown</code> \"handlingen\" <i>(action</i>)<small>(som slukker din computer)</small>.",

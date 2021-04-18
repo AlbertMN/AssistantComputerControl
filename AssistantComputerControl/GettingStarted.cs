@@ -43,6 +43,8 @@ namespace AssistantComputerControl {
             private static string customSetPath = String.Empty;
 
             private bool CheckSetPath(string chosenService) {
+                bool t = false;
+
                 if (customSetPath != String.Empty) {
                     if (Directory.Exists(customSetPath)) {
                         if (!customSetPath.Contains("AssistantComputerControl") && !customSetPath.Contains("assistantcomputercontrol")) {
@@ -57,7 +59,7 @@ namespace AssistantComputerControl {
                         Properties.Settings.Default.Save();
 
                         MainProgram.SetupListener();
-                        return true;
+                        t = true;
                     }
                 } else {
                     string checkPath = CloudServiceFunctions.GetCloudServicePath(chosenService);
@@ -76,11 +78,16 @@ namespace AssistantComputerControl {
                             Properties.Settings.Default.Save();
 
                             MainProgram.SetupListener();
-                            return true;
+                            t = true;
                         }
                     }
                 }
-                return false;
+
+                if (Properties.Settings.Default.ActionFilePath == MainProgram.currentLocation) {
+                    MainProgram.DefaultPathIssue();
+                }
+
+                return t;
             }
 
             public void SetPath(string chosenService) {
@@ -565,7 +572,6 @@ namespace AssistantComputerControl {
 
         private void expertDoneButton_Click(object sender, EventArgs e) {
             var theUrl = "https://assistantcomputercontrol.com/integrated_action_grid.php?lang=" + Properties.Settings.Default.ActiveLanguage + "&max_version_number=" + MainProgram.softwareVersion + "&cloud_service=none";
-            MainProgram.DoDebug(theUrl);
             theDoneActionViewBrowser.Url = new Uri(theUrl);
 
             thisForm.Size = new Size(thisForm.Size.Width, thisForm.Size.Height + 150);

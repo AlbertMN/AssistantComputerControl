@@ -208,6 +208,22 @@ $(".card.cloud_service_card").on("click", function () {
     } else {
         $("#multipleOneDrive").hide();
     }
+
+    if (chosenCloudServiceNum == "3") {
+        //Google Drive
+        $("#gdrive_warning").show();
+        $("#pick_btn").prop("disabled", true);
+    } else {
+        $("#gdrive_warning").hide();
+    }
+});
+
+$("#knows_gdrive_sucks").on("change", function () {
+    if ($(this).is(":checked")) {
+        $("#gdrive_warning").hide();
+        $("#pick_btn").prop("disabled", false);
+        $(this).prop("checked", false);
+    }
 });
 
 $("#pick_btn").on("click", function () {
