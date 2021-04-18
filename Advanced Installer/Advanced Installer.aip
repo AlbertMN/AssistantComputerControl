@@ -6,8 +6,8 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Debug"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Debug"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Release"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Value="..\packages\TaskScheduler.2.8.20\lib\net452"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
@@ -137,6 +137,10 @@
     <ROW File="Francais.json" Component_="Danish.json" FileName="FRANCA~1.JSO|Francais.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Francais.json" SelfReg="false"/>
     <ROW File="Italian.json" Component_="Danish.json" FileName="ITALIA~1.JSO|Italian.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Italian.json" SelfReg="false"/>
     <ROW File="Microsoft.Win32.TaskScheduler.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~4.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.Win32.TaskScheduler.dll&gt;" SelfReg="false"/>
+    <ROW File="Turkce.json" Component_="Danish.json" FileName="TURKCE~1.JSO|Turkce.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Turkce.json" SelfReg="false"/>
+    <ROW File="Spanish.json" Component_="Danish.json" FileName="SPANIS~1.JSO|Spanish.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Spanish.json" SelfReg="false"/>
+    <ROW File="PortugueseBrasil.json" Component_="Danish.json" FileName="PORTUG~1.JSO|Portuguese - Brasil.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Portuguese - Brasil.json" SelfReg="false"/>
+    <ROW File="Dutch.json" Component_="Danish.json" FileName="DUTCH~1.JSO|Dutch.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Dutch.json" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
