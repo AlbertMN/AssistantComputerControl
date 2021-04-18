@@ -35,7 +35,7 @@
     <ROW Property="ARPCONTACT" Value="https://twitter.com/ACC_HomeAlexa"/>
     <ROW Property="ARPHELPLINK" Value="https://assistantcomputercontrol.com/#get-in-touch"/>
     <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
-    <ROW Property="ARPNOREPAIR" Value="1" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="logo_ico.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://assistantcomputercontrol.com/"/>
     <ROW Property="ARPURLUPDATEINFO" Value="https://assistantcomputercontrol.com/"/>

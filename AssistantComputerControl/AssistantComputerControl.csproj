@@ -230,6 +230,9 @@
     <None Include="Translations\Danish.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Translations\Dutch.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Translations\English.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

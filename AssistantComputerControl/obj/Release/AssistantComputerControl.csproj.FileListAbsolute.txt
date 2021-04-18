@@ -174,3 +174,4 @@ C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComput
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\Translations\Spanish.json
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\Translations\Italian.json
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\Translations\Turkce.json
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Release\Translations\Dutch.json
