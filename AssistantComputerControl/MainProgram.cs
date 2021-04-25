@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.3, 20-04-2021
+ * Updated: v1.4.3, 21-04-2021
  * 
  * Use:
  * - Main class. Starts everything.
@@ -27,7 +27,7 @@ using Microsoft.Win32.TaskScheduler;
 namespace AssistantComputerControl {
     class MainProgram {
         public const string softwareVersion = "1.4.3",
-            releaseDate = "2021-04-20 23:18:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+            releaseDate = "2021-04-21 00:33:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
             sentryToken = "super_secret";
@@ -39,6 +39,7 @@ namespace AssistantComputerControl {
             testingAction = false,
             aboutVersionAwaiting = false,
             hasAskedForSetupAgain = false,
+            hasStarted = false,
             reopenSettingsOnClose = false;
 
         public TestStatus currentTestStatus = TestStatus.ongoing;
@@ -71,8 +72,6 @@ namespace AssistantComputerControl {
         static void Main(string[] args) {
             Console.WriteLine("Log location; " + logFilePath);
             CheckSettings();
-
-
 
             var config = new NLog.Config.LoggingConfiguration();
             var logfile = new NLog.Targets.FileTarget("logfile") { FileName = logFilePath };
@@ -121,7 +120,7 @@ namespace AssistantComputerControl {
                             }
                         }
                     } catch (Exception e) {
-                        Console.WriteLine("Error getting settings from older versions of ACC" + e.Message);
+                        Console.WriteLine("Error getting settings from older versions of ACC; " + e.Message);
                     }
                     /* End "copy settings" */
 
@@ -214,10 +213,6 @@ namespace AssistantComputerControl {
                 handler = new ConsoleEventDelegate(ConsoleEventCallback);
                 SetConsoleCtrlHandler(handler, true);
 
-                //Check if software starts with Windows
-                if (!ACCStartsWithWindows())
-                    sysIcon.AddOpenOnStartupMenu();
-
                 //Create shortcut folder if doesn't exist
                 if (!Directory.Exists(shortcutLocation)) {
                     Directory.CreateDirectory(shortcutLocation);
@@ -271,7 +266,7 @@ namespace AssistantComputerControl {
                 watcher.Created += new FileSystemEventHandler(new ActionChecker().FileFound);
                 watcher.Renamed += new RenamedEventHandler(new ActionChecker().FileFound);
                 watcher.Deleted += new FileSystemEventHandler(new ActionChecker().FileFound);
-                watcher.Error += delegate { DoDebug("Something wen't wrong TEST"); };
+                watcher.Error += delegate { DoDebug("Something wen't wrong"); };
 
                 DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
@@ -305,6 +300,22 @@ namespace AssistantComputerControl {
                 //If newly updated
                 if (Properties.Settings.Default.LastKnownVersion != softwareVersion) {
                     //Up(or down)-grade, display version notes
+                    DoDebug("ACC has been updated");
+
+                    if (Properties.Settings.Default.LastKnownVersion != "" && new System.Version(Properties.Settings.Default.LastKnownVersion) < new System.Version("1.4.3")) {
+                        //Had issues before; fixed now
+                        DoDebug("Upgraded to 1.4.3, fixed startup - now starting with Windows");
+
+                        try {
+                            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                            rk.DeleteValue(appName, false);
+                        } catch {
+                            DoDebug("Failed to remove old start with win run");
+                        }
+
+                        SetStartup(true);
+                    }
+
                     Properties.Settings.Default.LastUpdated = DateTime.Now;
                     if (gettingStarted != null) {
                         DoDebug("'AboutVersion' window awaits, as 'Getting Started' is showing");
@@ -315,6 +326,10 @@ namespace AssistantComputerControl {
                     }
                     Properties.Settings.Default.Save();
                 }
+
+                //Check if software starts with Windows
+                if (!ACCStartsWithWindows())
+                    sysIcon.AddOpenOnStartupMenu();
 
                 /* 'Evalufied' user feedback implementation */
                 if ((DateTime.Now - Properties.Settings.Default.LastUpdated).TotalDays >= 7 && Properties.Settings.Default.TimesOpened >= 7
@@ -346,6 +361,7 @@ namespace AssistantComputerControl {
                 ActionMods.CheckMods();
                 TaskSchedulerSetup();
 
+                hasStarted = true;
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();
             }
@@ -631,14 +647,11 @@ namespace AssistantComputerControl {
                     //Create "Task Scheduler" service; run ACC on startup & log on, added by Shelby Marvell
                     try {
                         using (TaskService ts = new TaskService()) {
-                            var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
-
                             TaskDefinition td = ts.NewTask();
-                            td.Principal.LogonType = TaskLogonType.S4U;
+                            td.Principal.LogonType = TaskLogonType.InteractiveToken;
                             td.Principal.RunLevel = TaskRunLevel.Highest;
                             td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
                             td.RegistrationInfo.Description = "AssistantComputerControl startup - Runs ACC on reboot/login";
-                            td.Triggers.Add(new BootTrigger());
                             td.Triggers.Add(new LogonTrigger());
                             td.Actions.Add(new ExecAction(Application.ExecutablePath, null, null));
 
@@ -742,8 +755,9 @@ namespace AssistantComputerControl {
 
         public static void DefaultPathIssue() {
             //Path is program root - most likely an error, alert user
-            //new Thread(() => {
             DialogResult dialogResult = MessageBox.Show("It seems the path to the cloud service wasn't set correctly. Choose \"Yes\" to go through the setup again. If this doesn't work, try restarting the ACC software.", "Whoops, problem!", MessageBoxButtons.YesNo);
+            DoDebug(dialogResult.ToString());
+
             if (dialogResult == DialogResult.Yes) {
                 Properties.Settings.Default.HasCompletedTutorial = false;
                 Properties.Settings.Default.ActionFilePath = "";
@@ -755,7 +769,6 @@ namespace AssistantComputerControl {
 
                 ShowGettingStarted();
             }
-            //}).Start();
         }
 
         public static string CheckPath() {
@@ -777,7 +790,9 @@ namespace AssistantComputerControl {
                 }
             }
 
-            if (gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
+            if (hasStarted && gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
+                DoDebug("Did it here");
+
                 hasAskedForSetupAgain = true;
                 DefaultPathIssue();
             }
