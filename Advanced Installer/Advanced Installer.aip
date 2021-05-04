@@ -34,7 +34,6 @@
     <ROW Property="ARPCOMMENTS" Value="The software that lets you control your computer using your personal assistants (Amazon Alexa or Google Assistant)" ValueLocId="*"/>
     <ROW Property="ARPCONTACT" Value="https://twitter.com/ACC_HomeAlexa"/>
     <ROW Property="ARPHELPLINK" Value="https://assistantcomputercontrol.com/#get-in-touch"/>
-    <ROW Property="ARPNOMODIFY" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="logo_ico.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://assistantcomputercontrol.com/"/>
@@ -42,10 +41,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{1AE13B1D-FE8D-4745-98E8-98C9B5DFCF38} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{0371981B-D00D-4213-ACE4-C5D20778B231} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.4.2" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.4.3" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -159,7 +158,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\ACC stuff\Images\Icons\logo_ico.ico" UseLargeSchema="true" ExeName="ACCsetup" UACExecutionLevel="2"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\..\..\..\Desktop\logo_ico - Copy.ico" UseLargeSchema="true" ExeName="ACCsetup" UACExecutionLevel="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -274,7 +273,7 @@
     <ROW Feature_="MainFeature" Component_="bootstrap.min.old.css"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
-    <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>
+    <ROW Name="logo_ico.exe" SourcePath="..\..\..\..\..\Desktop\logo_ico.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>

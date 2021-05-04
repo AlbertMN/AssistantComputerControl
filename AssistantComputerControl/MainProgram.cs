@@ -1,8 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.2, 12-12-2020
- * Updated: v1.4.2, 18-04-2020
+ * Updated: v1.4.3, 21-04-2021
  * 
  * Use:
  * - Main class. Starts everything.
@@ -27,8 +26,8 @@ using Microsoft.Win32.TaskScheduler;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.2",
-            releaseDate = "2020-12-12 14:55:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.3",
+            releaseDate = "2021-04-21 00:33:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
             sentryToken = "super_secret";
@@ -40,6 +39,7 @@ namespace AssistantComputerControl {
             testingAction = false,
             aboutVersionAwaiting = false,
             hasAskedForSetupAgain = false,
+            hasStarted = false,
             reopenSettingsOnClose = false;
 
         public TestStatus currentTestStatus = TestStatus.ongoing;
@@ -120,7 +120,7 @@ namespace AssistantComputerControl {
                             }
                         }
                     } catch (Exception e) {
-                        Console.WriteLine("Error getting settings from older versions of ACC" + e.Message);
+                        Console.WriteLine("Error getting settings from older versions of ACC; " + e.Message);
                     }
                     /* End "copy settings" */
 
@@ -213,10 +213,6 @@ namespace AssistantComputerControl {
                 handler = new ConsoleEventDelegate(ConsoleEventCallback);
                 SetConsoleCtrlHandler(handler, true);
 
-                //Check if software starts with Windows
-                if (!ACCStartsWithWindows())
-                    sysIcon.AddOpenOnStartupMenu();
-
                 //Create shortcut folder if doesn't exist
                 if (!Directory.Exists(shortcutLocation)) {
                     Directory.CreateDirectory(shortcutLocation);
@@ -270,7 +266,7 @@ namespace AssistantComputerControl {
                 watcher.Created += new FileSystemEventHandler(new ActionChecker().FileFound);
                 watcher.Renamed += new RenamedEventHandler(new ActionChecker().FileFound);
                 watcher.Deleted += new FileSystemEventHandler(new ActionChecker().FileFound);
-                watcher.Error += delegate { DoDebug("Something wen't wrong TEST"); };
+                watcher.Error += delegate { DoDebug("Something wen't wrong"); };
 
                 DoDebug("\n[" + messageBoxTitle + "] Initiated. \nListening in: \"" + CheckPath() + "\" for \"." + Properties.Settings.Default.ActionFileExtension + "\" extensions");
 
@@ -278,6 +274,8 @@ namespace AssistantComputerControl {
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey("Software", true);
                 if (Registry.GetValue(key.Name + @"\AssistantComputerControl", "FirstTime", null) == null) {
+                    SetStartup(true);
+
                     key.CreateSubKey("AssistantComputerControl");
                     key = key.OpenSubKey("AssistantComputerControl", true);
                     key.SetValue("FirstTime", false);
@@ -302,6 +300,22 @@ namespace AssistantComputerControl {
                 //If newly updated
                 if (Properties.Settings.Default.LastKnownVersion != softwareVersion) {
                     //Up(or down)-grade, display version notes
+                    DoDebug("ACC has been updated");
+
+                    if (Properties.Settings.Default.LastKnownVersion != "" && new System.Version(Properties.Settings.Default.LastKnownVersion) < new System.Version("1.4.3")) {
+                        //Had issues before; fixed now
+                        DoDebug("Upgraded to 1.4.3, fixed startup - now starting with Windows");
+
+                        try {
+                            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                            rk.DeleteValue(appName, false);
+                        } catch {
+                            DoDebug("Failed to remove old start with win run");
+                        }
+
+                        SetStartup(true);
+                    }
+
                     Properties.Settings.Default.LastUpdated = DateTime.Now;
                     if (gettingStarted != null) {
                         DoDebug("'AboutVersion' window awaits, as 'Getting Started' is showing");
@@ -312,6 +326,10 @@ namespace AssistantComputerControl {
                     }
                     Properties.Settings.Default.Save();
                 }
+
+                //Check if software starts with Windows
+                if (!ACCStartsWithWindows())
+                    sysIcon.AddOpenOnStartupMenu();
 
                 /* 'Evalufied' user feedback implementation */
                 if ((DateTime.Now - Properties.Settings.Default.LastUpdated).TotalDays >= 7 && Properties.Settings.Default.TimesOpened >= 7
@@ -343,6 +361,7 @@ namespace AssistantComputerControl {
                 ActionMods.CheckMods();
                 TaskSchedulerSetup();
 
+                hasStarted = true;
                 SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch); //On wake up from sleep
                 Application.Run();
             }
@@ -399,66 +418,6 @@ namespace AssistantComputerControl {
             }
         }
 
-        private static bool UpdateUserTaskInScheduler(string action)
-        {
-            try
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/C schtasks /query /TN \"AssistantComputerControl startup\""; //Check if task exists
-                startInfo.RedirectStandardOutput = true;
-                startInfo.UseShellExecute = false;
-                startInfo.CreateNoWindow = true;
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                if (System.Environment.OSVersion.Version.Major < 6)
-                {
-                    startInfo.Verb = "runas";
-                }
-                using (Process process = Process.Start(startInfo))
-                {
-                    // Read in all the text from the process with the StreamReader.
-                    using (StreamReader reader = process.StandardOutput)
-                    {
-                        string stdout = reader.ReadToEnd();
-                        if (stdout.Contains("<<TaskName>>")) //If task exists
-                        {
-                            startInfo.RedirectStandardOutput = false;
-                            startInfo.UseShellExecute = true;
-                            switch (action)
-                            {
-                                case "Enable":
-                                    startInfo.Arguments = "/C schtasks /Change /TN \"AssistantComputerControl startup\"  /Enable";
-                                    break;
-
-                                case "Disable":
-                                    startInfo.Arguments = "/C schtasks /Change /TN \"AssistantComputerControl startup\" /Disable";
-                                    break;
-
-                                case "Run":
-                                    startInfo.Arguments = "/C schtasks /RUN /TN \"AssistantComputerControl startup\"";
-                                    break;
-                            }
-                            Process.Start(startInfo).WaitForExit();
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                        stdout = null;
-                        reader.Close();
-                        reader.Dispose();
-                    }
-                }
-                startInfo = null;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
         public static void TaskSchedulerSetup () {
             //Create "Task Scheduler" service; cleanup ACC on startup, log on, workstation unlock
             try {
@@ -474,38 +433,11 @@ namespace AssistantComputerControl {
                     td.Triggers.Add(new SessionStateChangeTrigger { StateChange = TaskSessionStateChangeType.SessionUnlock });
                     td.Actions.Add(new ExecAction("powershell.exe", $"-WindowStyle Hidden -file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"", null));
 
-                    // Register the task in the root folder
+                    //Register the task in the root folder
                     ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl cleanup", td);
-
-                    // Remove the task we just created
-                    //ts.RootFolder.DeleteTask("Test");
                 }
             } catch {
                 DoDebug("Failed to create / update Task Scheduler service");
-            }
-            //Create "Task Scheduler" service; run ACC on startup & log on, added by Shelby Marvell
-            try
-            {
-                using (TaskService ts = new TaskService())
-                {
-                    var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
-
-                    TaskDefinition td = ts.NewTask();
-                    td.Principal.LogonType = TaskLogonType.S4U;
-                    td.Principal.RunLevel = TaskRunLevel.Highest;
-                    td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
-                    td.RegistrationInfo.Description = "AssistantComputerControl startup - Runs ACC on reboot/login";
-                    td.Triggers.Add(new BootTrigger());
-                    td.Triggers.Add(new LogonTrigger());
-                    td.Actions.Add(new ExecAction(Application.ExecutablePath, null, null));
-
-                    // Register the task in the root folder
-                    ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl startup", td);
-                }
-            }
-            catch
-            {
-                DoDebug("Failed to create / update Task Scheduler startup service");
             }
         }
 
@@ -711,21 +643,36 @@ namespace AssistantComputerControl {
 
         public static void SetStartup(bool status, bool setThroughSoftware = false) {
             try {
-                bool res = false;
                 if (status) {
-                    res = UpdateUserTaskInScheduler("Disable");
+                    //Create "Task Scheduler" service; run ACC on startup & log on, added by Shelby Marvell
+                    try {
+                        using (TaskService ts = new TaskService()) {
+                            TaskDefinition td = ts.NewTask();
+                            td.Principal.LogonType = TaskLogonType.InteractiveToken;
+                            td.Principal.RunLevel = TaskRunLevel.Highest;
+                            td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
+                            td.RegistrationInfo.Description = "AssistantComputerControl startup - Runs ACC on reboot/login";
+                            td.Triggers.Add(new LogonTrigger());
+                            td.Actions.Add(new ExecAction(Application.ExecutablePath, null, null));
+
+                            //Register the task in the root folder
+                            ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl startup", td);
+                        }
+                    } catch {
+                        DoDebug("Failed to create / update Task Scheduler startup service");
+                    }
                 } else {
-                    res = UpdateUserTaskInScheduler("Enable");
-                }
-                while (!res) {
-                    // Some error occurred. Try recreating the task.
-                    TaskSchedulerSetup();
-                    if (status) {
-                        res = UpdateUserTaskInScheduler("Disable");
-                    } else {
-                        res = UpdateUserTaskInScheduler("Enable");
+                    //Create "Task Scheduler" service; run ACC on startup & log on, added by Shelby Marvell
+                    try {
+                        using (TaskService ts = new TaskService()) {
+                            // Register the task in the root folder
+                            ts.RootFolder.DeleteTask(@"AssistantComputerControl startup");
+                        }
+                    } catch {
+                        DoDebug("Failed to create / update Task Scheduler startup service");
                     }
                 }
+
             } catch {
                 DoDebug("Failed to start ACC with Windows");
                 if (!setThroughSoftware) {
@@ -736,18 +683,14 @@ namespace AssistantComputerControl {
 
         public static bool ACCStartsWithWindows() {
             try {
-                RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-
-                var theVal = rk.GetValue(appName);
-                if (theVal != null) {
-                    return true;
-                } else {
-                    return false;
+                using (TaskService ts = new TaskService()) {
+                    return ts.GetTask(@"AssistantComputerControl startup") != null;
                 }
-            } catch {
-                DoDebug("Failed to get ACC start with windows state");
-                return false;
+            } catch (Exception e) {
+                DoDebug("Something went wrong with TaskService, checking if ACC starts with Windows; " + e.Message);
             }
+
+            return false;
         }
 
         public static bool HasInternet() {
@@ -812,8 +755,9 @@ namespace AssistantComputerControl {
 
         public static void DefaultPathIssue() {
             //Path is program root - most likely an error, alert user
-            //new Thread(() => {
             DialogResult dialogResult = MessageBox.Show("It seems the path to the cloud service wasn't set correctly. Choose \"Yes\" to go through the setup again. If this doesn't work, try restarting the ACC software.", "Whoops, problem!", MessageBoxButtons.YesNo);
+            DoDebug(dialogResult.ToString());
+
             if (dialogResult == DialogResult.Yes) {
                 Properties.Settings.Default.HasCompletedTutorial = false;
                 Properties.Settings.Default.ActionFilePath = "";
@@ -825,7 +769,6 @@ namespace AssistantComputerControl {
 
                 ShowGettingStarted();
             }
-            //}).Start();
         }
 
         public static string CheckPath() {
@@ -847,7 +790,9 @@ namespace AssistantComputerControl {
                 }
             }
 
-            if (gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
+            if (hasStarted && gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
+                DoDebug("Did it here");
+
                 hasAskedForSetupAgain = true;
                 DefaultPathIssue();
             }
