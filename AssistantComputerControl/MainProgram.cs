@@ -26,8 +26,8 @@ using Microsoft.Win32.TaskScheduler;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.3",
-            releaseDate = "2021-04-21 00:33:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.4",
+            releaseDate = "2021-04-27 00:05:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
             sentryToken = "super_secret";
@@ -436,8 +436,8 @@ namespace AssistantComputerControl {
                     //Register the task in the root folder
                     ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl cleanup", td);
                 }
-            } catch {
-                DoDebug("Failed to create / update Task Scheduler service");
+            } catch (Exception e) {
+                DoDebug("Failed to create / update Task Scheduler service; " + e.Message);
             }
         }
 
@@ -658,8 +658,8 @@ namespace AssistantComputerControl {
                             //Register the task in the root folder
                             ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl startup", td);
                         }
-                    } catch {
-                        DoDebug("Failed to create / update Task Scheduler startup service");
+                    } catch  (Exception e) {
+                        DoDebug("Failed to create / update Task Scheduler startup service; " + e.Message);
                     }
                 } else {
                     //Create "Task Scheduler" service; run ACC on startup & log on, added by Shelby Marvell
@@ -668,8 +668,8 @@ namespace AssistantComputerControl {
                             // Register the task in the root folder
                             ts.RootFolder.DeleteTask(@"AssistantComputerControl startup");
                         }
-                    } catch {
-                        DoDebug("Failed to create / update Task Scheduler startup service");
+                    } catch (Exception e) {
+                        DoDebug("Failed to create / update Task Scheduler startup service; " + e.Message);
                     }
                 }
 
@@ -758,20 +758,24 @@ namespace AssistantComputerControl {
             DialogResult dialogResult = MessageBox.Show("It seems the path to the cloud service wasn't set correctly. Choose \"Yes\" to go through the setup again. If this doesn't work, try restarting the ACC software.", "Whoops, problem!", MessageBoxButtons.YesNo);
             DoDebug(dialogResult.ToString());
 
-            if (dialogResult == DialogResult.Yes) {
-                Properties.Settings.Default.HasCompletedTutorial = false;
-                Properties.Settings.Default.ActionFilePath = "";
-                Properties.Settings.Default.Save();
+            try {
+                if (dialogResult == DialogResult.Yes) {
+                    Properties.Settings.Default.HasCompletedTutorial = false;
+                    Properties.Settings.Default.ActionFilePath = "";
+                    Properties.Settings.Default.Save();
 
-                if (gettingStarted != null) {
-                    gettingStarted.Close();
+                    if (gettingStarted != null) {
+                        gettingStarted.Close();
+                    }
+
+                    ShowGettingStarted();
                 }
-
-                ShowGettingStarted();
+            } catch {
+                //Probably not in the main thread
             }
         }
 
-        public static string CheckPath() {
+        public static string CheckPath(bool noDefaultCheck = false) {
             string path = currentLocation;
 
             if (Properties.Settings.Default.ActionFilePath != "") {
@@ -790,9 +794,7 @@ namespace AssistantComputerControl {
                 }
             }
 
-            if (hasStarted && gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
-                DoDebug("Did it here");
-
+            if (!noDefaultCheck && hasStarted && gettingStarted is null && path == currentLocation && !hasAskedForSetupAgain) {
                 hasAskedForSetupAgain = true;
                 DefaultPathIssue();
             }

@@ -213,9 +213,19 @@ namespace AssistantComputerControl {
 
             if (!e.Cancelled) {
                 //Download success
-                Process.Start(targetLocation);
-                MainProgram.DoDebug("New installer successfully downloaded and opened.");
-                Application.Exit();
+                try {
+                    if (File.Exists(targetLocation)) {
+                        Process.Start(targetLocation);
+                        MainProgram.DoDebug("New installer successfully downloaded and opened.");
+                        Application.Exit();
+                    } else {
+                        MainProgram.DoDebug("Downloaded file doesn't exist (new version)");
+                        MessageBox.Show("Failed to download new version of ACC. File doesn't exist", Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);
+                    }
+                } catch (Exception ee) {
+                    MainProgram.DoDebug("Error occurred on open of new version; " + ee.Message);
+                    MessageBox.Show("Failed to open new version! Error is logged, please contact the developer on Discord!", Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);
+                }
             } else {
                 MainProgram.DoDebug("Failed to download new version of ACC. Error; " + e.Error);
                 MessageBox.Show("Failed to download new version. Try again later!", Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);
