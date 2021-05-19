@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.4, 08-05-2021
+ * Updated: v1.4.4, 19-05-2021
  * 
  * Use:
  * - Main class. Starts everything.
@@ -28,7 +28,7 @@ using System.Security.Principal;
 namespace AssistantComputerControl {
     class MainProgram {
         public const string softwareVersion = "1.4.4",
-            releaseDate = "2021-05-19 00:05:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+            releaseDate = "2021-05-19 20:59:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
             sentryToken = "super_secret";
@@ -286,12 +286,9 @@ namespace AssistantComputerControl {
                     key = key.OpenSubKey("AssistantComputerControl", true);
                     key.SetValue("FirstTime", false);
 
-                    Properties.Settings.Default.HasCompletedTutorial = true;
-                    Properties.Settings.Default.Save();
-
                     ShowGettingStarted();
 
-                    DoDebug("Starting setup guide");
+                    DoDebug("Starting setup guide (first time opening ACC - wuhu!)");
                 } else {
                     if (!Properties.Settings.Default.HasCompletedTutorial) {
                         ShowGettingStarted();
@@ -321,7 +318,6 @@ namespace AssistantComputerControl {
 
                         SetStartup(true);
                     } else {
-                        //Make sure the startup is up to date (fixed task errors in 1.4.4, for example)
                         if (ACCStartsWithWindows()) {
                             SetStartup(true);
                         }
@@ -662,6 +658,14 @@ namespace AssistantComputerControl {
                     //Try start with Task Scheduler;
                     var userId = WindowsIdentity.GetCurrent().Name;
 
+                    try {
+                        //Try to delete first; make sure it's gone before attempting to re-create it
+                        using (TaskService ts = new TaskService()) {
+                            ts.RootFolder.DeleteTask(@"AssistantComputerControl startup");
+                        }
+                    } catch {
+                    }
+
                     using (var ts = new TaskService()) {
                         var td = ts.NewTask();
                         td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
@@ -857,7 +861,7 @@ namespace AssistantComputerControl {
                 if ((Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain)) {
                     //Cloud service path not found & no custom filepath, go through setup again?
                     hasAskedForSetupAgain = true;
-                    var msgBox = MessageBox.Show(Translator.__("no_cloudservice_chosen", "general"), "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
+                    var msgBox = MessageBox.Show("TEST" + Translator.__("no_cloudservice_chosen", "general"), "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
                     if (msgBox == DialogResult.Yes) {
                         ShowGettingStarted();
                     }

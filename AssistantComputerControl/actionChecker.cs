@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 15-01-2020
+ * Updated: v1.4.4, 19-05-2021
  * 
  * Use:
  * - Checks and execute action files

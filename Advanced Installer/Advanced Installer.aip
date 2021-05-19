@@ -140,6 +140,7 @@
     <ROW File="Spanish.json" Component_="Danish.json" FileName="SPANIS~1.JSO|Spanish.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Spanish.json" SelfReg="false"/>
     <ROW File="PortugueseBrasil.json" Component_="Danish.json" FileName="PORTUG~1.JSO|Portuguese - Brasil.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Portuguese - Brasil.json" SelfReg="false"/>
     <ROW File="Dutch.json" Component_="Danish.json" FileName="DUTCH~1.JSO|Dutch.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Dutch.json" SelfReg="false"/>
+    <ROW File="ActionTester.html" Component_="AboutVersion.html" FileName="ACTION~1.HTM|ActionTester.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\ActionTester.html" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
