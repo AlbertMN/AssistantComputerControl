@@ -31,7 +31,7 @@ namespace AssistantComputerControl {
             releaseDate = "2021-05-19 00:05:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@o188917.ingest.sentry.io/1287269";
+            sentryToken = "super_secret";
 
         static public bool debug = true,
             unmuteVolumeChange = true,
