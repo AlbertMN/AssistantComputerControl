@@ -1057,7 +1057,7 @@ namespace AssistantComputerControl {
              */
 
             int timesToClick = 1;
-            string type = "left";
+            string type = parameter;
 
             if (parameter == String.Empty) {
                 type = "left";
@@ -1127,6 +1127,11 @@ namespace AssistantComputerControl {
             } else {
                 Error("Time Parameter is not a number");
             }
+        }
+
+        //Fix for shortcuts; don't show an error
+        public void IgnoreMe() {
+            successMessage = "Ignoring filename";
         }
 
         /* End of actions */

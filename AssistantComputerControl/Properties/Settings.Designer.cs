@@ -330,5 +330,17 @@ namespace AssistantComputerControl.Properties {
                 this["AutoFileMarginFixer"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StartsUsingRegistry {
+            get {
+                return ((bool)(this["StartsUsingRegistry"]));
+            }
+            set {
+                this["StartsUsingRegistry"] = value;
+            }
+        }
     }
 }

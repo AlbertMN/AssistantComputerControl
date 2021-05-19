@@ -26,22 +26,28 @@ namespace AssistantComputerControl {
         //Check mod folder and init mods
         public static void CheckMods() {
             try {
-                modActions = new Dictionary<string, string>();
-                string[] dirs = Directory.GetDirectories(MainProgram.actionModsPath, "*", SearchOption.TopDirectoryOnly);
+                if (Directory.Exists(MainProgram.actionModsPath)) {
+                    //Action mods path exists
+                    modActions = new Dictionary<string, string>();
+                    string[] dirs = Directory.GetDirectories(MainProgram.actionModsPath, "*", SearchOption.TopDirectoryOnly);
 
-                foreach (string dir in dirs) {
-                    string theFile = Path.Combine(dir, "info.json");
-                    if (File.Exists(theFile)) {
-                        //Info file exists - read it
-                        string fileContent = ReadInfoFile(theFile);
-                        if (fileContent != null) {
-                            ValidateAddMod(fileContent, dir);
+                    foreach (string dir in dirs) {
+                        string theFile = Path.Combine(dir, "info.json");
+                        if (File.Exists(theFile)) {
+                            //Info file exists - read it
+                            string fileContent = ReadInfoFile(theFile);
+                            if (fileContent != null) {
+                                ValidateAddMod(fileContent, dir);
+                            } else {
+                                MainProgram.DoDebug("Failed to read info.json file at; " + dir);
+                            }
                         } else {
-                            MainProgram.DoDebug("Failed to read info.json file at; " + dir);
+                            MainProgram.DoDebug("Invalid folder in action mods; '" + dir + "'. Doesn't contain an info.json file.");
                         }
-                    } else {
-                        MainProgram.DoDebug("Invalid folder in action mods; '" + dir + "'. Doesn't contain an info.json file.");
                     }
+                } else {
+                    //Mod directory doesn't exist
+                    MainProgram.DoDebug("Can't check for mods as the folder doesn't exist");
                 }
             } catch (Exception e) {
                 Console.WriteLine("The process failed: {0}", e.ToString());
