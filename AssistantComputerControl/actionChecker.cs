@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 15-01-2020
+ * Updated: v1.4.4, 19-05-2021
  * 
  * Use:
  * - Checks and execute action files
@@ -382,8 +382,6 @@ namespace AssistantComputerControl {
                 new CleanupService().Start();
             }
 
-            
-            
             if (!String.IsNullOrEmpty(theActionExecution.errorMessage)) {
                 MainProgram.DoDebug("[ERROR]: " + theActionExecution.errorMessage);
                 ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
@@ -542,6 +540,9 @@ namespace AssistantComputerControl {
                         if (RequireParameter(parameter)) {
                             actionExecution.Wait(parameter);
                         }
+                        break;
+                    case "ignoreme":
+                        actionExecution.IgnoreMe();
                         break;
                     default:
                         //Unknown action

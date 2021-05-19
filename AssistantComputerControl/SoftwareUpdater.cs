@@ -61,9 +61,9 @@ namespace AssistantComputerControl {
                 }
 
                 if (latestReleaseJson != null || latestBetaJson != null) {
-                    Version newVersion = null
-                        , latestRelease
-                        , latestBeta;
+                    Version newVersion = null,
+                        latestRelease,
+                        latestBeta;
 
                     if (latestReleaseJson != null && latestBetaJson != null) {
                         //Beta program enabled; check both release and beta for newest update
@@ -122,7 +122,7 @@ namespace AssistantComputerControl {
                     if (newVersion != null && newVersion.version != MainProgram.softwareVersion) {
                         //New version available
                         MainProgram.DoDebug("New software version found (" + newVersion.version + ") [" + newVersion.type + "], current; " + MainProgram.softwareVersion);
-                        DialogResult dialogResult = MessageBox.Show(Translator.__("new_version_found", "check_for_update").Replace("{version_num}", newVersion.version).Replace("{version_type}", newVersion.type), Translator.__("new_version_found_title", "check_for_update") + " | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show(Translator.__("new_version_found", "check_for_update").Replace("{version_num}", newVersion.version).Replace("{version_type}", newVersion.type), Translator.__("new_version_found_title", "check_for_update") + " | " + MainProgram.messageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
                         if (dialogResult == DialogResult.Yes) {
                             MainProgram.DoDebug("User chose \"yes\" to install update");
                             DownloadFile(newVersion.installpath + "&upgrade=true");
@@ -134,15 +134,15 @@ namespace AssistantComputerControl {
                     } else {
                         MainProgram.DoDebug("Software up to date");
                         if (debug)
-                            MessageBox.Show(Translator.__("no_new_update", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle);
+                            MessageBox.Show(Translator.__("no_new_update", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
                     }
                 } else {
                     MainProgram.DoDebug("Could not reach the webserver (both 'release' and 'beta' json files couldn't be reached)");
                     if (debug)
-                        MessageBox.Show(Translator.__("webservers_offline", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle);
+                        MessageBox.Show(Translator.__("webservers_offline", "check_for_update"), Translator.__("check_for_update_title", "check_for_update") + " | " + MainProgram.messageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
                 }
             } catch (Exception e) {
-                MainProgram.DoDebug("Failed to check for update (exception); " + e.Message);
+                MainProgram.DoDebug("Failed to check for update (exception); " + e.Message + "; " + e.StackTrace);
             }
 
             MainProgram.isCheckingForUpdate = false;
@@ -213,9 +213,19 @@ namespace AssistantComputerControl {
 
             if (!e.Cancelled) {
                 //Download success
-                Process.Start(targetLocation);
-                MainProgram.DoDebug("New installer successfully downloaded and opened.");
-                Application.Exit();
+                try {
+                    if (File.Exists(targetLocation)) {
+                        Process.Start(targetLocation);
+                        MainProgram.DoDebug("New installer successfully downloaded and opened.");
+                        Application.Exit();
+                    } else {
+                        MainProgram.DoDebug("Downloaded file doesn't exist (new version)");
+                        MessageBox.Show("Failed to download new version of ACC. File doesn't exist", Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);
+                    }
+                } catch (Exception ee) {
+                    MainProgram.DoDebug("Error occurred on open of new version; " + ee.Message);
+                    MessageBox.Show("Failed to open new version! Error is logged, please contact the developer on Discord!", Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);
+                }
             } else {
                 MainProgram.DoDebug("Failed to download new version of ACC. Error; " + e.Error);
                 MessageBox.Show("Failed to download new version. Try again later!", Translator.__("error", "general") + " | " + MainProgram.messageBoxTitle);

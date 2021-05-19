@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.2, 12-12-2020
+ * Updated: v1.4.4, 19-05-2021
  * 
  * Use:
  * - Functions for all the actions
@@ -1051,20 +1051,23 @@ namespace AssistantComputerControl {
         public const int MOUSEEVENTF_MIDDLEDOWN = 0x20;
         public const int MOUSEEVENTF_MIDDLEUP = 0x40;
 
-        public void MouseClick(string parameter = "", string secondaryParameter = "") {
+        public void MouseClick(string parameter = "") {
             /*
              * Action made by community member Joshua Miller (modified by Albert)
              */
 
-            int timesToClick = 1;
-            string type = "left";
+            string firstParameter = parameter != null && parameter != String.Empty ? ActionChecker.GetSecondaryParam(parameter)[0] : "",
+                secondParameter = parameter != null && parameter != String.Empty ? (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null) : "";
 
-            if (parameter == String.Empty) {
+            int timesToClick = 1;
+            string type = firstParameter;
+
+            if (firstParameter == String.Empty) {
                 type = "left";
             }
 
-            if (secondaryParameter != String.Empty) {
-                if (Int32.TryParse(secondaryParameter, out int repeatAmount)) {
+            if (secondParameter != String.Empty && secondParameter != null) {
+                if (Int32.TryParse(secondParameter, out int repeatAmount)) {
                     timesToClick = repeatAmount;
                 } else {
                     Error("Secondary parameter (how many times to click) is not a valid number");
@@ -1127,6 +1130,11 @@ namespace AssistantComputerControl {
             } else {
                 Error("Time Parameter is not a number");
             }
+        }
+
+        //Fix for shortcuts; don't show an error
+        public void IgnoreMe() {
+            successMessage = "Ignoring filename";
         }
 
         /* End of actions */

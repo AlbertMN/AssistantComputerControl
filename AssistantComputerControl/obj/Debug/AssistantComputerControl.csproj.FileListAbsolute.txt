@@ -162,3 +162,4 @@ C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComput
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Italian.json
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Turkce.json
 C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Portuguese - Brasil.json
+C:\Users\alber\Dropbox\Programmering\C#\AssistantComputerControl\AssistantComputerControl\bin\Debug\Translations\Dutch.json
