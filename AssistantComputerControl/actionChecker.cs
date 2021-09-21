@@ -470,6 +470,12 @@ namespace AssistantComputerControl {
                             actionExecution.Open(parameter);
                         }
                         break;
+                    case "open_any":
+                        if (RequireParameter(parameter))
+                        {
+                            actionExecution.OpenAny(parameter);
+                        }
+                        break;
                     case "open_all":
                         if (RequireParameter(parameter)) {
                             actionExecution.OpenAll(parameter);
