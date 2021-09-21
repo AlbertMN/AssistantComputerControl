@@ -445,6 +445,49 @@ namespace AssistantComputerControl {
                 }
             }
         }
+        public void OpenAny(string parameter)
+        {
+            string fileLocation = MainProgram.shortcutLocation;
+            Regex rx = new Regex("^" + parameter + Regex.Escape(".") + ".*", RegexOptions.IgnoreCase);
+            if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute))
+            {
+                DirectoryInfo d = new DirectoryInfo(fileLocation);
+                bool opened = false;
+                foreach (var dirFile in d.GetFiles())
+                {
+                    if (!MainProgram.testingAction)
+                    {
+                        bool result = rx.IsMatch(dirFile.Name);
+                        if (result)
+                        {
+                            Process.Start(dirFile.FullName);
+                            opened = true;
+                            break;
+                        }
+                    }
+                }
+                if (!opened)
+                {
+                    Error("File(" + parameter + ") doesn't exist  at" + " (" + fileLocation + ")");
+                }
+                else
+                {
+                    if (!MainProgram.testingAction)
+                    {
+                        successMessage = "OPEN: opened " + parameter;
+                    }
+                    else
+                    {
+                        successMessage = "OPEN: simulated opening " + parameter;
+                    }
+                }
+
+            }
+            else
+            {
+                Error("Directory doesn't exist (" + fileLocation + ")");
+            }
+        }
         public void OpenAll(string parameter) {
             string fileLocation = (!parameter.Contains(@":\") || !parameter.Contains(@":/")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
 
