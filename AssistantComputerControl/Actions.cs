@@ -445,46 +445,34 @@ namespace AssistantComputerControl {
                 }
             }
         }
-        public void OpenAny(string parameter)
-        {
+        public void OpenAny(string parameter) {
             string fileLocation = MainProgram.shortcutLocation;
             Regex rx = new Regex("^" + parameter + Regex.Escape(".") + ".*", RegexOptions.IgnoreCase);
-            if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute))
-            {
+            
+            if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                 DirectoryInfo d = new DirectoryInfo(fileLocation);
                 bool opened = false;
-                foreach (var dirFile in d.GetFiles())
-                {
-                    if (!MainProgram.testingAction)
-                    {
+                foreach (var dirFile in d.GetFiles()) {
+                    if (!MainProgram.testingAction) {
                         bool result = rx.IsMatch(dirFile.Name);
-                        if (result)
-                        {
+                        if (result) {
                             Process.Start(dirFile.FullName);
                             opened = true;
                             break;
                         }
                     }
                 }
-                if (!opened)
-                {
+                
+                if (!opened) {
                     Error("File(" + parameter + ") doesn't exist  at" + " (" + fileLocation + ")");
-                }
-                else
-                {
-                    if (!MainProgram.testingAction)
-                    {
+                } else {
+                    if (!MainProgram.testingAction) {
                         successMessage = "OPEN: opened " + parameter;
-                    }
-                    else
-                    {
+                    } else {
                         successMessage = "OPEN: simulated opening " + parameter;
                     }
                 }
-
-            }
-            else
-            {
+            } else {
                 Error("Directory doesn't exist (" + fileLocation + ")");
             }
         }
