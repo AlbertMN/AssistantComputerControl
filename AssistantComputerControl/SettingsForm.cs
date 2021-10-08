@@ -108,8 +108,7 @@ namespace AssistantComputerControl {
         }
 
         private void actionErrorMessageBox_CheckedChanged(object sender, EventArgs e) {
-            if (Properties.Settings.Default.ActionMessageBox != actionErrorMessageBox.Checked)
-            {
+            if (Properties.Settings.Default.ActionMessageBox != actionErrorMessageBox.Checked) {
                 Properties.Settings.Default.ActionMessageBox = actionErrorMessageBox.Checked;
                 Properties.Settings.Default.Save();
             }
