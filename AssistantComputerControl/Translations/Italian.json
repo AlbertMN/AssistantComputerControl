@@ -30,6 +30,7 @@
       "save_language_btn": "salva",
       "start_with_windows": "Avvia con Windows?",
       "check_for_updates": "Controlla gli aggiornamenti?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Unisciti al programma beta?",
 
       "file_edited_margin": "Limite di modifica del file (secondi)",

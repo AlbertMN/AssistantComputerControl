@@ -31,6 +31,7 @@
       "save_language_btn": "gem",
       "start_with_windows": "Åben med Windows?",
       "check_for_updates": "Søg automatisk efter opdateringer?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Vær en del af beta-programmet (og få opdateringer tidligt)",
 
       "file_edited_margin": "Filændring margen (sekunder)",

@@ -31,6 +31,7 @@
       "save_language_btn": "Kaydet",
       "start_with_windows": "Windows ile beraber başlasın mı?",
       "check_for_updates": "Güncellemeler denetlensin mi?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Beta programına katılmak ister misiniz?",
 
       "file_edited_margin": "Dosya düzenlenmiş kenar boşluğu (saniye)",

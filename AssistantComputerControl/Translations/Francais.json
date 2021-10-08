@@ -31,6 +31,7 @@
       "save_language_btn": "enreg",
       "start_with_windows": "Démarrer avec Windows",
       "check_for_updates": "Autoriser la recherche de mises à jour ?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Rejoindre le programme Beta",
 
       "file_edited_margin": "Délai pour un fichier édité (secondes)",
