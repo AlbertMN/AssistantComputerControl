@@ -474,8 +474,7 @@ namespace AssistantComputerControl {
                         }
                         break;
                     case "open_any":
-                        if (RequireParameter(parameter))
-                        {
+                        if (RequireParameter(parameter)) {
                             actionExecution.OpenAny(parameter);
                         }
                         break;
