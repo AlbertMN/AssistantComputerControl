@@ -420,6 +420,7 @@ namespace AssistantComputerControl {
 
             if (fileLocation != "") {
                 MainProgram.DoDebug(fileLocation);
+
                 try {
                     if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                         if (!MainProgram.testingAction) {
@@ -1166,6 +1167,35 @@ namespace AssistantComputerControl {
         //Fix for shortcuts; don't show an error
         public void IgnoreMe() {
             successMessage = "Ignoring filename";
+        }
+
+        public void DisplayMode(string parameter) {
+            string[] supported = { "external", "internal", "extend", "clone", "", null};
+            if (supported.Contains(parameter)) {
+                var proc = new Process();
+                bool hasParameter = false;
+
+                proc.StartInfo.FileName = @"DisplaySwitch";
+                if (parameter != null && parameter.Length > 0) {
+                    hasParameter = true;
+                    proc.StartInfo.Arguments = "/" + parameter;
+                }
+
+                try {
+                    proc.Start();
+
+                    //All good; essage
+                    if (hasParameter) {
+                        successMessage = "Switched to " + parameter + " display mode";
+                    } else {
+                        successMessage = "Opened DisplaySwitch";
+                    }
+                } catch (Exception e) {
+                    Error("Failed to switch display, most likely because it targets the wrong directory (64 vs. 32 bit)");
+                }
+            } else {
+                Error("Mode \"" + parameter + "\" not supported");
+            }
         }
 
         /* End of actions */

@@ -552,6 +552,9 @@ namespace AssistantComputerControl {
                     case "ignoreme":
                         actionExecution.IgnoreMe();
                         break;
+                    case "display_switch":
+                        actionExecution.DisplayMode(parameter);
+                        break;
                     default:
                         //Unknown action
                         actionExecution.errorMessage = "Unknown action \"" + action + "\"";
