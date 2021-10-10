@@ -861,7 +861,7 @@ namespace AssistantComputerControl {
                 if ((Properties.Settings.Default.HasCompletedTutorial && gettingStarted is null && !hasAskedForSetupAgain)) {
                     //Cloud service path not found & no custom filepath, go through setup again?
                     hasAskedForSetupAgain = true;
-                    var msgBox = MessageBox.Show("TEST" + Translator.__("no_cloudservice_chosen", "general"), "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
+                    var msgBox = MessageBox.Show(Translator.__("no_cloudservice_chosen", "general"), "[ERROR] No folder specified | AssistantComputerControl", MessageBoxButtons.YesNo);
                     if (msgBox == DialogResult.Yes) {
                         ShowGettingStarted();
                     }

@@ -65,7 +65,6 @@
             this.Name = "TestActionWindow";
             this.Text = "Action Simulator";
             this.ResumeLayout(false);
-
         }
 
         #endregion

@@ -782,10 +782,8 @@ namespace AssistantComputerControl {
             }
         }
         public void DoMessageBox(string parameter) {
-            string theMessage = ActionChecker.GetSecondaryParam(parameter)[0]
-                            , theTitle = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
-
-            MainProgram.DoDebug("TESTTTTT ::::: " + (theTitle == null).ToString());
+            string theMessage = ActionChecker.GetSecondaryParam(parameter)[0],
+                theTitle = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
 
             if (MainProgram.testingAction) {
                 successMessage = "Simulated making a message box with the content \"" + theMessage + "\" and " + (String.IsNullOrEmpty(theTitle) ? "no title" : "custom title \"" + theTitle + "\"");
