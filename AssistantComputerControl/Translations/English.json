@@ -33,6 +33,7 @@
       "save_language_btn": "save",
       "start_with_windows": "Start with Windows?",
       "check_for_updates": "Check for updates?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Join the beta program?",
 
       "file_edited_margin": "File edited margin (seconds)",

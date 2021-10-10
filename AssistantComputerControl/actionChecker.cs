@@ -384,7 +384,10 @@ namespace AssistantComputerControl {
 
             if (!String.IsNullOrEmpty(theActionExecution.errorMessage)) {
                 MainProgram.DoDebug("[ERROR]: " + theActionExecution.errorMessage);
-                ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
+                if (Properties.Settings.Default.ActionMessageBox) {
+                    ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
+                }
+
             } else {
                 if (!String.IsNullOrEmpty(theActionExecution.successMessage)) {
                     MainProgram.DoDebug("\nSUCCESS: " + theActionExecution.successMessage + "\n");
@@ -468,6 +471,11 @@ namespace AssistantComputerControl {
                     case "open":
                         if (RequireParameter(parameter)) {
                             actionExecution.Open(parameter);
+                        }
+                        break;
+                    case "open_any":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.OpenAny(parameter);
                         }
                         break;
                     case "open_all":

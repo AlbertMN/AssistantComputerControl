@@ -33,6 +33,7 @@
         "save_language_btn": "bewaren",
         "start_with_windows": "Start met Windows?",
         "check_for_updates": "Controleren op updates?",
+        "action_error_message_box": "Show action errors?",
         "join_beta_program": "Sluit je aan bij het beta programma?",
   
         "file_edited_margin": "Bestand bewerkt marge (seconden)",

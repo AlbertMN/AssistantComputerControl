@@ -437,8 +437,8 @@ namespace AssistantComputerControl {
                     td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
                     td.RegistrationInfo.Description = "AssistantComputerControl cleanup - clears the action folder to prevent the same action being executed twice";
 
-                    td.Actions.Add(new ExecAction("powershell.exe", $"-WindowStyle Hidden -file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"", null));
-
+                    td.Actions.Add(new ExecAction("mshta.exe", $"vbscript:Execute(\"CreateObject(\"\"WScript.Shell\"\").Run \"\"powershell -ExecutionPolicy Bypass & '{ps1File}' '{Path.Combine(MainProgram.CheckPath(), "*")}' '*.{Properties.Settings.Default.ActionFileExtension}'\"\", 0:close\")", null));
+                    
                     td.Triggers.Add(new LogonTrigger { UserId = userId, });
                     ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl cleanup", td);
                 }
