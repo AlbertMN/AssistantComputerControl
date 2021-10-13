@@ -148,19 +148,11 @@
 
       /* Google Drive specific */
       "make_google_account": "Você provavelmente já tem uma conta do Google. Caso contrário, <a href=\"https://accounts.google.com/signup/v2\">crie uma</a>",
-      "google_drive_download": "Faça o download do Google Drive para o seu computador <a href=\"https://www.google.com/drive/download/\">escolha \"Privado; Backup e sincronização\"</a> <small>(se você ainda não tiver já)</small>",
+      "google_drive_download": "Faça o download do Google Drive para o seu computador <a href=\"https://www.google.com/drive/download/\">escolha \"Download\"</a> <small>(se você ainda não tiver já)</small>",
       "google_drive_install": "Execute o instalador e conclua a instalação",
       "google_drive_click_logo": "Clique no ícone \"Backup e sincronização\" na barra de tarefas",
       "google_drive_preferences": "Pressione os três pontos no canto direito e vá para <b>\"Preferências\"</b>",
       "google_drive_sync": "Vá para a guia <b>\"Google Drive\"</b> e verifique se <b>\"Sincronizar meu disco neste computador\"</b> está marcado",
-
-      "google_drive_sync_all": "Deseja todos os seus arquivos do Google Drive no seu computador?",
-      "google_drive_sync_all_desc": "Escolha \"Sincronizar tudo em Meu disco (x GB)\"",
-      "google_drive_acc_only_sync": "... ou <i>apenas</i> por uma questão de AssistantComputerControl?",
-      "google_drive_website_goto": "Vá para o seu Google Drive (no seu navegador)",
-      "google_drive_create_folder": "Na guia \"Meu Drive\", clique com o botão direito do mouse na seção arquivos da seção ou pressione o menu suspenso \"Meu Drive\" e escolha <b>\"Nova pasta\"</b>",
-      "google_drive_name_folder": "Nomeie a pasta \"AssistantComputerControl\" <i>(é importante que não haja erros de digitação aqui)</i>",
-      "google_drive_sync_specific_folders": "Escolha \"Sincronizar apenas essas pastas...\" e desmarque tudo, menos a pasta chamada \"AssistantComputerControl\"",
 
       /* IFTTT specific */
       "set_up_ifttt_acc": "Configure sua conta IFTTT",

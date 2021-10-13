@@ -27,11 +27,11 @@ using System.Security.Principal;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.4",
-            releaseDate = "2021-05-19 20:59:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.5",
+            releaseDate = "2021-10-11 01:24:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "super_secret";
+            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@o188917.ingest.sentry.io/1287269";
 
         static public bool debug = true,
             unmuteVolumeChange = true,

@@ -159,14 +159,6 @@
       "google_drive_preferences": "Press the three dots in the right corner, and go to <b>\"Preferences\"</b>",
       "google_drive_sync": "Go to the <b>\"Google Drive\"</b> tab and make sure <b>\"Sync My Drive to this computer\"</b> is ticked",
 
-      "google_drive_sync_all": "Want all your Google Drive files on your computer?",
-      "google_drive_sync_all_desc": "Choose \"Sync everything in My Drive (x GB)\"",
-      "google_drive_acc_only_sync": "... or <i>just</i> for the sake of AssistantComputerControl?",
-      "google_drive_website_goto": "Go to your Google Drive (in your browser)",
-      "google_drive_create_folder": "In the \"My drive\" tab, right-click the section files-section or press the \"My drive\" dropdown, and choose <b>\"New folder\"</b>",
-      "google_drive_name_folder": "Name the folder \"AssistantComputerControl\" <i>(it's important that there are no typos here)</i>",
-      "google_drive_sync_specific_folders": "Choose \"Sync these folders only...\", and un-tick everything but the folder called \"AssistantComputerControl\"",
-
       /* IFTTT specific */
       "set_up_ifttt_acc": "Set up your IFTTT account",
       "set_up_ifttt_extra": "With the AssistantComputerControl applets",
