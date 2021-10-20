@@ -33,6 +33,7 @@
         "save_language_btn": "bewaren",
         "start_with_windows": "Start met Windows?",
         "check_for_updates": "Controleren op updates?",
+        "action_error_message_box": "Show action errors?",
         "join_beta_program": "Sluit je aan bij het beta programma?",
   
         "file_edited_margin": "Bestand bewerkt marge (seconden)",
@@ -147,19 +148,12 @@
   
         /* Google Drive specific */
         "make_google_account": "Waarschijnlijk heeft u een Google account - Als dit niet het geval is, <a href=\"https://accounts.google.com/signup/v2\">Maak er één aan</a>",
-        "google_drive_download": "Download Google Drive voor u computer <a href=\"https://www.google.com/drive/download/\">kies \"Private; Backup and Sync\"</a> <small>(Als je dit nog niet gedaan hebt)</small>",
+        "google_drive_download": "Download Google Drive voor u computer <a href=\"https://www.google.com/drive/download/\">kies \"Download\"</a> <small>(Als je dit nog niet gedaan hebt)</small>",
         "google_drive_install": "voer de instalie uit en beëindig de instalatie",
         "google_drive_click_logo": "Klik op het \"Backup and sync\" logo in u taakbalk",
         "google_drive_preferences": "Druk op de 3 bolletjes in de rechter hoek, en ga naar <b>\"Voorkeuren of Preferences\"</b>",
         "google_drive_sync": "Ga naar de <b>\"Google Drive\"</b> tab en zorg ervoor dat <b>\"Synchroniseer My Drive met deze computer\"</b> is aangeduid",
-  
-        "google_drive_sync_all": "Wil je al je Google Drive bestanden op je computer?",
-        "google_drive_sync_all_desc": "Kies voor \"Alles in My Drive (x GB) synchroniseren\"",
-        "google_drive_acc_only_sync": "... of <i>enkel</i> in het belang van AssistantComputerControl?",
-        "google_drive_website_goto": "Ga naar u Google Drive (in je browser)",
-        "google_drive_create_folder": "In de \"My drive\" tab, rechts-klik je bestanden sectie of druk op de \"My drive\" dropdown menu, en kies <b>\"Nieuwe map\"</b>",
-        "google_drive_name_folder": "Benoem de map \"AssistantComputerControl\" <i>(het is belangrijk om geen schrijffouten te maken hierbij)</i>",
-        "google_drive_sync_specific_folders": "Kies \"Synchroniseer enkel deze mappen...\", en duid enkel \"AssistantComputerControl\" aan",
+ 
   
         /* IFTTT specific */
         "set_up_ifttt_acc": "Registeer een IFTTT account",

@@ -32,8 +32,42 @@ namespace AssistantComputerControl {
             return GetGoogleDriveFolder() != String.Empty;
         }
         public static string GetGoogleDriveFolder() {
-            string registryKey = @"Software\Google\Drive";
+            //New Google Drive check first
+            string registryKey = @"Software\Google\DriveFS";
             RegistryKey key = Registry.CurrentUser.OpenSubKey(registryKey);
+
+            if (key != null || Directory.Exists(Environment.ExpandEnvironmentVariables("%programfiles%") + @"\Google\Drive File Stream")) {
+                //New google Drive seems to be installed
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
+
+                //Check if it's a virual drive
+                foreach (DriveInfo d in allDrives) {
+                    if (d.VolumeLabel == "Google Drive") {
+                        string check = Path.Combine(d.Name, "My Drive");
+                        if (Directory.Exists(check)) {
+                            return check;
+                        }
+                    }
+                }
+
+                //Not a virtual drive, check the user's folder
+                string userDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                if (Directory.Exists(userDir)) {
+                    foreach (string dir in Directory.GetDirectories(userDir)) {
+                        if (dir.Contains("My Drive")) {
+                            //Pretty sure it's Google Drive... But bad practice maybe...?
+                            return dir;
+                        }
+                    }
+                }
+
+
+                return "partial";
+            }
+
+            //No? Check the old one
+            registryKey = @"Software\Google\Drive";
+            key = Registry.CurrentUser.OpenSubKey(registryKey);
             if (key != null) {
                 string installed = key.GetValue("Installed").ToString();
                 key.Close();

@@ -55,6 +55,7 @@
             this.betaProgram = new System.Windows.Forms.CheckBox();
             this.fileEditedMargin = new System.Windows.Forms.NumericUpDown();
             this.infoTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.actionErrorMessageBox = new System.Windows.Forms.CheckBox();
             this.mainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileReadDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxDeleteFiles)).BeginInit();
@@ -75,7 +76,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(5, 165);
+            this.label1.Location = new System.Drawing.Point(5, 202);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 6;
@@ -96,7 +97,7 @@
             // advancedSettingsButton
             // 
             this.advancedSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.advancedSettingsButton.Location = new System.Drawing.Point(8, 253);
+            this.advancedSettingsButton.Location = new System.Drawing.Point(7, 283);
             this.advancedSettingsButton.Name = "advancedSettingsButton";
             this.advancedSettingsButton.Size = new System.Drawing.Size(171, 23);
             this.advancedSettingsButton.TabIndex = 11;
@@ -107,7 +108,7 @@
             // testButton
             // 
             this.testButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.testButton.Location = new System.Drawing.Point(8, 311);
+            this.testButton.Location = new System.Drawing.Point(7, 341);
             this.testButton.Name = "testButton";
             this.testButton.Size = new System.Drawing.Size(171, 23);
             this.testButton.TabIndex = 13;
@@ -148,7 +149,7 @@
             // logButton
             // 
             this.logButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.logButton.Location = new System.Drawing.Point(8, 282);
+            this.logButton.Location = new System.Drawing.Point(7, 312);
             this.logButton.Name = "logButton";
             this.logButton.Size = new System.Drawing.Size(171, 23);
             this.logButton.TabIndex = 12;
@@ -159,6 +160,7 @@
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.mainPanel.Controls.Add(this.actionErrorMessageBox);
             this.mainPanel.Controls.Add(this.changelogOpen);
             this.mainPanel.Controls.Add(this.saveLanguageButton);
             this.mainPanel.Controls.Add(this.languageLabel);
@@ -296,7 +298,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(134, 225);
+            this.label7.Location = new System.Drawing.Point(134, 259);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(130, 13);
             this.label7.TabIndex = 10;
@@ -307,7 +309,7 @@
             // fileReadDelay
             // 
             this.fileReadDelay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fileReadDelay.Location = new System.Drawing.Point(8, 223);
+            this.fileReadDelay.Location = new System.Drawing.Point(8, 257);
             this.fileReadDelay.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -321,7 +323,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 207);
+            this.label6.Location = new System.Drawing.Point(5, 241);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 13);
             this.label6.TabIndex = 8;
@@ -362,7 +364,7 @@
             // doSetupAgain
             // 
             this.doSetupAgain.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.doSetupAgain.Location = new System.Drawing.Point(8, 340);
+            this.doSetupAgain.Location = new System.Drawing.Point(8, 370);
             this.doSetupAgain.Name = "doSetupAgain";
             this.doSetupAgain.Size = new System.Drawing.Size(171, 23);
             this.doSetupAgain.TabIndex = 14;
@@ -396,7 +398,7 @@
             // 
             this.betaProgram.AutoSize = true;
             this.betaProgram.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.betaProgram.Location = new System.Drawing.Point(8, 138);
+            this.betaProgram.Location = new System.Drawing.Point(7, 162);
             this.betaProgram.Name = "betaProgram";
             this.betaProgram.Size = new System.Drawing.Size(119, 18);
             this.betaProgram.TabIndex = 5;
@@ -407,7 +409,7 @@
             // fileEditedMargin
             // 
             this.fileEditedMargin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fileEditedMargin.Location = new System.Drawing.Point(8, 181);
+            this.fileEditedMargin.Location = new System.Drawing.Point(8, 218);
             this.fileEditedMargin.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -420,6 +422,18 @@
             // infoTooltip
             // 
             this.infoTooltip.Popup += new System.Windows.Forms.PopupEventHandler(this.infoTooltip_Popup);
+            // 
+            // actionErrorMessageBox
+            // 
+            this.actionErrorMessageBox.AutoSize = true;
+            this.actionErrorMessageBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.actionErrorMessageBox.Location = new System.Drawing.Point(8, 138);
+            this.actionErrorMessageBox.Name = "actionErrorMessageBox";
+            this.actionErrorMessageBox.Size = new System.Drawing.Size(124, 18);
+            this.actionErrorMessageBox.TabIndex = 35;
+            this.actionErrorMessageBox.Text = "action_error_message_box";
+            this.actionErrorMessageBox.UseVisualStyleBackColor = true;
+            this.actionErrorMessageBox.CheckedChanged += new System.EventHandler(this.actionErrorMessageBox_CheckedChanged);
             // 
             // SettingsForm
             // 
@@ -475,5 +489,6 @@
         private System.Windows.Forms.Label languageLabel;
         private System.Windows.Forms.Button saveLanguageButton;
         private System.Windows.Forms.Button changelogOpen;
+        private System.Windows.Forms.CheckBox actionErrorMessageBox;
     }
 }

@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.2, 12-12-2020
+ * Updated: v1.4.4, 19-05-2021
  * 
  * Use:
  * - Functions for all the actions
@@ -420,6 +420,7 @@ namespace AssistantComputerControl {
 
             if (fileLocation != "") {
                 MainProgram.DoDebug(fileLocation);
+
                 try {
                     if (File.Exists(fileLocation) || Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                         if (!MainProgram.testingAction) {
@@ -443,6 +444,37 @@ namespace AssistantComputerControl {
                 } catch {
                     MainProgram.DoDebug("Error when opening file");
                 }
+            }
+        }
+        public void OpenAny(string parameter) {
+            string fileLocation = MainProgram.shortcutLocation;
+            Regex rx = new Regex("^" + parameter + Regex.Escape(".") + ".*", RegexOptions.IgnoreCase);
+            
+            if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
+                DirectoryInfo d = new DirectoryInfo(fileLocation);
+                bool opened = false;
+                foreach (var dirFile in d.GetFiles()) {
+                    if (!MainProgram.testingAction) {
+                        bool result = rx.IsMatch(dirFile.Name);
+                        if (result) {
+                            Process.Start(dirFile.FullName);
+                            opened = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (!opened) {
+                    Error("File(" + parameter + ") doesn't exist  at" + " (" + fileLocation + ")");
+                } else {
+                    if (!MainProgram.testingAction) {
+                        successMessage = "OPEN: opened " + parameter;
+                    } else {
+                        successMessage = "OPEN: simulated opening " + parameter;
+                    }
+                }
+            } else {
+                Error("Directory doesn't exist (" + fileLocation + ")");
             }
         }
         public void OpenAll(string parameter) {
@@ -750,10 +782,8 @@ namespace AssistantComputerControl {
             }
         }
         public void DoMessageBox(string parameter) {
-            string theMessage = ActionChecker.GetSecondaryParam(parameter)[0]
-                            , theTitle = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
-
-            MainProgram.DoDebug("TESTTTTT ::::: " + (theTitle == null).ToString());
+            string theMessage = ActionChecker.GetSecondaryParam(parameter)[0],
+                theTitle = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
 
             if (MainProgram.testingAction) {
                 successMessage = "Simulated making a message box with the content \"" + theMessage + "\" and " + (String.IsNullOrEmpty(theTitle) ? "no title" : "custom title \"" + theTitle + "\"");
@@ -1051,20 +1081,23 @@ namespace AssistantComputerControl {
         public const int MOUSEEVENTF_MIDDLEDOWN = 0x20;
         public const int MOUSEEVENTF_MIDDLEUP = 0x40;
 
-        public void MouseClick(string parameter = "", string secondaryParameter = "") {
+        public void MouseClick(string parameter = "") {
             /*
              * Action made by community member Joshua Miller (modified by Albert)
              */
 
-            int timesToClick = 1;
-            string type = "left";
+            string firstParameter = parameter != null && parameter != String.Empty ? ActionChecker.GetSecondaryParam(parameter)[0] : "",
+                secondParameter = parameter != null && parameter != String.Empty ? (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null) : "";
 
-            if (parameter == String.Empty) {
+            int timesToClick = 1;
+            string type = firstParameter;
+
+            if (firstParameter == String.Empty) {
                 type = "left";
             }
 
-            if (secondaryParameter != String.Empty) {
-                if (Int32.TryParse(secondaryParameter, out int repeatAmount)) {
+            if (secondParameter != String.Empty && secondParameter != null) {
+                if (Int32.TryParse(secondParameter, out int repeatAmount)) {
                     timesToClick = repeatAmount;
                 } else {
                     Error("Secondary parameter (how many times to click) is not a valid number");
@@ -1126,6 +1159,40 @@ namespace AssistantComputerControl {
                 }
             } else {
                 Error("Time Parameter is not a number");
+            }
+        }
+
+        //Fix for shortcuts; don't show an error
+        public void IgnoreMe() {
+            successMessage = "Ignoring filename";
+        }
+
+        public void DisplayMode(string parameter) {
+            string[] supported = { "external", "internal", "extend", "clone", "", null};
+            if (supported.Contains(parameter)) {
+                var proc = new Process();
+                bool hasParameter = false;
+
+                proc.StartInfo.FileName = @"DisplaySwitch";
+                if (parameter != null && parameter.Length > 0) {
+                    hasParameter = true;
+                    proc.StartInfo.Arguments = "/" + parameter;
+                }
+
+                try {
+                    proc.Start();
+
+                    //All good; essage
+                    if (hasParameter) {
+                        successMessage = "Switched to " + parameter + " display mode";
+                    } else {
+                        successMessage = "Opened DisplaySwitch";
+                    }
+                } catch (Exception e) {
+                    Error("Failed to switch display, most likely because it targets the wrong directory (64 vs. 32 bit)");
+                }
+            } else {
+                Error("Mode \"" + parameter + "\" not supported");
             }
         }
 

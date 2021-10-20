@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 15-01-2020
+ * Updated: v1.4.4, 19-05-2021
  * 
  * Use:
  * - Checks and execute action files
@@ -382,11 +382,12 @@ namespace AssistantComputerControl {
                 new CleanupService().Start();
             }
 
-            
-            
             if (!String.IsNullOrEmpty(theActionExecution.errorMessage)) {
                 MainProgram.DoDebug("[ERROR]: " + theActionExecution.errorMessage);
-                ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
+                if (Properties.Settings.Default.ActionMessageBox) {
+                    ErrorMessageBox(theActionExecution.errorMessage, "Action Error  " + MainProgram.messageBoxTitle);
+                }
+
             } else {
                 if (!String.IsNullOrEmpty(theActionExecution.successMessage)) {
                     MainProgram.DoDebug("\nSUCCESS: " + theActionExecution.successMessage + "\n");
@@ -472,6 +473,11 @@ namespace AssistantComputerControl {
                             actionExecution.Open(parameter);
                         }
                         break;
+                    case "open_any":
+                        if (RequireParameter(parameter)) {
+                            actionExecution.OpenAny(parameter);
+                        }
+                        break;
                     case "open_all":
                         if (RequireParameter(parameter)) {
                             actionExecution.OpenAll(parameter);
@@ -542,6 +548,12 @@ namespace AssistantComputerControl {
                         if (RequireParameter(parameter)) {
                             actionExecution.Wait(parameter);
                         }
+                        break;
+                    case "ignoreme":
+                        actionExecution.IgnoreMe();
+                        break;
+                    case "display_switch":
+                        actionExecution.DisplayMode(parameter);
                         break;
                     default:
                         //Unknown action

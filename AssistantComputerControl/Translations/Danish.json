@@ -31,6 +31,7 @@
       "save_language_btn": "gem",
       "start_with_windows": "Åben med Windows?",
       "check_for_updates": "Søg automatisk efter opdateringer?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Vær en del af beta-programmet (og få opdateringer tidligt)",
 
       "file_edited_margin": "Filændring margen (sekunder)",
@@ -150,19 +151,11 @@
 
       /* Google Drive specific */
       "make_google_account": "Du har sikkert allerede en Google konto - hvis ikke, <a href=\"https://accounts.google.com/signup/v2\">opret en</a>",
-      "google_drive_download": "Download Google Drive til din computer, <a href=\"https://www.google.com/drive/download/\">vælg \"Private; Backup and Sync\"</a> <small>(hvis det ikke allerede er installeret)</small>",
+      "google_drive_download": "Download <a href=\"https://www.google.com/drive/download/\">Google Drive</a> til din computer, <small>(hvis det ikke allerede er installeret)</small>",
       "google_drive_install": "Kør installationsprogrammet og færdiggør installationen",
-      "google_drive_click_logo": "Klik på Google Drive \"Backup and sync\" logoet i proceslinjen",
+      "google_drive_click_logo": "Klik på Google Drive logoet i proceslinjen",
       "google_drive_preferences": "Tryk på de tre prikker i højre hjørne og gå til <b>\"Preferences\"</b> <i>(indstillinger)</i>",
       "google_drive_sync": "Klik på <b>\"Google Drive\"</b> fanen og sikre dig at <b>\"Sync My Drive to this computer\"</b> er aktiv",
-
-      "google_drive_sync_all": "Vil du have alle dine Google Drive filer på computeren?",
-      "google_drive_sync_all_desc": "Vælg \"Sync everything in My Drive (x GB)\"",
-      "google_drive_acc_only_sync": "... eller <i>bare</i> for AssistantComputerControl's skyld?",
-      "google_drive_website_goto": "Gå til Google Drive (i din browser)",
-      "google_drive_create_folder": "I \"My drive\" fanen, højre-klik og lav en ny mappe",
-      "google_drive_name_folder": "Navngiv mappen \"AssistantComputerControl\" <i>(vigtigt at det er stavet rigtigt)</i>",
-      "google_drive_sync_specific_folders": "Vælg \"Sync these folders only...\", og un-tick alt undtagen mappen kaldet \"AssistantComputerControl\"",
 
       /* IFTTT specific */
       "set_up_ifttt_acc": "Set din IFTTT konto op",

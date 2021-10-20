@@ -31,6 +31,7 @@
       "save_language_btn": "Kaydet",
       "start_with_windows": "Windows ile beraber başlasın mı?",
       "check_for_updates": "Güncellemeler denetlensin mi?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Beta programına katılmak ister misiniz?",
 
       "file_edited_margin": "Dosya düzenlenmiş kenar boşluğu (saniye)",
@@ -149,19 +150,11 @@
 
       /* Google Drive specific */
       "make_google_account": "Halihazırda Google hesabın vardır - eğer yoksa, <a href=\"https://accounts.google.com/signup/v2\">make one</a>",
-      "google_drive_download": "Google Drive 'ı bilgisayarınıza indirin <a href=\"https://www.google.com/drive/download/\">choose \"Private; Backup and Sync\"</a> <small>(if you haven't already)</small>",
+      "google_drive_download": "Google Drive 'ı bilgisayarınıza indirin <a href=\"https://www.google.com/drive/download/\">choose \"Download Drive for desktop\"</a> <small>(if you haven't already)</small>",
       "google_drive_install": "Yükleyiciyi çalıştır ve kurulumu tamamla",
       "google_drive_click_logo": "Görev çubuğundaki \"Geri yükleme ve senkronizasyon\" a tıkla",
       "google_drive_preferences": "Sağ köşedeki üç noktaya tıkla, ve <b>\"Tercihler\"</b> e tıkla",
       "google_drive_sync": "<b> \"Google Drive \" </b> sekmesine gidin ve <b> \"Sürücümü bu bilgisayara senkronize et \" </b> seçeneğinin işaretli olduğundan emin olun",
-
-      "google_drive_sync_all": "Bilgisayarınızdaki tüm Google Drive dosyalarınızı istiyor musunuz?",
-      "google_drive_sync_all_desc": "\"Sürücümdeki her şeyi senkronize et (x GB) \" öğesini seçin",
-      "google_drive_acc_only_sync": "... yoksa <i> sadece </i> AssistantComputerControl için mi?",
-      "google_drive_website_goto": "Google Drive a gidin (tarayıcınızda)",
-      "google_drive_create_folder": "\"Drive 'ım \" sekmesinde, bölüm dosyaları bölümünü sağ tıklayın veya \"Drive' ım \" açılır menüsüne basın ve <b> \"Yeni klasör \" </b> seçeneğini seçin",
-      "google_drive_name_folder": "Klasörü \"AssistantComputerControl \" olarak adlandırın <i> (burada yazım hatalarının olmaması önemlidir) </i>",
-      "google_drive_sync_specific_folders": "\"Yalnızca bu klasörleri eşitle ... \" öğesini seçin ve \"AssistantComputerControl \" adlı klasör dışındaki her şeyin işaretini kaldırın.",
 
       /* IFTTT specific */
       "set_up_ifttt_acc": "IFTTT hesabınızı ayarlayın",

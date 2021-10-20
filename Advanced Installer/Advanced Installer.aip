@@ -41,10 +41,10 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{0371981B-D00D-4213-ACE4-C5D20778B231} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{9531A112-84A4-48EE-8DFC-3B76EA1B5EEF} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.4.3" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.4.5" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -140,6 +140,7 @@
     <ROW File="Spanish.json" Component_="Danish.json" FileName="SPANIS~1.JSO|Spanish.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Spanish.json" SelfReg="false"/>
     <ROW File="PortugueseBrasil.json" Component_="Danish.json" FileName="PORTUG~1.JSO|Portuguese - Brasil.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Portuguese - Brasil.json" SelfReg="false"/>
     <ROW File="Dutch.json" Component_="Danish.json" FileName="DUTCH~1.JSO|Dutch.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Dutch.json" SelfReg="false"/>
+    <ROW File="ActionTester.html" Component_="AboutVersion.html" FileName="ACTION~1.HTM|ActionTester.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\ActionTester.html" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
@@ -158,7 +159,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\..\..\..\Desktop\logo_ico - Copy.ico" UseLargeSchema="true" ExeName="ACCsetup" UACExecutionLevel="2"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\ACC stuff\Images\Icons\logo_ico.ico" UseLargeSchema="true" ExeName="ACCsetup" UACExecutionLevel="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -273,7 +274,7 @@
     <ROW Feature_="MainFeature" Component_="bootstrap.min.old.css"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
-    <ROW Name="logo_ico.exe" SourcePath="..\..\..\..\..\Desktop\logo_ico.ico" Index="0"/>
+    <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>

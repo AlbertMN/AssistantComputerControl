@@ -38,6 +38,7 @@ namespace AssistantComputerControl {
             //Set values
             startWithWindows.Checked = MainProgram.ACCStartsWithWindows();
             checkUpdates.Checked = Properties.Settings.Default.CheckForUpdates;
+            actionErrorMessageBox.Checked = Properties.Settings.Default.ActionMessageBox;
             betaProgram.Checked = Properties.Settings.Default.BetaProgram;
             warnDeletion.Checked = Properties.Settings.Default.WarnWhenDeletingManyFiles;
             defaultComputer.Checked = Properties.Settings.Default.DefaultComputer;
@@ -104,6 +105,14 @@ namespace AssistantComputerControl {
                     new SoftwareUpdater().Check();
                 }
             }
+        }
+
+        private void actionErrorMessageBox_CheckedChanged(object sender, EventArgs e) {
+            if (Properties.Settings.Default.ActionMessageBox != actionErrorMessageBox.Checked) {
+                Properties.Settings.Default.ActionMessageBox = actionErrorMessageBox.Checked;
+                Properties.Settings.Default.Save();
+            }
+            
         }
 
         private void betaProgram_CheckedChanged(object sender, EventArgs e) {
@@ -214,5 +223,7 @@ namespace AssistantComputerControl {
         private void changelogOpen_Click(object sender, EventArgs e) {
             new NewVersion().Show();
         }
+
+        
     }
 }

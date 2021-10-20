@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.0, 15-01-2020
+ * Updated: v1.4.4, 08-05-2021
  * 
  * Use:
  * - Cleans action files up after they've been processed
@@ -69,7 +69,7 @@ namespace AssistantComputerControl {
 
                             Process p = new Process();
                             p.StartInfo.FileName = "powershell.exe";
-                            p.StartInfo.Arguments = $"-WindowStyle Hidden -file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"";
+                            p.StartInfo.Arguments = $"-WindowStyle Hidden -file \"{ps1File}\" \"{Path.Combine(MainProgram.CheckPath(true), "*")}\" \"*.{Properties.Settings.Default.ActionFileExtension}\"";
                             p.StartInfo.UseShellExecute = false;
                             p.StartInfo.CreateNoWindow = true;
                             p.Start();
@@ -89,16 +89,23 @@ namespace AssistantComputerControl {
         }
 
         private bool EmptyCheck() {
-            return Directory.GetFiles(MainProgram.CheckPath()).Length > 0;
+            return Directory.GetFiles(MainProgram.CheckPath(true)).Length > 0;
         }
 
         private int AllHiddenCheck() {
             int count = 0;
-            foreach (string file in Directory.GetFiles(MainProgram.CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
-                bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
-                if (!hidden || file.Contains("computerAction")) {
-                    //MainProgram.DoDebug("[CLEANUP] Found file; " + file);
-                    count++;
+            foreach (string file in Directory.GetFiles(MainProgram.CheckPath(true), "*." + Properties.Settings.Default.ActionFileExtension)) {
+                if (File.Exists(file)) {
+                    try {
+                        //Shouldn't think it'd be needed, but it is
+                        bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
+                        if (!hidden || file.Contains("computerAction")) {
+                            //MainProgram.DoDebug("[CLEANUP] Found file; " + file);
+                            count++;
+                        }
+                    } catch {
+                        //Probably failed to get attribute
+                    }
                 }
             }
             return count;
@@ -106,12 +113,12 @@ namespace AssistantComputerControl {
         
         private bool Check() {
             if (EmptyCheck()) {
-                DirectoryInfo di = new DirectoryInfo(MainProgram.CheckPath());
+                DirectoryInfo di = new DirectoryInfo(MainProgram.CheckPath(true));
 
                 int numFiles = 0;
 
                 try {
-                    foreach (string file in Directory.GetFiles(MainProgram.CheckPath(), "*." + Properties.Settings.Default.ActionFileExtension)) {
+                    foreach (string file in Directory.GetFiles(MainProgram.CheckPath(true), "*." + Properties.Settings.Default.ActionFileExtension)) {
                         //if (cleanedFiles.Contains(file)) continue;
 
                         bool hidden = (File.GetAttributes(file) & FileAttributes.Hidden) == FileAttributes.Hidden;
@@ -126,7 +133,7 @@ namespace AssistantComputerControl {
                         
                         //string newFilename = Path.Combine(Path.GetDirectoryName(file), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
                         //string newFilename = Path.Combine(tmpFolder, "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
-                        //string newFilename = Path.Combine(Path.Combine(MainProgram.CheckPath(), "used_actions"), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
+                        //string newFilename = Path.Combine(Path.Combine(MainProgram.CheckPath(true), "used_actions"), "action_" + DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + "_" + Guid.NewGuid() + "." + Properties.Settings.Default.ActionFileExtension);
                         //File.Move(file, newFilename);
                         //File.Delete(newFilename);
                         File.Delete(file);

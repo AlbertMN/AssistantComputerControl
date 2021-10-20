@@ -30,6 +30,7 @@
       "save_language_btn": "salva",
       "start_with_windows": "Avvia con Windows?",
       "check_for_updates": "Controlla gli aggiornamenti?",
+      "action_error_message_box": "Show action errors?",
       "join_beta_program": "Unisciti al programma beta?",
 
       "file_edited_margin": "Limite di modifica del file (secondi)",
@@ -142,19 +143,11 @@
 
       /* Google Drive specific */
       "make_google_account": "Molto probabilmente hai già un account Google - in caso contrario, <a href=\"https://accounts.google.com/signup/v2\">creane uno</a>",
-      "google_drive_download": "Scarica Google Drive per il tuo computer <a href=\"https://www.google.com/drive/download/\">seleziona \"Personale; Backup e sincronizzazione\"</a> <small>(se non lo hai già)</small>",
+      "google_drive_download": "Scarica Google Drive per il tuo computer <a href=\"https://www.google.com/drive/download/\">seleziona \"Download\"</a> <small>(se non lo hai già)</small>",
       "google_drive_install": "Avvia l'installer e completa l'installazione",
       "google_drive_click_logo": "Clicca sul logo \"Backup e sincronizzazione di Google\" sulla barra delle applicazioni",
       "google_drive_preferences": "Premi i tre pallini sulla destra, e seleziona <b>\"Preferenze\"</b>",
       "google_drive_sync": "Vai sulla sezione <b>\"Google Drive\"</b> e accertati che <b>\"Sincronizza il mio Drive su questo computer\"</b> sia selezionato",
-
-      "google_drive_sync_all": "Vuoi tutti i tuoi file di Google Drive sul tuo computer?",
-      "google_drive_sync_all_desc": "Seleziona \"Sincronizza tutto il mio Drive (x GB)\"",
-      "google_drive_acc_only_sync": "... oppure vuoi sincronizzare <i>solo</i> AssistantComputerControl?",
-      "google_drive_website_goto": "Vai sul tuo Google Drive (dal tuo browser)",
-      "google_drive_create_folder": "Nella scheda \"Il mio Drive\" a lato, fai clic col tasto destro del mouse o premi il menu a discesa da \"Il mio Drive\" in alto e scegli <b>\"Nuova cartella\"</b>",
-      "google_drive_name_folder": "Chiama la cartella \"AssistantComputerControl\" <i>(è importante che non siano inseriti altri tipi di caratteri)</i>",
-      "google_drive_sync_specific_folders": "Seleziona \"Sincronizza solo queste cartelle...\", e deseleziona tutto tranne la cartella \"AssistantComputerControl\"",
 
       /* IFTTT specific */
       "set_up_ifttt_acc": "Configura il tuo account IFTTT",

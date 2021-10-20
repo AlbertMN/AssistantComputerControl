@@ -17,7 +17,7 @@
             compatibility.
         -->
         <!--<requestedExecutionLevel level="asInvoker" uiAccess="false" />-->
-        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <!--<requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />-->
       </requestedPrivileges>
       <applicationRequestMinimum>
         <defaultAssemblyRequest permissionSetReference="Custom" />
