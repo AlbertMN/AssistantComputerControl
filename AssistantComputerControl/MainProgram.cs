@@ -265,9 +265,10 @@ namespace AssistantComputerControl {
                     Path = CheckPath(),
                     NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                         | NotifyFilters.FileName | NotifyFilters.DirectoryName,
-                    Filter = "*." + Properties.Settings.Default.ActionFileExtension,
+                    Filter = "*" + Properties.Settings.Default.ActionFileExtension,
                     EnableRaisingEvents = true
                 };
+                watcher.IncludeSubdirectories = true;
                 watcher.Changed += new FileSystemEventHandler(new ActionChecker().FileFound);
                 watcher.Created += new FileSystemEventHandler(new ActionChecker().FileFound);
                 watcher.Renamed += new RenamedEventHandler(new ActionChecker().FileFound);
@@ -555,7 +556,7 @@ namespace AssistantComputerControl {
 
         public static void SetupListener() {
             watcher.Path = CheckPath();
-            watcher.Filter = "*." + Properties.Settings.Default.ActionFileExtension;
+            watcher.Filter = "*" + Properties.Settings.Default.ActionFileExtension;
             TaskSchedulerSetup();
             DoDebug("Listener modified");
         }
