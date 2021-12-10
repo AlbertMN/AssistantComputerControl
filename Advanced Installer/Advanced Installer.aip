@@ -41,7 +41,7 @@
     <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{9531A112-84A4-48EE-8DFC-3B76EA1B5EEF} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{92F676B6-F4C0-4553-A7E3-B4361A879488} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
     <ROW Property="ProductVersion" Value="1.4.5" Type="32"/>
@@ -77,17 +77,16 @@
     <ROW Component="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" ComponentId="{96EDF0E9-D6F9-4B38-84EE-46DB345E2EE4}" Directory_="APPDIR" Attributes="0" KeyPath="AssistantComputerControl.exe"/>
     <ROW Component="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" ComponentId="{75B8D396-B011-4F76-943A-6FD24E3726E3}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.WindowsAPICodePack.dll" Type="0"/>
     <ROW Component="APPDIR" ComponentId="{583DE5B3-916B-4FB0-9F45-FA5EE335BBD3}" Directory_="APPDIR" Attributes="0"/>
-    <ROW Component="AboutVersion.html" ComponentId="{0A203C51-FFCA-4640-B9DF-80AA6D0BA39A}" Directory_="WebFiles_Dir" Attributes="0" KeyPath="AboutVersion.html" Type="0"/>
+    <ROW Component="AboutVersion.html" ComponentId="{44F2818A-49EC-443D-80FF-E8FDEDFCDF9F}" Directory_="WebFiles_Dir" Attributes="0" KeyPath="AboutVersion.html" Type="0"/>
     <ROW Component="AssistantComputerControl_PrimaryOutput" ComponentId="{6D6B0D60-588B-4115-BB23-8350BF6AD151}" Directory_="APPDIR" Attributes="0" KeyPath="AssistantComputerControl.exe.config"/>
     <ROW Component="Danish.json" ComponentId="{30B39B19-7135-43EE-8834-50F0A05D5851}" Directory_="Translations_Dir" Attributes="0" KeyPath="Danish.json" Type="0"/>
     <ROW Component="ProductInformation" ComponentId="{72E5C433-D45C-45F4-AF47-0DD66CC8E52E}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{4405308F-0979-4250-8A8D-0622FA7AF17C}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="acclogo.png" ComponentId="{17CD3B7D-63BC-4942-A1DE-45745465159E}" Directory_="images_Dir" Attributes="0" KeyPath="ifttt_logo.png" Type="0"/>
-    <ROW Component="bootstrap.min.old.css" ComponentId="{F90E6855-05C3-439F-9255-E2FF62149BE9}" Directory_="assets_Dir" Attributes="0" KeyPath="bootstrap.min.old.css" Type="0"/>
-    <ROW Component="dropbox.png" ComponentId="{61A99AF5-F5C9-43FC-9753-1E8B2CE42DB9}" Directory_="cloud_services_Dir" Attributes="0" KeyPath="dropbox.png" Type="0"/>
-    <ROW Component="getting_started_main.css" ComponentId="{78C894CD-0028-4FFB-9196-873F2B6DDADB}" Directory_="css_Dir" Attributes="0" KeyPath="getting_started_main.css" Type="0"/>
-    <ROW Component="getting_started_scripts.js" ComponentId="{F0BCADC8-6DF3-4F83-AF0F-DD2817185372}" Directory_="js_Dir" Attributes="0" KeyPath="getting_started_scripts.js" Type="0"/>
-    <ROW Component="onedrive_howto.gif" ComponentId="{4D4DB73B-7B0D-4536-BE81-C2AB031BEABC}" Directory_="gifs_Dir" Attributes="0" KeyPath="onedrive_howto.gif" Type="0"/>
+    <ROW Component="acc_logo.png" ComponentId="{F87D330B-08E7-4240-B79F-2C38A83246AF}" Directory_="images_Dir" Attributes="0" KeyPath="acc_logo.png" Type="0"/>
+    <ROW Component="bootstrap.min.css" ComponentId="{97446150-96D3-4D15-893D-001308291FCC}" Directory_="css_Dir" Attributes="0" KeyPath="bootstrap.min.css" Type="0"/>
+    <ROW Component="bootstrap.min.js" ComponentId="{61F890D0-B6B9-4A23-9336-8AD2AFA1DD81}" Directory_="js_Dir" Attributes="0" KeyPath="bootstrap.min.js" Type="0"/>
+    <ROW Component="dropbox.png" ComponentId="{CFA46F3F-EFF8-44FA-A18B-C1DC9D1421EB}" Directory_="cloud_services_Dir" Attributes="0" KeyPath="dropbox.png" Type="0"/>
+    <ROW Component="onedrive_howto.gif" ComponentId="{CBC10E67-245C-4A69-9BFA-811FFB4405E8}" Directory_="gifs_Dir" Attributes="0" KeyPath="onedrive_howto.gif" Type="0"/>
     <ROW Component="shortcuts" ComponentId="{3AD7B8C4-6A66-4FF8-99B1-47940292F2CC}" Directory_="shortcuts_Dir" Attributes="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
@@ -104,35 +103,9 @@
     <ROW File="Sentry.PlatformAbstractions.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.PlatformAbstractions.dll&gt;" SelfReg="false"/>
     <ROW File="Sentry.Protocol.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SENTRY~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Sentry.Protocol.dll&gt;" SelfReg="false"/>
     <ROW File="System.Collections.Immutable.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~2.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Collections.Immutable.dll&gt;" SelfReg="false"/>
-    <ROW File="AboutVersion.html" Component_="AboutVersion.html" FileName="ABOUTV~1.HTM|AboutVersion.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\AboutVersion.html" SelfReg="false"/>
-    <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false"/>
-    <ROW File="NewVersion.cs" Component_="AboutVersion.html" FileName="NEWVER~1.CS|NewVersion.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.cs" SelfReg="false"/>
-    <ROW File="NewVersion.Designer.cs" Component_="AboutVersion.html" FileName="NEWVER~2.CS|NewVersion.Designer.cs" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.Designer.cs" SelfReg="false"/>
-    <ROW File="NewVersion.resx" Component_="AboutVersion.html" FileName="NEWVER~1.RES|NewVersion.resx" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\NewVersion.resx" SelfReg="false"/>
-    <ROW File="dropbox.png" Component_="dropbox.png" FileName="dropbox.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\dropbox.png" SelfReg="false"/>
-    <ROW File="expert.png" Component_="dropbox.png" FileName="expert.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\expert.png" SelfReg="false"/>
-    <ROW File="googledrive.png" Component_="dropbox.png" FileName="GOOGLE~1.PNG|googledrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\googledrive.png" SelfReg="false"/>
-    <ROW File="onedrive.png" Component_="dropbox.png" FileName="onedrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\onedrive.png" SelfReg="false"/>
-    <ROW File="onedrive_howto.gif" Component_="onedrive_howto.gif" FileName="ONEDRI~1.GIF|onedrive_howto.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\onedrive_howto.gif" SelfReg="false"/>
-    <ROW File="sync_all_folders.gif" Component_="onedrive_howto.gif" FileName="SYNC_A~1.GIF|sync_all_folders.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_all_folders.gif" SelfReg="false"/>
-    <ROW File="sync_specific_folder.gif" Component_="onedrive_howto.gif" FileName="SYNC_S~1.GIF|sync_specific_folder.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_specific_folder.gif" SelfReg="false"/>
-    <ROW File="IECheck.html" Component_="AboutVersion.html" FileName="IECHEC~1.HTM|IECheck.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\IECheck.html" SelfReg="false"/>
     <ROW File="NLog.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="[|AI_PROPPATH_FILENAME_PERBUILD_NLog.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_NLog.dll&gt;" SelfReg="false"/>
     <ROW File="Danish.json" Component_="Danish.json" FileName="DANISH~1.JSO|Danish.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Danish.json" SelfReg="false"/>
     <ROW File="English.json" Component_="Danish.json" FileName="ENGLIS~1.JSO|English.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\English.json" SelfReg="false"/>
-    <ROW File="getting_started_scripts.js" Component_="getting_started_scripts.js" FileName="GETTIN~1.JS|getting_started_scripts.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\getting_started_scripts.js" SelfReg="false"/>
-    <ROW File="getting_started_main.css" Component_="getting_started_main.css" FileName="GETTIN~1.CSS|getting_started_main.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\getting_started_main.css" SelfReg="false"/>
-    <ROW File="ifttt_logo.png" Component_="acclogo.png" FileName="IFTTT_~1.PNG|ifttt_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\ifttt_logo.png" SelfReg="false"/>
-    <ROW File="languageicon.png" Component_="acclogo.png" FileName="LANGUA~1.PNG|language-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\language-icon.png" SelfReg="false"/>
-    <ROW File="voiceicon.png" Component_="acclogo.png" FileName="VOICE-~1.PNG|voice-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\voice-icon.png" SelfReg="false"/>
-    <ROW File="acc_logo.png" Component_="acclogo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\acc_logo.png" SelfReg="false"/>
-    <ROW File="bootstrap.min.old.css" Component_="bootstrap.min.old.css" FileName="BOOTST~1.CSS|bootstrap.min.old.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\bootstrap.min.old.css" SelfReg="false"/>
-    <ROW File="bootstrap.min.css" Component_="getting_started_main.css" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\bootstrap.min.css" SelfReg="false"/>
-    <ROW File="sweetalert2.min.css" Component_="getting_started_main.css" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\sweetalert2.min.css" SelfReg="false"/>
-    <ROW File="bootstrap.min.js" Component_="getting_started_scripts.js" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\bootstrap.min.js" SelfReg="false"/>
-    <ROW File="jquery.js" Component_="getting_started_scripts.js" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\jquery.js" SelfReg="false"/>
-    <ROW File="popper.min.js" Component_="getting_started_scripts.js" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\popper.min.js" SelfReg="false"/>
-    <ROW File="sweetalert2.min.js" Component_="getting_started_scripts.js" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\sweetalert2.min.js" SelfReg="false"/>
     <ROW File="Francais.json" Component_="Danish.json" FileName="FRANCA~1.JSO|Francais.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Francais.json" SelfReg="false"/>
     <ROW File="Italian.json" Component_="Danish.json" FileName="ITALIA~1.JSO|Italian.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Italian.json" SelfReg="false"/>
     <ROW File="Microsoft.Win32.TaskScheduler.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~4.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.Win32.TaskScheduler.dll&gt;" SelfReg="false"/>
@@ -140,7 +113,30 @@
     <ROW File="Spanish.json" Component_="Danish.json" FileName="SPANIS~1.JSO|Spanish.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Spanish.json" SelfReg="false"/>
     <ROW File="PortugueseBrasil.json" Component_="Danish.json" FileName="PORTUG~1.JSO|Portuguese - Brasil.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Portuguese - Brasil.json" SelfReg="false"/>
     <ROW File="Dutch.json" Component_="Danish.json" FileName="DUTCH~1.JSO|Dutch.json" Attributes="0" SourcePath="..\AssistantComputerControl\Translations\Dutch.json" SelfReg="false"/>
+    <ROW File="UninstallCleanup.ps1" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="UNINST~1.PS1|UninstallCleanup.ps1" Attributes="0" SourcePath="..\AssistantComputerControl\UninstallCleanup.ps1" SelfReg="false"/>
+    <ROW File="AboutVersion.html" Component_="AboutVersion.html" FileName="ABOUTV~1.HTM|AboutVersion.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\AboutVersion.html" SelfReg="false"/>
     <ROW File="ActionTester.html" Component_="AboutVersion.html" FileName="ACTION~1.HTM|ActionTester.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\ActionTester.html" SelfReg="false"/>
+    <ROW File="dropbox.png" Component_="dropbox.png" FileName="dropbox.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\dropbox.png" SelfReg="false"/>
+    <ROW File="expert.png" Component_="dropbox.png" FileName="expert.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\expert.png" SelfReg="false"/>
+    <ROW File="googledrive.png" Component_="dropbox.png" FileName="GOOGLE~1.PNG|googledrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\googledrive.png" SelfReg="false"/>
+    <ROW File="onedrive.png" Component_="dropbox.png" FileName="onedrive.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\cloud_services\onedrive.png" SelfReg="false"/>
+    <ROW File="bootstrap.min.css" Component_="bootstrap.min.css" FileName="BOOTST~1.CSS|bootstrap.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\bootstrap.min.css" SelfReg="false"/>
+    <ROW File="getting_started_main.css" Component_="bootstrap.min.css" FileName="GETTIN~1.CSS|getting_started_main.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\getting_started_main.css" SelfReg="false"/>
+    <ROW File="sweetalert2.min.css" Component_="bootstrap.min.css" FileName="SWEETA~1.CSS|sweetalert2.min.css" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\css\sweetalert2.min.css" SelfReg="false"/>
+    <ROW File="onedrive_howto.gif" Component_="onedrive_howto.gif" FileName="ONEDRI~1.GIF|onedrive_howto.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\onedrive_howto.gif" SelfReg="false"/>
+    <ROW File="sync_all_folders.gif" Component_="onedrive_howto.gif" FileName="SYNC_A~1.GIF|sync_all_folders.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_all_folders.gif" SelfReg="false"/>
+    <ROW File="sync_specific_folder.gif" Component_="onedrive_howto.gif" FileName="SYNC_S~1.GIF|sync_specific_folder.gif" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\gifs\sync_specific_folder.gif" SelfReg="false"/>
+    <ROW File="acc_logo.png" Component_="acc_logo.png" FileName="acc_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\acc_logo.png" SelfReg="false"/>
+    <ROW File="ifttt_logo.png" Component_="acc_logo.png" FileName="IFTTT_~1.PNG|ifttt_logo.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\ifttt_logo.png" SelfReg="false"/>
+    <ROW File="languageicon.png" Component_="acc_logo.png" FileName="LANGUA~1.PNG|language-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\language-icon.png" SelfReg="false"/>
+    <ROW File="voiceicon.png" Component_="acc_logo.png" FileName="VOICE-~1.PNG|voice-icon.png" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\images\voice-icon.png" SelfReg="false"/>
+    <ROW File="bootstrap.min.js" Component_="bootstrap.min.js" FileName="BOOTST~1.JS|bootstrap.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\bootstrap.min.js" SelfReg="false"/>
+    <ROW File="getting_started_scripts.js" Component_="bootstrap.min.js" FileName="GETTIN~1.JS|getting_started_scripts.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\getting_started_scripts.js" SelfReg="false"/>
+    <ROW File="jquery.js" Component_="bootstrap.min.js" FileName="jquery.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\jquery.js" SelfReg="false"/>
+    <ROW File="popper.min.js" Component_="bootstrap.min.js" FileName="POPPER~1.JS|popper.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\popper.min.js" SelfReg="false"/>
+    <ROW File="sweetalert2.min.js" Component_="bootstrap.min.js" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\sweetalert2.min.js" SelfReg="false"/>
+    <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false"/>
+    <ROW File="IECheck.html" Component_="AboutVersion.html" FileName="IECHEC~1.HTM|IECheck.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\IECheck.html" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
@@ -193,7 +189,9 @@
     <ROW Property="AI_SETUPEXEPATH" Signature_="AI_EXE_PATH_CU" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="PowerShellScriptLauncher.dll" SourcePath="&lt;AI_CUSTACTS&gt;PowerShellScriptLauncher.dll"/>
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="UninstallCleanup.ps1" SourcePath="..\AssistantComputerControl\UninstallCleanup.ps1"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="banner.png" SourcePath="..\..\ACC stuff\Images\Advanced Installer\banner.png"/>
     <ROW Name="dialogbitmap.png" SourcePath="..\..\ACC stuff\Images\Advanced Installer\dialogbitmap.png"/>
@@ -231,6 +229,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DATA_SETTER" Type="51" Source="AI_ExtractFiles" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DATA_SETTER_1" Type="51" Source="CustomActionData" Target="AEYAbABhAGcAcwACADcAAQBTAGMAcgBpAHAAdABTAHIAYwBCAGkAbgBhAHIAeQBSAG8AdwBJAGQAAgBVAG4AaQBuAHMAdABhAGwAbABDAGwAZQBhAG4AdQBwAC4AcABzADE="/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
     <ROW Action="AI_DeleteCadLzma" Type="51" Source="AI_DeleteLzma" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DeleteLzma" Type="1025" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
@@ -251,6 +250,7 @@
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
     <ROW Action="AssistantComputerControl.exe" Type="210" Source="AssistantComputerControl.exe"/>
+    <ROW Action="PowerShellScriptFile" Type="1" Source="PowerShellScriptLauncher.dll" Target="RunPowerShellFileScript" Options="134217729" AdditionalSeq="AI_DATA_SETTER_1"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFilesFolder][ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
@@ -259,19 +259,18 @@
     <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe"/>
     <ROW Feature_="MainFeature" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll"/>
-    <ROW Feature_="MainFeature" Component_="AboutVersion.html"/>
     <ROW Feature_="MainFeature" Component_="AssistantComputerControl_PrimaryOutput"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
-    <ROW Feature_="MainFeature" Component_="dropbox.png"/>
-    <ROW Feature_="MainFeature" Component_="onedrive_howto.gif"/>
     <ROW Feature_="MainFeature" Component_="shortcuts"/>
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="Danish.json"/>
-    <ROW Feature_="MainFeature" Component_="getting_started_scripts.js"/>
-    <ROW Feature_="MainFeature" Component_="getting_started_main.css"/>
-    <ROW Feature_="MainFeature" Component_="acclogo.png"/>
-    <ROW Feature_="MainFeature" Component_="bootstrap.min.old.css"/>
+    <ROW Feature_="MainFeature" Component_="AboutVersion.html"/>
+    <ROW Feature_="MainFeature" Component_="dropbox.png"/>
+    <ROW Feature_="MainFeature" Component_="bootstrap.min.css"/>
+    <ROW Feature_="MainFeature" Component_="onedrive_howto.gif"/>
+    <ROW Feature_="MainFeature" Component_="acc_logo.png"/>
+    <ROW Feature_="MainFeature" Component_="bootstrap.min.js"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>

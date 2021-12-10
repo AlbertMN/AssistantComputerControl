@@ -183,6 +183,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Translator.cs" />
+    <None Include="UninstallCleanup.ps1" />
     <Compile Include="UserFeedback.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,7 +265,6 @@
     <Content Include="WebFiles\ActionTester.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebFiles\assets\bootstrap.min.old.css" />
     <Content Include="WebFiles\assets\cloud_services\dropbox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
