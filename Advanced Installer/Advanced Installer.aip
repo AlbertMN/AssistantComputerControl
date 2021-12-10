@@ -296,6 +296,8 @@
     <ROW Action="AI_DATA_SETTER" Sequence="3997"/>
     <ROW Action="AI_EstimateExtractFiles" Sequence="3999" Builds="DefaultBuild"/>
     <ROW Action="AssistantComputerControl.exe" Condition="( NOT Installed )" Sequence="6601"/>
+    <ROW Action="PowerShellScriptFile" Condition="( Installed AND ( REMOVE = &quot;ALL&quot; OR AI_INSTALL_MODE = &quot;Remove&quot; ) AND NOT UPGRADINGPRODUCTCODE ) AND ( (VersionNT &gt; 501) OR (VersionNT = 501 AND ServicePackLevel &gt;= 2) )" Sequence="6402"/>
+    <ROW Action="AI_DATA_SETTER_1" Condition="( Installed AND ( REMOVE = &quot;ALL&quot; OR AI_INSTALL_MODE = &quot;Remove&quot; ) AND NOT UPGRADINGPRODUCTCODE ) AND ( (VersionNT &gt; 501) OR (VersionNT = 501 AND ServicePackLevel &gt;= 2) )" Sequence="6401"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
