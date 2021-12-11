@@ -383,14 +383,6 @@ namespace AssistantComputerControl {
                         Properties.Settings.Default.Save();
                     }
 
-                    if (Properties.Settings.Default.UID != "") {
-                        SentrySdk.ConfigureScope(scope => {
-                            scope.User = new Sentry.Protocol.User {
-                                Id = Properties.Settings.Default.UID
-                            };
-                        });
-                    }
-
                     using (SentrySdk.Init(sentryToken)) {
                         sentryOK = true;
                     }
@@ -431,15 +423,15 @@ namespace AssistantComputerControl {
             var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
 
             try {
-                var userId = WindowsIdentity.GetCurrent().Name;
                 using (var ts = new TaskService()) {
                     var td = ts.NewTask();
                     td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
                     td.RegistrationInfo.Description = "AssistantComputerControl cleanup - clears the action folder to prevent the same action being executed twice";
+                    td.Principal.RunLevel = TaskRunLevel.LUA;
 
                     td.Actions.Add(new ExecAction("mshta.exe", $"vbscript:Execute(\"CreateObject(\"\"WScript.Shell\"\").Run \"\"powershell -ExecutionPolicy Bypass & '{ps1File}' '{Path.Combine(MainProgram.CheckPath(), "*")}' '*.{Properties.Settings.Default.ActionFileExtension}'\"\", 0:close\")", null));
                     
-                    td.Triggers.Add(new LogonTrigger { UserId = userId, });
+                    td.Triggers.Add(new LogonTrigger { UserId = WindowsIdentity.GetCurrent().Name, });
                     ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl cleanup", td);
                 }
             } catch (Exception e) {

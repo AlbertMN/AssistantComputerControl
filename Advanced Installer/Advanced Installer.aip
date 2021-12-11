@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="16.6.1" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="15.0.1" version="18.9.1" Modules="professional" RootPath="." Language="en" Id="{878E7B14-C44F-4C1C-AB0B-4449D443B80D}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
-    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;FixupComponent"/>
+    <ROW Name="AssetGenPkgDestFolderPath" Value="Generated Assets" ValueType="1"/>
+    <ROW Name="MigrationUninstallCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Value="..\packages\TaskScheduler.2.8.20\lib\net452"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Value="..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Value="..\packages\TaskScheduler.2.9.2\lib\net452"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Shell.1.1.0\lib"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="..\packages\Microsoft.WindowsAPICodePack.Core.1.1.0\lib"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NLog.dll" Value="..\packages\NLog.4.6.8\lib\net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.12.0.1\lib\net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll" Value="..\packages\Sentry.PlatformAbstractions.1.0.0\lib\net45"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll" Value="..\packages\Sentry.Protocol.1.0.4\lib\net46"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.dll" Value="..\packages\Sentry.1.1.2\lib\net461"/>
-    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll" Value="..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_NLog.dll" Value="..\packages\NLog.4.7.13\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Newtonsoft.Json.dll" Value="..\packages\Newtonsoft.Json.13.0.1\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll" Value="..\packages\Sentry.PlatformAbstractions.1.1.1\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll" Value="..\packages\Sentry.Protocol.2.1.8\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_Sentry.dll" Value="..\packages\Sentry.3.12.1\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Buffers.dll" Value="..\packages\System.Buffers.4.5.1\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll" Value="..\packages\System.Collections.Immutable.6.0.0\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Memory.dll" Value="..\packages\System.Memory.4.5.4\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Numerics.Vectors.dll" Value="..\packages\System.Numerics.Vectors.4.5.0\lib\net46"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Reflection.Metadata.dll" Value="..\packages\System.Reflection.Metadata.5.0.0\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll" Value="..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll" Value="..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Text.Encodings.Web.dll" Value="..\packages\System.Text.Encodings.Web.5.0.1\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Text.Json.dll" Value="..\packages\System.Text.Json.5.0.2\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.Threading.Tasks.Extensions.dll" Value="..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461"/>
+    <ROW Property="AI_PROPPATH_DIR_PERBUILD_System.ValueTuple.dll" Value="..\packages\System.ValueTuple.4.5.0\lib\net461"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe" Value="AssistantComputerControl.exe"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config" Value="AssistantComputerControl.exe.config"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Value="Microsoft.Bcl.AsyncInterfaces.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Value="Microsoft.Win32.TaskScheduler.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Value="Microsoft.WindowsAPICodePack.Shell.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" Value="Microsoft.WindowsAPICodePack.dll"/>
@@ -27,7 +41,17 @@
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll" Value="Sentry.PlatformAbstractions.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll" Value="Sentry.Protocol.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll" Value="Sentry.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Buffers.dll" Value="System.Buffers.dll"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll" Value="System.Collections.Immutable.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Memory.dll" Value="System.Memory.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Numerics.Vectors.dll" Value="System.Numerics.Vectors.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Reflection.Metadata.dll" Value="System.Reflection.Metadata.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll" Value="System.Runtime.CompilerServices.Unsafe.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll" Value="System.Runtime.InteropServices.RuntimeInformation.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Text.Encodings.Web.dll" Value="System.Text.Encodings.Web.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Text.Json.dll" Value="System.Text.Json.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.Threading.Tasks.Extensions.dll" Value="System.Threading.Tasks.Extensions.dll"/>
+    <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_System.ValueTuple.dll" Value="System.ValueTuple.dll"/>
     <ROW Property="AI_RUN_AS_ADMIN" Value="0"/>
     <ROW Property="AI_ThemeStyle" Value="aero" MsiKey="AI_ThemeStyle"/>
     <ROW Property="ALLUSERS" Value="1"/>
@@ -38,8 +62,8 @@
     <ROW Property="ARPPRODUCTICON" Value="logo_ico.exe" Type="8"/>
     <ROW Property="ARPURLINFOABOUT" Value="https://assistantcomputercontrol.com/"/>
     <ROW Property="ARPURLUPDATEINFO" Value="https://assistantcomputercontrol.com/"/>
-    <ROW Property="BannerBitmap" Value="banner" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
-    <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
+    <ROW Property="BannerBitmap" Value="banner.jpg" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
+    <ROW Property="DialogBitmap" Value="dialog.jpg" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
     <ROW Property="ProductCode" Value="1033:{92F676B6-F4C0-4553-A7E3-B4361A879488} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
@@ -58,6 +82,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="Assets" Directory_Parent="TARGETDIR" DefaultDir="Assets" IsPseudoRoot="1"/>
     <ROW Directory="AssistantComputerControl_Dir" Directory_Parent="PersonalFolder" DefaultDir="ASSIST~1|AssistantComputerControl"/>
     <ROW Directory="PersonalFolder" Directory_Parent="TARGETDIR" DefaultDir="PERSON~1|PersonalFolder" IsPseudoRoot="1"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
@@ -86,10 +111,12 @@
     <ROW Component="bootstrap.min.css" ComponentId="{97446150-96D3-4D15-893D-001308291FCC}" Directory_="css_Dir" Attributes="0" KeyPath="bootstrap.min.css" Type="0"/>
     <ROW Component="bootstrap.min.js" ComponentId="{61F890D0-B6B9-4A23-9336-8AD2AFA1DD81}" Directory_="js_Dir" Attributes="0" KeyPath="bootstrap.min.js" Type="0"/>
     <ROW Component="dropbox.png" ComponentId="{CFA46F3F-EFF8-44FA-A18B-C1DC9D1421EB}" Directory_="cloud_services_Dir" Attributes="0" KeyPath="dropbox.png" Type="0"/>
+    <ROW Component="logo_ico.scale100.png" ComponentId="{5D32CF96-3E78-4586-9006-47C2C094784F}" Directory_="Assets" Attributes="0" KeyPath="logo_ico.scale100.png" Type="0"/>
     <ROW Component="onedrive_howto.gif" ComponentId="{CBC10E67-245C-4A69-9BFA-811FFB4405E8}" Directory_="gifs_Dir" Attributes="0" KeyPath="onedrive_howto.gif" Type="0"/>
     <ROW Component="shortcuts" ComponentId="{3AD7B8C4-6A66-4FF8-99B1-47940292F2CC}" Directory_="shortcuts_Dir" Attributes="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="AiAppXAssets" Title="AiAppXAssets" Description="Description" Display="3" Level="0" Directory_="APPDIR" Attributes="0" Options="271" Builds="Build_MSIX_APPX"/>
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
@@ -137,10 +164,148 @@
     <ROW File="sweetalert2.min.js" Component_="bootstrap.min.js" FileName="SWEETA~1.JS|sweetalert2.min.js" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\assets\js\sweetalert2.min.js" SelfReg="false"/>
     <ROW File="GettingStarted.html" Component_="AboutVersion.html" FileName="GETTIN~1.HTM|GettingStarted.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\GettingStarted.html" SelfReg="false"/>
     <ROW File="IECheck.html" Component_="AboutVersion.html" FileName="IECHEC~1.HTM|IECheck.html" Attributes="0" SourcePath="..\AssistantComputerControl\WebFiles\IECheck.html" SelfReg="false"/>
+    <ROW File="ExtraCleanupper.ps1" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="EXTRAC~1.PS1|ExtraCleanupper.ps1" Attributes="0" SourcePath="..\AssistantComputerControl\ExtraCleanupper.ps1" SelfReg="false"/>
+    <ROW File="Microsoft.Bcl.AsyncInterfaces.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="MICROS~5.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Buffers.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~3.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Buffers.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Buffers.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Memory.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~5.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Memory.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Memory.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Numerics.Vectors.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~6.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Numerics.Vectors.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Numerics.Vectors.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Reflection.Metadata.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~7.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Reflection.Metadata.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Reflection.Metadata.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Runtime.CompilerServices.Unsafe.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~8.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Runtime.InteropServices.RuntimeInformation.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTEM~9.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Text.Encodings.Web.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTE~10.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Text.Encodings.Web.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Text.Encodings.Web.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Text.Json.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTE~11.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Text.Json.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Text.Json.dll&gt;" SelfReg="false"/>
+    <ROW File="System.Threading.Tasks.Extensions.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTE~12.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.Threading.Tasks.Extensions.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.Threading.Tasks.Extensions.dll&gt;" SelfReg="false"/>
+    <ROW File="System.ValueTuple.dll" Component_="AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll" FileName="SYSTE~13.DLL|[|AI_PROPPATH_FILENAME_PERBUILD_System.ValueTuple.dll]" Attributes="0" SourcePath="&lt;AI_APPPATH_PERBUILD_System.ValueTuple.dll&gt;" SelfReg="false"/>
+    <ROW File="logo_ico.scale100.png" Component_="logo_ico.scale100.png" FileName="LOGO_I~6.PNG|logo_ico.scale-100.png" Attributes="0" SourcePath="..\..\..\..\..\Downloads\acc-logo.png" SelfReg="false"/>
+    <ROW File="logo_ico.scale125.png" Component_="logo_ico.scale100.png" FileName="LOGO_I~2.PNG|logo_ico.scale-125.png" Attributes="0" SourcePath="Generated Assets\logo_ico.scale-125.png" SelfReg="false"/>
+    <ROW File="logo_ico.scale150.png" Component_="logo_ico.scale100.png" FileName="LOGO_I~3.PNG|logo_ico.scale-150.png" Attributes="0" SourcePath="Generated Assets\logo_ico.scale-150.png" SelfReg="false"/>
+    <ROW File="logo_ico.scale200.png" Component_="logo_ico.scale100.png" FileName="LOGO_I~4.PNG|logo_ico.scale-200.png" Attributes="0" SourcePath="Generated Assets\logo_ico.scale-200.png" SelfReg="false"/>
+    <ROW File="logo_ico.scale400.png" Component_="logo_ico.scale100.png" FileName="LOGO_I~5.PNG|logo_ico.scale-400.png" Attributes="0" SourcePath="Generated Assets\logo_ico.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSIST~1.PNG|AssistantComputerControlSquare71x71Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSIST~2.PNG|AssistantComputerControlSquare71x71Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSIST~3.PNG|AssistantComputerControlSquare71x71Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSIST~4.PNG|AssistantComputerControlSquare71x71Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSIST~5.PNG|AssistantComputerControlSquare71x71Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSIST~6.PNG|AssistantComputerControlSquare71x71Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSIST~7.PNG|AssistantComputerControlSquare71x71Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSIST~8.PNG|AssistantComputerControlSquare71x71Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSIST~9.PNG|AssistantComputerControlSquare71x71Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSIS~10.PNG|AssistantComputerControlSquare71x71Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSIS~11.PNG|AssistantComputerControlSquare71x71Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSIS~12.PNG|AssistantComputerControlSquare71x71Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSIS~13.PNG|AssistantComputerControlSquare71x71Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSIS~14.PNG|AssistantComputerControlSquare71x71Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare71x71Logo.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSIS~15.PNG|AssistantComputerControlSquare71x71Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare71x71Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSIS~16.PNG|AssistantComputerControlSquare150x150Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSIS~17.PNG|AssistantComputerControlSquare150x150Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSIS~18.PNG|AssistantComputerControlSquare150x150Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSIS~19.PNG|AssistantComputerControlSquare150x150Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSIS~20.PNG|AssistantComputerControlSquare150x150Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSIS~21.PNG|AssistantComputerControlSquare150x150Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSIS~22.PNG|AssistantComputerControlSquare150x150Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSIS~23.PNG|AssistantComputerControlSquare150x150Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSIS~24.PNG|AssistantComputerControlSquare150x150Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSIS~25.PNG|AssistantComputerControlSquare150x150Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSIS~26.PNG|AssistantComputerControlSquare150x150Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSIS~27.PNG|AssistantComputerControlSquare150x150Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSIS~28.PNG|AssistantComputerControlSquare150x150Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSIS~29.PNG|AssistantComputerControlSquare150x150Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare150x150Logo.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSIS~30.PNG|AssistantComputerControlSquare150x150Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare150x150Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSIS~31.PNG|AssistantComputerControlWide310x150Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSIS~32.PNG|AssistantComputerControlWide310x150Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSIS~33.PNG|AssistantComputerControlWide310x150Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSIS~34.PNG|AssistantComputerControlWide310x150Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSIS~35.PNG|AssistantComputerControlWide310x150Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSIS~36.PNG|AssistantComputerControlWide310x150Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSIS~37.PNG|AssistantComputerControlWide310x150Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSIS~38.PNG|AssistantComputerControlWide310x150Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSIS~39.PNG|AssistantComputerControlWide310x150Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSIS~40.PNG|AssistantComputerControlWide310x150Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSIS~41.PNG|AssistantComputerControlWide310x150Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSIS~42.PNG|AssistantComputerControlWide310x150Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSIS~43.PNG|AssistantComputerControlWide310x150Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSIS~44.PNG|AssistantComputerControlWide310x150Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlWide310x150Logo.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSIS~45.PNG|AssistantComputerControlWide310x150Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlWide310x150Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSIS~46.PNG|AssistantComputerControlSquare310x310Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSIS~47.PNG|AssistantComputerControlSquare310x310Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSIS~48.PNG|AssistantComputerControlSquare310x310Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSIS~49.PNG|AssistantComputerControlSquare310x310Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSIS~50.PNG|AssistantComputerControlSquare310x310Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSIS~51.PNG|AssistantComputerControlSquare310x310Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSIS~52.PNG|AssistantComputerControlSquare310x310Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSIS~53.PNG|AssistantComputerControlSquare310x310Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSIS~54.PNG|AssistantComputerControlSquare310x310Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSIS~55.PNG|AssistantComputerControlSquare310x310Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSIS~56.PNG|AssistantComputerControlSquare310x310Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSIS~57.PNG|AssistantComputerControlSquare310x310Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSIS~58.PNG|AssistantComputerControlSquare310x310Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSIS~59.PNG|AssistantComputerControlSquare310x310Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare310x310Logo.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSIS~60.PNG|AssistantComputerControlSquare310x310Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare310x310Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSIS~61.PNG|AssistantComputerControlSquare44x44Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize16.png" Component_="logo_ico.scale100.png" FileName="ASSIS~62.PNG|AssistantComputerControlSquare44x44Logo.targetsize-16.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-16.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize16_altformunplated." Component_="logo_ico.scale100.png" FileName="ASSIS~63.PNG|AssistantComputerControlSquare44x44Logo.targetsize-16_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-16_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize16_altformlightunpl" Component_="logo_ico.scale100.png" FileName="ASSIS~64.PNG|AssistantComputerControlSquare44x44Logo.targetsize-16_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-16_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSIS~65.PNG|AssistantComputerControlSquare44x44Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSIS~66.PNG|AssistantComputerControlSquare44x44Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize24.png" Component_="logo_ico.scale100.png" FileName="ASSIS~67.PNG|AssistantComputerControlSquare44x44Logo.targetsize-24.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-24.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize24_altformunplated." Component_="logo_ico.scale100.png" FileName="ASSIS~68.PNG|AssistantComputerControlSquare44x44Logo.targetsize-24_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-24_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize24_altformlightunpl" Component_="logo_ico.scale100.png" FileName="ASSIS~69.PNG|AssistantComputerControlSquare44x44Logo.targetsize-24_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-24_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSIS~70.PNG|AssistantComputerControlSquare44x44Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSIS~71.PNG|AssistantComputerControlSquare44x44Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize32.png" Component_="logo_ico.scale100.png" FileName="ASSIS~72.PNG|AssistantComputerControlSquare44x44Logo.targetsize-32.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-32.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize32_altformunplated." Component_="logo_ico.scale100.png" FileName="ASSIS~73.PNG|AssistantComputerControlSquare44x44Logo.targetsize-32_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-32_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize32_altformlightunpl" Component_="logo_ico.scale100.png" FileName="ASSIS~74.PNG|AssistantComputerControlSquare44x44Logo.targetsize-32_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-32_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSIS~75.PNG|AssistantComputerControlSquare44x44Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSIS~76.PNG|AssistantComputerControlSquare44x44Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSIS~77.PNG|AssistantComputerControlSquare44x44Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize48.png" Component_="logo_ico.scale100.png" FileName="ASSIS~78.PNG|AssistantComputerControlSquare44x44Logo.targetsize-48.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-48.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize48_altformunplated." Component_="logo_ico.scale100.png" FileName="ASSIS~79.PNG|AssistantComputerControlSquare44x44Logo.targetsize-48_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-48_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize48_altformlightunpl" Component_="logo_ico.scale100.png" FileName="ASSIS~80.PNG|AssistantComputerControlSquare44x44Logo.targetsize-48_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-48_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSIS~81.PNG|AssistantComputerControlSquare44x44Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSIS~82.PNG|AssistantComputerControlSquare44x44Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSIS~83.PNG|AssistantComputerControlSquare44x44Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSIS~84.PNG|AssistantComputerControlSquare44x44Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSIS~85.PNG|AssistantComputerControlSquare44x44Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSIS~86.PNG|AssistantComputerControlSquare44x44Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize256.png" Component_="logo_ico.scale100.png" FileName="ASSIS~87.PNG|AssistantComputerControlSquare44x44Logo.targetsize-256.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-256.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize256_altformunplated" Component_="logo_ico.scale100.png" FileName="ASSIS~88.PNG|AssistantComputerControlSquare44x44Logo.targetsize-256_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-256_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.targetsize256_altformlightunp" Component_="logo_ico.scale100.png" FileName="ASSIS~89.PNG|AssistantComputerControlSquare44x44Logo.targetsize-256_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.targetsize-256_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSquare44x44Logo.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSIS~90.PNG|AssistantComputerControlSquare44x44Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSquare44x44Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSIS~91.PNG|AssistantComputerControlSplashScreen.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSIS~92.PNG|AssistantComputerControlSplashScreen.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSIS~93.PNG|AssistantComputerControlSplashScreen.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSIS~94.PNG|AssistantComputerControlSplashScreen.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSIS~95.PNG|AssistantComputerControlSplashScreen.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSIS~96.PNG|AssistantComputerControlSplashScreen.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSIS~97.PNG|AssistantComputerControlSplashScreen.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSIS~98.PNG|AssistantComputerControlSplashScreen.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSIS~99.PNG|AssistantComputerControlSplashScreen.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSI~100.PNG|AssistantComputerControlSplashScreen.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSI~101.PNG|AssistantComputerControlSplashScreen.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSI~102.PNG|AssistantComputerControlSplashScreen.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSI~103.PNG|AssistantComputerControlSplashScreen.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSI~104.PNG|AssistantComputerControlSplashScreen.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlSplashScreen.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSI~105.PNG|AssistantComputerControlSplashScreen.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlSplashScreen.scale-500.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale100.png" Component_="logo_ico.scale100.png" FileName="ASSI~106.PNG|AssistantComputerControlBadgeLogo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-100.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale120.png" Component_="logo_ico.scale100.png" FileName="ASSI~107.PNG|AssistantComputerControlBadgeLogo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-120.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale125.png" Component_="logo_ico.scale100.png" FileName="ASSI~108.PNG|AssistantComputerControlBadgeLogo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-125.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale140.png" Component_="logo_ico.scale100.png" FileName="ASSI~109.PNG|AssistantComputerControlBadgeLogo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-140.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale150.png" Component_="logo_ico.scale100.png" FileName="ASSI~110.PNG|AssistantComputerControlBadgeLogo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-150.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale160.png" Component_="logo_ico.scale100.png" FileName="ASSI~111.PNG|AssistantComputerControlBadgeLogo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-160.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale180.png" Component_="logo_ico.scale100.png" FileName="ASSI~112.PNG|AssistantComputerControlBadgeLogo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-180.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale200.png" Component_="logo_ico.scale100.png" FileName="ASSI~113.PNG|AssistantComputerControlBadgeLogo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-200.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale220.png" Component_="logo_ico.scale100.png" FileName="ASSI~114.PNG|AssistantComputerControlBadgeLogo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-220.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale225.png" Component_="logo_ico.scale100.png" FileName="ASSI~115.PNG|AssistantComputerControlBadgeLogo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-225.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale240.png" Component_="logo_ico.scale100.png" FileName="ASSI~116.PNG|AssistantComputerControlBadgeLogo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-240.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale250.png" Component_="logo_ico.scale100.png" FileName="ASSI~117.PNG|AssistantComputerControlBadgeLogo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-250.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale300.png" Component_="logo_ico.scale100.png" FileName="ASSI~118.PNG|AssistantComputerControlBadgeLogo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-300.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale400.png" Component_="logo_ico.scale100.png" FileName="ASSI~119.PNG|AssistantComputerControlBadgeLogo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-400.png" SelfReg="false"/>
+    <ROW File="AssistantComputerControlBadgeLogo.scale500.png" Component_="logo_ico.scale100.png" FileName="ASSI~120.PNG|AssistantComputerControlBadgeLogo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AssistantComputerControlBadgeLogo.scale-500.png" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppPathsComponent">
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_AssistantComputerControl.exe.config" Path="[|AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config]\[|AI_PROPPATH_FILENAME_PERBUILD_AssistantComputerControl.exe.config]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Bcl.AsyncInterfaces.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.Win32.TaskScheduler.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.Win32.TaskScheduler.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.Win32.TaskScheduler.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.Shell.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Microsoft.WindowsAPICodePack.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Microsoft.WindowsAPICodePack.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Microsoft.WindowsAPICodePack.dll]" Type="2" Content="0"/>
@@ -149,20 +314,35 @@
     <ROW Name="AI_APPPATH_PERBUILD_Sentry.PlatformAbstractions.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Sentry.PlatformAbstractions.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.PlatformAbstractions.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Sentry.Protocol.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Sentry.Protocol.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.Protocol.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_Sentry.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_Sentry.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_Sentry.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Buffers.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Buffers.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Buffers.dll]" Type="2" Content="0"/>
     <ROW Name="AI_APPPATH_PERBUILD_System.Collections.Immutable.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Collections.Immutable.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Collections.Immutable.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Memory.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Memory.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Memory.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Numerics.Vectors.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Numerics.Vectors.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Numerics.Vectors.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Reflection.Metadata.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Reflection.Metadata.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Reflection.Metadata.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.CompilerServices.Unsafe.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Runtime.InteropServices.RuntimeInformation.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Text.Encodings.Web.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Text.Encodings.Web.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Text.Encodings.Web.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Text.Json.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Text.Json.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Text.Json.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.Threading.Tasks.Extensions.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.Threading.Tasks.Extensions.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.Threading.Tasks.Extensions.dll]" Type="2" Content="0"/>
+    <ROW Name="AI_APPPATH_PERBUILD_System.ValueTuple.dll" Path="[|AI_PROPPATH_DIR_PERBUILD_System.ValueTuple.dll]\[|AI_PROPPATH_FILENAME_PERBUILD_System.ValueTuple.dll]" Type="2" Content="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
+    <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\ACC stuff\Images\Icons\logo_ico.ico" UseLargeSchema="true" ExeName="ACCsetup" UACExecutionLevel="2"/>
+    <ROW BuildKey="Build_MSIX_APPX" BuildName="Build_MSIX_APPX" BuildOrder="2" BuildType="7" PackageFolder="Build_MSIX_APPXSetupFiles" Languages="en" UwpTargetDesktop="TargetDeviceFamily"/>
+    <ROW BuildKey="Build_MSIX_APPXSubBuild" BuildName="x64" BuildOrder="3" BuildType="8" ParentBuild="Build_MSIX_APPX"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFileName="ACCsetup" Languages="en" InstallationType="4" CabsLocation="1" PackageType="1" FilesInsideExe="true" ExeIconPath="..\..\ACC stuff\Images\Icons\logo_ico.ico" UseLargeSchema="true" ExeName="ACCsetup"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Thumbprint="6aaf0049bf6be6120f8364401408f547f13f82e8 Subject: AssistantComputerControl&#10;Issuer: AssistantComputerControl&#10;Valid from 12/12/2020 to 12/12/2021&#10;User\MY"/>
+    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Subject="CN=AssistantComputerControl-v1.4.5"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -177,6 +357,71 @@
     <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
     <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
     <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlAttributeComponent">
+    <ROW XmlAttribute="BackgroundColor" XmlElement="VisualElements" Name="BackgroundColor" Flags="0" Order="0" Value="transparent"/>
+    <ROW XmlAttribute="BadgeLogo" XmlElement="LockScreen" Name="BadgeLogo" Flags="0" Order="0" FileId="AssistantComputerControlBadgeLogo.scale100.png"/>
+    <ROW XmlAttribute="Category" XmlElement="Extension" Name="Category" Flags="0" Order="0" Value="windows.desktopAppMigration"/>
+    <ROW XmlAttribute="Description" XmlElement="VisualElements" Name="Description" Flags="0" Order="0" Value="AssistantComputerControl"/>
+    <ROW XmlAttribute="DisplayName" XmlElement="VisualElements" Name="DisplayName" Flags="0" Order="0" Value="AssistantComputerControl"/>
+    <ROW XmlAttribute="EntryPoint" XmlElement="Application" Name="EntryPoint" Flags="0" Order="0" Value="Windows.FullTrustApplication"/>
+    <ROW XmlAttribute="EntryPoint_1" XmlElement="Extension" Name="EntryPoint" Flags="0" Order="0" Value="Windows.FullTrustApplication"/>
+    <ROW XmlAttribute="Executable" XmlElement="Application" Name="Executable" Flags="0" Order="0" FileId="AssistantComputerControl.exe"/>
+    <ROW XmlAttribute="Executable_1" XmlElement="Extension" Name="Executable" Flags="0" Order="0" FileId="AssistantComputerControl.exe"/>
+    <ROW XmlAttribute="Id" XmlElement="Application" Name="Id" Flags="0" Order="0" Value="AssistantComputerControl"/>
+    <ROW XmlAttribute="Image" XmlElement="SplashScreen" Name="Image" Flags="0" Order="0" FileId="AssistantComputerControlSplashScreen.scale100.png"/>
+    <ROW XmlAttribute="Language" XmlElement="Resource" Name="Language" Flags="0" Order="0" Value="en-US"/>
+    <ROW XmlAttribute="MaxVersionTested" XmlElement="TargetDeviceFamily" Name="MaxVersionTested" Flags="0" Order="0" Value="10.0.22000.0"/>
+    <ROW XmlAttribute="MinVersion" XmlElement="TargetDeviceFamily" Name="MinVersion" Flags="0" Order="0" Value="10.0.17763.0"/>
+    <ROW XmlAttribute="Name" XmlElement="Identity" Name="Name" Flags="0" Order="0" Value="AlbertMN..AssistantComputerControl"/>
+    <ROW XmlAttribute="Name_1" XmlElement="TargetDeviceFamily" Name="Name" Flags="0" Order="0" Value="Windows.Desktop"/>
+    <ROW XmlAttribute="Name_2" XmlElement="Capability" Name="Name" Flags="0" Order="0" Value="runFullTrust"/>
+    <ROW XmlAttribute="Notification" XmlElement="LockScreen" Name="Notification" Flags="0" Order="0" Value="badge"/>
+    <ROW XmlAttribute="Preference" XmlElement="Rotation" Name="Preference" Flags="0" Order="0" Value="portrait"/>
+    <ROW XmlAttribute="Preference_1" XmlElement="Rotation_1" Name="Preference" Flags="0" Order="0" Value="landscape"/>
+    <ROW XmlAttribute="ProcessorArchitecture" XmlElement="Identity" Name="ProcessorArchitecture" Flags="0" Order="0" Value="x64"/>
+    <ROW XmlAttribute="Publisher" XmlElement="Identity" Name="Publisher" Flags="0" Order="0" Value="CN=Albert MN."/>
+    <ROW XmlAttribute="ShortcutPath" XmlElement="DesktopApp" Name="ShortcutPath" Flags="0" Order="0" Value="%APPDATA%\Microsoft\Windows\Start Menu\Programs\AssistantComputerControl\AssistantComputerControl.lnk"/>
+    <ROW XmlAttribute="ShortcutPath_1" XmlElement="DesktopApp_1" Name="ShortcutPath" Flags="0" Order="0" Value="%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\AssistantComputerControl\AssistantComputerControl.lnk"/>
+    <ROW XmlAttribute="Square150x150Logo" XmlElement="VisualElements" Name="Square150x150Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare150x150Logo.scale100.png"/>
+    <ROW XmlAttribute="Square310x310Logo" XmlElement="DefaultTile" Name="Square310x310Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare310x310Logo.scale100.png"/>
+    <ROW XmlAttribute="Square44x44Logo" XmlElement="VisualElements" Name="Square44x44Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare44x44Logo.scale100.png"/>
+    <ROW XmlAttribute="Square71x71Logo" XmlElement="DefaultTile" Name="Square71x71Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare71x71Logo.scale100.png"/>
+    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="1.4.5.0"/>
+    <ROW XmlAttribute="Wide310x150Logo" XmlElement="DefaultTile" Name="Wide310x150Logo" Flags="0" Order="0" FileId="AssistantComputerControlWide310x150Logo.scale100.png"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlElementComponent">
+    <ROW XmlElement="Application" ParentElement="Applications" Name="Application" Order="0" Flags="0" Type="4"/>
+    <ROW XmlElement="Applications" ParentElement="Package" Name="Applications" Order="4" Flags="0" Type="3"/>
+    <ROW XmlElement="Bundle" Name="Bundle" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Capabilities" ParentElement="Package" Name="Capabilities" Order="5" Flags="0" Type="0"/>
+    <ROW XmlElement="Capability" ParentElement="Capabilities" Name="Capability" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="DefaultTile" ParentElement="VisualElements" Name="DefaultTile" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="Dependencies" ParentElement="Package" Name="Dependencies" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopApp" ParentElement="DesktopAppMigration" Name="DesktopApp" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopAppMigration" ParentElement="Extension" Name="DesktopAppMigration" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopApp_1" ParentElement="DesktopAppMigration" Name="DesktopApp" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="DisplayName" ParentElement="Properties" Name="DisplayName" Order="1" Flags="0" Text="AssistantComputerControl" Type="0"/>
+    <ROW XmlElement="Extension" ParentElement="Extensions" Name="Extension" Order="0" Flags="0" Type="55"/>
+    <ROW XmlElement="Extensions" ParentElement="Application" Name="Extensions" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="Identity" ParentElement="Package" Name="Identity" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="InitialRotationPreference" ParentElement="VisualElements" Name="InitialRotationPreference" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="LockScreen" ParentElement="VisualElements" Name="LockScreen" Order="3" Flags="0" Type="0"/>
+    <ROW XmlElement="Logo" ParentElement="Properties" Name="Logo" Order="2" Flags="0" FileId="logo_ico.scale100.png" Type="0"/>
+    <ROW XmlElement="Package" Name="Package" Order="0" Flags="0" Type="6"/>
+    <ROW XmlElement="Properties" ParentElement="Package" Name="Properties" Order="3" Flags="0" Type="0"/>
+    <ROW XmlElement="PublisherDisplayName" ParentElement="Properties" Name="PublisherDisplayName" Order="0" Flags="0" Text="Albert MN." Type="0"/>
+    <ROW XmlElement="Resource" ParentElement="Resources" Name="Resource" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Resources" ParentElement="Package" Name="Resources" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="Rotation" ParentElement="InitialRotationPreference" Name="Rotation" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Rotation_1" ParentElement="InitialRotationPreference" Name="Rotation" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="SplashScreen" ParentElement="VisualElements" Name="SplashScreen" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="TargetDeviceFamily" ParentElement="Dependencies" Name="TargetDeviceFamily" Order="0" Flags="0" Type="28"/>
+    <ROW XmlElement="VisualElements" ParentElement="Application" Name="VisualElements" Order="0" Flags="0" Type="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlFileComponent">
+    <ROW XmlFile="AppxBundleManifest.xml" FileName="AppxBundleManifest.xml" RootElement="Bundle" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
+    <ROW XmlFile="AppxManifest.xml" FileName="AppxManifest.xml" RootElement="Package" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
     <ROW Action="AI_DeleteLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
@@ -228,7 +473,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
-    <ROW Action="AI_DATA_SETTER" Type="51" Source="AI_ExtractFiles" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DATA_SETTER" Type="51" Source="CustomActionData" Target="[AI_SETUPEXEPATH]"/>
     <ROW Action="AI_DATA_SETTER_1" Type="51" Source="CustomActionData" Target="AEYAbABhAGcAcwACADcAAQBTAGMAcgBpAHAAdABTAHIAYwBCAGkAbgBhAHIAeQBSAG8AdwBJAGQAAgBVAG4AaQBuAHMAdABhAGwAbABDAGwAZQBhAG4AdQBwAC4AcABzADE="/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
     <ROW Action="AI_DeleteCadLzma" Type="51" Source="AI_DeleteLzma" Target="[AI_SETUPEXEPATH]"/>
@@ -237,9 +482,8 @@
     <ROW Action="AI_DeleteRLzma" Type="1281" Source="lzmaextractor.dll" Target="DeleteLZMAFiles"/>
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
     <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
-    <ROW Action="AI_EstimateExtractFiles" Type="1" Source="Prereq.dll" Target="EstimateExtractFiles"/>
     <ROW Action="AI_ExtractCadLzma" Type="51" Source="AI_ExtractLzma" Target="[AI_SETUPEXEPATH]"/>
-    <ROW Action="AI_ExtractFiles" Type="1025" Source="Prereq.dll" Target="ExtractSourceFiles" AdditionalSeq="AI_DATA_SETTER"/>
+    <ROW Action="AI_ExtractFiles" Type="1" Source="Prereq.dll" Target="ExtractSourceFiles" AdditionalSeq="AI_DATA_SETTER"/>
     <ROW Action="AI_ExtractLzma" Type="1025" Source="lzmaextractor.dll" Target="ExtractLZMAFiles"/>
     <ROW Action="AI_FindExeLzma" Type="1" Source="lzmaextractor.dll" Target="FindEXE"/>
     <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
@@ -251,7 +495,7 @@
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
     <ROW Action="AssistantComputerControl.exe" Type="210" Source="AssistantComputerControl.exe"/>
     <ROW Action="PowerShellScriptFile" Type="1" Source="PowerShellScriptLauncher.dll" Target="RunPowerShellFileScript" Options="134217729" AdditionalSeq="AI_DATA_SETTER_1"/>
-    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFilesFolder][ProductName]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFilesFolder][ProductName]#Build_MSIX_APPX:"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
   </COMPONENT>
@@ -271,6 +515,7 @@
     <ROW Feature_="MainFeature" Component_="onedrive_howto.gif"/>
     <ROW Feature_="MainFeature" Component_="acc_logo.png"/>
     <ROW Feature_="MainFeature" Component_="bootstrap.min.js"/>
+    <ROW Feature_="AiAppXAssets" Component_="logo_ico.scale100.png"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="logo_ico.exe" SourcePath="..\..\ACC stuff\Images\Icons\logo_ico.ico" Index="0"/>
@@ -279,7 +524,7 @@
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
     <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
-    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1397"/>
     <ROW Action="AI_ResolveKnownFolders" Sequence="54"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99" Builds="DefaultBuild"/>
@@ -291,12 +536,11 @@
     <ROW Action="AI_ExtractLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1549" Builds="DefaultBuild"/>
     <ROW Action="AI_DeleteRLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="1548" Builds="DefaultBuild"/>
     <ROW Action="AI_DeleteLzma" Condition="SETUPEXEDIR=&quot;&quot; AND Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;) AND (NOT PATCH)" Sequence="6599" Builds="DefaultBuild"/>
-    <ROW Action="AI_ExtractFiles" Sequence="3998" Builds="DefaultBuild"/>
-    <ROW Action="AI_DATA_SETTER" Sequence="3997"/>
-    <ROW Action="AI_EstimateExtractFiles" Sequence="3999" Builds="DefaultBuild"/>
     <ROW Action="AssistantComputerControl.exe" Condition="( NOT Installed )" Sequence="6601"/>
     <ROW Action="PowerShellScriptFile" Condition="( Installed AND ( REMOVE = &quot;ALL&quot; OR AI_INSTALL_MODE = &quot;Remove&quot; ) AND NOT UPGRADINGPRODUCTCODE ) AND ( (VersionNT &gt; 501) OR (VersionNT = 501 AND ServicePackLevel &gt;= 2) )" Sequence="6402"/>
     <ROW Action="AI_DATA_SETTER_1" Condition="( Installed AND ( REMOVE = &quot;ALL&quot; OR AI_INSTALL_MODE = &quot;Remove&quot; ) AND NOT UPGRADINGPRODUCTCODE ) AND ( (VersionNT &gt; 501) OR (VersionNT = 501 AND ServicePackLevel &gt;= 2) )" Sequence="6401"/>
+    <ROW Action="AI_ExtractFiles" Sequence="1399" Builds="DefaultBuild"/>
+    <ROW Action="AI_DATA_SETTER" Sequence="1398"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
@@ -344,5 +588,16 @@
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Collections.Immutable.dll"/>
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="NLog.dll"/>
     <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Microsoft.Win32.TaskScheduler.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="Microsoft.Bcl.AsyncInterfaces.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Buffers.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Memory.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Numerics.Vectors.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Reflection.Metadata.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Runtime.CompilerServices.Unsafe.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Runtime.InteropServices.RuntimeInformation.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Text.Encodings.Web.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Text.Json.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.Threading.Tasks.Extensions.dll"/>
+    <ROW ProjectId="{404b42f4-e135-4d2f-8fd0-20a590814930}" ProjectName="AssistantComputerControl" OutputGroup="References" OutputFile="System.ValueTuple.dll"/>
   </COMPONENT>
 </DOCUMENT>
