@@ -213,7 +213,7 @@
         // Section 3 in TBS
         "tbs_still_not_resolved_title": "Nog steeds niet opgelost? (geavanceerde oplossingen)",
         "tbs_still_not_resolved_desc": "Als alle oplossingen hieboven hebben gefaald, verwijs dan alstublieft naar de <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">probleemoplossing handleiding</a> <i>(specifiek de \"Still not solved?\" sectie)</i>",
-        "tbs_still_not_resolved_community_help": "Als het nog <b>altijd</b> niet werkt, kom dan in onze <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord server</i></a>. met meer dan 550 gebruikers, Je zult snel hulp krijgen<i>(En de developer antwword meestal in een paar uur)</i><br />In het geval dat je een bug hebt gevonden, Kan je een <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">probleem op GitHub</a> zetten en het probleem beschrijven (liefst in het engels)."
+        "tbs_still_not_resolved_community_help": "Als het nog <b>altijd</b> niet werkt, kom dan in onze <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord server</i></a>. met meer dan 1000+ gebruikers, Je zult snel hulp krijgen<i>(En de developer antwword meestal in een paar uur)</i><br />In het geval dat je een bug hebt gevonden, Kan je een <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">probleem op GitHub</a> zetten en het probleem beschrijven (liefst in het engels)."
       },
       "expert_setup": {
         "title": "Aangepaste setup",

@@ -216,7 +216,7 @@
       // Section 3 in TBS
       "tbs_still_not_resolved_title": "Still not resolved (more advanced fixes)",
       "tbs_still_not_resolved_desc": "If all solutions above have failed, please refer to the <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">troubleshooting guide</a> <i>(specifically the \"Still not solved?\" section)</i>",
-      "tbs_still_not_resolved_community_help": "If it's <b>still</b> not working, come join our <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord server</i></a>. With over 550 members, you're sure to get help quickly <i>(and the developer often answers within a few hours)</i><br />In case you believe you have found a bug, you can open an <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue on GitHub</a> and describe the issue."
+      "tbs_still_not_resolved_community_help": "If it's <b>still</b> not working, come join our <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord server</i></a>. With over 1000+ members, you're sure to get help quickly <i>(and the developer often answers within a few hours)</i><br />In case you believe you have found a bug, you can open an <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue on GitHub</a> and describe the issue."
     },
     "expert_setup": {
       "title": "Brugerdefineret setup",

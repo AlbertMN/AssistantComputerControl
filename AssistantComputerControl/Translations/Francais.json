@@ -216,7 +216,7 @@
       // Section 3 in TBS
       "tbs_still_not_resolved_title": "Toujours pas résolu (réparation avancée)",
       "tbs_still_not_resolved_desc": "Si toutes les solutions au-dessus ont échoué, merci de vous référer au guide de <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">dépannage</a> <i>(en particulier la section \"Tujours pas résolu ?\")</i>",
-      "tbs_still_not_resolved_community_help": "Si cela ne fonctionne <b>toujours pas</b>, venez sur notre <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>serveur Discord</i></a>. Avec plus de 550 membres, vous pouvez être sûr d'avoir de l'aide rapidement <i>(et le développeur répond souvent dans les premières heures)</i><br />Dans le cas où vous pensez avoir trouvé un bug, vous pouvez ouvrir un <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">incident sur GitHub</a> et décrire votre bug."
+      "tbs_still_not_resolved_community_help": "Si cela ne fonctionne <b>toujours pas</b>, venez sur notre <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>serveur Discord</i></a>. Avec plus de 1000+ membres, vous pouvez être sûr d'avoir de l'aide rapidement <i>(et le développeur répond souvent dans les premières heures)</i><br />Dans le cas où vous pensez avoir trouvé un bug, vous pouvez ouvrir un <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">incident sur GitHub</a> et décrire votre bug."
     },
     "expert_setup": {
       "title": "Configuration personnalisée",
