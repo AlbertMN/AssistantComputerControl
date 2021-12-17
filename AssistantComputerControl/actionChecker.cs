@@ -397,6 +397,73 @@ namespace AssistantComputerControl {
             }
         }
 
+        private static string GetPathFolder(string winEnvPathVar)
+        /* Get windows environment path as string */
+        {
+            string folderPath = "";
+            switch (winEnvPathVar)
+            {
+                case "%USERPROFILE%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+                    case "%DESKTOP%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                    case "%PROGRAMS%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+                        
+                    case "%DOCUMENTS%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                                            
+                    case "%MUSIC%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+                                            
+                    case "%VIDEOS%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+                                            
+                    case "%IMAGES%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                                            
+                    case "%COMPUTER%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+                                        
+                    case "%FAVORITES%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Favorites);
+                                            
+                    case "%COOKIES%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Cookies);
+                                            
+                    case "%FONTS%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
+                                            
+                    case "%HISTORY%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.History);
+                                            
+                    case "%PERSONAL%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                                            
+                    case "%VIRTUALNETWORK%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.NetworkShortcuts);
+                                            
+                    case "%VIRTUALPRINT%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.PrinterShortcuts);
+                                            
+                    case "%APPDATA%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    
+                    case "%PROGRAMFILES%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                                            
+                    case "%DIRSYSTEM%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.System);
+                                            
+                    case "%WINDOWS%":
+                        return Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+
+            }
+            return folderPath;
+        }
+
         public static string[] GetSecondaryParam(string param) {
             if (param.Contains("{") && param.Contains("}")) {
                 string[] toReturn = param.Split('{');
@@ -407,6 +474,24 @@ namespace AssistantComputerControl {
                 }
                 return toReturn;
             }
+            // check for any environment variables that starts with % 
+            if (param.StartsWith("%"))
+            {
+                // environment variables between two characters (e.g. %ENV%)
+                if (Regex.Matches(param, "%").Count == 2)
+                {
+                    // a subfolder or file was specified
+                    if (!param.EndsWith("%"))
+                    {
+                        var rawPath = param.Split(Convert.ToChar("%"));
+                        var finalPath = GetPathFolder("%" + rawPath[1] + "%") + rawPath[2].Replace("/", "\\");
+                        return new[] {finalPath};
+                    }
+                    // else, translate only %ENV%
+                    return new[] {GetPathFolder(param)};
+                }
+            }
+
             return new string[1] { param };
         }
 
