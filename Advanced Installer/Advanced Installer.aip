@@ -65,10 +65,10 @@
     <ROW Property="BannerBitmap" Value="banner.jpg" MultiBuildValue="DefaultBuild:banner.png" Type="1" MsiKey="BannerBitmap"/>
     <ROW Property="DialogBitmap" Value="dialog.jpg" MultiBuildValue="DefaultBuild:dialogbitmap.png" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="Manufacturer" Value="Albert MN."/>
-    <ROW Property="ProductCode" Value="1033:{92F676B6-F4C0-4553-A7E3-B4361A879488} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{D74C9581-3945-4589-B172-6109390D9E9E} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AssistantComputerControl"/>
-    <ROW Property="ProductVersion" Value="1.4.5" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.4.6" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{8E6F4399-B513-420B-8E11-36837A8550EE}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -387,7 +387,7 @@
     <ROW XmlAttribute="Square310x310Logo" XmlElement="DefaultTile" Name="Square310x310Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare310x310Logo.scale100.png"/>
     <ROW XmlAttribute="Square44x44Logo" XmlElement="VisualElements" Name="Square44x44Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare44x44Logo.scale100.png"/>
     <ROW XmlAttribute="Square71x71Logo" XmlElement="DefaultTile" Name="Square71x71Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare71x71Logo.scale100.png"/>
-    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="1.4.5.0"/>
+    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="1.4.6.0"/>
     <ROW XmlAttribute="Wide310x150Logo" XmlElement="DefaultTile" Name="Wide310x150Logo" Flags="0" Order="0" FileId="AssistantComputerControlWide310x150Logo.scale100.png"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlElementComponent">

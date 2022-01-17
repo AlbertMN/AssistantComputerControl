@@ -27,8 +27,8 @@ using System.Security.Principal;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.5",
-            releaseDate = "2021-12-12 01:06:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.6",
+            releaseDate = "2022-01-17 22:02:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
             sentryToken = "super_secret";
