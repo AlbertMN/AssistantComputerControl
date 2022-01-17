@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.4, 19-05-2021
+ * Updated: v1.4.6, 17-01-2022
  * 
  * Use:
  * - Checks and execute action files
@@ -397,71 +397,48 @@ namespace AssistantComputerControl {
             }
         }
 
-        private static string GetPathFolder(string winEnvPathVar)
-        /* Get windows environment path as string */
-        {
-            string folderPath = "";
-            switch (winEnvPathVar)
-            {
-                case "%USERPROFILE%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        private static string CheckEnvironmentVar(string var) {
+            try {
+                return Environment.GetFolderPath((Environment.SpecialFolder)Enum.Parse(typeof(Environment.SpecialFolder), var));
+            } catch { }
+            return null;
+        }
 
-                    case "%DESKTOP%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        /* Get Windows environment path from string */
+        public static string CheckForEnvironmentPath(string str) {
+            Dictionary<string, string> envVariables = new Dictionary<string, string>() {
+                { "%USERPROFILE%", "UserProfile" },
+                { "%DESKTOP%", "Desktop" },
+                { "%PROGRAMS%", "Programs" },
+                { "%DOCUMENTS%", "MyDocuments" },
+                { "%MUSIC%", "MyMusic" },
+                { "%VIDEOS%", "MyVideos" },
+                { "%IMAGES%", "MyPictures" },
+                { "%COMPUTER%", "MyComputer" },
+                { "%FAVORITES%", "Favorites" },
+                { "%COOKIES%", "Cookies" },
+                { "%FONTS%", "Fonts" },
+                { "%HISTORY%", "History" },
+                { "%PERSONAL%", "Personal" },
+                { "%VIRTUALNETWORK%", "NetworkShortcuts" },
+                { "%VIRTUALPRINT%", "PrinterShortcuts" },
+                { "%APPDATA%", "ApplicationData" },
+                { "%PROGRAMFILES%", "ProgramFiles" },
+                { "%DIRSYSTEM%", "System" },
+                { "%WINDOWS%", "Windows" },
+            };
 
-                    case "%PROGRAMS%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Programs);
-                        
-                    case "%DOCUMENTS%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                                            
-                    case "%MUSIC%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-                                            
-                    case "%VIDEOS%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-                                            
-                    case "%IMAGES%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-                                            
-                    case "%COMPUTER%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-                                        
-                    case "%FAVORITES%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Favorites);
-                                            
-                    case "%COOKIES%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Cookies);
-                                            
-                    case "%FONTS%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
-                                            
-                    case "%HISTORY%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.History);
-                                            
-                    case "%PERSONAL%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                                            
-                    case "%VIRTUALNETWORK%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.NetworkShortcuts);
-                                            
-                    case "%VIRTUALPRINT%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.PrinterShortcuts);
-                                            
-                    case "%APPDATA%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    
-                    case "%PROGRAMFILES%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-                                            
-                    case "%DIRSYSTEM%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.System);
-                                            
-                    case "%WINDOWS%":
-                        return Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-
+            foreach (KeyValuePair<string, string> var in envVariables) {
+                if (str.Contains(var.Key) || str.Contains(var.Key.ToLower())) {
+                    string parsed = CheckEnvironmentVar(var.Value);
+                    if (parsed != null) {
+                        str = str.Replace(var.Key, parsed);
+                        str = str.Replace(var.Key.ToLower(), parsed);
+                    }
+                }
             }
-            return folderPath;
+
+            return str;
         }
 
         public static string[] GetSecondaryParam(string param) {
@@ -473,23 +450,6 @@ namespace AssistantComputerControl {
                     i++;
                 }
                 return toReturn;
-            }
-            // check for any environment variables that starts with % 
-            if (param.StartsWith("%"))
-            {
-                // environment variables between two characters (e.g. %ENV%)
-                if (Regex.Matches(param, "%").Count == 2)
-                {
-                    // a subfolder or file was specified
-                    if (!param.EndsWith("%"))
-                    {
-                        var rawPath = param.Split(Convert.ToChar("%"));
-                        var finalPath = GetPathFolder("%" + rawPath[1] + "%") + rawPath[2].Replace("/", "\\");
-                        return new[] {finalPath};
-                    }
-                    // else, translate only %ENV%
-                    return new[] {GetPathFolder(param)};
-                }
             }
 
             return new string[1] { param };
