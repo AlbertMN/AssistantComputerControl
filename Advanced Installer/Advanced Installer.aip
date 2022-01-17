@@ -6,7 +6,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
-    <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
+    <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe" Value="..\AssistantComputerControl\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_AssistantComputerControl.exe.config" Value="..\AssistantComputerControl\bin\Release"/>
@@ -342,7 +342,7 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Subject="CN=AssistantComputerControl-v1.4.5"/>
+    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Subject="CN=AssistantComputerControl"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -380,7 +380,7 @@
     <ROW XmlAttribute="Preference" XmlElement="Rotation" Name="Preference" Flags="0" Order="0" Value="portrait"/>
     <ROW XmlAttribute="Preference_1" XmlElement="Rotation_1" Name="Preference" Flags="0" Order="0" Value="landscape"/>
     <ROW XmlAttribute="ProcessorArchitecture" XmlElement="Identity" Name="ProcessorArchitecture" Flags="0" Order="0" Value="x64"/>
-    <ROW XmlAttribute="Publisher" XmlElement="Identity" Name="Publisher" Flags="0" Order="0" Value="CN=Albert MN."/>
+    <ROW XmlAttribute="Publisher" XmlElement="Identity" Name="Publisher" Flags="0" Order="0" Value="CN=AssistantComputerControl"/>
     <ROW XmlAttribute="ShortcutPath" XmlElement="DesktopApp" Name="ShortcutPath" Flags="0" Order="0" Value="%APPDATA%\Microsoft\Windows\Start Menu\Programs\AssistantComputerControl\AssistantComputerControl.lnk"/>
     <ROW XmlAttribute="ShortcutPath_1" XmlElement="DesktopApp_1" Name="ShortcutPath" Flags="0" Order="0" Value="%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\AssistantComputerControl\AssistantComputerControl.lnk"/>
     <ROW XmlAttribute="Square150x150Logo" XmlElement="VisualElements" Name="Square150x150Logo" Flags="0" Order="0" FileId="AssistantComputerControlSquare150x150Logo.scale100.png"/>
