@@ -616,7 +616,7 @@ namespace AssistantComputerControl {
         }
 
         public void CreateFile(string parameter) {
-            string fileLocation = parameter;
+            string fileLocation = ActionChecker.CheckForEnvironmentPath(parameter);
             if (!File.Exists(fileLocation)) {
                 string parentPath = Path.GetDirectoryName(fileLocation);
                 if (Directory.Exists(parentPath)) {
@@ -657,7 +657,7 @@ namespace AssistantComputerControl {
             }
         }
         public void DeleteFile(string parameter) {
-            string fileLocation = parameter;
+            string fileLocation = ActionChecker.CheckForEnvironmentPath(parameter);
             if (File.Exists(fileLocation) || Directory.Exists(fileLocation)) {
                 FileAttributes attr = File.GetAttributes(fileLocation);
                 bool succeeded = true;
@@ -725,7 +725,7 @@ namespace AssistantComputerControl {
             }
         }
         public void AppendText(string parameter) {
-            string fileLocation = ActionChecker.GetSecondaryParam(parameter)[0],
+            string fileLocation = ActionChecker.CheckForEnvironmentPath(ActionChecker.GetSecondaryParam(parameter)[0]),
                 toAppend = ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null;
 
             MainProgram.DoDebug("Appending \"" + toAppend + "\" to " + fileLocation);
@@ -843,8 +843,8 @@ namespace AssistantComputerControl {
         }
 
         public void MoveSubject(string parameter) {
-            string theSubject = ActionChecker.GetSecondaryParam(parameter)[0],
-                moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
+            string theSubject = ActionChecker.CheckForEnvironmentPath(ActionChecker.GetSecondaryParam(parameter)[0]),
+                moveTo = ActionChecker.CheckForEnvironmentPath((ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null));
 
             FileAttributes attr = FileAttributes.Normal; //Has to have a default value
             bool subjectExists = true;
