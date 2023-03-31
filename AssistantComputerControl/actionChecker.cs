@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.4, 19-05-2021
+ * Updated: v1.4.6, 17-01-2022
  * 
  * Use:
  * - Checks and execute action files
@@ -397,6 +397,50 @@ namespace AssistantComputerControl {
             }
         }
 
+        private static string CheckEnvironmentVar(string var) {
+            try {
+                return Environment.GetFolderPath((Environment.SpecialFolder)Enum.Parse(typeof(Environment.SpecialFolder), var));
+            } catch { }
+            return null;
+        }
+
+        /* Get Windows environment path from string */
+        public static string CheckForEnvironmentPath(string str) {
+            Dictionary<string, string> envVariables = new Dictionary<string, string>() {
+                { "%USERPROFILE%", "UserProfile" },
+                { "%DESKTOP%", "Desktop" },
+                { "%PROGRAMS%", "Programs" },
+                { "%DOCUMENTS%", "MyDocuments" },
+                { "%MUSIC%", "MyMusic" },
+                { "%VIDEOS%", "MyVideos" },
+                { "%IMAGES%", "MyPictures" },
+                { "%COMPUTER%", "MyComputer" },
+                { "%FAVORITES%", "Favorites" },
+                { "%COOKIES%", "Cookies" },
+                { "%FONTS%", "Fonts" },
+                { "%HISTORY%", "History" },
+                { "%PERSONAL%", "Personal" },
+                { "%VIRTUALNETWORK%", "NetworkShortcuts" },
+                { "%VIRTUALPRINT%", "PrinterShortcuts" },
+                { "%APPDATA%", "ApplicationData" },
+                { "%PROGRAMFILES%", "ProgramFiles" },
+                { "%DIRSYSTEM%", "System" },
+                { "%WINDOWS%", "Windows" },
+            };
+
+            foreach (KeyValuePair<string, string> var in envVariables) {
+                if (str.Contains(var.Key) || str.Contains(var.Key.ToLower())) {
+                    string parsed = CheckEnvironmentVar(var.Value);
+                    if (parsed != null) {
+                        str = str.Replace(var.Key, parsed);
+                        str = str.Replace(var.Key.ToLower(), parsed);
+                    }
+                }
+            }
+
+            return str;
+        }
+
         public static string[] GetSecondaryParam(string param) {
             if (param.Contains("{") && param.Contains("}")) {
                 string[] toReturn = param.Split('{');
@@ -407,6 +451,7 @@ namespace AssistantComputerControl {
                 }
                 return toReturn;
             }
+
             return new string[1] { param };
         }
 

@@ -1,7 +1,7 @@
 ﻿/*
  * AssistantComputerControl
  * Made by Albert MN.
- * Updated: v1.4.4, 19-05-2021
+ * Updated: v1.4.6, 17-01-2022
  * 
  * Use:
  * - Functions for all the actions
@@ -402,8 +402,10 @@ namespace AssistantComputerControl {
         }
 
         public void Open(string parameter) {
-            string location = ActionChecker.GetSecondaryParam(parameter)[0], arguments = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
-            string fileLocation = (!location.Contains(@":\") || !location.Contains(@":/")) ? "" : location;
+            string location = ActionChecker.CheckForEnvironmentPath(ActionChecker.GetSecondaryParam(parameter)[0]),
+                arguments = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null),
+                fileLocation = (!location.Contains(@":\") || !location.Contains(@":/")) ? "" : location;
+
             if (fileLocation == "") {
                 string combinedPath = "";
                 try {
@@ -448,7 +450,7 @@ namespace AssistantComputerControl {
         }
         public void OpenAny(string parameter) {
             string fileLocation = MainProgram.shortcutLocation;
-            Regex rx = new Regex("^" + parameter + Regex.Escape(".") + ".*", RegexOptions.IgnoreCase);
+            Regex rx = new Regex("^" + ActionChecker.CheckForEnvironmentPath(parameter) + Regex.Escape(".") + ".*", RegexOptions.IgnoreCase);
             
             if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                 DirectoryInfo d = new DirectoryInfo(fileLocation);
@@ -478,7 +480,7 @@ namespace AssistantComputerControl {
             }
         }
         public void OpenAll(string parameter) {
-            string fileLocation = (!parameter.Contains(@":\") || !parameter.Contains(@":/")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter;
+            string fileLocation = ActionChecker.CheckForEnvironmentPath((!parameter.Contains(@":\") || !parameter.Contains(@":/")) ? Path.Combine(MainProgram.shortcutLocation, parameter) : parameter);
 
             if (Directory.Exists(fileLocation) || Uri.IsWellFormedUriString(fileLocation, UriKind.Absolute)) {
                 DirectoryInfo d = new DirectoryInfo(fileLocation);
@@ -614,7 +616,7 @@ namespace AssistantComputerControl {
         }
 
         public void CreateFile(string parameter) {
-            string fileLocation = parameter;
+            string fileLocation = ActionChecker.CheckForEnvironmentPath(parameter);
             if (!File.Exists(fileLocation)) {
                 string parentPath = Path.GetDirectoryName(fileLocation);
                 if (Directory.Exists(parentPath)) {
@@ -655,7 +657,7 @@ namespace AssistantComputerControl {
             }
         }
         public void DeleteFile(string parameter) {
-            string fileLocation = parameter;
+            string fileLocation = ActionChecker.CheckForEnvironmentPath(parameter);
             if (File.Exists(fileLocation) || Directory.Exists(fileLocation)) {
                 FileAttributes attr = File.GetAttributes(fileLocation);
                 bool succeeded = true;
@@ -723,7 +725,7 @@ namespace AssistantComputerControl {
             }
         }
         public void AppendText(string parameter) {
-            string fileLocation = ActionChecker.GetSecondaryParam(parameter)[0],
+            string fileLocation = ActionChecker.CheckForEnvironmentPath(ActionChecker.GetSecondaryParam(parameter)[0]),
                 toAppend = ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null;
 
             MainProgram.DoDebug("Appending \"" + toAppend + "\" to " + fileLocation);
@@ -841,8 +843,8 @@ namespace AssistantComputerControl {
         }
 
         public void MoveSubject(string parameter) {
-            string theSubject = ActionChecker.GetSecondaryParam(parameter)[0],
-                moveTo = (ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null);
+            string theSubject = ActionChecker.CheckForEnvironmentPath(ActionChecker.GetSecondaryParam(parameter)[0]),
+                moveTo = ActionChecker.CheckForEnvironmentPath((ActionChecker.GetSecondaryParam(parameter).Length > 1 ? ActionChecker.GetSecondaryParam(parameter)[1] : null));
 
             FileAttributes attr = FileAttributes.Normal; //Has to have a default value
             bool subjectExists = true;

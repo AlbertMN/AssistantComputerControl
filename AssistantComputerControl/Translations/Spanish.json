@@ -212,7 +212,7 @@
       // Section 3 in TBS
       "tbs_still_not_resolved_title": "Aún no resuelto (soluciones más avanzadas)",
       "tbs_still_not_resolved_desc": "Si todas las soluciones han fallado, por favor dirígete a <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">la guía para resolver problemas</a> <i>(específicamente a la sección \"Still not solved?\")</i>",
-      "tbs_still_not_resolved_community_help": "Si <b>todavía</b> no funciona, únete a nuestro <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>servidor de Discord</i></a>. Con más de 800 miembros, seguro tendrás ayuda rápidamente <i>(y el desarrollador suele responder en pocas horas)</i><br />. En caso de que creas que hallaste un bug, puedes abrir un <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue en GitHub</a> y describir el problema."
+      "tbs_still_not_resolved_community_help": "Si <b>todavía</b> no funciona, únete a nuestro <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>servidor de Discord</i></a>. Con más de 1000+ miembros, seguro tendrás ayuda rápidamente <i>(y el desarrollador suele responder en pocas horas)</i><br />. En caso de que creas que hallaste un bug, puedes abrir un <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue en GitHub</a> y describir el problema."
     },
     "expert_setup": {
       "title": "Configuración personalizada",

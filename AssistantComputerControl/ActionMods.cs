@@ -196,10 +196,10 @@ namespace AssistantComputerControl {
                                     Console.WriteLine("Requires parameter? " + requiresParameter);
                                     Console.WriteLine("Has parameter? " + !String.IsNullOrEmpty(parameter));
 
-                                    string[] secondaryParameters = ActionChecker.GetSecondaryParam(parameter);
+                                    string[] secondaryParameters = ActionChecker.GetSecondaryParam(parameter ?? "");
                                     if (requiresSecondaryParameter ? secondaryParameters.Length > 1 : true) { //Also returns the first parameter
                                         if (File.Exists(scriptFileLocation)) {
-                                            string accArg = requiresParameter && requiresSecondaryParameter ? JsonConvert.SerializeObject(ActionChecker.GetSecondaryParam(parameter)) : (requiresParameter ? parameter : "");
+                                            string secondParameter = secondaryParameters.Length == 1 ? "" : secondaryParameters[1];
 
                                             try {
                                                 ProcessStartInfo p = new ProcessStartInfo {
@@ -214,7 +214,7 @@ namespace AssistantComputerControl {
                                                 if (theExtension == ".ps1") {
                                                     //Is powershell - open it correctly
                                                     p.FileName = "powershell.exe";
-                                                    p.Arguments = String.Format("-WindowStyle Hidden -file \"{0}\" \"{1}\"", scriptFileLocation, accArg);
+                                                    p.Arguments = String.Format("-WindowStyle Hidden -file \"{0}\" \"{1}\" \"{2}\"", scriptFileLocation, parameter, secondParameter);
                                                 } else if (theExtension == ".py") {
                                                     //Python - open it correctly
                                                     string minPythonVersion = (jsonTest["options"]["min_python_version"] ?? ""),
@@ -223,7 +223,7 @@ namespace AssistantComputerControl {
 
                                                     if (pythonPath != "") {
                                                         p.FileName = GetPythonPath();
-                                                        p.Arguments = String.Format("{0} \"{1}\"", scriptFileLocation, accArg);
+                                                        p.Arguments = String.Format("{0} \"{1}\" \"{2}\"", scriptFileLocation, parameter, secondParameter);
                                                     } else {
                                                         //No python version (or one with the min-max requirements) not found.
                                                         string pythonErr;
@@ -251,11 +251,11 @@ namespace AssistantComputerControl {
                                                 } else if (theExtension == ".bat" || theExtension == ".cmd" || theExtension == ".btm") {
                                                     //Is batch - open it correctly (https://en.wikipedia.org/wiki/Batch_file#Filename_extensions)
                                                     p.FileName = "cmd.exe";
-                                                    p.Arguments = String.Format("/c {0} \"{1}\"", scriptFileLocation, accArg);
+                                                    p.Arguments = String.Format("/c {0} \"{1}\" \"{2}\"", scriptFileLocation, parameter, secondParameter);
                                                 } else {
                                                     //"Other" filetype. Simply open file.
                                                     p.FileName = scriptFileLocation;
-                                                    p.Arguments = accArg;
+                                                    p.Arguments = String.Format("\"{0}\" \"{1}\"", parameter, secondParameter);
                                                 }
 
                                                 Process theP = Process.Start(p);

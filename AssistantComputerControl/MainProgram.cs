@@ -27,11 +27,11 @@ using System.Security.Principal;
 
 namespace AssistantComputerControl {
     class MainProgram {
-        public const string softwareVersion = "1.4.5",
-            releaseDate = "2021-10-11 01:24:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
+        public const string softwareVersion = "1.4.6",
+            releaseDate = "2022-01-17 22:02:00", //YYYY-MM-DD H:i:s - otherwise it gives an error
             appName = "AssistantComputerControl",
 
-            sentryToken = "https://be790a99ae1f4de0b1af449f8d627455@o188917.ingest.sentry.io/1287269";
+            sentryToken = "super_secret";
 
         static public bool debug = true,
             unmuteVolumeChange = true,
@@ -383,14 +383,6 @@ namespace AssistantComputerControl {
                         Properties.Settings.Default.Save();
                     }
 
-                    if (Properties.Settings.Default.UID != "") {
-                        SentrySdk.ConfigureScope(scope => {
-                            scope.User = new Sentry.Protocol.User {
-                                Id = Properties.Settings.Default.UID
-                            };
-                        });
-                    }
-
                     using (SentrySdk.Init(sentryToken)) {
                         sentryOK = true;
                     }
@@ -431,15 +423,15 @@ namespace AssistantComputerControl {
             var ps1File = Path.Combine(MainProgram.currentLocation, "ExtraCleanupper.ps1");
 
             try {
-                var userId = WindowsIdentity.GetCurrent().Name;
                 using (var ts = new TaskService()) {
                     var td = ts.NewTask();
                     td.RegistrationInfo.Author = "Albert MN. | AssistantComputerControl";
                     td.RegistrationInfo.Description = "AssistantComputerControl cleanup - clears the action folder to prevent the same action being executed twice";
+                    td.Principal.RunLevel = TaskRunLevel.LUA;
 
                     td.Actions.Add(new ExecAction("mshta.exe", $"vbscript:Execute(\"CreateObject(\"\"WScript.Shell\"\").Run \"\"powershell -ExecutionPolicy Bypass & '{ps1File}' '{Path.Combine(MainProgram.CheckPath(), "*")}' '*.{Properties.Settings.Default.ActionFileExtension}'\"\", 0:close\")", null));
                     
-                    td.Triggers.Add(new LogonTrigger { UserId = userId, });
+                    td.Triggers.Add(new LogonTrigger { UserId = WindowsIdentity.GetCurrent().Name, });
                     ts.RootFolder.RegisterTaskDefinition(@"AssistantComputerControl cleanup", td);
                 }
             } catch (Exception e) {

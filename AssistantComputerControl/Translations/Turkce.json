@@ -214,7 +214,7 @@
       // Section 3 in TBS
       "tbs_still_not_resolved_title": "Hala çözülmedi (daha gelişmiş düzeltmeler)",
       "tbs_still_not_resolved_desc": "Yukarıdaki tüm çözümler başarısız olduysa, lütfen <a target=\"_blank\" href=\"https://acc.readme.io/docs/trfunction#section-still-not-solved-\"> sorun giderme bölümüne bakın </a> <i> (özellikle \"Hala çözülmedi mi? \" bölümü) </i>",
-      "tbs_still_not_resolved_community_help": "<b> Eğer hala </b> çalışmıyorsa, gelin <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"> <i> Discord sunucumuza </i> katılın </a>. 550'den fazla üyeyle, hızlı bir şekilde yardım alacağınızdan emin olabilirsiniz <i> (ve geliştirici genellikle birkaç saat içinde yanıt verir) </i> <br /> Bir hata bulduğunuza inanıyorsanız, <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\"> GitHub'da bir sorun </a> açabilirsiniz ve sorunu açıklayın."
+      "tbs_still_not_resolved_community_help": "<b> Eğer hala </b> çalışmıyorsa, gelin <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"> <i> Discord sunucumuza </i> katılın </a>. 1000'den fazla üyeyle, hızlı bir şekilde yardım alacağınızdan emin olabilirsiniz <i> (ve geliştirici genellikle birkaç saat içinde yanıt verir) </i> <br /> Bir hata bulduğunuza inanıyorsanız, <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\"> GitHub'da bir sorun </a> açabilirsiniz ve sorunu açıklayın."
     },
     "expert_setup": {
       "title": "Özel kurulum",

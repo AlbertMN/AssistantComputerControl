@@ -17,6 +17,8 @@
     </LoadFromTemplate>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
+  <PropertyGroup Condition=" '$(Configuration)' == 'All' " />
+  <PropertyGroup Condition=" '$(Configuration)' == 'Build_MSIX_APPX' " />
   <ItemGroup>
     <Compile Include="Advanced Installer.aip">
       <SubType>Code</SubType>

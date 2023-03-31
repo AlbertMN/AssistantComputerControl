@@ -208,7 +208,7 @@
       // Section 3 in TBS
       "tbs_still_not_resolved_title": "Ancora non risolto (saranno effettuate correzioni in seguito)",
       "tbs_still_not_resolved_desc": "Se tutte le soluzioni di cui sopra non hanno funzionato, fare riferimento alla <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">guida alla risoluzione dei problemi</a> <i>(in particolare la sezione \"Non ancora risolti?\")</i>",
-      "tbs_still_not_resolved_community_help": "Se <b>ancora</b> non funziona</b>, unisciti al nostro <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>server Discord </i></a>. Con oltre 550 membri, sarai in grado di ricevere aiuto rapidamente <i>(e lo sviluppatore spesso risponde in breve tempo)</i> <br />Nel caso in cui ritieni di aver trovato un bug, puoi aprire una <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue su GitHub</a> e descrivere il problema."
+      "tbs_still_not_resolved_community_help": "Se <b>ancora</b> non funziona</b>, unisciti al nostro <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>server Discord </i></a>. Con oltre 1000+ membri, sarai in grado di ricevere aiuto rapidamente <i>(e lo sviluppatore spesso risponde in breve tempo)</i> <br />Nel caso in cui ritieni di aver trovato un bug, puoi aprire una <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue su GitHub</a> e descrivere il problema."
     },
     "expert_setup": {
       "action_file_extension": "Estensione del file per le azioni",
