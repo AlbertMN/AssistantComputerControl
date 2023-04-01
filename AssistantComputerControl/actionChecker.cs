@@ -117,7 +117,10 @@ namespace AssistantComputerControl {
 
         [STAThread]
         public void FileFound(object source, FileSystemEventArgs e) {
-            ProcessFile(e.FullPath);
+            var extension = Path.GetExtension(e.FullPath).ToUpper();
+            if (extension == Properties.Settings.Default.ActionFileExtension.ToUpper()) {
+                ProcessFile(e.FullPath);
+            }
         }
 
         [STAThread]
