@@ -1,7 +1,7 @@
 {
   "language": "German",
-  "version": "1.4.0", //the version of the software this translation is made for
-  "translation_version": 1,
+  "version": "1.4.2", //the version of the software this translation is made for
+  "translation_version": 2,
 
   //Add your name to the bottom of the contributors list if you have contributed
   "contributors": [
@@ -15,7 +15,7 @@
       "no_cloudservice_chosen": "Es sieht so aus, als ob sie keinen Cloud-Dienst ausgewählt haben. Möchten sie das Setup wiederholen?",
       "cloud_setup_failed": "Der Cloud-Dienst konnte nicht eingerichtet werden. - Versuchen sie es erneut.",
       "start_with_pc_yes": "Gute Wahl! AssistantComputerControl (ACC) startet nun automatisch mit Windows.",
-      "start_with_pc_no": "In Ordnung. Wenn sie sich umentscheiden wollen, sodass ACC automatisch mit Windows Startet, öffnen sie einfach den Task-Manager Navigieren zu Autostart von Apps und klicken mit der Rechten maustaste auf AssistantComputerControl und da dann auf \"Aktivieren\"",
+      "start_with_pc_no": "In Ordnung. Wenn sie sich umentscheiden wollen, sodass ACC automatisch mit Windows Startet, öffnen sie einfach die Ablage (Rechts unten bei Windows, der Pfeil der nach oben Zeigt) und klicken mit der Rechten maustaste auf AssistantComputerControl und da dann auf \"Beim Starten öffnen\"",
       "start_with_pc_desc": "Soll die Software beim Start von Windows automatisch mit gestartet werden (empfohlen)? Dann klicken sie auf \"Ja\""
     },
     "settings": {
@@ -25,6 +25,8 @@
        */
 
       "window_name": "Einstellungen",
+
+      "changelog": "Änderungen",
 
       "overall_settings_title": "Allgemeine Einstellungen",
       "program_language_label": "Programmsprache",
@@ -156,18 +158,11 @@
       "google_drive_click_logo": "Klicken Sie auf das \"Sicherung und Synchronisierung\"-Logo in Ihrer Taskleiste",
       "google_drive_preferences": "Drücken Sie die drei Punkte in der rechten Ecke, und gehen Sie zu <b>\"Präferenzen\"</b>",
       "google_drive_sync": "Gehen Sie zur Registerkarte <b>\"Google Drive\"</b> und stellen Sie sicher, dass <b>\"Sync Meine Ablage mit diesem Computer\"</b> aktiviert ist.",
-
-      "google_drive_sync_all": "Möchten Sie alle Ihre Google Drive-Dateien auf Ihrem Computer speichern?",
-      "google_drive_sync_all_desc": "Wählen Sie \"Alles in meinem Laufwerk synchronisieren (x GB)\"",
-      "google_drive_acc_only_sync": "... oder <i>nur</i> um des AssistantComputerControls willen?",
-      "google_drive_website_goto": "Gehen Sie zu Ihrem Google Drive (in Ihrem Browser)",
-      "google_drive_create_folder": "Klicken Sie auf der Registerkarte \"Meine Ablage\" mit der rechten Maustaste auf den Abschnitt \"Dateien\" oder drücken Sie auf das Dropdown-Menü  \"Meine Ablage\" und wählen Sie <b>\"Neuer Ordner\"</b>",
-      "google_drive_name_folder": "Benennen Sie den Ordner \"AssistantComputerControl\" <i>(es ist wichtig, dass es hier keine Tippfehler gibt)</i>",
-      "google_drive_sync_specific_folders": "Wählen Sie \"Nur diese Ordner synchronisieren...\", und entfernen Sie das Häkchen bei allen Ordnern außer dem Ordner \"AssistantComputerControl\"",
  
       /* IFTTT specific */
       "set_up_ifttt_acc": "Richten Sie Ihr IFTTT-Konto ein",
       "set_up_ifttt_extra": "Mit den AssistantComputerControl-Applets",
+      "ifttt_pro_disclaimer": "<code>IFTTT Pro</code> <b>ist <u>nicht</u> erforderlich!</b></span>",
       "ifttt_join": "Bei IFTTT anmelden",
       "ifttt_join_extra": "(es ist sinnvoll, sich mit Ihrem Google-Konto anzumelden, wenn Sie Google Assistant verwenden)",
       "ifttt_enable_shutdown_applet": "<b>Aktivieren Sie die gewünschten Applets.</b> Beginnen wir mit der Aktion <code>Herunterfahren</code> <small>(die Ihren Computer herunterfährt)</small>.",
@@ -223,7 +218,7 @@
       // Section 3 in TBS
       "tbs_still_not_resolved_title": "Immer noch nicht gelöst (erweiterte Bug-Fixes)",
       "tbs_still_not_resolved_desc": "Wenn alle oben genannten Lösungen fehlgeschlagen sind, lesen Sie bitte die <a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">Anleitung zur Fehlersuche</a> <i>(insbesondere den \"Still not solved?\" Abschnitt)</i>",
-      "tbs_still_not_resolved_community_help": "Wenn es <b>noch immer</b> nicht funktioniert, kommen Sie auf unseren <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discord Server</i></a>. Bei über 550 Mitgliedern bekommen Sie sicher schnell Hilfe <i>(und der Entwickler antwortet oft innerhalb von ein paar Stunden)</i><br />Wenn Sie der Meinung sind, einen Fehler gefunden zu haben, können Sie auf <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">GitHub ein Issue</a> öffnen und das Problem beschreiben."
+      "tbs_still_not_resolved_community_help": "Wenn es <b>noch immer</b> nicht funktioniert, kommen Sie auf unseren <a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Server</i></a>. Bei über 1350 Mitgliedern bekommen Sie sicher schnell Hilfe <i>(und der Entwickler antwortet oft innerhalb von ein paar Stunden)</i><br />Wenn Sie der Meinung sind, einen Fehler gefunden zu haben, können Sie auf <a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">GitHub ein Issue</a> öffnen und das Problem beschreiben."
     },
     "expert_setup": {
       "title": "Benutzerdefinierte Einrichtung",
