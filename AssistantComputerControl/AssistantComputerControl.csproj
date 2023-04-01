@@ -279,6 +279,9 @@
     <None Include="Translations\German.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Translations\Japanese.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Translations\Francais.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
