@@ -1,0 +1,239 @@
+{   //Question: Google Drive specific L156,158-160 I could not reproduce it in my environment, so I could not translate some parts of it. Is this procedure is available for now? Maybe Google's webpage and Google Drive's software had changed.
+    "language": "日本語",
+    "version": "1.4.2", //the version of the software this translation is made for
+    "translation_version": 1,
+  
+    //Add your name to the bottom of the contributors list if you have contributed
+    "contributors": [
+      "Sota Horiguchi"
+    ],
+  
+    "translations": {
+      "general": {
+        "error": "エラー", // Capital start letter (No concept of capitalization in Japanese)
+        "invalid_path": "有効でないパス",
+        "no_cloudservice_chosen": "クラウドサービスが未選択です。もう一度セットアップガイドを始めますか？",
+        "cloud_setup_failed": "クラウドサービスの設定に失敗しました - 再試行してください",
+        "start_with_pc_yes": "いい選択です！ACCはWindows起動時に自動的に起動します。",
+        "start_with_pc_no": "了解しました。もし後悔して自動的にACCを起動させたくなったら、タスクトレー内のAssistantComputerControlを右クリックして\"スタートアップに登録\"を選択してください。",
+        "start_with_pc_desc": "このソフトウェアがWindows起動時に自動的にはじまるように設定しますか？(推奨) \"はい\"を選択してください。"
+      },
+      "settings": {
+        /*
+         * [SECTION INFO]
+         * - Use "\n" for line break - no HTML
+         */
+  
+        "window_name": "設定",
+  
+        "changelog": "変更ログ",
+  
+        "overall_settings_title": "一般設定",
+        "program_language_label": "言語",
+        "save_language_btn": "保存",
+        "start_with_windows": "スタートアップに設定しますか？",
+        "check_for_updates": "アップデートをチェックしますか？",
+        "action_error_message_box": "動作エラーを表示しますか？",
+        "join_beta_program": "ベータプログラムに参加しますか？",
+  
+        "file_edited_margin": "ファイルの編集時間間隔 (秒)",
+        "file_read_delay": "ファイルの読み込み時間間隔 (秒)",
+        "file_read_delay_desc_text": "詳細 (ホバーで表示)",
+        "file_read_delay_desc_text_hover_content": "たまにファイルが正しく同期される前にソフトウェアで表示されてしまう場合があります。この設定では設定した秒数だけファイルの読み込みを遅らせます。",
+  
+        "advanced_settings_btn": "詳細設定",
+        "open_log_btn": "ログを開く",
+        "action_simulator_btn": "動作シミュレーター",
+        "do_setup_again": "再セットアップ",
+  
+        "delete_warning_text": "(削除アクション) 設定した数以上のファイルが削除されようとしているときに警告をする",
+  
+        "multi_pc_title": "複数台のコンピューター環境でのサポート",
+        "multi_pc_description": " 複数台のコンピューター環境でも動作するようソフトウェアを変更できます。\n操作したいコンピューターをそれぞれ個別に操作できるようになります。",
+        "multi_pc_read_more": "詳細はこちらで確認",
+        "computer_name_field": "コンピューターの名前",
+        "default_computer_checkbox": "デフォルトのコンピューターに設定",
+        "default_computer_description": "^ チェックすると\"コンピューターの名前\"が\n設定されていなくても動作します",
+  
+        "check_for_updates_btn": "アップデートを確認"
+      },
+      "advanced_settings": {
+        "window_name": "詳細設定",
+        "title": "詳細設定",
+        "description": "これらの設定の変更はAssistantComputerControlの動作を完全に変更します。\nACCがサポートしているクラウドサービス以外を利用したい方向けです。",
+        "why_edit_link": "変更してもいいか不安な方はこちらへ",
+        "action_path_label": "アクションフォルダのパス",
+        "save_button": "アクションフォルダを保存",
+        "action_file_extension_label": "アクションファイルの拡張子"
+      },
+      "check_for_update": {
+        "check_for_update_title": "アップデートの確認",
+        "no_new_update": "新しいアップデートは確認されませんでした。あなたのACCは最新版です！",
+        "update_check_failed": "インターネットに接続されていないため、アップデートの確認ができませんでした",
+        "download_failed": "新しいACCインストーラのダウンロードに失敗しました。\n後で再度試すか、AssistantComputerControl.comから手動でダウンロードしてください。", //I thought it is too long to fit into a line so I insert a new line
+        "website_offline": "新しいバージョンをインターネットで探せませんでした。再度お試しください。",
+        "new_version_found": "AssistantComputerControlの最新パージョン({version_num} [{version_type}])が利用可能です。インストールしますか？",
+        "new_version_found_title": "最新バージョンが見つかりました",
+        "webservers_offline": "ACCウェブサーバーに到達できませんでした - 時間をおいて再度お試しください"
+      },
+      "update_downloading": { /* Needs testing */
+        "title": "新しいアップデートをダウンロード中...",
+        "description": "ウィンドウを閉じることができます - インストーラはダウンロードが完了すると開きます",
+        "downloaded_bytes": "ダウンロード中 {x} 分の {y}"
+      },
+      "user_feedback_window": {
+        "window_name": "AssistantComputerControl ユーザーフィードバック"
+      },
+      "test_action_window": {
+        "window_name": "動作シミュレーター",
+        "description": "動作を確認できます - 動作は実際に実行されません",
+        "listening_in": "こちらのフォルダで命令を聞きとっています:",
+        "listening_for": "拡張子;"
+      },
+      "getting_started": {
+        /*
+         * [SECTION INFO]
+         * - HTML allowed - for the setup guide
+         */
+  
+        "welcome_title": "AssistantComputerControlへようこそ！",
+        "welcome_description": "このソフトウェアはクラウドサービスの利用が必要です。Drop Box、Google Drive、OneDriveをネイティブでサポートしています。", //This should only be ONE line - no line breaks
+        "gdrive_warning": "<b class='text-danger'>Google Driveとの連携は不安定</b>であり、ACCは正常に動作しない場合があります。 できる限り、<b>Dropbox</b>かOneDriveをご利用ください。このまま進めたい場合は、チェックボックスをクリックして動作確認をしてください。",
+        "click_me": "選択してください",
+        "recommended": "推奨",
+        "expert_setup_short_desc": "より自由度の高い選択をしたい場合はこちらを選択してください (カスタム設定、ヘルプは利用できません)",
+        "expert_setup_name": "エキスパート設定",
+  
+        "pick_button_default_text": "クラウドサービスを選択してください", /* text on the button while it's disabled, until the user has clicked a cloud service */
+        "pick_button_text": "{cloud_service}で進む", /* must contain {cloud_service} - will be replaced with the cloud service name, or the "expert_setup_chosen_text" translation from below */
+        "expert_setup_chosen_text": "エキスパート設定", /* what appears after "Proceed with ..." on the pick-button */
+  
+        "skip_guide_text": "ここをクリックしてセットアップガイドをスキップ <i>(非推奨)</i>",
+  
+        "step_1_title": "{cloud_service}のインストール",
+        "step_2_title": "IFTTT設定",
+        "step_3_title": "設定完了！動作テスト",
+  
+        "install_text": "{cloud_service}のインストール",
+        "cloud_service_installed": "インストール済み!",
+        "looking_for_service": "探しています...",
+        "not_working_modal_opener": "{cloud_service}が<u>インストール済み</u>かつ、<u>手順に従って進めた</u>にも関わらず、次に進むことができないときは{link_start}こちら{link_end}をクリック",
+        "if_you_havent_already": "(まだ行っていない場合)", /* Used for "install {cloud service name}, "if you haven't already" */
+  
+        "desired_path_not_found": "何か間違っています - 指定したパスが見つかりません",
+        "error_disappear": "このメッセージは10秒で消えます",
+        "try_again": "再試行してください",
+  
+        /* Manual setup */
+        "manual_setup_title": "マニュアル設定",
+        "manual_setup_description": "このサービスを<i>本当に</i>インストールし、すべての手順を踏んだにも関わらずACCが次のステップに進まない場合は、以下の記入欄を埋めてください。<br>インストール時とカスタムパスを選択した場合、ACCがそれを検出できないことがあります。",
+        "action_folder_path_label": "アクションフォルダのパス",
+        "action_folder_path_description": "クラウドサーバーのフォルダへのフルパスを入力してください。例）<code>C:/Users/your_user/cloudservice_name</code>",
+        "manual_setup_button": "提出して確認",
+        "manual_path_entered": "成功しました！パスが手動で入力されました。次のステップに進んでください。",
+        "checking_path": "パスの確認中...",
+        "close_manual_button": "このウィンドウを閉じる",
+        "manual_path_error": "エラー パスが正しくありません - 再度確認してください",
+        "manual_path_error_description": "このメッセージは8秒で消えます",
+  
+        /* Dropbox specific */
+        "dropbox_sign_up": "Dropboxにサインアップ",
+        "download_dropbox": "Dropboxインストーラをダウンロード",
+        "open_installer_dropbox": "インストーラを開き、Dropboxをコンピューターにインストール",
+  
+        /* OneDrive specific */
+        "personal_onedrive": "個人用 OneDrive",
+        "work_onedrive": "職場用または学校用 OneDrive",
+        "onedrive_sign_up": "OneDriveにサインアップ (Microsoftアカウントと同じものを利用)",
+        "download_onedrive": "Windows 8以上をご利用の場合、たいていOneDriveが既にあなたのコンピューターに入っています。<br>そうでないときは、<a href=\"https://onedrive.live.com/about/en-sg/download/\">ダウンロード</a>してOneDriveインストーラを実行してください。",
+        "onedrive_go_to_folder": "エクスプローラーのOneDriveフォルダを開いてください",
+        "onedrive_create_folder": "\"AssistantComputerControl\"というフォルダを作成してください",
+        "onedrive_always_keep": "作成したフォルダ上で右クリックした後、\"このデバイス上で常に保持する\" を選択<b><i>(重要)</i></b>",
+        "has_work_onedrive": "個人用と職場用または学校用のOneDriveがあるようです - どちらを利用しますか？",
+  
+        /* Google Drive specific */
+        "make_google_account": "既にGoogleアカウントをお持ちの方がほとんどだと思います - お持ちでない場合は、<a href=\"https://accounts.google.com/signup/v2\">こちら</a>から作成してください",
+        "google_drive_download": "Google Driveを<a href=\"https://www.google.com/drive/download/\">こちら</a>からコンピューターにダウンロードしてください。\"Private; Backup and Sync\"を選択。 <small>(まだしていない場合)</small>",
+        "google_drive_install": "インストーラを実行してインストールを完了してください",
+        "google_drive_click_logo": "タスクバー内の\"Backup and sync\"ロゴをクリックしてください",
+        "google_drive_preferences": "右角の3つの点をクリックし、<b>\"Preferences\"</b>へ移動してください",
+        "google_drive_sync": "<b>\"Google Drive\"</b>タブへ移動し、<b>\"Sync My Drive to this computer\"</b>にチェックを付けてください",
+  
+        /* IFTTT specific */
+        "set_up_ifttt_acc": "IFTTTアカウントをセットアップ",
+        "set_up_ifttt_extra": "AssistantComputerControlアプレットを利用します",
+        "ifttt_pro_disclaimer": "<code>IFTTT Pro</code> <b>は<u>不必要</u>です</b></span>",
+        "ifttt_join": "IFTTTにサインアップ",
+        "ifttt_join_extra": "(Googleアシスタントを利用する場合は、Googleアカウントでサインアップすることを推奨)",
+        "ifttt_enable_shutdown_applet": "<b>利用したいアプレットを選ぶ。</b><code>shutdown</code>アクションから始めましょう。<small>(コンピューターをシャットダウンできるようになります)</small>.",
+        "shutdown_test_link_gh": "Googleアシスタントを利用する場合はこちら、",
+        "ifttt_shutdown_link_alexa": "Amazon Alexaの場合はこちらをクリック",
+        "ifttt_connect_applet": "利用したいIFTTTアプレットの \"Connect\" をクリック", // The "Connect" part should ALWAYS stay the same, no matter the language!
+        "ifttt_link_info": "{cloud_service}もしくはGoogle/Amazonアカウントとリンクしていない場合、リンクするよう求められます",
+  
+        /* "Done" tab */
+        "time_to_try_heading": "シャットダウンアクションを3回試してみましょう！",
+        "listening_for_actions": "アクションを聞いています...",
+        "custom_trigger_reminder": "... 動作するトリガーはアプレットに登録した言語とステップ２で設定したトリガーに依存します...",
+        "google_assistant_trigger_example": "<b>Googleアシスタント</b>のトリガーの例:",
+        "alexa_trigger_example": "<b>Alexa</b>のトリガーの例:",
+        "configure_software_info": "お使いのコンピューターに最適な形でソフトウェアを設定するために、<code>shutdown</code>アクションを３回試しましょう！",
+        "wont_execute_reminder": "試したアクションは<i>実行されず</i>、シミュレートされるのみです",
+        "action_went_through": "{action}を認識しました",
+  
+        "fast_learner": "理解が早い！", // Shown when the user executes the first action before even going to tab 3
+        "too_fast": "設定が早い！けど、早すぎたみたいです...", // Shown when the user is fast, but the action fails
+  
+        /* "Not working" modal (troubleshooting) */
+        "not_working_button": "動作しませんか？",
+        "not_working_modal_title": "ソフトウェアが動作していません",
+        "not_working_title": "恐れないで。ほとんどの問題は簡単に直せます！",
+        "not_working_description": "よくある間違いを確認してすぐに直してみましょう！",
+        "repeat_step_two_suggestion": "まずは{link_start}ステップ２{link_end}からもう一度設定しなおしてみましょう。正しく設定できていると確信できる場合は、次の解決策に進みましょう。",
+  
+        "problem_introduction_title": "どのような問題に直面していますか？",
+        "problem_introduction_description": "もっとも当てはまる問題を選択てください",
+  
+        // Section 1 in TBS
+        "assistant_response_issues_desc": "<b>現象:</b> <i>例)</i>Googleアシスタント/Alexaがあなたが発したどのトリガーにも反応しない。<i>(ACCが動作してもしなくても、IFTTTは反応します)</i>",
+        "assistant_response_issues_title": "アシスタントがトリガーを聞きとれない",
+  
+        "tbs_assistant_solution_one": "IFTTTにリンクしたアシスタントの<i>(GoogleアシスタントかAlexa)</i>アカウントが、あなたが話しかけているアシスタントのアカウントと同一であることを確認してください。",
+        "tbs_assistant_solution_two": "あなたのアシスタントとリンクしたアカウントで<a href=\"https://assistantcomputercontrol.com/#what-can-it-do\" target=\"_blank\">アプレットを有効</a>にしていることを確認してください。ACCはあなたのアシスタントの動作とは何の関係もありません。そのためこの問題が起こる原因はIFTTT、もしくは音声アシスタントサービスにあります。",
+        "tbs_assistant_solution_three": "<b>Alexaをご利用の場合;</b> IFTTTを作動させるためにトリガーの前に<i>「アレクサ、<b>トリガー</b> x」</i>という必要があります。正しく認識されると、<i>「IFTTTに送信します」</i>と返答します。",
+        "tbs_assistant_solution_four": "<b>Googleアシスタントをご利用の場合;</b> あなたのGoogleアシスタントデバイスの <i>(スマートフォンやその他の物理デバイスにかかわらず)</i> 言語がIFTTTアプレットに設定した言語と異なっていることがあります。アプレットの言語が \"英語\" でGoogleアシスタントで有効にした言語が \"イタリア語\" のみの場合、Googleアカウントは英語のフレーズを認識しません。あなたの命令と返答が異なる言語の時はこれが原因だと言えます。<i> (例) 英語のフレーズをGoogleアシスタントに言ったとき分かりませんでしたとイタリア語で返答があった)</i>",
+        "tbs_assistant_solution_five": "<a target=\"_blank\" href=\"https://status.ifttt.com/#about-this-site\">IFTTTの状態</a>を確認 - 何か問題がある場合は試行錯誤してください",
+  
+        // Section 2 in TBS
+        "pc_issues_desc": "<b>現象:</b> アシスタントは反応するが、コンピューターが何の反応も示さない",
+        "pc_issues_title": "アシスタントは反応するが、コンピューターが何の反応も示さない",
+  
+        "tbs_pc_solution_one": "選択したクラウドサービス<i> (Dropbox, OneDrive, Google Drive) </i>がPC上でインストールされ、常に実行している必要がある。 - 閉じている場合は再度開いてください",
+        "tbs_pc_solution_two": "クラウドサービスは<b>完全に</b>同期が完了している必要があります！例) Dropboxで数百を超える多くのファイルを同期している状態のときは、同期が完全に終了するまで時間をおいてください。",
+        "tbs_pc_solution_three": "<a href=\"https://ifttt.com/activity\" target=\"_blank\">IFTTTアクティビティページ</a>をチェックしてください。\"Applet failed\" (アプレット失敗)となっている場合、IFTTTに何らかの問題があります。これはアシスタントとクラウドサービスのアカウントを再連携すると解消することがあります。<a href=\"https://acc.readme.io/docs/fixing-ifttt-errors\" target=\"_blank\">\"IFTTTエラーを修正\"</a>ガイドを参照ください。",
+        "tbs_pc_solution_four": "<b>アクションフォルダ</b>内のファイルを削除しましょう。(<code>Cloudservice/AssistantComputerControl</code>、あるいは<code>C:/Dropbox/AssistantComputerControl</code>にあります)フォルダ内は完全に削除してください。",
+        "tbs_pc_solution_five": "PCでログインしているクラウドサービスのアカウントとIFTTTに連携しているアカウントが同一であることを確認してください。<i>(\"Fixing IFTTT errors (IFTTTエラーの修正)\"ガイドの\"<a href=\"https://acc.readme.io/docs/fixing-ifttt-errors#section-check-cloud-service-connection\" target=\"_blank\">Check cloud service connection (クラウドサービスの接続を確認)</a>\"セクションを参照してください)</i>",
+        "tbs_pc_solution_six": "利用するIFTTTアプレットがコンピューターでのACC設定時に選択したクラウドサービスのためのものであることをチェックしてください。",
+  
+        // Section 3 in TBS
+        "tbs_still_not_resolved_title": "まだ解決しない (さらなる解決法)",
+        "tbs_still_not_resolved_desc": "上記のすべての解決策でも解決しない場合は、<a target=\"_blank\" href=\"https://acc.readme.io/docs/troubleshooting#section-still-not-solved-\">troubleshooting guide (トラブルシューティングガイド)</a> <i>(特に\"Still not solved? (まだ直せませんか？)\"セクション)</i>をご参照ください。",
+        "tbs_still_not_resolved_community_help": "それでも<b>まだ</b>解決しないなら、我々の<a href=\"https://discord.gg/B9YGPNF\" target=\"_blank\"><i>Discordサーバー</i></a>にご参加ください。1000人を超えるメンバーがすぐに助けてくれます。<i>(開発者も数時間以内に回答します)</i><br/>万が一、バグを発見した際には<a target=\"_blank\" href=\"https://github.com/AlbertMN/AssistantComputerControl/issues\">issue on GitHub</a>にて問題について詳しくご報告ください。"
+      },
+      "expert_setup": {
+        "title": "カスタム設定",
+        "description": "こちらのセットアップはより自由度の高い設定をAssistantComputerControlに求める方向けです。\nご存じのとおり (そうでないかもしれませんが)、ACCはDropboxのようなクラウドソフトウェアを利用してアシスタントの命令と応答を処理するIFTTTと通信しています。\n\nデフォルト/推奨のクラウドサービスはDropbox、OneDrive、Google Driveです。ACCでは特定のフォルダ内の特定のファイル形式を検索していますが、カスタム設定 (ここで行っていくこと) ではこれらの二つの設定を変更することが可能です。\n\n\"アクション\"とはコンピューターに行ってもらいたいことです。アシスタントに\"Shut down my computer\" (「わたしのコンピューターをシャットダウンして」) と言ったときのアクションは\"shutdown (シャットダウン)\"です。\"Action folder\"とはACCがアクションを探すフォルダのパスのことです。",
+        "action_folder_path": "アクションフォルダのパス",
+        "action_file_extension": "アクションファイルの拡張子",
+        "disclaimer": "この設定はタスクバーにあるACCアイコンを右クリック、\"設定\"、\"詳細設定\"からいつでも編集可能です",
+        "back_to_setup": "Back to setup guide",
+        "done_button": "Done"
+      },
+      "tray_menu": {
+        "settings_title": "設定",
+        "help_title": "ヘルプ",
+        "exit_title": "終了",
+        "open_on_startup": "スタートアップに設定"
+      }
+    }
+  }
