@@ -3,6 +3,9 @@ Control your computer using your **Google Home**, **Amazon Alexa** and **Microso
 
 > [!WARNING]
 > AssistantComputerControl has not been in development since 2023 - thanks to everyone who have used and supported the project! The website will be shutting down soon, but this GitHub repository will remain open and the **program can still be used**. Anyone are free to fork and revive the project.
+> On Oct. 30th 2025 when this message was written, the project had **211515 downloads** via our website; the last download being just 3 minutes old; shutting down the website is something I've been dreading for years, but at a ~$45 monthly upkeep cost, it's time to say goodbye.
+> <img width="953" height="560" alt="image" src="https://github.com/user-attachments/assets/e1044216-bda1-47ab-90f2-6662724359f8" />
+
 
 ~~_TLDR; download at [assistantcomputercontrol.com](https://assistantcomputercontrol.com/)_~~
 
