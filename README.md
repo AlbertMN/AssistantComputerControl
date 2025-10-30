@@ -1,11 +1,14 @@
 # AssistantComputerControl
 Control your computer using your **Google Home**, **Amazon Alexa** and **Microsoft Cortana** assistants!
 
-_TLDR; download at [assistantcomputercontrol.com](https://assistantcomputercontrol.com/)_
+> [!WARNING]
+> AssistantComputerControl has not been in development since 2023 - thanks to everyone who have used and supported the project! The website will be shutting down soon, but this GitHub repository will remain open and the **program can still be used**. Anyone are free to fork and revive the project.
+
+~~_TLDR; download at [assistantcomputercontrol.com](https://assistantcomputercontrol.com/)_~~
 
 This is a simple but powerful tool that allows you to perform tasks on your Windows computer like;
 ### Supported computer actions
-* **Full and better list of what ACC can do (with links) [can be found here](https://assistantcomputercontrol.com/#what-can-it-do)**
+* **Full and better list of what ACC can do (with links) ~~[can be found here](https://assistantcomputercontrol.com/#what-can-it-do)**~~
 * Shutdown
 * Open file, folder or website
 * Restart
@@ -32,9 +35,11 @@ This is a simple but powerful tool that allows you to perform tasks on your Wind
 This software only works on Windows and has yet only been tested on Windows 10, 8 & 7.
 
 ## Install
-Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](https://assistantcomputercontrol.com/) to your computer, open it and the setup guide will take you through the very short setup guide!
+Download via GitHub releases, found here; https://github.com/AlbertMN/AssistantComputerControl/releases/tag/1.4.6
+Download [ACCsetup.exe](https://github.com/AlbertMN/AssistantComputerControl/releases/download/1.4.6/ACCsetup.exe)
+~~Setting up AssistantComputerControl is a _piece of cake!_ It only takes about 2 minutes. You just [download the latest version](https://assistantcomputercontrol.com/) to your computer, open it and the setup guide will take you through the very short setup guide!~~
 
-_Note: [IFTTT](https://ifttt.com/) and a [Dropbox](https://www.dropbox.com/) account is required for the default setup. Dropbox will need to be running at all times for ACC to work_
+_Note: [IFTTT](https://ifttt.com/) and a Dropbox, Google Drive or OneDrive account is required for the default setup. Dropbox will need to be running at all times for ACC to work_
 
 ## Adding actions
 When the setup is done, all there's left to do is enable as many actions as you like! An "action" is executed on your computer, so enabling the "shutdown" action will allow you to shut down your computer using your assistant!
@@ -51,6 +56,7 @@ For more nerdy technical info you can go to the [Wiki](https://acc.readme.io/doc
 So as you can see no coding is required! But if you're up for it and want to add your own features to the project it's easy! The entire project is made made in C# and the code is opensource and quite simple, so feel free to use the code in your own fork or even better; submit pull requests!
 
 ## Donations
+**Project is abandonned. No further development of the project is planned.**
 AssistantComputerControl is made by me, Albert, from Denmark, who enjoys developing it as a free time project. The project will remain free, but donations are welcomed as there are expenses such as hosting and the domain.
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.me/albermn)
