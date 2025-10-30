@@ -1,4 +1,4 @@
-# AssistantComputerControl
+# AssistantComputerControl - NOT MAINTAINED
 Control your computer using your **Google Home**, **Amazon Alexa** and **Microsoft Cortana** assistants!
 
 > [!WARNING]
@@ -6,12 +6,8 @@ Control your computer using your **Google Home**, **Amazon Alexa** and **Microso
 > On Oct. 30th 2025 when this message was written, the project had **211515 downloads** via our website; the last download being just 3 minutes old; shutting down the website is something I've been dreading for years, but at a ~$45 monthly upkeep cost, it's time to say goodbye.
 > <img width="953" height="560" alt="image" src="https://github.com/user-attachments/assets/e1044216-bda1-47ab-90f2-6662724359f8" />
 
-
-~~_TLDR; download at [assistantcomputercontrol.com](https://assistantcomputercontrol.com/)_~~
-
 This is a simple but powerful tool that allows you to perform tasks on your Windows computer like;
 ### Supported computer actions
-* **Full and better list of what ACC can do (with links) ~~[can be found here](https://assistantcomputercontrol.com/#what-can-it-do)**~~
 * Shutdown
 * Open file, folder or website
 * Restart
