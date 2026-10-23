@@ -15,6 +15,7 @@ namespace AssistantComputerControl {
             words += ' ';
 
             int number = -1;
+            bool foundNumberWord = false;
             string[] singles = new string[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
             string[] teens = new string[] { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
             string[] tens = new string[] { "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninty" };
@@ -25,6 +26,7 @@ namespace AssistantComputerControl {
                     int index = words.IndexOf(powers[i]);
 
                     if (index >= 0 && words[index + powers[i].Length] == ' ') {
+                        foundNumberWord = true;
                         int count = EnglishGet(words.Substring(0, index));
                         number += count * (int)Math.Pow(1000, i);
                         words = words.Remove(0, index);
@@ -36,6 +38,7 @@ namespace AssistantComputerControl {
                 int index = words.IndexOf("hundred");
 
                 if (index >= 0 && words[index + "hundred".Length] == ' ') {
+                    foundNumberWord = true;
                     int count = EnglishGet(words.Substring(0, index));
                     number += count * 100;
                     words = words.Remove(0, index);
@@ -47,6 +50,7 @@ namespace AssistantComputerControl {
                     int index = words.IndexOf(tens[i]);
 
                     if (index >= 0 && words[index + tens[i].Length] == ' ') {
+                        foundNumberWord = true;
                         number += (int)(i * 10);
                         words = words.Remove(0, index);
                     }
@@ -58,6 +62,7 @@ namespace AssistantComputerControl {
                     int index = words.IndexOf(teens[i]);
 
                     if (index >= 0 && words[index + teens[i].Length] == ' ') {
+                        foundNumberWord = true;
                         number += (int)(i + 10);
                         words = words.Remove(0, index);
                     }
@@ -69,13 +74,14 @@ namespace AssistantComputerControl {
                     int index = words.IndexOf(singles[i] + ' ');
 
                     if (index >= 0 && words[index + singles[i].Length] == ' ') {
+                        foundNumberWord = true;
                         number += (int)(i);
                         words = words.Remove(0, index);
                     }
                 }
             }
 
-            return number;
+            return foundNumberWord ? number + 1 : -1;
         }
 
     }
